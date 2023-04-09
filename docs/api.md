@@ -145,6 +145,40 @@ The argument table format
 
 # Script Module
 
+## GetScript
+Get the script information from a gameobject
+
+If not find it then return nil
+```lua
+function _script_.get(goId: number, scriptName: string) end
+```
+
+The returned table format
+```lua
+{
+    "name": string,  -- script name
+    "path": string, -- loaded path
+    "state": string, -- state of the script, see ScriptStateEnum ins Enums section below
+    "is_started": bool, -- if the Start() function of the script was called
+}
+```
+
+## AddScript
+Add the script into a gameobject
+
+Return a bool indicating success
+```lua
+function _script_.add(goId: number, scriptName: string) end
+```
+
+## RemoveScript
+Remove the script of a gameobject
+
+Return a bool indicating success
+```lua
+function _script_.remove(goId: number, scriptName: string) end
+```
+
 # Drawing Module
 
 # Camera 2D Module
@@ -168,3 +202,14 @@ The argument table format
 # Framebuffer
 
 # Vertex
+
+# Enums
+
+## ScriptState
+{
+    ToLoad, // Script needs to be loaded
+    ToStart, // Script needs to start (and its loaded)
+    Updating, // Script is running (and its started)
+    ToDestroy, // Script needs to be destroy (and its started or updating)
+    Destroyed // Script is destroyed (destroyed)
+};
