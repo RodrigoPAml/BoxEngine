@@ -65,13 +65,13 @@ The returned table format is
 
 # Game Object Module
 
-## Current
+## CurrentGo
 Return a number with current game object been executed
 ```lua
 function _go_.current() end
 ```
 
-## Create
+## CreateGo
 Create a gameobject
 
 Returns the id in case of success else return nil
@@ -88,7 +88,7 @@ Argument table format
 }
 ```
 
-## Destroy
+## DestroyGo
 Destroy a gameobject, pass the id by argument
 
 Returns a boolean indicating success 
@@ -96,7 +96,7 @@ Returns a boolean indicating success
 function _go_.destroy(id: number) end
 ```
 
-## Get
+## GetGo
 Get a gameobject, pass the id by argument
 
 Return a table with the go information if find it, else return nil
@@ -127,7 +127,7 @@ Returned table format
 }
 ```
 
-## Update
+## UpdateGo
 Update a gameobject, pass the table by argument with update information
 
 Return a bool indicating success
