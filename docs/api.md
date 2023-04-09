@@ -179,11 +179,96 @@ Return a bool indicating success
 function _script_.remove(goId: number, scriptName: string) end
 ```
 
-# Drawing Module
-
 # Camera 2D Module
 
 # Camera 3D Module
+
+# Drawing Module
+
+## Draw2DRect
+Draw a 2D rectangle
+
+```lua
+function _draw2d_.rect(object: table) end
+```
+
+The argument table format
+```lua
+{
+    "position": {x:number, y:number}, -- position, vec2 format
+    "size": {x:number, y:number}, -- size, vec2 format
+    "color": {x:number, y:number, z:number}, -- color, vec3 format, optional
+    "rotation": number, -- rotation in degrees, optional
+    "filled": bool, -- fill or not the shape, optional
+}
+```
+
+## Draw2DCircle
+Draw a 2D circle
+
+```lua
+function _draw2d_.circle(object: table) end
+```
+
+The argument table format
+```lua
+{
+    "position": {x:number, y:number}, -- position, vec2 format
+    "size": {x:number, y:number}, -- size, vec2 format
+    "color": {x:number, y:number, z:number}, -- color, vec3 format, optional
+    "rotation": number, -- rotation in degrees, optional
+    "filled": bool, -- fill or not the shape, optional
+}
+```
+
+## Draw2DTriangle
+Draw a 2D triangle
+
+```lua
+function _draw2d_.triangle(object: table) end
+```
+
+The argument table format
+```lua
+{
+    "position": {x:number, y:number}, -- position, vec2 format
+    "size": {x:number, y:number}, -- size, vec2 format
+    "color": {x:number, y:number, z:number}, -- color, vec3 format, optional
+    "rotation": number, -- rotation in degrees, optional
+    "filled": bool, -- fill or not the shape, optional
+}
+```
+
+## Draw2DLine
+Draw a 2D line
+
+```lua
+function _draw2d_.line(object: table) end
+```
+
+The argument table format
+```lua
+{
+    "position_start": {x:number, y:number}, -- start position, vec2 format
+    "position_end": {x:number, y:number}, -- end position, vec2 format
+    "color": {x:number, y:number, z:number}, -- color, vec3 format, optional
+}
+```
+
+## Draw2DPoint
+Draw a 2D point
+
+```lua
+function _draw2d_.point(object: table) end
+```
+
+The argument table format
+```lua
+{
+    "position": {x:number, y:number}, -- position, vec2 format
+    "color": {x:number, y:number, z:number}, -- color, vec3 format, optional
+}
+```
 
 # Window Module
 
