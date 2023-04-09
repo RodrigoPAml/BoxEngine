@@ -138,8 +138,8 @@ function _go_.update(arg: table) end
 The argument table format
 ```lua
 {
-    "name": string,
-    "active": bool,
+    "name": string, -- optional
+    "active": bool, -- optional
 }
 ```
 
