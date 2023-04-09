@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{1019afc4-457a-4f29-b7ae-0116d15d0301}</ProjectGuid>
+    <RootNamespace>BoxEngine</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)lib\glfw\include;$(SolutionDir)lib\glm;$(SolutionDir)lib\stb_image;$(SolutionDir)lib\glad\include;$(SolutionDir)src;$(SolutionDir)lib\implot;$(SolutionDir)lib\imgui;$(SolutionDir)lib\json_nlohmann;$(SolutionDir)lib\lua_jit\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>Create</PrecompiledHeader>
+      <PrecompiledHeaderFile>BoxEngine.hpp</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\glfw\lib-vc2019;$(SolutionDir)lib\assimp\lib;$(SolutionDir)lib\lua_jit\src;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;glfw3dll.lib;assimp-vc142-mt.lib;lua51.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="lib\glad\src\glad.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="lib\imgui\imgui.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="lib\imgui\imgui_demo.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="lib\imgui\imgui_draw.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="lib\imgui\imgui_impl_glfw.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="lib\imgui\imgui_impl_opengl3.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="lib\imgui\imgui_tables.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="lib\imgui\imgui_widgets.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="lib\implot\implot.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="lib\implot\implot_demo.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="lib\implot\implot_items.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\Editor\Editor.cpp" />
+    <ClCompile Include="src\Editor\Layouts\BottomWindow\BottomWindow.cpp" />
+    <ClCompile Include="src\Editor\Layouts\BottomWindow\FilesTab.cpp" />
+    <ClCompile Include="src\Editor\Layouts\BottomWindow\InfoTab.cpp" />
+    <ClCompile Include="src\Editor\Layouts\BottomWindow\LogTab.cpp" />
+    <ClCompile Include="src\Editor\Layouts\GameTree\GameTree.cpp" />
+    <ClCompile Include="src\Editor\Layouts\Inspector\Inspector.cpp" />
+    <ClCompile Include="src\Editor\Layouts\TopBar\TopBar.cpp" />
+    <ClCompile Include="src\Editor\ProjectManager\ProjectManager.cpp" />
+    <ClCompile Include="src\Engine\Camera\Camera2D.cpp" />
+    <ClCompile Include="src\Engine\Camera\Camera3D.cpp" />
+    <ClCompile Include="src\Engine\Debug\Debugging.cpp" />
+    <ClCompile Include="src\Engine\Debug\Logging.cpp" />
+    <ClCompile Include="src\Engine\Drawing\Primitives2D.cpp" />
+    <ClCompile Include="src\Engine\Drawing\Primitives3D.cpp" />
+    <ClCompile Include="src\Engine\Drawing\TextureRenderer.cpp" />
+    <ClCompile Include="src\Engine\GPU\Command.cpp" />
+    <ClCompile Include="src\Engine\GPU\Framebuffer.cpp" />
+    <ClCompile Include="src\Engine\GPU\Shader.cpp" />
+    <ClCompile Include="src\Engine\GPU\Texture.cpp" />
+    <ClCompile Include="src\Engine\GPU\Vertex.cpp" />
+    <ClCompile Include="src\Engine\Input\Keyboard.cpp" />
+    <ClCompile Include="src\Engine\Input\Mouse.cpp" />
+    <ClCompile Include="src\Engine\Project\Entities\GameObject.cpp" />
+    <ClCompile Include="src\Engine\Project\Entities\GoExecution.cpp" />
+    <ClCompile Include="src\Engine\Project\Entities\Script.cpp" />
+    <ClCompile Include="src\Engine\Project\Entities\ScriptData.cpp" />
+    <ClCompile Include="src\Engine\Project\Managers\ConnectionManager.cpp" />
+    <ClCompile Include="src\Engine\Project\Managers\Connections\Camera\Camera2DConnection.cpp" />
+    <ClCompile Include="src\Engine\Project\Managers\Connections\Camera\Camera3DConnection.cpp" />
+    <ClCompile Include="src\Engine\Project\Managers\Connections\Command\CommandConnection.cpp" />
+    <ClCompile Include="src\Engine\Project\Managers\Connections\Directory\DirectoryConnection.cpp" />
+    <ClCompile Include="src\Engine\Project\Managers\Connections\Drawing\DrawingConnection.cpp" />
+    <ClCompile Include="src\Engine\Project\Managers\Connections\Framebuffer\FramebufferConnection.cpp" />
+    <ClCompile Include="src\Engine\Project\Managers\Connections\Image\ImageConnection.cpp" />
+    <ClCompile Include="src\Engine\Project\Managers\Connections\Input\InputConnection.cpp" />
+    <ClCompile Include="src\Engine\Project\Managers\Connections\Log\LogConnection.cpp" />
+    <ClCompile Include="src\Engine\Project\Managers\Connections\Scene\GoScriptConnection.cpp" />
+    <ClCompile Include="src\Engine\Project\Managers\Connections\Shader\ShaderConnection.cpp" />
+    <ClCompile Include="src\Engine\Project\Managers\Connections\Texture\TextureConnection.cpp" />
+    <ClCompile Include="src\Engine\Project\Managers\Connections\Time\TimeConnection.cpp" />
+    <ClCompile Include="src\Engine\Project\Managers\Connections\Utils\UtilsConnection.cpp" />
+    <ClCompile Include="src\Engine\Project\Managers\Connections\Vertex\VertexConnection.cpp" />
+    <ClCompile Include="src\Engine\Project\Managers\Connections\Window\WindowConnection.cpp" />
+    <ClCompile Include="src\Engine\Project\Managers\GoManager.cpp" />
+    <ClCompile Include="src\Engine\Project\Managers\ScriptManager.cpp" />
+    <ClCompile Include="src\Engine\Project\Project.cpp" />
+    <ClCompile Include="src\Engine\Utils\Directory.cpp" />
+    <ClCompile Include="src\Engine\Utils\Generator.cpp" />
+    <ClCompile Include="src\Engine\Utils\Image.cpp" />
+    <ClCompile Include="src\Engine\Utils\Time.cpp" />
+    <ClCompile Include="src\Engine\Window\GUI.cpp" />
+    <ClCompile Include="src\Engine\Window\Window.cpp" />
+    <ClCompile Include="src\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="lib\imgui\imconfig.h" />
+    <ClInclude Include="lib\imgui\imgui.h" />
+    <ClInclude Include="lib\imgui\imgui_impl_glfw.h" />
+    <ClInclude Include="lib\imgui\imgui_impl_opengl3.h" />
+    <ClInclude Include="lib\imgui\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="lib\imgui\imgui_internal.h" />
+    <ClInclude Include="lib\imgui\imstb_rectpack.h" />
+    <ClInclude Include="lib\imgui\imstb_textedit.h" />
+    <ClInclude Include="lib\imgui\imstb_truetype.h" />
+    <ClInclude Include="lib\implot\implot.h" />
+    <ClInclude Include="lib\implot\implot_internal.h" />
+    <ClInclude Include="lib\json_nlohmann\json_nlohmann.hpp" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="src\BoxEngine.hpp" />
+    <ClInclude Include="src\Editor\Data\EditorData.hpp" />
+    <ClInclude Include="src\Editor\Editor.hpp" />
+    <ClInclude Include="src\Editor\Interfaces\Layout.hpp" />
+    <ClInclude Include="src\Editor\Layouts\BottomWindow\BottomWindow.hpp" />
+    <ClInclude Include="src\Editor\Layouts\BottomWindow\FilesTab.hpp" />
+    <ClInclude Include="src\Editor\Layouts\BottomWindow\InfoTab.hpp" />
+    <ClInclude Include="src\Editor\Layouts\BottomWindow\LogTab.hpp" />
+    <ClInclude Include="src\Editor\Layouts\GameTree\GameTree.hpp" />
+    <ClInclude Include="src\Editor\Layouts\Inspector\Inspector.hpp" />
+    <ClInclude Include="src\Editor\Layouts\TopBar\TopBar.hpp" />
+    <ClInclude Include="src\Editor\ProjectManager\ProjectManager.hpp" />
+    <ClInclude Include="src\Engine\Camera\Camera2D.hpp" />
+    <ClInclude Include="src\Engine\Camera\Camera3D.hpp" />
+    <ClInclude Include="src\Engine\Data\CameraData.hpp" />
+    <ClInclude Include="src\Engine\Data\CameraEnums.hpp" />
+    <ClInclude Include="src\Engine\Data\DebugCallbacks.hpp" />
+    <ClInclude Include="src\Engine\Data\DebugData.hpp" />
+    <ClInclude Include="src\Engine\Data\DebugEnums.hpp" />
+    <ClInclude Include="src\Engine\Data\DebugUtils.hpp" />
+    <ClInclude Include="src\Engine\Data\FramebufferData.hpp" />
+    <ClInclude Include="src\Engine\Data\FramebufferUtils.hpp" />
+    <ClInclude Include="src\Engine\Data\GPUData.hpp" />
+    <ClInclude Include="src\Engine\Data\GPUEnums.hpp" />
+    <ClInclude Include="src\Engine\Data\GPUUtils.hpp" />
+    <ClInclude Include="src\Engine\Data\InputCallbacks.hpp" />
+    <ClInclude Include="src\Engine\Data\InputEnums.hpp" />
+    <ClInclude Include="src\Engine\Data\InputUtils.hpp" />
+    <ClInclude Include="src\Engine\Data\ProjectCallbacks.hpp" />
+    <ClInclude Include="src\Engine\Data\ProjectData.hpp" />
+    <ClInclude Include="src\Engine\Data\ProjectEnums.hpp" />
+    <ClInclude Include="src\Engine\Data\ProjectUtils.hpp" />
+    <ClInclude Include="src\Engine\Data\UtilsData.hpp" />
+    <ClInclude Include="src\Engine\Data\WindowCallbacks.hpp" />
+    <ClInclude Include="src\Engine\Data\WindowData.hpp" />
+    <ClInclude Include="src\Engine\Data\WindowEnums.hpp" />
+    <ClInclude Include="src\Engine\Debug\Debugging.hpp" />
+    <ClInclude Include="src\Engine\Debug\Logging.hpp" />
+    <ClInclude Include="src\Engine\Drawing\Primitives2D.hpp" />
+    <ClInclude Include="src\Engine\Drawing\Primitives3D.hpp" />
+    <ClInclude Include="src\Engine\Drawing\TextureRenderer.hpp" />
+    <ClInclude Include="src\Engine\GPU\Command.hpp" />
+    <ClInclude Include="src\Engine\GPU\Framebuffer.hpp" />
+    <ClInclude Include="src\Engine\GPU\Shader.hpp" />
+    <ClInclude Include="src\Engine\GPU\Texture.hpp" />
+    <ClInclude Include="src\Engine\GPU\Vertex.hpp" />
+    <ClInclude Include="src\Engine\Input\Keyboard.hpp" />
+    <ClInclude Include="src\Engine\Input\Mouse.hpp" />
+    <ClInclude Include="src\Engine\Project\Entities\GameObject.hpp" />
+    <ClInclude Include="src\Engine\Project\Entities\GoExecution.hpp" />
+    <ClInclude Include="src\Engine\Project\Entities\Script.hpp" />
+    <ClInclude Include="src\Engine\Project\Entities\ScriptData.hpp" />
+    <ClInclude Include="src\Engine\Project\Managers\ConnectionManager.hpp" />
+    <ClInclude Include="src\Engine\Project\Managers\Connections\Camera\Camera2DConnection.hpp" />
+    <ClInclude Include="src\Engine\Project\Managers\Connections\Camera\Camera3DConnection.hpp" />
+    <ClInclude Include="src\Engine\Project\Managers\Connections\Command\CommandConnection.hpp" />
+    <ClInclude Include="src\Engine\Project\Managers\Connections\Directory\DirectoryConnection.hpp" />
+    <ClInclude Include="src\Engine\Project\Managers\Connections\Drawing\DrawingConnection.hpp" />
+    <ClInclude Include="src\Engine\Project\Managers\Connections\Framebuffer\FramebufferConnection.hpp" />
+    <ClInclude Include="src\Engine\Project\Managers\Connections\Image\ImageConnection.hpp" />
+    <ClInclude Include="src\Engine\Project\Managers\Connections\Input\InputConnection.hpp" />
+    <ClInclude Include="src\Engine\Project\Managers\Connections\Log\LogConnection.hpp" />
+    <ClInclude Include="src\Engine\Project\Managers\Connections\Scene\GoScriptConnection.hpp" />
+    <ClInclude Include="src\Engine\Project\Managers\Connections\Shader\ShaderConnection.hpp" />
+    <ClInclude Include="src\Engine\Project\Managers\Connections\Texture\TextureConnection.hpp" />
+    <ClInclude Include="src\Engine\Project\Managers\Connections\Time\TimeConnection.hpp" />
+    <ClInclude Include="src\Engine\Project\Managers\Connections\Utils\UtilsConnection.hpp" />
+    <ClInclude Include="src\Engine\Project\Managers\Connections\Vertex\VertexConnection.hpp" />
+    <ClInclude Include="src\Engine\Project\Managers\Connections\Window\WindowConnection.hpp" />
+    <ClInclude Include="src\Engine\Project\Managers\GoManager.hpp" />
+    <ClInclude Include="src\Engine\Project\Managers\ScriptManager.hpp" />
+    <ClInclude Include="src\Engine\Project\Project.hpp" />
+    <ClInclude Include="src\Engine\Serialization\Serialization.hpp" />
+    <ClInclude Include="src\Engine\Utils\Directory.hpp" />
+    <ClInclude Include="src\Engine\Utils\Generator.hpp" />
+    <ClInclude Include="src\Engine\Utils\Image.hpp" />
+    <ClInclude Include="src\Engine\Utils\Lua.hpp" />
+    <ClInclude Include="src\Engine\Utils\Time.hpp" />
+    <ClInclude Include="src\Engine\Window\GUI.hpp" />
+    <ClInclude Include="src\Engine\Window\Window.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="BoxEngine.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="docs\api.md" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
