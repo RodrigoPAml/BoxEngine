@@ -92,11 +92,11 @@ namespace Connection {
 			auto id = lua_tonumber(L, 1); 
 			auto instance = Camera2DConnection::Get();
 
-			instance->cameras.erase(id);
+			lua_pushboolean(L, instance->cameras.erase(id) > 0);
 		}
 		else return luaL_error(L, "argument 1 is expected to be a number");
 
-		return 0;
+		return 1; 
 	}
 	
 	int Camera2DConnection::UpdateCamera(lua_State* L)
@@ -232,10 +232,10 @@ namespace Connection {
 
 			// Register four tables direct in this table
 			lua_newtable(L);
-			Utils::Lua::RegTable(L, 0, mat[0]);
-			Utils::Lua::RegTable(L, 1, mat[1]);
-			Utils::Lua::RegTable(L, 2, mat[2]);
-			Utils::Lua::RegTable(L, 3, mat[3]);
+			Utils::Lua::RegTable(L, 1, mat[0]);
+			Utils::Lua::RegTable(L, 2, mat[1]);
+			Utils::Lua::RegTable(L, 3, mat[2]);
+			Utils::Lua::RegTable(L, 4, mat[3]);
 		}
 		else
 			lua_pushnil(L);
@@ -264,6 +264,8 @@ namespace Connection {
 		if (cam != nullptr)
 			Camera::Camera2D::SetCurrentCamera(cam);
 
-		return 0;
+		lua_pushboolean(L, cam != nullptr);
+
+		return 1;
 	}
 }}}

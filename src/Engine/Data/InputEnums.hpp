@@ -7,7 +7,7 @@ namespace Input {
 	/// <summary>
 	/// Represents the currently input modifier.
 	/// </summary>
-	enum class InputModifier
+	enum class KeyModifier
 	{
 		SHIFT = GLFW_MOD_SHIFT,
 		CONTROL = GLFW_MOD_CONTROL,

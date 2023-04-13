@@ -7,7 +7,7 @@ namespace Input {
 	/// <summary>
 	/// Callbacks for mouse events.
 	/// </summary>
-	typedef std::function<void(const MouseButton, const InputAction, const InputModifier)> MouseButtonCallback;
+	typedef std::function<void(const MouseButton, const InputAction, const KeyModifier)> MouseButtonCallback;
 	typedef std::function<void(const glm::vec<2, int>&)> MousePositionCallback;
 	typedef std::function<void(const float)> MouseScrollCallback;
 	typedef std::function<void(const bool)> MouseEnterWindowCallback;
@@ -15,5 +15,5 @@ namespace Input {
 	/// <summary>
 	/// Keyboard event callback.
 	/// </summary>
-	typedef std::function<void(const KeyboardKey, const InputAction, const InputModifier)> KeyboardCallback;
+	typedef std::function<void(const KeyboardKey, const InputAction, const KeyModifier)> KeyboardCallback;
 }}

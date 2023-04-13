@@ -1,9 +1,9 @@
 #pragma once
 #include <BoxEngine.hpp>
 
+// 0. Review all log exceptions
 // 1. Drag drop to change father in api
 // 2. Create api to change father
-// 3. Open script in vs code
 // 4. Adjust scripts logo 
 
 namespace BoxEngine {

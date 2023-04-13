@@ -28,7 +28,7 @@ namespace Input {
 		return (InputAction)glfwGetKey(instance.windowPtr, (int)key);
 	}
 
-	InputAction Keyboard::GetModState(const InputModifier mod)
+	InputAction Keyboard::GetModState(const KeyModifier mod)
 	{
 		auto& instance = Instance();
 
@@ -72,14 +72,14 @@ namespace Input {
 		auto& keyboard = Instance();
 		
 		if((InputAction)action == InputAction::PRESS && mod != 0)
-			keyboard.frameClickedMods.insert((InputModifier)mod);
+			keyboard.frameClickedMods.insert((KeyModifier)mod);
 
 		if ((InputAction)action == InputAction::REPEAT)
 		{
 			keyboard.frameClickedKeys.insert((KeyboardKey)key);
 			
 			if (mod != 0)
-				keyboard.frameClickedMods.insert((InputModifier)mod);
+				keyboard.frameClickedMods.insert((KeyModifier)mod);
 		}
 		else if ((InputAction)action == InputAction::RELEASE)
 			keyboard.frameClickedKeys.erase((KeyboardKey)key);
@@ -88,6 +88,6 @@ namespace Input {
 			keyboard.frameClickedMods.clear();
 
 		for(auto callback : keyboard.callbacks )
-			callback.second((KeyboardKey)key, (InputAction)action, (InputModifier)mod);
+			callback.second((KeyboardKey)key, (InputAction)action, (KeyModifier)mod);
 	}
 }}

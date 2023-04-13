@@ -17,7 +17,7 @@ namespace GPU {
 		TextureWrap textureWrapT = TextureWrap::CLAMP_TO_BORDER;
 		TextureWrap textureWrapS = TextureWrap::CLAMP_TO_BORDER;
 
-		TextureInternalFormat internalFormat = TextureInternalFormat::RGBA;
+		TextureInternalFormat internalFormat = TextureInternalFormat::RGB;
 		TexturePixelFormat pixelFormat = TexturePixelFormat::FLOAT;
 
 		glm::vec3 borderColor = { 0, 0, 0 };

@@ -25,7 +25,7 @@ namespace Input {
 		/// <summary>
 		/// Modifiers
 		/// </summary>
-		std::set<InputModifier> frameClickedMods;
+		std::set<KeyModifier> frameClickedMods;
 
 		/// <summary>
 		/// Reference to current GLFW Window in use.
@@ -46,7 +46,7 @@ namespace Input {
 		/// <summary>
 		/// Get modifier state.
 		/// </summary>
-		static InputAction GetModState(const InputModifier mod);
+		static InputAction GetModState(const KeyModifier mod);
 	private:
 		Keyboard() {};
 		Keyboard(Keyboard const&) {};

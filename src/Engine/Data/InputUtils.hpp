@@ -29,6 +29,12 @@ namespace Input {
 		else if (button == "8")
 			return MouseButton::MOUSE_BUTTON_8;
 
+		Debug::Logging::Log(
+			"Failed to map MouseButton with value " + button + " instead the default value MOUSE_BUTTON_LEFT will be used",
+			Debug::LogSeverity::Warning,
+			Debug::LogOrigin::Engine
+		);
+
 		return MouseButton::MOUSE_BUTTON_LEFT;
 	}
 
@@ -44,27 +50,31 @@ namespace Input {
 			return "REPEAT";
 		case BoxEngine::Input::InputAction::NONE:
 			return "NONE";
-		default:
-			return "NONE";
 		}
 	}
 
-	static InputModifier MapMod(std::string key)
+	static KeyModifier MapMod(std::string key)
 	{
 		if (key == "ALT")
-			return BoxEngine::Input::InputModifier::ALT;
-		if (key == "CAPS_LOCK")
-			return BoxEngine::Input::InputModifier::CAPS_LOCK;
-		if (key == "CONTROL")
-			return BoxEngine::Input::InputModifier::CONTROL;
-		if (key == "NUM_LOCK")
-			return BoxEngine::Input::InputModifier::NUM_LOCK;
-		if (key == "SHIFT")
-			return BoxEngine::Input::InputModifier::SHIFT;
-		if (key == "SHIFT")
-			return BoxEngine::Input::InputModifier::SHIFT;
+			return BoxEngine::Input::KeyModifier::ALT;
+		else if (key == "CAPS_LOCK")
+			return BoxEngine::Input::KeyModifier::CAPS_LOCK;
+		else if (key == "CONTROL")
+			return BoxEngine::Input::KeyModifier::CONTROL;
+		else if (key == "NUM_LOCK")
+			return BoxEngine::Input::KeyModifier::NUM_LOCK;
+		else if (key == "SHIFT")
+			return BoxEngine::Input::KeyModifier::SHIFT;
+		else if (key == "SHIFT")
+			return BoxEngine::Input::KeyModifier::SHIFT;
 
-		return InputModifier::UNKNOWN;
+		Debug::Logging::Log(
+			"Failed to map KeyModifier with value " + key + " instead the default value UNKNOWN will be used",
+			Debug::LogSeverity::Warning,
+			Debug::LogOrigin::Engine
+		);
+
+		return KeyModifier::UNKNOWN;
 	}
 
 	static KeyboardKey MapKey(std::string key)
@@ -309,6 +319,12 @@ namespace Input {
 			return BoxEngine::Input::KeyboardKey::KEY_RIGHT_SUPER;
 		else if (key == "MENU")
 			return BoxEngine::Input::KeyboardKey::KEY_MENU;
+
+		Debug::Logging::Log(
+			"Failed to map KeyboardKey with value " + key + " instead the default value KEY_UNKNOWN will be used",
+			Debug::LogSeverity::Warning,
+			Debug::LogOrigin::Engine
+		);
 
 		return KeyboardKey::KEY_UNKNOWN;
 	}

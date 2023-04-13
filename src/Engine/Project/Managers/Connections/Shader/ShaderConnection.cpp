@@ -69,11 +69,11 @@ namespace Connection {
 			std::string fragmentPath = "";
 			std::string geometryPath = "";
 
-			if (!Utils::Lua::GetTable(L, 1, "vertex", vertexPath))
+			if (!Utils::Lua::GetTable(L, 1, "vertex_path", vertexPath))
 				return luaL_error(L, "argument vertex needs to exists and be a string");
 
-			Utils::Lua::GetTable(L, 1, "fragment", vertexPath);
-			Utils::Lua::GetTable(L, 1, "geometry", geometryPath);
+			Utils::Lua::GetTable(L, 1, "fragment_path", vertexPath);
+			Utils::Lua::GetTable(L, 1, "geometry_path", geometryPath);
 
 			bool success = false;
 
@@ -131,11 +131,11 @@ namespace Connection {
 		if (lua_isnumber(L, 1))
 		{
 			auto instance = ShaderConnection::Get();
-			instance->shaders.erase(lua_tonumber(L, 1));
+			lua_pushboolean(L, instance->shaders.erase(lua_tonumber(L, 1) > 0));
 		}
 		else return luaL_error(L, "argument 1 is expected to be a number");
 
-		return 0;
+		return 1;
 	}
 
 	int ShaderConnection::Active(lua_State* L)
@@ -156,7 +156,8 @@ namespace Connection {
 		if (shader != nullptr)
 			shader->Use();
 
-		return 0;
+		lua_pushboolean(L, shader != nullptr);
+		return 1;
 	}
 
 	int ShaderConnection::UnactiveAll(lua_State* L)
@@ -199,7 +200,8 @@ namespace Connection {
 		if (shader != nullptr)
 			shader->SetBool(label, value);
 
-		return 0;
+		lua_pushboolean(L, shader != nullptr);
+		return 1;
 	}
 
 	int ShaderConnection::SetShaderInt(lua_State* L)
@@ -230,7 +232,8 @@ namespace Connection {
 		if (shader != nullptr)
 			shader->SetInt(label, value);
 
-		return 0;
+		lua_pushboolean(L, shader != nullptr);
+		return 1;
 	}
 
 	int ShaderConnection::SetShaderFloat(lua_State* L)
@@ -261,7 +264,8 @@ namespace Connection {
 		if (shader != nullptr)
 			shader->SetFloat(label, value);
 
-		return 0;
+		lua_pushboolean(L, shader != nullptr);
+		return 1;
 	}
 
 	int ShaderConnection::SetShaderXY(lua_State* L)
@@ -297,7 +301,8 @@ namespace Connection {
 		if (shader != nullptr)
 			shader->SetXY(label, value1, value2);
 
-		return 0;
+		lua_pushboolean(L, shader != nullptr);
+		return 1;
 	}
 
 	int ShaderConnection::SetShaderXYZ(lua_State* L)
@@ -338,7 +343,8 @@ namespace Connection {
 		if (shader != nullptr)
 			shader->SetXYZ(label, value1, value2, value3);
 
-		return 0;
+		lua_pushboolean(L, shader != nullptr);
+		return 1;
 	}
 
 	int ShaderConnection::SetShaderXYZW(lua_State* L)
@@ -384,7 +390,8 @@ namespace Connection {
 		if (shader != nullptr)
 			shader->SetXYZW(label, value1, value2, value3, value4);
 
-		return 0;
+		lua_pushboolean(L, shader != nullptr);
+		return 1;
 	}
 
 	int ShaderConnection::SetShaderVec2(lua_State* L)
@@ -418,7 +425,8 @@ namespace Connection {
 		if (shader != nullptr)
 			shader->SetVec2(label, value);
 
-		return 0;
+		lua_pushboolean(L, shader != nullptr);
+		return 1;
 	}
 
 	int ShaderConnection::SetShaderVec3(lua_State* L)
@@ -452,7 +460,8 @@ namespace Connection {
 		if (shader != nullptr)
 			shader->SetVec3(label, value);
 
-		return 0;
+		lua_pushboolean(L, shader != nullptr);
+		return 1;
 	}
 
 	int ShaderConnection::SetShaderVec4(lua_State* L)
@@ -486,7 +495,8 @@ namespace Connection {
 		if (shader != nullptr)
 			shader->SetVec4(label, value);
 
-		return 0;
+		lua_pushboolean(L, shader != nullptr);
+		return 1;
 	}
 
 	int ShaderConnection::SetShaderMat2(lua_State* L)
@@ -509,10 +519,10 @@ namespace Connection {
 		glm::mat2 mat;
 		if (lua_istable(L, 3))
 		{
-			if (!Utils::Lua::GetTable(L, 3, 0, mat[0]))
+			if (!Utils::Lua::GetTable(L, 3, 1, mat[0]))
 				return luaL_error(L, "argument 3 is expected to be a table, missing vec2 1");
 
-			if (!Utils::Lua::GetTable(L, 3, 1, mat[1]))
+			if (!Utils::Lua::GetTable(L, 3, 2, mat[1]))
 				return luaL_error(L, "argument 3 is expected to be table, missing vec2 2");
 		}
 		else return luaL_error(L, "argument 3 is expected to be a table with mat2 format");
@@ -523,7 +533,8 @@ namespace Connection {
 		if (shader != nullptr)
 			shader->SetMat4(label, mat);
 
-		return 0;
+		lua_pushboolean(L, shader != nullptr);
+		return 1;
 	}
 
 	int ShaderConnection::SetShaderMat3(lua_State* L)
@@ -546,13 +557,13 @@ namespace Connection {
 		glm::mat3 mat;
 		if (lua_istable(L, 3))
 		{
-			if (!Utils::Lua::GetTable(L, 3, 0, mat[0]))
+			if (!Utils::Lua::GetTable(L, 3, 1, mat[0]))
 				return luaL_error(L, "argument 3 is expected to be a table, missing vec3 1");
 
-			if (!Utils::Lua::GetTable(L, 3, 1, mat[1]))
+			if (!Utils::Lua::GetTable(L, 3, 2, mat[1]))
 				return luaL_error(L, "argument 3 is expected to be table, missing vec3 2");
 
-			if (!Utils::Lua::GetTable(L, 3, 2, mat[2]))
+			if (!Utils::Lua::GetTable(L, 3, 3, mat[2]))
 				return luaL_error(L, "argument 3 is expected to be table, missing vec3 3");
 		}
 		else return luaL_error(L, "argument 3 is expected to be a table with mat3 format");
@@ -563,7 +574,8 @@ namespace Connection {
 		if (shader != nullptr)
 			shader->SetMat4(label, mat);
 
-		return 0;
+		lua_pushboolean(L, shader != nullptr);
+		return 1;
 	}
 
 	int ShaderConnection::SetShaderMat4(lua_State* L)
@@ -586,16 +598,16 @@ namespace Connection {
 		glm::mat4 mat;
 		if (lua_istable(L, 3))
 		{
-			if(!Utils::Lua::GetTable(L, 3, 0, mat[0]))
+			if(!Utils::Lua::GetTable(L, 3, 1, mat[0]))
 				return luaL_error(L, "argument 3 is expected to be a table, missing vec4 1");
 
-			if (!Utils::Lua::GetTable(L, 3, 1, mat[1]))
+			if (!Utils::Lua::GetTable(L, 3, 2, mat[1]))
 				return luaL_error(L, "argument 3 is expected to be table, missing vec4 2");
 
-			if (!Utils::Lua::GetTable(L, 3, 2, mat[2]))
+			if (!Utils::Lua::GetTable(L, 3, 3, mat[2]))
 				return luaL_error(L, "argument 3 is expected to be a table, missing vec4 3");
 
-			if (!Utils::Lua::GetTable(L, 3, 3, mat[3]))
+			if (!Utils::Lua::GetTable(L, 3, 4, mat[3]))
 				return luaL_error(L, "argument 3 is expected to be a table, missing vec4 4");
 		}
 		else return luaL_error(L, "argument 3 is expected to be a table with mat4 format");
@@ -606,6 +618,7 @@ namespace Connection {
 		if (shader != nullptr)
 			shader->SetMat4(label, mat);
 
-		return 0;
+		lua_pushboolean(L, shader != nullptr);
+		return 1;
 	}
 }}}

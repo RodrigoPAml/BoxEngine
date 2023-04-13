@@ -97,6 +97,7 @@ extern "C"
 
 #include <Engine/Data/CameraEnums.hpp>
 #include <Engine/Data/CameraData.hpp>
+#include <Engine/Data/CameraUtils.hpp>
 
 #include <Engine/Camera/Camera2D.hpp>
 #include <Engine/Camera/Camera3D.hpp>

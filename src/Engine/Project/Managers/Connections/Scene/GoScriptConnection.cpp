@@ -81,11 +81,8 @@ namespace Connection {
 
 		if (lua_istable(L, 1))
 		{
-			if (!Utils::Lua::GetTable(L, 1, "name", goName))
-				return luaL_error(L, "argument name needs to exists and be a string");
-
-			if (!Utils::Lua::GetTable(L, 1, "active", active))
-				return luaL_error(L, "argument active needs to exists and be a boolean");
+			Utils::Lua::GetTable(L, 1, "name", goName);
+			Utils::Lua::GetTable(L, 1, "active", active);
 
 			if (top == 3)
 			{
@@ -214,6 +211,7 @@ namespace Connection {
 
 			Utils::Lua::RegTable(L, "id", go->GetId());
 			Utils::Lua::RegTable(L, "active", go->GetActive());
+			Utils::Lua::RegTable(L, "name", go->GetName());
 
 			if (father != nullptr)
 				Utils::Lua::RegTable(L, "father_id", father->GetId());

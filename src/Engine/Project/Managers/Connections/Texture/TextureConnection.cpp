@@ -18,11 +18,10 @@ namespace Connection {
 		
 		Utils::Lua::RegTable(this->state, "create", CreateTexture);
 		Utils::Lua::RegTable(this->state, "create_empty", CreateEmptyTexture);
-
 		Utils::Lua::RegTable(this->state, "destroy", DestroyTexture);
 
 		Utils::Lua::RegTable(this->state, "active", Active);
-		Utils::Lua::RegTable(this->state, "disable_unit", DisableTextureUnit);
+		Utils::Lua::RegTable(this->state, "disable_texture_unit", DisableTextureUnit);
 
 		lua_setglobal(this->state, "_texture_");
 	}
@@ -75,46 +74,29 @@ namespace Connection {
 			GPU::TextureConfiguration config;
 			std::string str;
 			
-			if (!Utils::Lua::GetTable(L, 1, "minifying_filter", str))
-				return luaL_error(L, "argument minifying_filter needs to be a string");
+			if(Utils::Lua::GetTable(L, 1, "minifying_filter", str))
+				config.minifyingFilter = GPU::MinifyingFilterFromString(str);
 
-			config.minifyingFilter = GPU::MinifyingFilterFromString(str);
+			if (Utils::Lua::GetTable(L, 1, "magnification_filter", str))
+				config.magnificationFilter = GPU::MagnificationFilterFromString(str);
 
-			if (!Utils::Lua::GetTable(L, 1, "magnification_filter", str))
-				return luaL_error(L, "argument magnification_filter needs to be a string");
+			if (Utils::Lua::GetTable(L, 1, "texture_wrap_t", str))
+				config.textureWrapT = GPU::TextureWrapFromString(str);
 
-			config.magnificationFilter = GPU::MagnificationFilterFromString(str);
+			if (Utils::Lua::GetTable(L, 1, "texture_wrap_s", str))
+				config.textureWrapS = GPU::TextureWrapFromString(str);
 
-			if (!Utils::Lua::GetTable(L, 1, "texture_wrap_t", str))
-				return luaL_error(L, "argument texture_wrap_t needs to be a string");
-			
-			config.textureWrapT = GPU::TextureWrapFromString(str);
+			if (Utils::Lua::GetTable(L, 1, "texture_internal_format", str))
+				config.internalFormat = GPU::TextureInternalFormatToString(str);
 
-			if (!Utils::Lua::GetTable(L, 1, "texture_wrap_s", str))
-				return luaL_error(L, "argument texture_wrap_t needs to be a string");
+			if (Utils::Lua::GetTable(L, 1, "texture_pixel_format", str))
+				config.pixelFormat = GPU::TexturePixelFormatFromString(str);
 
-			config.textureWrapS = GPU::TextureWrapFromString(str);
+			if (Utils::Lua::GetTable(L, 1, "texture_format", str))
+				config.format = GPU::TextureFormatFromString(str);
 
-			if (!Utils::Lua::GetTable(L, 1, "texture_internal_format", str))
-				return luaL_error(L, "argument texture_internal_format needs to be a string");
-
-			config.internalFormat = GPU::TextureInternalFormatToString(str);
-
-			if (!Utils::Lua::GetTable(L, 1, "texture_pixel_format", str))
-				return luaL_error(L, "argument texture_pixel_format needs to be a string");
-
-			config.pixelFormat = GPU::TexturePixelFormatFromString(str);
-
-			if (!Utils::Lua::GetTable(L, 1, "texture_format", str))
-				return luaL_error(L, "argument texture_format needs to be a string");
-
-			config.format = GPU::TextureFormatFromString(str);
-
-			if (!Utils::Lua::GetTable(L, 1, "ansiotropic_filter", config.ansiotropicFilter))
-				return luaL_error(L, "argument ansiotropic_filter needs to be a number");
-
-			if (!Utils::Lua::GetTable(L, 1, "border_color", config.borderColor))
-				return luaL_error(L, "argument border_color needs to be a vec3");
+			Utils::Lua::GetTable(L, 1, "ansiotropic_filter", config.ansiotropicFilter);
+			Utils::Lua::GetTable(L, 1, "border_color", config.borderColor);
 
 			if (!Utils::Lua::GetTable(L, 1, "texture_size", config.size))
 				return luaL_error(L, "argument texture_size needs to be a vec2");
@@ -155,31 +137,20 @@ namespace Connection {
 			GPU::TextureDataConfiguration config;
 			std::string str;
 
-			if (!Utils::Lua::GetTable(L, 1, "minifying_filter", str))
-				return luaL_error(L, "argument minifying_filter needs to be a string");
+			if (Utils::Lua::GetTable(L, 1, "minifying_filter", str))
+				config.minifyingFilter = GPU::MinifyingFilterFromString(str);
 
-			config.minifyingFilter = GPU::MinifyingFilterFromString(str);
+			if (Utils::Lua::GetTable(L, 1, "magnification_filter", str))
+				config.magnificationFilter = GPU::MagnificationFilterFromString(str);
 
-			if (!Utils::Lua::GetTable(L, 1, "magnification_filter", str))
-				return luaL_error(L, "argument magnification_filter needs to be a string");
+			if (Utils::Lua::GetTable(L, 1, "texture_wrap_t", str))
+				config.textureWrapT = GPU::TextureWrapFromString(str);
 
-			config.magnificationFilter = GPU::MagnificationFilterFromString(str);
+			if (Utils::Lua::GetTable(L, 1, "texture_wrap_s", str))
+				config.textureWrapS = GPU::TextureWrapFromString(str);
 
-			if (!Utils::Lua::GetTable(L, 1, "texture_wrap_t", str))
-				return luaL_error(L, "argument texture_wrap_t needs to be a string");
-
-			config.textureWrapT = GPU::TextureWrapFromString(str);
-
-			if (!Utils::Lua::GetTable(L, 1, "texture_wrap_s", str))
-				return luaL_error(L, "argument texture_wrap_t needs to be a string");
-
-			config.textureWrapS = GPU::TextureWrapFromString(str);
-
-			if (!Utils::Lua::GetTable(L, 1, "ansiotropic_filter", config.ansiotropicFilter))
-				return luaL_error(L, "argument ansiotropic_filter needs to be a number");
-
-			if (!Utils::Lua::GetTable(L, 1, "border_color", config.borderColor))
-				return luaL_error(L, "argument border_color needs to be a vec3");
+			Utils::Lua::GetTable(L, 1, "ansiotropic_filter", config.ansiotropicFilter);
+			Utils::Lua::GetTable(L, 1, "border_color", config.borderColor);
 
 			if (!Utils::Lua::GetTable(L, 1, "image_path", str))
 				return luaL_error(L, "argument image_path needs to be a string");
@@ -243,11 +214,11 @@ namespace Connection {
 		if (lua_isnumber(L, 1))
 		{
 			auto instance = TextureConnection::Get();
-			instance->textures.erase(lua_tonumber(L, 1));
+			lua_pushboolean(L, instance->textures.erase(lua_tonumber(L, 1)) > 0);
 		}
 		else return luaL_error(L, "argument 1 is expected to be a number");
 
-		return 0;
+		return 1;
 	}
 
 	int TextureConnection::Active(lua_State* L)
@@ -274,7 +245,9 @@ namespace Connection {
 		if (texture != nullptr)
 			texture->Use(slot);
 
-		return 0;
+
+		lua_pushboolean(L, texture != nullptr);
+		return 1;
 	}
 
 	int TextureConnection::DisableTextureUnit(lua_State* L)

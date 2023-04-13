@@ -19,12 +19,12 @@ namespace Connection {
 		Utils::Lua::RegTable(this->state, "create", CreateFramebuffer);
 		Utils::Lua::RegTable(this->state, "destroy", DestroyFramebuffer);
 
-		Utils::Lua::RegTable(this->state, "set_current", SetCurrent);
-		Utils::Lua::RegTable(this->state, "get_current", GetCurrent);
-
 		Utils::Lua::RegTable(this->state, "active", Active);
 		Utils::Lua::RegTable(this->state, "get_attachments_size", GetAttachmentSize);
 		Utils::Lua::RegTable(this->state, "get_attachment", GetAttachment);
+
+		Utils::Lua::RegTable(this->state, "set_current", SetCurrent);
+		Utils::Lua::RegTable(this->state, "get_current", GetCurrent);
 
 		Utils::Lua::RegTable(this->state, "clear", Clear);
 		Utils::Lua::RegTable(this->state, "set_clear_modes", SetClearModes);
@@ -61,14 +61,14 @@ namespace Connection {
 			
 			// texture count
 			unsigned int textureCount = 0;
-			if (!Utils::Lua::GetTable(L, 1, "texture_count", textureCount))
-				return luaL_error(L, "argument texture_count needs to be a number");
+			if (!Utils::Lua::GetTable(L, 1, "texture_attachments_count", textureCount))
+				return luaL_error(L, "argument texture_attachments_count needs to be a number");
 
 			if (textureCount > 0)
 			{
 				unsigned int* textures = new unsigned int[textureCount];
 
-				if (Utils::Lua::GetTable(L, 1, "textures", textures, textureCount))
+				if (Utils::Lua::GetTable(L, 1, "texture_attachments", textures, textureCount))
 				{
 					for (int i = 1; i <= textureCount; i++)
 					{
@@ -93,10 +93,10 @@ namespace Connection {
 				else
 				{
 					delete[] textures;
-					return luaL_error(L, "argument texture_count needs to be a table");
+					return luaL_error(L, "argument texture_attachments needs to be a table");
 				}
 			}
-			else return luaL_error(L, "argument texture_count needs to greater than zero");
+			else return luaL_error(L, "argument texture_attachments_count needs to greater than zero");
 			
 			// depth attachment
 			unsigned int depthTexture;
@@ -176,11 +176,11 @@ namespace Connection {
 		if (lua_isnumber(L, 1))
 		{
 			auto instance = FramebufferConnection::Get();
-			instance->framebuffers.erase(lua_tonumber(L, 1));
+			lua_pushboolean(L, instance->framebuffers.erase(lua_tonumber(L, 1)) > 0);
 		}
 		else return luaL_error(L, "argument 1 is expected to be a number");
 
-		return 0;
+		return 1;
 	}
 
 	int FramebufferConnection::SetCurrent(lua_State* L)
@@ -197,13 +197,14 @@ namespace Connection {
 			if (Get()->framebuffers.contains(id))
 			{
 				auto instance = Get()->framebuffers[id];
-
 				Project::GetCurrentProject()->SetCurrentFramebuffer(instance);
+				lua_pushboolean(L, true);
 			}
+			else lua_pushboolean(L, false);
 		}
 		else return luaL_error(L, "argument 1 is expected to be a number");
 
-		return 0;
+		return 1;
 	}
 
 	int FramebufferConnection::GetCurrent(lua_State* L)
@@ -214,7 +215,7 @@ namespace Connection {
 			return luaL_error(L, "expecting no arguments in function call");
 
 		auto instance = Project::GetCurrentProject()->GetCurrentFramebuffer();
-			
+
 		if (instance != nullptr)
 		{
 			for (auto item : Get()->framebuffers)
@@ -249,7 +250,8 @@ namespace Connection {
 		if (framebuffer != nullptr)
 			framebuffer->Use();
 
-		return 0;
+		lua_pushboolean(L, framebuffer != nullptr);
+		return 1;
 	}
 
 	int FramebufferConnection::GetAttachmentSize(lua_State* L)
@@ -268,8 +270,8 @@ namespace Connection {
 		auto framebuffer = instance->framebuffers[id];
 
 		if (framebuffer != nullptr)
-			lua_pushnumber(L, 1);
-		else lua_pushnumber(L, framebuffer->GetAttachmentSize());
+			lua_pushnumber(L, framebuffer->GetAttachmentSize());
+		else lua_pushnil(L);
 
 		return 1;
 	}
@@ -314,24 +316,24 @@ namespace Connection {
 		if (top != 1)
 			return luaL_error(L, "expecting 1 argument in function call");
 
-		glm::vec4 color;;
-		if (!lua_isnumber(L, 1))
-			color.x = lua_tonumber(L, 1);
-		else return luaL_error(L, "argument 1 is expected to be a number");
+		glm::vec4 value;
+		if (lua_istable(L, 1))
+		{
+			if (!Utils::Lua::GetTable(L, -1, "x", value.x))
+				return luaL_error(L, "argument x is expected to be a number");
 
-		if (!lua_isnumber(L, 2))
-			color.y = lua_tonumber(L, 2);
-		else return luaL_error(L, "argument 2 is expected to be a number");
+			if (!Utils::Lua::GetTable(L, -2, "y", value.y))
+				return luaL_error(L, "argument y is expected to be a number");
 
-		if (!lua_isnumber(L, 3))
-			color.z = lua_tonumber(L, 3);
-		else return luaL_error(L, "argument 3 is expected to be a number");
+			if (!Utils::Lua::GetTable(L, -3, "z", value.z))
+				return luaL_error(L, "argument z is expected to be a number");
 
-		if (!lua_isnumber(L, 4))
-			color.w = lua_tonumber(L, 4);
-		else return luaL_error(L, "argument 4 is expected to be a number");
+			if (!Utils::Lua::GetTable(L, -4, "w", value.z))
+				return luaL_error(L, "argument w is expected to be a number");
+		}
+		else return luaL_error(L, "argument 1 is expected to be a table");
 
-		GPU::Framebuffer::Clear(color);
+		GPU::Framebuffer::Clear(value);
 
 		return 1;
 	}
@@ -348,26 +350,26 @@ namespace Connection {
 		{
 			bool value;
 			
-			if (!Utils::Lua::GetTable(L, 1, "COLOR", value))
+			if (Utils::Lua::GetTable(L, 1, "color", value))
 			{
 				if (value)
 					modes.insert(GPU::ClearMode::COLOR);
 			}
-			else return luaL_error(L, "expecting argument COLOR to be a boolean");
+			else return luaL_error(L, "expecting argument color to be a boolean");
 
-			if (!Utils::Lua::GetTable(L, 1, "DEPTH", value))
+			if (Utils::Lua::GetTable(L, 1, "depth", value))
 			{
 				if (value)
 					modes.insert(GPU::ClearMode::DEPTH);
 			}
-			else return luaL_error(L, "expecting argument DEPTH to be a boolean");
+			else return luaL_error(L, "expecting argument depth to be a boolean");
 
-			if (!Utils::Lua::GetTable(L, 1, "STENCIL", value))
+			if (Utils::Lua::GetTable(L, 1, "stencil", value))
 			{
 				if (value)
 					modes.insert(GPU::ClearMode::STENCIL);
 			}
-			else return luaL_error(L, "expecting argument STENCIL to be a boolean");
+			else return luaL_error(L, "expecting argument stencil to be a boolean");
 
 			GPU::Framebuffer::SetClearModes(modes);
 		}
@@ -380,25 +382,25 @@ namespace Connection {
 	{
 		auto top = lua_gettop(L);
 
-		if (top != 4)
-			return luaL_error(L, "expecting 4 arguments in function call");
+		if (top != 1)
+			return luaL_error(L, "expecting 1 argument in function call");
 
 		glm::vec4 vec;
-		if (lua_isnumber(L, 1))
-			vec.x = lua_tonumber(L, 1);
-		else return luaL_error(L, "argument 1 is expected to be a number");
+		if (lua_istable(L, 1))
+		{
+			if (!Utils::Lua::GetTable(L, -1, "x", vec.x))
+				return luaL_error(L, "argument x is expected to be a number");
 
-		if (lua_isnumber(L, 2))
-			vec.y = lua_tonumber(L, 2);
-		else return luaL_error(L, "argument 2 is expected to be a number");
+			if (!Utils::Lua::GetTable(L, -2, "y", vec.y))
+				return luaL_error(L, "argument y is expected to be a number");
 
-		if (lua_isnumber(L, 3))
-			vec.z = lua_tonumber(L, 3);
-		else return luaL_error(L, "argument 3 is expected to be a number");
+			if (!Utils::Lua::GetTable(L, -3, "z", vec.z))
+				return luaL_error(L, "argument z is expected to be a number");
 
-		if (lua_isnumber(L, 4))
-			vec.w = lua_tonumber(L, 4);
-		else return luaL_error(L, "argument 4 is expected to be a number");
+			if (!Utils::Lua::GetTable(L, -4, "w", vec.z))
+				return luaL_error(L, "argument w is expected to be a number");
+		}
+		else return luaL_error(L, "argument 1 is expected to be a table");
 
 		GPU::Framebuffer::SwitchViewPort({ vec.x, vec.y }, { vec.z, vec.w });
 

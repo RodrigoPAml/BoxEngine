@@ -32,6 +32,12 @@ namespace GPU {
 		else if (key == "TRIANGLE_STRIP_ADJACENCY")
 			return DrawingType::TRIANGLE_STRIP_ADJACENCY;
 
+		Debug::Logging::Log(
+			"Failed to map DrawingType with value " + key + " instead the default value TRIANGLES will be used",
+			Debug::LogSeverity::Warning,
+			Debug::LogOrigin::Engine
+		);
+
 		return DrawingType::TRIANGLES;
 	}
 
@@ -59,6 +65,12 @@ namespace GPU {
 		else if (key == "STREAM_READ")
 			return DataUse::STREAM_READ;
 
+		Debug::Logging::Log(
+			"Failed to map DataUse with value " + key + " instead the default value STATIC_DRAW will be used",
+			Debug::LogSeverity::Warning,
+			Debug::LogOrigin::Engine
+		);
+
 		return DataUse::STATIC_DRAW;
 	}
 
@@ -82,6 +94,12 @@ namespace GPU {
 		else if (key == "NOT_EQUAL")
 			return DepthTestingMode::NOTEQUAL;
 
+		Debug::Logging::Log(
+			"Failed to map DepthTestingMode with value " + key + " instead the default value NEVER will be used",
+			Debug::LogSeverity::Warning,
+			Debug::LogOrigin::Engine
+		);
+
 		return DepthTestingMode::NEVER;
 	}
 
@@ -96,6 +114,12 @@ namespace GPU {
 			return CullingFaceMode::BACK;
 		else if (key == "BOTH")
 			return CullingFaceMode::BOTH;
+
+		Debug::Logging::Log(
+			"Failed to map CullingFaceMode with value " + key + " instead the default value BACK will be used",
+			Debug::LogSeverity::Warning,
+			Debug::LogOrigin::Engine
+		);
 
 		return CullingFaceMode::BACK;
 	}
@@ -112,6 +136,12 @@ namespace GPU {
 		else if (key == "POINT")
 			return PolygonMode::POINT;
 
+		Debug::Logging::Log(
+			"Failed to map PolygonMode with value " + key + " instead the default value FILL will be used",
+			Debug::LogSeverity::Warning,
+			Debug::LogOrigin::Engine
+		);
+
 		return PolygonMode::FILL;
 	}
 
@@ -124,6 +154,12 @@ namespace GPU {
 			return MagnificationFilter::LINEAR;
 		else if (key == "NEAREST")
 			return MagnificationFilter::NEAREST;
+
+		Debug::Logging::Log(
+			"Failed to map MagnificationFilter with value " + key + " instead the default value LINEAR will be used",
+			Debug::LogSeverity::Warning,
+			Debug::LogOrigin::Engine
+		);
 
 		return MagnificationFilter::LINEAR;
 	}
@@ -145,6 +181,12 @@ namespace GPU {
 			return MinifyingFilter::ONLY_LINEAR;
 		else if (key == "ONLY_NEAREST")
 			return MinifyingFilter::ONLY_NEAREST;
+
+		Debug::Logging::Log(
+			"Failed to map MinifyingFilter with value " + key + " instead the default value ONLY_NEAREST will be used",
+			Debug::LogSeverity::Warning,
+			Debug::LogOrigin::Engine
+		);
 
 		return MinifyingFilter::ONLY_NEAREST;
 	}
@@ -195,6 +237,12 @@ namespace GPU {
 		else if (key == "UNSIGNED_SHORT_5_6_5_REV")
 			return TexturePixelFormat::UNSIGNED_SHORT_5_6_5_REV;
 		
+		Debug::Logging::Log(
+			"Failed to map TexturePixelFormat with value " + key + " instead the default value BYTE will be used",
+			Debug::LogSeverity::Warning,
+			Debug::LogOrigin::Engine
+		);
+
 		return TexturePixelFormat::BYTE;
 	}
 
@@ -356,7 +404,13 @@ namespace GPU {
 		else if (key == "COMPRESSED_SIGNED_RG_RGTC2")
 			return BoxEngine::GPU::TextureInternalFormat::COMPRESSED_SIGNED_RG_RGTC2;
 
-		return BoxEngine::GPU::TextureInternalFormat::R;
+		Debug::Logging::Log(
+			"Failed to map TextureInternalFormat with value " + key + " instead the default value RGB will be used",
+			Debug::LogSeverity::Warning,
+			Debug::LogOrigin::Engine
+		);
+
+		return BoxEngine::GPU::TextureInternalFormat::RGB;
 	}
 
 	/// <summary>
@@ -374,6 +428,12 @@ namespace GPU {
 			return TextureWrap::MIRRORED_REPEAT;
 		else if (key == "MIRROR_CLAMP_TO_EDGE")
 			return TextureWrap::MIRROR_CLAMP_TO_EDGE;
+
+		Debug::Logging::Log(
+			"Failed to map TextureWrap with value " + key + " instead the default value REPEATED will be used",
+			Debug::LogSeverity::Warning,
+			Debug::LogOrigin::Engine
+		);
 
 		return TextureWrap::REPEATED;
 	}
@@ -414,7 +474,13 @@ namespace GPU {
 		else if (key == "BGRA")
 			return TextureFormat::STENCIL_INDEX;
 
-		return TextureFormat::R;
+		Debug::Logging::Log(
+			"Failed to map TextureFormat with value " + key + " instead the default value RGB will be used",
+			Debug::LogSeverity::Warning,
+			Debug::LogOrigin::Engine
+		);
+
+		return TextureFormat::RGB;
 	}
 
 	/// <summary>
@@ -445,6 +511,12 @@ namespace GPU {
 		else if (key == "USHORT")
 			return VertexBufferType::USHORT;
 		
+		Debug::Logging::Log(
+			"Failed to map VertexBufferType with value " + key + " instead the default value FLOAT will be used",
+			Debug::LogSeverity::Warning,
+			Debug::LogOrigin::Engine
+		);
+
 		return VertexBufferType::FLOAT;
 	}
 

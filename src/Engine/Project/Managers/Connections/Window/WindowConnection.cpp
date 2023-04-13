@@ -63,10 +63,10 @@ namespace Connection {
 		auto sizes = Project::GetCurrentProject()->GetScreenLimits();
 
 		lua_newtable(L);
-		Utils::Lua::RegTable(L, "smaller_x", sizes.x);
-		Utils::Lua::RegTable(L, "smaller_y", sizes.y);
-		Utils::Lua::RegTable(L, "greater_x", sizes.z);
-		Utils::Lua::RegTable(L, "greater_y", sizes.w);
+		Utils::Lua::RegTable(L, "min_x", sizes.x);
+		Utils::Lua::RegTable(L, "min_y", sizes.y);
+		Utils::Lua::RegTable(L, "max_x", sizes.z);
+		Utils::Lua::RegTable(L, "max_y", sizes.w);
 
 		return 1;
 	}

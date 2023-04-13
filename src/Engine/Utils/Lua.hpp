@@ -80,7 +80,7 @@ namespace Lua {
 			lua_newtable(L);
 			for (int i = 0; i < size; i++)
 			{
-				lua_pushnumber(L, i);
+				lua_pushnumber(L, i+1);
 				lua_pushnumber(L, value[i]);
 				lua_settable(L, -3);
 			}

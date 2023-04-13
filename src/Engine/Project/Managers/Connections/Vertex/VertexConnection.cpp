@@ -76,12 +76,12 @@ namespace Connection {
 			int buffersCount = 0;
 
 			// Read the amount of vertices used
-			if (!Utils::Lua::GetTable(L, 1, "vertices_count", vd.verticesCount))
-				return luaL_error(L, "argument vertices_count needs to be a number in first table");
+			if (!Utils::Lua::GetTable(L, 1, "vertices_count", vd.verticesCount) || vd.verticesCount <= 0)
+				return luaL_error(L, "argument vertices_count needs to be a number and greater than zero in first table");
 			
 			// Read the number of buffers used
-			if (!Utils::Lua::GetTable(L, 1, "buffers_count", buffersCount))
-				return luaL_error(L, "argument buffers_count needs to be a number in first table");
+			if (!Utils::Lua::GetTable(L, 1, "buffers_count", buffersCount) || buffersCount <= 0)
+				return luaL_error(L, "argument buffers_count needs to be a number and greater than zero in first table");
 
 			// Read each buffers
 			lua_getfield(L, 1, "buffers");
@@ -105,8 +105,8 @@ namespace Connection {
 
 						buffer.type = GPU::VertexBufferTypeFromString(str);
 
-						if (!Utils::Lua::GetTable(L, 1, "layouts_count", elementsCount))
-							return ReturnErrorSafe(vd, vi, "argument layouts_count needs to be a number in first table", L);
+						if (!Utils::Lua::GetTable(L, 1, "layouts_count", elementsCount) || elementsCount <= 0 )
+							return ReturnErrorSafe(vd, vi, "argument layouts_count needs to be a number and positive in first table", L);
 
 						// Read elements of buffer
 						lua_getfield(L, -1, "layouts");
@@ -122,8 +122,8 @@ namespace Connection {
 								// Read element
 								if (lua_istable(L, -1))
 								{
-									if (!Utils::Lua::GetTable(L, 1, "count", element.count))
-										return ReturnErrorSafe(vd, vi, "argument count needs to be a number in first table", L);
+									if (!Utils::Lua::GetTable(L, 1, "count", element.count) || element.count <= 0)
+										return ReturnErrorSafe(vd, vi, "argument count needs to be a number and positive in first table", L);
 
 									layoutCount += element.count;
 									Utils::Lua::GetTable(L, 1, "normalized", element.isNormalized);
@@ -167,15 +167,15 @@ namespace Connection {
 
 			lua_pushnil(L);
 		}
-		else return ReturnErrorSafe(vd, vi, "argument 1 is expected to be a table in first table", L);
+		else return ReturnErrorSafe(vd, vi, "argument 1 is expected to be a table", L);
 
 		if (lua_istable(L, 2))
 		{
 			if (Utils::Lua::GetTable(L, 2, "use", str))
 				vi.use = GPU::DataUseFromString(str);
 
-			if (!Utils::Lua::GetTable(L, 2, "count", vi.count))
-				return ReturnErrorSafe(vd, vi, "argument type needs to be a string in second table", L);
+			if (!Utils::Lua::GetTable(L, 2, "count", vi.count) || vi.count <= 0)
+				return ReturnErrorSafe(vd, vi, "argument type needs to be a number and positive in second table", L);
 
 			vi.indices = new unsigned int[vi.count];
 
@@ -223,11 +223,11 @@ namespace Connection {
 		if (lua_isnumber(L, 1))
 		{
 			auto instance = VertexConnection::Get();
-			instance->vertices.erase(lua_tonumber(L, 1));
+			lua_pushboolean(L, instance->vertices.erase(lua_tonumber(L, 1)) > 0);
 		}
 		else return luaL_error(L, "argument 1 is expected to be a number");
 
-		return 0;
+		return 1;
 	}
 
 	int VertexConnection::Active(lua_State* L)
@@ -248,7 +248,8 @@ namespace Connection {
 		if (vertex != nullptr)
 			vertex->Use();
 
-		return 0;
+		lua_pushboolean(L, vertex != nullptr);
+		return 1;
 	}
 
 	int VertexConnection::Draw(lua_State* L)
@@ -274,7 +275,9 @@ namespace Connection {
 		if (vertex != nullptr)
 			vertex->Draw(GPU::DrawingTypeFromString(drawTypeStr));
 
-		return 0;
+		lua_pushboolean(L, vertex != nullptr);
+
+		return 1;
 	}
 
 	int VertexConnection::Modify(lua_State* L)
@@ -298,7 +301,7 @@ namespace Connection {
 			if (!Utils::Lua::GetTable(L, 2, "start", start))
 				return luaL_error(L, "argument start in second table is expected to be a number");
 
-			if (Utils::Lua::GetTable(L, 2, "tam", tam))
+			if (Utils::Lua::GetTable(L, 2, "size", tam))
 				return luaL_error(L, "argument tam in second table is expected to be a number");
 
 			if (Utils::Lua::GetTable(L, 2, "buffer", buffer))
@@ -359,11 +362,12 @@ namespace Connection {
 
 			if (data != nullptr)
 				delete[] data;
+
+			lua_pushboolean(L, vertex != nullptr);
 		}
 		else return luaL_error(L, "argument 2 is expected to be a table");
 
-		lua_pushnil(L);
-		return 0;
+		return 1;
 	}
 
 	int VertexConnection::Generate2DPoint(lua_State* L)

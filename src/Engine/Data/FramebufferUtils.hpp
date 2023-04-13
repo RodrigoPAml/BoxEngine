@@ -16,6 +16,12 @@ namespace GPU {
 		else if (key == "STENCIL")
 			return ClearMode::STENCIL;
 
+		Debug::Logging::Log(
+			"Failed to map ClearMode with value " + key + " instead the default value COLOR will be used",
+			Debug::LogSeverity::Warning,
+			Debug::LogOrigin::Engine
+		);
+
 		return ClearMode::COLOR;
 	}
 
@@ -32,6 +38,12 @@ namespace GPU {
 			return RenderBufferAttachmentType::DONT_USE;
 		else if (key == "STENCIL_ATTACHEMT")
 			return RenderBufferAttachmentType::STENCIL_ATTACHEMT;
+
+		Debug::Logging::Log(
+			"Failed to map RenderBufferAttachmentType with value " + key + " instead the default value DONT_USE will be used",
+			Debug::LogSeverity::Warning,
+			Debug::LogOrigin::Engine
+		);
 
 		return RenderBufferAttachmentType::DONT_USE;
 	}
@@ -53,6 +65,12 @@ namespace GPU {
 			return RenderBufferFormat::DEPTH_COMPONENT32F;
 		else if (key == "STENCIL_INDEX8")
 			return RenderBufferFormat::STENCIL_INDEX8;
+
+		Debug::Logging::Log(
+			"Failed to map RenderBufferFormat with value " + key + " instead the default value DEPTH32F_STENCIL8 will be used",
+			Debug::LogSeverity::Warning,
+			Debug::LogOrigin::Engine
+		);
 
 		return RenderBufferFormat::DEPTH32F_STENCIL8;
 	}

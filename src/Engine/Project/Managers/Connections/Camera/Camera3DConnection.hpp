@@ -48,6 +48,10 @@ namespace Connection {
 		static int CreateCamera(lua_State* L);
 		static int DestroyCamera(lua_State* L);
 
+		static int TranslateCameraRelative(lua_State* L);
+		static int TranslateCameraAbsolute(lua_State* L);
+		static int RotateCamera(lua_State* L);
+
 		static int UpdateCamera(lua_State* L);
 		static int GetCamera(lua_State* L);
 

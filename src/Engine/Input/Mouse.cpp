@@ -170,7 +170,7 @@ namespace Input {
 		auto& mouse = Instance();
 
 		for(auto callback : mouse.mouseButtonCallbacks)
-			callback.second((MouseButton)button, (InputAction)action, (InputModifier)mod);
+			callback.second((MouseButton)button, (InputAction)action, (KeyModifier)mod);
 	}
 
 	void Mouse::MasterScrollCallback(GLFWwindow* window, double xoffset, double yoffset)

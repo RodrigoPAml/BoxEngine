@@ -36,9 +36,9 @@ namespace Connection {
 		Utils::Lua::RegTable(this->state, "list_dir", ListDirectories);
 
 		Utils::Lua::RegTable(this->state, "reduce_path_by", RemovePartsFromPath);
-		Utils::Lua::RegTable(this->state, "get_path_extension", GetExtensionFromPath);
-		Utils::Lua::RegTable(this->state, "get_path_name", GetLastPartFromPath);
-		Utils::Lua::RegTable(this->state, "get_path_name_no_ext", GetLastPartFromPathNoExt);
+		Utils::Lua::RegTable(this->state, "get_path_or_file_name", GetLastPartFromPath);
+		Utils::Lua::RegTable(this->state, "get_file_name_ext", GetExtensionFromPath);
+		Utils::Lua::RegTable(this->state, "get_file_name_no_ext", GetLastPartFromPathNoExt);
 
 		lua_setglobal(this->state, "_dir_");
 	}
@@ -287,9 +287,9 @@ namespace Connection {
 		else
 			return luaL_error(L, "argument 1 needs to be a string");
 
-		lua_newtable(L);
 		if (Utils::Directory::IsDirectory(path))
 		{
+			lua_newtable(L);
 			int idx = 0;
 			for (std::string& item : Utils::Directory::ListDirectories(path, false))
 			{
@@ -297,6 +297,8 @@ namespace Connection {
 				idx++;
 			}
 		}
+		else lua_pushnil(L);
+
 
 		return 1;
 	}
@@ -307,13 +309,19 @@ namespace Connection {
 			return luaL_error(L, "expecting 1 argument in function call");
 
 		std::string filename = "";
+		unsigned int n = 0;
 
 		if (lua_isstring(L, 1))
 			filename = lua_tostring(L, 1);
 		else
 			return luaL_error(L, "argument 1 needs to be a string");
 
-		lua_pushstring(L, Utils::Directory::RemovePartsFromPath(filename).c_str());
+		if (lua_isnumber(L, 2))
+			n = lua_tonumber(L, 2);
+		else
+			return luaL_error(L, "argument 2 needs to be a number");
+
+		lua_pushstring(L, Utils::Directory::RemovePartsFromPath(filename, n).c_str());
 		return 1;
 	}
 
