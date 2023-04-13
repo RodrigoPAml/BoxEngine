@@ -11,7 +11,6 @@ namespace Debug {
 	/// </summary>
 	class Debugging
 	{
-		friend class BoxEngine::Window::Window;
 	private:
 		/// <summary>
 		/// Callbacks for user recieve errors of GLFW.
@@ -66,7 +65,8 @@ namespace Debug {
 	private:
 		Debugging() {};
 		Debugging(Debugging const&);
-
+	
+	public:
 		/// <summary>
 		/// Returns current instance.
 		/// </summary>

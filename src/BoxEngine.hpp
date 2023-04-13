@@ -61,6 +61,9 @@ extern "C"
 #include <Engine/Data/DebugCallbacks.hpp>
 #include <Engine/Data/DebugUtils.hpp>
 
+#include <Engine/Debug/Logging.hpp>
+#include <Engine/Debug/Debugging.hpp>
+
 #include <Engine/Data/GPUEnums.hpp>
 #include <Engine/Data/GPUData.hpp>
 #include <Engine/Data/GPUUtils.hpp>
@@ -84,9 +87,6 @@ extern "C"
 
 #include <Engine/Window/GUI.hpp>
 #include <Engine/Window/Window.hpp>
-
-#include <Engine/Debug/Logging.hpp>
-#include <Engine/Debug/Debugging.hpp>
 
 #include <Engine/Data/InputEnums.hpp>
 #include <Engine/Data/InputUtils.hpp>

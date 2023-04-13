@@ -11,7 +11,6 @@ namespace Debug {
 	/// </summary>
 	class Logging
 	{
-		friend class BoxEngine::Window::Window;
 	private:
 		/// <summary>
 		/// File to output log.
@@ -69,7 +68,8 @@ namespace Debug {
 	private:
 		Logging() {};
 		Logging(Logging const&);
-
+	
+	public:
 		/// <summary>
 		/// Returns current instance.
 		/// </summary>
