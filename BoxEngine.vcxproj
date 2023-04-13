@@ -252,6 +252,7 @@
     <ClInclude Include="src\Engine\Camera\Camera3D.hpp" />
     <ClInclude Include="src\Engine\Data\CameraData.hpp" />
     <ClInclude Include="src\Engine\Data\CameraEnums.hpp" />
+    <ClInclude Include="src\Engine\Data\CameraUtils.hpp" />
     <ClInclude Include="src\Engine\Data\DebugCallbacks.hpp" />
     <ClInclude Include="src\Engine\Data\DebugData.hpp" />
     <ClInclude Include="src\Engine\Data\DebugEnums.hpp" />
