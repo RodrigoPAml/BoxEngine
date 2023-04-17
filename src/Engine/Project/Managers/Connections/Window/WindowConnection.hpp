@@ -36,6 +36,8 @@ namespace Connection {
 		static void Set(WindowConnectionPtr instance);
 	private:
 		static int GetWindowSize(lua_State* L);
+		static int GetEditorWindowSize(lua_State* L);
+
 		static int GetWindowLimits(lua_State* L);
 	};
 }}}

@@ -128,6 +128,9 @@ namespace Project {
 			{
 				script->SetState(ScriptState::ToStart);
 				script->SetPath(this->paths[scriptName]);
+
+				// Register go instance data
+				this->connectionManager->CreateScriptData(go, script);
 			}
 			else
 			{
@@ -175,7 +178,11 @@ namespace Project {
 			// Execute script plan
 			auto command = execution.GetCommand();
 
-			this->connectionManager->UpdateScriptData(go, script);
+			if (script->GetUpdateScriptData())
+			{
+				this->connectionManager->UpdateScriptData(go, script);
+				script->SetUpdateScriptData(false);
+			}
 
 			if (luaL_dostring(this->state, command.c_str()))
 			{
@@ -194,7 +201,10 @@ namespace Project {
 			if (state == ScriptState::ToStart)
 				script->SetState(ScriptState::Updating);
 			else if (state == ScriptState::ToDestroy)
+			{
 				script->SetState(ScriptState::Destroyed);
+				this->connectionManager->DeleteScriptData(go, script);
+			}
 		}
 		
 		return true;
@@ -262,6 +272,7 @@ namespace Project {
 		for (const std::string& file : Utils::Directory::ListDirectories(basePath, false))
 		{
 			auto fileName = Utils::Directory::GetLastPartFromPathNoExtension(file);
+			auto extension = Utils::Directory::GetExtensionFromPath(file);
 
 			if (Utils::Directory::IsDirectory(file))
 				LoadScriptsPaths(file, error);
@@ -277,7 +288,7 @@ namespace Project {
 
 				return;
 			}
-			else
+			else if(extension == "lua")
 				this->paths[fileName] = file;
 		}
 	}

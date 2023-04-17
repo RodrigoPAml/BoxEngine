@@ -103,6 +103,102 @@ namespace Project {
         go->SetToDestroy();
     }
 
+    void GoManager::ChangeGoFather(const std::string& id, const std::string& fatherId)
+    {
+        if (this->gosMap.contains(id))
+        {
+            if (fatherId != "" && !this->gosMap.contains(fatherId))
+                return;
+
+            GameObjectPtr go = this->gosMap[id];
+            GameObjectPtr oldFather = go->GetFather();
+            GameObjectPtr newFather = this->gosMap[fatherId];
+
+            if (this->IsDegreeFather(newFather, go))
+                return;
+
+            if (oldFather != nullptr)
+            {
+                auto& childrens = oldFather->GetChildrens();
+                childrens.erase(std::remove(childrens.begin(), childrens.end(), go), childrens.end());
+            }
+            else
+                this->gos.erase(std::remove(this->gos.begin(), this->gos.end(), go), this->gos.end());
+
+            go->SetFather(newFather);
+
+            if (newFather != nullptr)
+                newFather->GetChildrens().push_back(go);
+            else this->gos.push_back(go);
+        }
+    }
+
+    void GoManager::ChangeGoPosition(const std::string& id, int displacement)
+    {
+        if (this->gosMap.contains(id))
+        {
+            GameObjectPtr go = this->gosMap[id];
+            
+            auto& arr = go->GetFather() != nullptr ? go->GetFather()->GetChildrens() : this->gos;
+
+            if (arr.size() <= 1)
+                return;
+
+            auto it = std::find(arr.begin(), arr.end(), go);
+
+            if (it == arr.end())
+                return;
+
+            int oldIndex = it - arr.begin();
+
+            int newPos = (arr.size()-1) + displacement;
+            newPos = std::min((int)arr.size() - 1, newPos);
+            newPos = std::max(newPos, 0);
+
+            auto old = arr[newPos];
+            arr[newPos] = go;
+            arr[oldIndex] = old;
+        }
+    }
+
+    void GoManager::ChangeScriptPosition(const std::string& id, const std::string& scriptName, int displacement)
+    {
+        if (this->gosMap.contains(id))
+        {
+            GameObjectPtr go = this->gosMap[id];
+            ScriptPtr script = nullptr;
+
+            for(auto item : go->GetScripts())
+            {
+                if (item->GetName() == scriptName)
+                {
+                    script = item;
+                    break;
+                }
+            }
+
+            auto& arr = go->GetScripts();
+
+            if (arr.size() <= 1)
+                return;
+
+            auto it = std::find(arr.begin(), arr.end(), script);
+
+            if (it == arr.end())
+                return;
+
+            int oldIndex = it - arr.begin();
+
+            int newPos = (arr.size() - 1) + displacement;
+            newPos = std::min((int)arr.size() - 1, newPos);
+            newPos = std::max(newPos, 0);
+
+            auto old = arr[newPos];
+            arr[newPos] = script;
+            arr[oldIndex] = old;
+        }
+    }
+
     void GoManager::RemoveGameObjectReferences(GameObjectPtr go)
     {
         RemoveGameObjectReferences(go->GetId());
@@ -219,6 +315,24 @@ namespace Project {
         }
 
         return id;
+    }
+
+    bool GoManager::IsDegreeFather(GameObjectPtr go, GameObjectPtr possibleFather)
+    {
+        if (go == nullptr)
+            return false;
+
+        auto father = go->GetFather();
+
+        while (father != nullptr)
+        {
+            if (father == possibleFather)
+                return true;
+            else
+                father = father->GetFather();
+        }
+            
+        return false;
     }
     
     #pragma endregion

@@ -110,7 +110,6 @@ extern "C"
 
 #include <Engine/Data/ProjectEnums.hpp>
 #include <Engine/Data/ProjectUtils.hpp>
-#include <Engine/Data/ProjectData.hpp>
 
 #include <Engine/Project/Entities/ScriptData.hpp>
 #include <Engine/Project/Entities/Script.hpp>
@@ -118,6 +117,8 @@ extern "C"
 #include <Engine/Project/Entities/GameObject.hpp>
 #include <Engine/Serialization/Serialization.hpp>
 #include <Engine/Project/Entities/GoExecution.hpp>
+#include <Engine/Project/Entities/GoMovement.hpp>
+#include <Engine/Data/ProjectData.hpp>
 
 #include <Engine/Utils/Lua.hpp>
 

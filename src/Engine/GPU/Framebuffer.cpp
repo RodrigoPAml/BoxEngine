@@ -69,7 +69,7 @@ namespace GPU {
 
 		if (this->id == 0)
 			Debug::Logging::LogException("[Framebuffer]: Failed to create framebuffer", Debug::LogOrigin::Engine);
-		else if (this->renderBufferId == 0)
+		else if (this->renderBufferId == 0 && configuration.renderBufferAttachment.type != RenderBufferAttachmentType::DONT_USE)
 			Debug::Logging::LogException("[Framebuffer]: Failed to create render buffer", Debug::LogOrigin::Engine);
 		else 
 			Debug::Logging::Log("[Framebuffer]: Created with id " + std::to_string(this->id), Debug::LogSeverity::Notify, Debug::LogOrigin::EngineInternal);
@@ -95,7 +95,7 @@ namespace GPU {
 
 	void Framebuffer::Use() 
 	{
-		if (this->renderBufferId == 0)
+		if (this->id == 0)
 			Debug::Logging::LogException("[Framebuffer]: Can't use an empty framebuffer", Debug::LogOrigin::Engine);
 
 		glBindFramebuffer(GL_FRAMEBUFFER, this->id);
@@ -140,7 +140,6 @@ namespace GPU {
 	void Framebuffer::Clear(const glm::vec4& color)
 	{
 		glClearColor(color.x, color.y, color.z, color.w);
-
 		glClear((GLbitfield)Framebuffer::ClearModeSum);
 	}
 

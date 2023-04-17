@@ -109,6 +109,16 @@ namespace Project {
 		this->haveWarningInLoad = true;
 	}
 
+	void Script::SetUpdateScriptData(bool value)
+	{
+		this->updateScriptData = value;
+	}
+
+	bool Script::GetUpdateScriptData() const
+	{
+		return this->updateScriptData;
+	}
+
 	int Script::GetCurrentScriptsCount()
 	{
 		return Total;

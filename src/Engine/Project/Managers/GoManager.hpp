@@ -36,6 +36,9 @@ namespace Project {
 		GameObjectPtr AddGameObject(const std::string& name, bool active, const std::string& fatherId = "");
 		bool RemoveGameObject(const std::string& id);
 		void RemoveGameObject(GameObjectPtr go);
+		void ChangeGoFather(const std::string& id, const std::string& fatherId);
+		void ChangeGoPosition(const std::string& id, int displacement);
+		void ChangeScriptPosition(const std::string& id, const std::string& scriptName, int displacement);
 
 		// Remove go references in every thing
 		void RemoveGameObjectReferences(GameObjectPtr go);
@@ -55,5 +58,8 @@ namespace Project {
 	
 		// Return a new unique id for a new go.
 		std::string NewGoId();
+
+		// Verify if go is in some degree its father
+		bool IsDegreeFather(GameObjectPtr go, GameObjectPtr possibleFather);
 	};
 }}

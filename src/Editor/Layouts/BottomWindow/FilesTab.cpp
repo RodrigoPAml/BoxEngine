@@ -46,9 +46,12 @@ namespace Editor {
 
 		GUI::Separator();
 
-		this->DrawTree(this->tree[0]);
-
-		this->DrawPopUps();
+		if (GUI::BeginInnerWindow(this->guid + "inner", {0, 0}))
+		{
+			this->DrawTree(this->tree[0]);
+			this->DrawPopUps();
+			GUI::EndWindow();
+		}
 	}
 
 	void FilesTab::UpdateTree()
@@ -128,7 +131,7 @@ namespace Editor {
 			if (!child.isRoot && GUI::BeginSourceDragDrop())
 			{
 				this->popUpItem = child;
-				GUI::SetDragDropData("file_item", (void*)(&this->guid), sizeof(void*));
+				GUI::SetDragDropData("file_item", this->guid);
 				GUI::Image(GUI::GetIconForPath(child.path), { GUI::GetFontSize(), GUI::GetFontSize() });
 				GUI::ContinueSameLine();
 				GUI::Text(child.name);
@@ -141,7 +144,7 @@ namespace Editor {
 
 				if (this->popUpItem.path != child.path)
 				{
-					if (GUI::GetDragDropData("file_item") != nullptr)
+					if (GUI::GetDragDropData("file_item").size() > 0)
 					{
 						std::string newPath = child.path + '/' + Utils::Directory::GetLastPartFromPath(this->popUpItem.path);
 						Utils::Directory::Move(this->popUpItem.path, newPath);

@@ -420,7 +420,6 @@ namespace Connection {
 			auto texture = TextureConnection::Get()->Get(textureId);
 		
 			if(texture != nullptr)
-			auto texture = TextureConnection::Get()->Get(textureId);
 				Drawing::TextureRenderer::Draw(texture, position, size, rotation);
 		}
 		else return luaL_error(L, "expecting argument 1 to be a table");

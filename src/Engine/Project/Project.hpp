@@ -98,10 +98,14 @@ namespace Project {
 		std::vector<std::string>& GetScriptNamesForEditor() const;
 		void LoadScriptNameListForEditor() const;
 
+		// Crud for gos and scripts for the editor
 		void AddGameObjectInEditor(const std::string& name, const std::string& fatherId = "");
 		void RemoveGameObjectInEditor(const std::string& goId);
+		void ChangeGoFatherEditor(const std::string& goId, const std::string& fatherId = "");
+		void ChangeGoPositionEditor(const std::string& goId, int displacement);
+		void ChangeScriptPositionEditor(const std::string& goId, const std::string& scriptName, int displacement);
 
-		// Crud for gos and scripts for the editor (at runtime)
+		// Crud for gos and scripts at runtime
 		GameObjectPtr AddGameObject(const std::string& name, bool active, const std::string& fatherId = "");
 		bool DestroyGameObject(const std::string& id);
 		GameObjectPtr GetGameObject(const std::string& id);

@@ -79,8 +79,22 @@ namespace Directory {
 
 	std::string GetResourcePath()
 	{
-		//return GetCurrentPath() + '/' + "res"; // production
+		std::string prodPath = GetCurrentPath() + '/' + "res";
+
+		if (Exists(prodPath))
+			return prodPath;
+
 		return GetCurrentPath() + "/../../res"; // development
+	}
+
+	std::string GetDocsPath()
+	{
+		std::string prodPath = GetCurrentPath() + '/' + "docs";
+
+		if (Exists(prodPath))
+			return prodPath;
+
+		return GetCurrentPath() + "/../../docs"; // development
 	}
 
 	std::string GetLogPath()
@@ -246,10 +260,13 @@ namespace Directory {
 		OpenClipboard(GetDesktopWindow());
 		EmptyClipboard();
 		HGLOBAL hg = GlobalAlloc(GMEM_MOVEABLE, content.size() + 1);
-		if (!hg) {
+
+		if (!hg) 
+		{
 			CloseClipboard();
 			return;
 		}
+
 		memcpy(GlobalLock(hg), content.c_str(), content.size() + 1);
 		GlobalUnlock(hg);
 		SetClipboardData(CF_TEXT, hg);

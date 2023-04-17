@@ -90,6 +90,7 @@ namespace Project {
     void GameObject::SetToDestroy()
     {
         this->toDestroy = true;
+        this->toVisit = true;
 
         if (this->father != nullptr)
             this->father->SetToVisit(true);

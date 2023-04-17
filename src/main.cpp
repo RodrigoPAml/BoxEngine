@@ -1,3 +1,5 @@
+#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
+
 #include <BoxEngine.hpp>
 
 static BoxEngine::Editor::ProjectManager* OpenProjectManager()
@@ -47,6 +49,7 @@ int main(int argc, char* argv[])
 
 	while(Window::ShouldRun())
 	{	
+		Framebuffer::ActiveDefault();
 		Framebuffer::SetClearModes({ ClearMode::COLOR, ClearMode::DEPTH });
 		Framebuffer::Clear({0.0f, 0.0f, 0.0f, 0.0f});
 		

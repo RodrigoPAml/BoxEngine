@@ -17,6 +17,7 @@ namespace Connection {
 		lua_newtable(this->state);
 
 		Utils::Lua::RegTable(this->state, "get_window_size", GetWindowSize);
+		Utils::Lua::RegTable(this->state, "get_editor_window_size", GetEditorWindowSize);
 		Utils::Lua::RegTable(this->state, "get_window_limits", GetWindowLimits);
 
 		lua_setglobal(this->state, "_window_");
@@ -49,6 +50,22 @@ namespace Connection {
 		lua_newtable(L);
 		Utils::Lua::RegTable(L, "x", std::abs(sizes.x - sizes.z));
 		Utils::Lua::RegTable(L, "y", std::abs(sizes.y - sizes.w));
+
+		return 1;
+	}
+
+	int WindowConnection::GetEditorWindowSize(lua_State* L)
+	{
+		auto top = lua_gettop(L);
+
+		if (top != 0)
+			return luaL_error(L, "expecting no argument in function call");
+
+		auto size = Window::Window::GetSize();
+
+		lua_newtable(L);
+		Utils::Lua::RegTable(L, "x", size.x);
+		Utils::Lua::RegTable(L, "y", size.y);
 
 		return 1;
 	}

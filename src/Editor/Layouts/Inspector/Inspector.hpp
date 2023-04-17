@@ -54,6 +54,6 @@ namespace Editor {
 		void ShowGoEditor();
 		void ShowGoEditorHeader(Project::GameObjectPtr go);
 		void ShowGoEditorScripts(Project::GameObjectPtr go);
-		void ShowGoEditorScriptsData(Project::ScriptPtr script);
+		void ShowGoEditorScriptsData(Project::GameObjectPtr go, Project::ScriptPtr script);
 	};
 }}

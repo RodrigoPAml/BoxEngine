@@ -110,93 +110,106 @@ namespace Editor {
 		if (project == nullptr)
 			return;
 
-		GUI::SetFontScale(0.8);
-
-		GUI::Text("Project name:");
-		GUI::ContinueSameLine();
+		GUI::SetFontScale(0.5);
 		
-		auto guiSize = GUI::GetWindowSize();
-		GUI::SetNextItemWidth(guiSize.x/2);
-		GUI::Input(this->guid + "edit_project_name", this->projectName);
-
-		if (GUI::Header("Logging settings"))
+		if (GUI::BeginInnerWindow(this->guid + "inner", {0, 0}))
 		{
-			GUI::Ident(20);
-
-			GUI::Text("Logs shows into editor");
+			GUI::Text("Project name:");
 			GUI::ContinueSameLine();
-			GUI::CheckBox(this->guid + "edit_project_logCallback", this->loggingConfig.logCallback);
 
-			GUI::Text("Logs shows into console");
-			GUI::ContinueSameLine();
-			GUI::CheckBox(this->guid + "edit_project_logConsole", this->loggingConfig.logConsole);
+			auto guiSize = GUI::GetWindowSize();
+			GUI::SetNextItemWidth(guiSize.x/2);
+			GUI::Input(this->guid + "edit_project_name", this->projectName);
 
-			GUI::Text("Logs stored into file");
-			GUI::ContinueSameLine();
-			GUI::CheckBox(this->guid + "edit_project_logFile", this->loggingConfig.logFile);
+			auto showLogging = GUI::Header("Logging settings");
+			GUI::ContinueSameLine(15);
+			GUI::Text("Logging settings");
 
-			GUI::Unident(20);
-		}
+			if (showLogging)
+			{
+				GUI::Ident(20);
 
-		if (GUI::Header("Debugging settings"))
-		{
-			GUI::Ident(20);
+				GUI::Text("Logs shows into editor");
+				GUI::ContinueSameLine();
+				GUI::CheckBox(this->guid + "edit_project_logCallback", this->loggingConfig.logCallback);
 
-			GUI::BulletText("You might want to restart to see effect in this settings");
+				GUI::Text("Logs shows into console");
+				GUI::ContinueSameLine();
+				GUI::CheckBox(this->guid + "edit_project_logConsole", this->loggingConfig.logConsole);
 
-			GUI::Text("Activate callbacks to recieve logs from GLFW");
-			GUI::ContinueSameLine();
-			GUI::CheckBox(this->guid + "edit_project_enableGlfwDebugging", this->debugConfig.enableGlfwDebugging);
+				GUI::Text("Logs stored into file");
+				GUI::ContinueSameLine();
+				GUI::CheckBox(this->guid + "edit_project_logFile", this->loggingConfig.logFile);
 
-			GUI::Text("Activate callbacks to recieve logs from OpenGL");
-			GUI::ContinueSameLine();
-			GUI::CheckBox(this->guid + "edit_project_enableOpenGLDebugging", this->debugConfig.enableOpenGLDebugging);
+				GUI::Unident(20);
+			}
 
-			GUI::Text("Auto generate GLFW logs");
-			GUI::ContinueSameLine();
-			GUI::CheckBox(this->guid + "edit_project_autoLogGLFWErrors", this->debugConfig.autoLogGLFWErrors);
+			auto showDebug = GUI::Header("Debugging settings");
+			GUI::ContinueSameLine(15);
+			GUI::Text("Debugging settings");
 
-			GUI::Text("Auto generate OpenGL logs");
-			GUI::ContinueSameLine();
-			GUI::CheckBox(this->guid + "edit_project_autoLogOpenGLErrors", this->debugConfig.autoLogOpenGLErrors);
+			if (showDebug)
+			{
+				GUI::Ident(20);
 
-			GUI::Text("Log notifications OpenGL");
-			GUI::ContinueSameLine();
-			GUI::CheckBox(this->guid + "edit_project_logOpenGLNotification", this->useSeverityNotification);
+				GUI::BulletText("You might want to restart to see effect in this settings");
 
-			GUI::Text("Log low severity errors in OpenGL");
-			GUI::ContinueSameLine();
-			GUI::CheckBox(this->guid + "edit_project_logOpenGLLow", this->useSeverityLow);
+				GUI::Text("Activate callbacks to recieve logs from GLFW");
+				GUI::ContinueSameLine();
+				GUI::CheckBox(this->guid + "edit_project_enableGlfwDebugging", this->debugConfig.enableGlfwDebugging);
 
-			GUI::Text("Log medium severity errors in OpenGL ");
-			GUI::ContinueSameLine();
-			GUI::CheckBox(this->guid + "edit_project_logOpenGLMedium", this->useSeverityMedium);
+				GUI::Text("Activate callbacks to recieve logs from OpenGL");
+				GUI::ContinueSameLine();
+				GUI::CheckBox(this->guid + "edit_project_enableOpenGLDebugging", this->debugConfig.enableOpenGLDebugging);
 
-			GUI::Text("Log high severity errors OpenGL ");
-			GUI::ContinueSameLine();
-			GUI::CheckBox(this->guid + "edit_project_logOpenGLErrors", this->useSeverityHigh);
+				GUI::Text("Auto generate GLFW logs");
+				GUI::ContinueSameLine();
+				GUI::CheckBox(this->guid + "edit_project_autoLogGLFWErrors", this->debugConfig.autoLogGLFWErrors);
 
-			this->debugConfig.openGlSeverities.clear();
+				GUI::Text("Auto generate OpenGL logs");
+				GUI::ContinueSameLine();
+				GUI::CheckBox(this->guid + "edit_project_autoLogOpenGLErrors", this->debugConfig.autoLogOpenGLErrors);
 
-			if (this->useSeverityNotification)
-				this->debugConfig.openGlSeverities.insert(Debug::OpenGlErrorSeverity::SEVERITY_NOTIFICATION);
-			if (this->useSeverityLow)
-				this->debugConfig.openGlSeverities.insert(Debug::OpenGlErrorSeverity::SEVERITY_LOW);
-			if (this->useSeverityMedium)
-				this->debugConfig.openGlSeverities.insert(Debug::OpenGlErrorSeverity::SEVERITY_MEDIUM);
-			if (this->useSeverityHigh)
-				this->debugConfig.openGlSeverities.insert(Debug::OpenGlErrorSeverity::SEVERITY_HIGH);
+				GUI::Text("Log notifications OpenGL");
+				GUI::ContinueSameLine();
+				GUI::CheckBox(this->guid + "edit_project_logOpenGLNotification", this->useSeverityNotification);
 
-			GUI::Unident(20);
-		}
+				GUI::Text("Log low severity errors in OpenGL");
+				GUI::ContinueSameLine();
+				GUI::CheckBox(this->guid + "edit_project_logOpenGLLow", this->useSeverityLow);
 
-		if (GUI::Button("Save changes"))
-		{
-			Debug::Debugging::SetConfiguration(this->debugConfig);
-			Debug::Logging::SetConfiguration(this->loggingConfig);
+				GUI::Text("Log medium severity errors in OpenGL ");
+				GUI::ContinueSameLine();
+				GUI::CheckBox(this->guid + "edit_project_logOpenGLMedium", this->useSeverityMedium);
 
-			project->SetName(this->projectName);
-			project->Save();
+				GUI::Text("Log high severity errors OpenGL ");
+				GUI::ContinueSameLine();
+				GUI::CheckBox(this->guid + "edit_project_logOpenGLErrors", this->useSeverityHigh);
+
+				this->debugConfig.openGlSeverities.clear();
+
+				if (this->useSeverityNotification)
+					this->debugConfig.openGlSeverities.insert(Debug::OpenGlErrorSeverity::SEVERITY_NOTIFICATION);
+				if (this->useSeverityLow)
+					this->debugConfig.openGlSeverities.insert(Debug::OpenGlErrorSeverity::SEVERITY_LOW);
+				if (this->useSeverityMedium)
+					this->debugConfig.openGlSeverities.insert(Debug::OpenGlErrorSeverity::SEVERITY_MEDIUM);
+				if (this->useSeverityHigh)
+					this->debugConfig.openGlSeverities.insert(Debug::OpenGlErrorSeverity::SEVERITY_HIGH);
+
+				GUI::Unident(20);
+			}
+
+			if (GUI::Button("Save changes"))
+			{
+				Debug::Debugging::SetConfiguration(this->debugConfig);
+				Debug::Logging::SetConfiguration(this->loggingConfig);
+
+				project->SetName(this->projectName);
+				project->Save();
+			}
+
+			GUI::EndInnerWindow();
 		}
 
 		GUI::SetFontScale(1);
@@ -289,6 +302,45 @@ namespace Editor {
 			GUI::EndHintWindow();
 		}
 
+		GUI::ContinueSameLine();
+
+		// Copy id button
+		if (GUI::ImageButton(this->guid + "copy_id", GUI::GetIcon("copy.png")))
+			Utils::Directory::CopyClipboard(go->GetId());
+
+		if (GUI::IsCurrentItemHovered())
+		{
+			GUI::BeginHintWindow();
+			GUI::Text("Copy Id");
+			GUI::EndHintWindow();
+		}
+
+		GUI::ContinueSameLine();
+
+		// Move up go
+		if (GUI::ImageButton(this->guid + "move_up", GUI::GetIcon("up.png")))
+			project->ChangeGoPositionEditor(go->GetId(), -1);
+
+		if (GUI::IsCurrentItemHovered())
+		{
+			GUI::BeginHintWindow();
+			GUI::Text("Move up");
+			GUI::EndHintWindow();
+		}
+
+		GUI::ContinueSameLine();
+
+		// Move Down go
+		if (GUI::ImageButton(this->guid + "move_down", GUI::GetIcon("down.png")))
+			project->ChangeGoPositionEditor(go->GetId(), 1);
+
+		if (GUI::IsCurrentItemHovered())
+		{
+			GUI::BeginHintWindow();
+			GUI::Text("Move down");
+			GUI::EndHintWindow();
+		}
+
 		GUI::SetFontScale(1);
 
 		// Pop up to add scripts
@@ -335,15 +387,13 @@ namespace Editor {
 
 		for (const auto& script : go->GetScripts())
 		{
+			script->SetUpdateScriptData(true);
 			std::string scriptName = script->GetName();
 
 			bool isOpen = GUI::Header(this->guid + "header" + scriptName);
 			GUI::ContinueSameLine();
-
 			GUI::Ident(8);
-
 			GUI::Image(GUI::GetIcon("code.png"), { GUI::GetFontSize(), GUI::GetFontSize() + 5 });
-
 			GUI::ContinueSameLine();
 			GUI::Text(scriptName);
 
@@ -360,7 +410,7 @@ namespace Editor {
 				else
 					project->DestroyScript(go->GetId(), scriptName);
 			}
-
+		
 			if (GUI::IsCurrentItemHovered())
 			{
 				GUI::BeginHintWindow();
@@ -388,14 +438,14 @@ namespace Editor {
 			GUI::Text("State: " + ScriptStateToStringForEditor(script->GetState(), go->GetActive()));
 
 			GUI::Separator();
-			this->ShowGoEditorScriptsData(script);
+			this->ShowGoEditorScriptsData(go, script);
 		}
 
 		for (const auto& item : toRemoves)
 			go->RemoveScript(item);
 	}
 
-	void Inspector::ShowGoEditorScriptsData(Project::ScriptPtr script)
+	void Inspector::ShowGoEditorScriptsData(Project::GameObjectPtr go, Project::ScriptPtr script)
 	{
 		auto project = Project::Project::GetCurrentProject();
 
@@ -418,6 +468,30 @@ namespace Editor {
 		{
 			GUI::BeginHintWindow();
 			GUI::Text("Add script variable");
+			GUI::EndHintWindow();
+		}
+
+		GUI::ContinueSameLine();
+	
+		if (GUI::ImageButton(this->guid + "move_script_up" + scriptName, GUI::GetIcon("up.png")))
+			project->ChangeScriptPositionEditor(go->GetId(), script->GetName(), -1);
+
+		if (GUI::IsCurrentItemHovered())
+		{
+			GUI::BeginHintWindow();
+			GUI::Text("Move Up");
+			GUI::EndHintWindow();
+		}
+
+		GUI::ContinueSameLine();
+
+		if (GUI::ImageButton(this->guid + "move_script_down" + scriptName, GUI::GetIcon("down.png")))
+			project->ChangeScriptPositionEditor(go->GetId(), script->GetName(), 1);
+
+		if (GUI::IsCurrentItemHovered())
+		{
+			GUI::BeginHintWindow();
+			GUI::Text("Move Down");
 			GUI::EndHintWindow();
 		}
 

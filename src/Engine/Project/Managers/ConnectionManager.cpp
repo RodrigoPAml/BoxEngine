@@ -119,8 +119,53 @@ namespace Project {
 
 	void ConnectionManager::UpdateScriptData(GameObjectPtr go, ScriptPtr script)
 	{
+		auto& datas = script->GetScriptData();
+
+		// Find new variable to show in inspector
+		lua_getglobal(this->state, script->GetName().c_str());
+		lua_getfield(this->state, -1, go->GetId().c_str());
+		lua_pushnil(this->state);
+
+		if (lua_istable(this->state, -2))
+		{
+			while (lua_next(this->state, -2) != 0)
+			{
+				std::string key = "";
+
+				if (lua_type(this->state, -2) == LUA_TSTRING)
+				{
+					key = lua_tostring(this->state, -2);
+
+					if (std::find_if(datas.begin(), datas.end(), [key](ScriptData& item) {return item.GetName() == key; }) == datas.end())
+					{
+						if (lua_type(this->state, -1) == LUA_TNUMBER)
+						{
+							ScriptData data = ScriptData(key, std::to_string(lua_tonumber(this->state, -1)), ScriptDataType::number);
+							datas.push_back(data);
+						}
+						else if (lua_type(this->state, -1) == LUA_TSTRING)
+						{
+							ScriptData data = ScriptData(key, lua_tostring(this->state, -1), ScriptDataType::number);
+							datas.push_back(data);
+						}
+						else if (lua_type(this->state, -2) == LUA_TBOOLEAN)
+						{
+							ScriptData data = ScriptData(key, lua_toboolean(this->state, -1) == true ? "1" : "0", ScriptDataType::boolean);
+							datas.push_back(data);
+						}
+					}
+				}
+
+				lua_pop(this->state, 1);
+			}
+			lua_pop(this->state, 1);
+		}
+		lua_pop(this->state, 1);
+
+		// Iterate all variables, if modified set value
+		// Then verify its type if still can be tracked
 		std::vector<ScriptData> toRemove;
-		for (auto& item : script->GetScriptData())
+		for (auto& item : datas)
 		{
 			lua_getglobal(this->state, script->GetName().c_str());
 			lua_getfield(this->state, -1, go->GetId().c_str());
@@ -168,9 +213,14 @@ namespace Project {
 			
 			lua_pop(this->state, 3);
 		}
+
+		for (ScriptData data : toRemove)
+			datas.erase(std::remove_if(datas.begin(), datas.end(), [&data](ScriptData item) {return data.GetName() == item.GetName(); }), datas.end());
 	}
 	
 	void ConnectionManager::DeleteScriptData(GameObjectPtr go, ScriptPtr script)
 	{
+		lua_getglobal(this->state, script->GetName().c_str());
+		Utils::Lua::RegTable(this->state, go->GetId().c_str());
 	}
 }}

@@ -77,16 +77,16 @@ namespace Drawing {
 
 		const std::string fragShader = {
 			"#version 330 core\n"
-			"out vec4 outColor;\n"
+			"layout(location = 0) out vec4 outColor;\n"
 			"in vec2 uv;\n"
 			"uniform sampler2D image;\n"
 			"void main()\n"
 			"{\n"
 			"  vec4 texFrag = texture(image, uv);\n"
-			"  if(texFrag.a < 0.5f)\n"
-			"  {\n"
-			"    discard;\n"
-			"  }\n"
+			//"  if(texFrag.a < 0.5f)\n"
+			//"  {\n"
+			//"    discard;\n"
+			//"  }\n"
 			"  outColor =  vec4(texFrag.xyz, 1.0f);\n"
 			"}"
 		};

@@ -47,6 +47,11 @@ namespace Project {
 		bool haveWarningInLoad;
 
 		/// <summary>
+		/// If the engine should follow its script data and update it (used in editor only)
+		/// </summary>
+		bool updateScriptData = false;
+
+		/// <summary>
 		/// Total current existant scripts
 		/// </summary>
 		static int Total;
@@ -71,6 +76,9 @@ namespace Project {
 
 		bool HaveWarningToLoad();
 		void MarkAsFailedToLoad();
+
+		void SetUpdateScriptData(bool value);
+		bool GetUpdateScriptData() const;
 
 		static int GetCurrentScriptsCount();
 	};

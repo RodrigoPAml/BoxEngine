@@ -12,6 +12,8 @@ namespace Editor {
 	private:
 		std::vector<float> frametimes;
 		std::vector<float> fps;
+
+		std::string guid = "";
 	public:
 		InfoTab() = default;
 		~InfoTab() = default;

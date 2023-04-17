@@ -457,21 +457,21 @@ namespace GPU {
 			return TextureFormat::DEPTH_STENCIL;
 		else if (key == "R")
 			return TextureFormat::R;
-		else if (key == "BGRA")
+		else if (key == "RED_INTEGER")
 			return TextureFormat::RED_INTEGER;
-		else if (key == "BGRA")
+		else if (key == "RG")
 			return TextureFormat::RG;
-		else if (key == "BGRA")
+		else if (key == "RGB")
 			return TextureFormat::RGB;
-		else if (key == "BGRA")
+		else if (key == "RGBA")
 			return TextureFormat::RGBA;
-		else if (key == "BGRA")
+		else if (key == "RGBA_INTEGER")
 			return TextureFormat::RGBA_INTEGER;
-		else if (key == "BGRA")
+		else if (key == "RGB_INTEGER")
 			return TextureFormat::RGB_INTEGER;
-		else if (key == "BGRA")
+		else if (key == "RG_INTEGER")
 			return TextureFormat::RG_INTEGER;
-		else if (key == "BGRA")
+		else if (key == "STENCIL_INDEX")
 			return TextureFormat::STENCIL_INDEX;
 
 		Debug::Logging::Log(

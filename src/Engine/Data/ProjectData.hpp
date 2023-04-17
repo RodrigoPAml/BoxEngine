@@ -48,5 +48,10 @@ namespace Project {
 		/// The project current framebuffer
 		/// </summary>
 		GPU::FramebufferWeakPtr current;
+
+		/// <summary>
+		/// Store all the requested go movements
+		/// </summary>
+		std::vector<GoMovement> frameMovements;
 	};
 }}

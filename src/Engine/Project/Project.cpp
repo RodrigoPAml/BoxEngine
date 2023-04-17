@@ -128,6 +128,12 @@ namespace Project {
         this->goManager->Load(data);
 
         this->isModified = false;
+
+        // Copy documentation
+        std::string doc = Directory::GetDocsPath() + "/api.md";
+        std::string pathDoc = this->GetBasePath() + "/Docs";
+        Directory::CreateDirectory(pathDoc);
+        Directory::Copy(doc, pathDoc + "/api.md");
     }
 
     void Project::SetDirty()
@@ -250,6 +256,8 @@ namespace Project {
                 this->state = ProjectState::Stoping;
                 hasError = true;
             }
+
+            this->data.frameMovements.clear();
         }
 
         if (this->state == ProjectState::Stoping)
@@ -262,6 +270,7 @@ namespace Project {
             this->scriptManager->DestroyAllScripts(hasError, root);
 
             // Also here destroy the gos (script ref go with this).
+            this->data.frameMovements.clear();
             this->goManager->Unload();
 
             if (hasError)
@@ -314,14 +323,31 @@ namespace Project {
 
     void Project::AddGameObjectInEditor(const std::string& name, const std::string& fatherId)
     {
-        this->isModified = true;
-        this->goManager->AddGameObject(name, true, fatherId);
+        this->isModified = this->goManager->AddGameObject(name, true, fatherId) != nullptr;
     }
 
     void Project::RemoveGameObjectInEditor(const std::string& goId)
     {
         this->isModified = true;
         this->goManager->RemoveGameObjectReferences(goId);
+    }
+
+    void Project::ChangeGoFatherEditor(const std::string& goId, const std::string& fatherId)
+    {
+        this->isModified = true;
+        this->goManager->ChangeGoFather(goId, fatherId);
+    }
+
+    void Project::ChangeGoPositionEditor(const std::string& goId, int displacement)
+    {
+        this->isModified = true;
+        this->goManager->ChangeGoPosition(goId, displacement);
+    }
+
+    void Project::ChangeScriptPositionEditor(const std::string& goId, const std::string& scriptName, int displacement)
+    {
+        this->isModified = true;
+        this->goManager->ChangeScriptPosition(goId, scriptName, displacement);
     }
 
     GameObjectPtr Project::AddGameObject(const std::string& name, bool active, const std::string& fatherId)
@@ -395,7 +421,10 @@ namespace Project {
         this->data.current = framebuffer;
     }
 
-    void Project::PlanExecution(const std::vector<GameObjectPtr>& gos, std::vector<GoExecution>& executions)
+    void Project::PlanExecution(
+        const std::vector<GameObjectPtr>& gos, 
+        std::vector<GoExecution>& executions
+    )
     {
         for (const GameObjectPtr go : gos)
         {
@@ -405,12 +434,9 @@ namespace Project {
 
             go->SetToVisit(false);
 
-            // If destroy execution is diferent
+            // If destroy if marked, execution is diferent
             if (go->IsToDestroy())
-            {
-                PlanExecutionToDestroy({go}, executions);
-                this->scriptManager->GetScriptsExecution(go, executions);
-            }
+                PlanExecutionToDestroy({ go }, executions);
             else
             {
                 // Get execution for scripts
@@ -436,6 +462,7 @@ namespace Project {
                 // Only call destroy if has been initilizated
                 if (script->IsStarted())
                 {
+                    script->SetState(ScriptState::ToDestroy);
                     std::string command = script->GetName() + ".destroy()";
                     executions.push_back(GoExecution(go, script, command));
                 }
@@ -454,7 +481,7 @@ namespace Project {
         std::set<GameObjectPtr> toRemove;
         for (const GoExecution& exec : executions)
         {
-            // Execute scripts
+            // Execute scripts, if fail return error
             if (exec.GetScript() != nullptr && !this->scriptManager->ExecuteScript(exec))
                 return false;
 

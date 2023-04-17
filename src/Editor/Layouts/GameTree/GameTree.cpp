@@ -100,7 +100,11 @@ namespace Editor {
 
 			GUI::Separator();
 
-			this->DrawGameTree();
+			if (GUI::BeginInnerWindow(this->guid + "inner", {0, 0}))
+			{
+				this->DrawGameTree();
+				GUI::EndInnerWindow();
+			}
 
 			GUI::EndWindow();
 		}
@@ -127,8 +131,16 @@ namespace Editor {
 		using namespace BoxEngine::Project;
 
 		auto gos = Project::GetCurrentProject()->GetGosFromRoot();
+		auto project = Project::GetCurrentProject();
 
 		RecursiveDrawGameTree(gos);
+
+		if (this->sourceGoId.size() > 0)
+		{
+			project->ChangeGoFatherEditor(this->sourceGoId, this->destinyGoId);
+			this->sourceGoId = "";
+			this->destinyGoId = "";
+		}
 	}
 
 	void GameTree::RecursiveDrawGameTree(std::vector<Project::GameObjectPtr>& gos, bool inactive)
@@ -167,6 +179,26 @@ namespace Editor {
 				this->isMenuGoOpen = true;
 				this->createGoInput = "";
 				this->clickedGoId = go->GetId();
+			}
+
+			if (project->GetState() == ProjectState::Idle && GUI::BeginSourceDragDrop())
+			{
+				GUI::Text(go->GetName());
+				GUI::SetDragDropData("move_go", go->GetId());
+				GUI::EndSourceDragDrop();
+			}
+			
+			if (GUI::BeginDestinyDragDrop())
+			{
+				std::string goId = GUI::GetDragDropData("move_go");
+				
+				if (goId.size() > 0)
+				{
+					this->sourceGoId = goId;
+					this->destinyGoId = go->GetId();
+				}
+
+				GUI::EndDestinyDragDrop();
 			}
 
 			if (nodeOpen)
@@ -231,6 +263,9 @@ namespace Editor {
 				else
 					project->DestroyGameObject(this->clickedGoId);
 			}
+
+			if (project->GetState() == ProjectState::Idle && GUI::Selectable(this->guid + "move_top", "Move to Root"))
+				this->sourceGoId = this->clickedGoId;
 
 			GUI::EndPopUp();
 		}

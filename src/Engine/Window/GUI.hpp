@@ -173,8 +173,8 @@ namespace Window {
 		static bool BeginDestinyDragDrop();
 		static void EndDestinyDragDrop();
 
-		static void SetDragDropData(const std::string& label, void* data, unsigned int size);
-		static void* GetDragDropData(const std::string& label);
+		static void SetDragDropData(const std::string& label, std::string data);
+		static std::string GetDragDropData(const std::string& label);
 
 		// Tables
 		static bool BeginTable(const std::string& label, unsigned int columns);

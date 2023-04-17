@@ -125,7 +125,7 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -192,6 +192,7 @@
     <ClCompile Include="src\Engine\Input\Mouse.cpp" />
     <ClCompile Include="src\Engine\Project\Entities\GameObject.cpp" />
     <ClCompile Include="src\Engine\Project\Entities\GoExecution.cpp" />
+    <ClCompile Include="src\Engine\Project\Entities\GoMovement.cpp" />
     <ClCompile Include="src\Engine\Project\Entities\Script.cpp" />
     <ClCompile Include="src\Engine\Project\Entities\ScriptData.cpp" />
     <ClCompile Include="src\Engine\Project\Managers\ConnectionManager.cpp" />
@@ -287,6 +288,7 @@
     <ClInclude Include="src\Engine\Input\Mouse.hpp" />
     <ClInclude Include="src\Engine\Project\Entities\GameObject.hpp" />
     <ClInclude Include="src\Engine\Project\Entities\GoExecution.hpp" />
+    <ClInclude Include="src\Engine\Project\Entities\GoMovement.hpp" />
     <ClInclude Include="src\Engine\Project\Entities\Script.hpp" />
     <ClInclude Include="src\Engine\Project\Entities\ScriptData.hpp" />
     <ClInclude Include="src\Engine\Project\Managers\ConnectionManager.hpp" />

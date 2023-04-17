@@ -25,6 +25,7 @@ namespace Connection {
 
 		Utils::Lua::RegTable(this->state, "set_current", SetCurrent);
 		Utils::Lua::RegTable(this->state, "get_current", GetCurrent);
+		Utils::Lua::RegTable(this->state, "active_default", ActiveDefault);
 
 		Utils::Lua::RegTable(this->state, "clear", Clear);
 		Utils::Lua::RegTable(this->state, "set_clear_modes", SetClearModes);
@@ -130,12 +131,12 @@ namespace Connection {
 
 				config.renderBufferAttachment.type = GPU::GetRenderBufferAttachmentTypeFromString(str);
 
-				if (!Utils::Lua::GetTable(L, -1, "format", str))
+				if (!Utils::Lua::GetTable(L, -2, "format", str))
 					return luaL_error(L, "argument format needs to be a string");
 				
 				config.renderBufferAttachment.format = GPU::GetRenderBufferFormatFromString(str);
 
-				if (!Utils::Lua::GetTable(L, -1, "size", config.renderBufferAttachment.size))
+				if (!Utils::Lua::GetTable(L, -3, "size", config.renderBufferAttachment.size))
 					return luaL_error(L, "argument size needs to be a vec2");
 			}
 			else if(!lua_isnoneornil(L, -1)) 
@@ -309,6 +310,18 @@ namespace Connection {
 		return 1;
 	}
 
+	int FramebufferConnection::ActiveDefault(lua_State* L)
+	{
+		auto top = lua_gettop(L);
+
+		if (top != 0)
+			return luaL_error(L, "expecting 0 argument in function call");
+
+		GPU::Framebuffer::ActiveDefault();
+
+		return 0;
+	}
+
 	int FramebufferConnection::Clear(lua_State* L)
 	{
 		auto top = lua_gettop(L);
@@ -328,7 +341,7 @@ namespace Connection {
 			if (!Utils::Lua::GetTable(L, -3, "z", value.z))
 				return luaL_error(L, "argument z is expected to be a number");
 
-			if (!Utils::Lua::GetTable(L, -4, "w", value.z))
+			if (!Utils::Lua::GetTable(L, -4, "w", value.w))
 				return luaL_error(L, "argument w is expected to be a number");
 		}
 		else return luaL_error(L, "argument 1 is expected to be a table");
@@ -397,7 +410,7 @@ namespace Connection {
 			if (!Utils::Lua::GetTable(L, -3, "z", vec.z))
 				return luaL_error(L, "argument z is expected to be a number");
 
-			if (!Utils::Lua::GetTable(L, -4, "w", vec.z))
+			if (!Utils::Lua::GetTable(L, -4, "w", vec.w))
 				return luaL_error(L, "argument w is expected to be a number");
 		}
 		else return luaL_error(L, "argument 1 is expected to be a table");

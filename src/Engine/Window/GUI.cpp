@@ -849,19 +849,24 @@ namespace Window {
 		ImGui::EndDragDropTarget();
 	}
 
-	void GUI::SetDragDropData(const std::string& label, void* data, unsigned int size)
+	void GUI::SetDragDropData(const std::string& label, std::string data)
 	{
-		ImGui::SetDragDropPayload(label.c_str(), data, size);
+		ImGui::SetDragDropPayload(label.c_str(), data.c_str(), data.size());
 	}
 
-	void* GUI::GetDragDropData(const std::string& label)
+	std::string GUI::GetDragDropData(const std::string& label)
 	{
-		 auto payload = ImGui::AcceptDragDropPayload(label.c_str());
+		auto payload = ImGui::AcceptDragDropPayload(label.c_str());
 
-		 if (payload == nullptr)
-			 return nullptr;
+		if (payload == nullptr)
+			return "";
 
-		return payload->Data;
+		if (payload->Data == nullptr)
+			return "";
+
+		const char* data = (const char*)payload->Data;
+
+		return data;
 	}
 
 	bool GUI::BeginTable(const std::string& label, unsigned int columns)

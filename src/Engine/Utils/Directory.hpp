@@ -42,6 +42,11 @@ namespace Directory {
 	std::string GetResourcePath();
 
 	/// <summary>
+	/// Get the documents folder;
+	/// </summary>
+	std::string GetDocsPath();
+
+	/// <summary>
 	/// Get the log path;
 	/// </summary>
 	std::string GetLogPath();

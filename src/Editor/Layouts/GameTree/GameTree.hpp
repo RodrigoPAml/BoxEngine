@@ -15,6 +15,10 @@ namespace Editor {
 		std::string clickedGoId = "";
 		std::string createGoInput = "";
 
+		// To move gos
+		std::string sourceGoId = "";
+		std::string destinyGoId = "";
+
 		float minY = 0;
 		float maxX = 0;
 
