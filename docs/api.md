@@ -1,4 +1,4 @@
-# Log Module
+# Basic Module
 
 ## Log
 Log into the console
@@ -18,24 +18,24 @@ Log an error into the console
 function error(message = string) end
 ```
 
+## To String
+Transform any data type into a string and return it
+```lua
+function to_string(object = any) end
+```
+
 # Utils Module
 
 ## Get FPS
 Return a number with current fps
 ```lua
-function _utils_.get_fps() end
+function utils.get_fps() end
 ```
 
 ## Get Frame Time
 Return a number with current frametime
 ```lua
-function _utils_.get_frametime() end
-```
-
-## To String
-Transform any data type into a string and return it
-```lua
-function _utils_.to_string(object = any) end
+function utils.get_frametime() end
 ```
 
 # Time Module
@@ -43,13 +43,13 @@ function _utils_.to_string(object = any) end
 ## Get Timestamp
 Return a number with the timestamp in seconds since application started
 ```lua
-function _time_.get_timestamp() end
+function time.get_timestamp() end
 ```
 
 ## Get Date Time 
 Return a table with current date
 ```lua
-function _time_.get_datetime() end
+function time.get_datetime() end
 ```
 The returned table format is 
 ```lua
@@ -68,7 +68,7 @@ The returned table format is
 ## Current Go
 Return a number with current game object been executed
 ```lua
-function _go_.current() end
+function go.current() end
 ```
 
 ## Create Go
@@ -76,7 +76,7 @@ Create a gameobject
 
 Returns the id in case of success else return nil
 ```lua
-function _go_.create(arg = table) end
+function go.create(arg = table) end
 ```
 
 Argument table format
@@ -93,7 +93,7 @@ Destroy a gameobject, pass the id by argument
 
 Returns a boolean indicating success 
 ```lua
-function _go_.destroy(id = number) end
+function go.destroy(id = number) end
 ```
 
 ## Get Go
@@ -101,7 +101,7 @@ Get a gameobject, pass the id by argument
 
 Return a table with the go information if find it, else return nil
 ```lua
-function _go_.get(id = number) end
+function go.get(id = number) end
 ```
 Returned table format
 ```lua
@@ -131,7 +131,7 @@ Update a gameobject, pass the table by argument with update information
 
 Return a boolean indicating success
 ```lua
-function _go_.update(arg = table) end
+function go.update(arg = table) end
 ```
 
 The argument table format
@@ -142,6 +142,25 @@ The argument table format
 }
 ```
 
+## Change Go Father
+Change the gameobject father
+
+The second argument is optional, is not informed the go is set to the root
+
+Return a boolean indicating success
+```lua
+function go.change_father(goId = string, fatherId = string) end
+```
+
+## Change Go Index
+Change the gameobject index in relation to his brothers
+
+The displacement argument changes the index based on the current index
+
+```lua
+function go.change_index(goId = string, displacement = number) end
+```
+
 # Script Module
 
 ## Get Script
@@ -149,7 +168,7 @@ Get the script information from a gameobject
 
 If not find it then return nil
 ```lua
-function _script_.get(goId = number, scriptName = string) end
+function script.get(goId = number, scriptName = string) end
 ```
 
 The returned table format
@@ -167,7 +186,7 @@ Add the script into a gameobject
 
 Return a boolean indicating success
 ```lua
-function _script_.add(goId = number, scriptName = string) end
+function script.add(goId = number, scriptName = string) end
 ```
 
 ## Remove Script
@@ -175,7 +194,16 @@ Remove the script of a gameobject
 
 Return a boolean indicating success
 ```lua
-function _script_.remove(goId = number, scriptName = string) end
+function script.remove(goId = number, scriptName = string) end
+```
+
+## Change Script Index
+Change the script index in relation to his brothers
+
+The displacement argument changes the index based on the current index
+
+```lua
+function script.change_index(goId = string, scriptName = string, displacement = number) end
 ```
 
 # Camera 2D Module
@@ -184,7 +212,7 @@ function _script_.remove(goId = number, scriptName = string) end
 Create a 2D camera and return an id
 
 ```lua
-function _cam2d_.create(object = table) end
+function cam2d.create(object = table) end
 ```
 
 The argument table format
@@ -202,7 +230,7 @@ Destroy a 2D camera
 
 Recieve the camera id and return bool indicating success
 ```lua
-function _cam2d_.destroy(id = number) end
+function cam2d.destroy(id = number) end
 ```
 
 ## Get 2D Camera
@@ -210,7 +238,7 @@ Get a 2D camera
 
 Recieve the camera id and return a table or nil if not find it
 ```lua
-function _cam2d_.get(id = number) end
+function cam2d.get(id = number) end
 ```
 
 The returned table format
@@ -228,7 +256,7 @@ Get a 2D camera ortho matrix
 
 Recieve the camera id and return a table or nil if not find it
 ```lua
-function _cam2d_.get_matrix(id = number) end
+function cam2d.get_matrix(id = number) end
 ```
 
 The returned table format is a mat4
@@ -248,7 +276,7 @@ Recieve the camera id and a table with update info
 
 Return a bool indicating success
 ```lua
-function _cam2d_.update(id = number, info = table) end
+function cam2d.update(id = number, info = table) end
 ```
 
 The argument table format
@@ -268,7 +296,7 @@ Recieve the camera id
 
 Return a bool indicating success
 ```lua
-function _cam2d_.set_current(id = number) end
+function cam2d.set_current(id = number) end
 ```
 
 # Camera 3D Module
@@ -277,7 +305,7 @@ function _cam2d_.set_current(id = number) end
 Create a 3D camera and return an id
 
 ```lua
-function _cam3d_.create(object = table) end
+function cam3d.create(object = table) end
 ```
 
 The argument table format
@@ -297,7 +325,7 @@ The argument table format
 Destroy a 3D camera and return an bool indicating success
 
 ```lua
-function _cam3d_.destroy(id = number) end
+function cam3d.destroy(id = number) end
 ```
 
 ## Update 3D Camera
@@ -305,7 +333,7 @@ Update a 3D camera and return an bool indicating sucess
 
 Recieve the camera id and a table with update info
 ```lua
-function _cam3d_.update(id = number, object = table) end
+function cam3d.update(id = number, object = table) end
 ```
 
 The argument table format
@@ -327,7 +355,7 @@ Get a 3D camera and return a table, if not find it return nil
 
 Recieve the camera id and a table with update info
 ```lua
-function _cam3d_.get(id = number, object = table) end
+function cam3d.get(id = number, object = table) end
 ```
 
 The returned table format
@@ -351,7 +379,7 @@ Translate a 3D camera relation to its basis vectors and return an bool indicatin
 
 Recieve the camera id and a table with translation info
 ```lua
-function _cam3d_.translate(id = number, object = table) end
+function cam3d.translate(id = number, object = table) end
 ```
 
 The argument table format
@@ -367,7 +395,7 @@ Translate a 3D camera relation to the axis and return an bool indicating success
 
 Recieve the camera id and a table with translation info
 ```lua
-function _cam3d_.translate_abs(id = number, object = table) end
+function cam3d.translate_abs(id = number, object = table) end
 ```
 
 The argument table format
@@ -383,7 +411,7 @@ Rotate a 3D camera and return an bool indicating success
 
 Recieve the camera id and a table with rotation info
 ```lua
-function _cam3d_.rotate(id = number, object = table) end
+function cam3d.rotate(id = number, object = table) end
 ```
 
 The argument table format
@@ -400,7 +428,7 @@ Recieve the camera id and return the view matrix in mat4 format
 Return nil if not find it
 
 ```lua
-function _cam3d_.get_view_matrix(id = number) end
+function cam3d.get_view_matrix(id = number) end
 ```
 
 The returned table format
@@ -419,7 +447,7 @@ Recieve the camera id and return the projection matrix in mat4 format
 Return nil if not find it
 
 ```lua
-function _cam3d_.get_projection_matrix(id = number) end
+function cam3d.get_projection_matrix(id = number) end
 ```
 
 The returned table format
@@ -437,7 +465,7 @@ Recieve the camera id and set as current camera
 
 Return a bool indicating success
 ```lua
-function _cam3d_.set_current(id = number) end
+function cam3d.set_current(id = number) end
 ```
 
 # Drawing Module
@@ -446,7 +474,7 @@ function _cam3d_.set_current(id = number) end
 Draw a 2D rectangle
 
 ```lua
-function _draw2d_.rect(object = table) end
+function draw2d.rect(object = table) end
 ```
 
 The argument table format
@@ -464,7 +492,7 @@ The argument table format
 Draw a 2D circle
 
 ```lua
-function _draw2d_.circle(object = table) end
+function draw2d.circle(object = table) end
 ```
 
 The argument table format
@@ -482,7 +510,7 @@ The argument table format
 Draw a 2D triangle
 
 ```lua
-function _draw2d_.triangle(object = table) end
+function draw2d.triangle(object = table) end
 ```
 
 The argument table format
@@ -500,7 +528,7 @@ The argument table format
 Draw a 2D line
 
 ```lua
-function _draw2d_.line(object = table) end
+function draw2d.line(object = table) end
 ```
 
 The argument table format
@@ -516,7 +544,7 @@ The argument table format
 Draw a 2D point
 
 ```lua
-function _draw2d_.point(object = table) end
+function draw2d.point(object = table) end
 ```
 
 The argument table format
@@ -531,7 +559,7 @@ The argument table format
 Draw a 2d texture
 
 ```lua
-function _draw2d_.texture(object = table) end
+function draw2d.texture(object = table) end
 ```
 
 The argument table format
@@ -548,7 +576,7 @@ The argument table format
 Draw a 3D cube
 
 ```lua
-function _draw3d_.cube(object = table) end
+function draw3d.cube(object = table) end
 ```
 
 The argument table format
@@ -566,7 +594,7 @@ The argument table format
 Draw a 3D sphere
 
 ```lua
-function _draw3d_.sphere(object = table) end
+function draw3d.sphere(object = table) end
 ```
 
 The argument table format
@@ -584,7 +612,7 @@ The argument table format
 Draw a 3D point
 
 ```lua
-function _draw3d_.point(object = table) end
+function draw3d.point(object = table) end
 ```
 
 The argument table format
@@ -599,7 +627,7 @@ The argument table format
 Draw a 3D line
 
 ```lua
-function _draw3d_.line(object = table) end
+function draw3d.line(object = table) end
 ```
 
 The argument table format
@@ -615,7 +643,7 @@ The argument table format
 Draw a 3D rect
 
 ```lua
-function _draw3d_.rect(object = table) end
+function draw3d.rect(object = table) end
 ```
 
 The argument table format
@@ -633,7 +661,7 @@ The argument table format
 Draw a 3D triangle
 
 ```lua
-function _draw3d_.triangle(object = table) end
+function draw3d.triangle(object = table) end
 ```
 
 The argument table format
@@ -651,7 +679,7 @@ The argument table format
 Draw a 3D circle
 
 ```lua
-function _draw3d_.circle(object = table) end
+function draw3d.circle(object = table) end
 ```
 
 The argument table format
@@ -671,7 +699,7 @@ The argument table format
 Return a table with current window size
 
 ```lua
-function _window_.get_window_size() end
+function window.getwindowsize() end
 ```
 
 The returned table format
@@ -686,7 +714,7 @@ The returned table format
 Return a table with current editor window size
 
 ```lua
-function _window_.get_editor_window_size() end
+function window.get_editorwindowsize() end
 ```
 
 The returned table format
@@ -701,7 +729,7 @@ The returned table format
 Return a table with the window limits
 
 ```lua
-function _window_.get_window_limits() end
+function window.getwindowlimits() end
 ```
 
 The returned table format
@@ -714,13 +742,13 @@ The returned table format
 }
 ```
 
-# Directory
+# Directory Module
 
 ## Read File
 Open a file and return its contents
 
 ```lua
-function _dir_.read_file(file_name = string) end
+function dir.read_file(file_name = string) end
 ```
 
 The returned table format
@@ -735,122 +763,122 @@ The returned table format
 Create a file with optional content and return a bool indicating success
 
 ```lua
-function _dir_.create_file(file_name = string, content = string) end
+function dir.create_file(file_name = string, content = string) end
 ```
 
 ## Create Folder
 Create a folder and return a bool indicating success
 
 ```lua
-function _dir_.create_folder(folder_name = string) end
+function dir.create_folder(folder_name = string) end
 ```
 
 ## Move
 Move a folder or file and return a bool indicating success
 
 ```lua
-function _dir_.move(from = string, to = string) end
+function dir.move(from = string, to = string) end
 ```
 
 ## Copy
 Copy a folder or file and return a bool indicating success
 
 ```lua
-function _dir_.copy(from = string, to = string) end
+function dir.copy(from = string, to = string) end
 ```
 
 ## Delete
 Delete a folder or file and return a bool indicating success
 
 ```lua
-function _dir_.delete(path = string) end
+function dir.delete(path = string) end
 ```
 
 ## Is File
 Return a bool indicating if the provided path is a file
 
 ```lua
-function _dir_.is_file(path = string) end
+function dir.is_file(path = string) end
 ```
 
 ## Is Directory
 Return a bool indicating if the provided path is a directory
 
 ```lua
-function _dir_.is_dir(path = string) end
+function dir.is_dir(path = string) end
 ```
 
 ## Exists
 Return a bool indicating if the provided path/file exists
 
 ```lua
-function _dir_.exists(path = string) end
+function dir.exists(path = string) end
 ```
 
 ## Get Current Path
 Return the executable path
 
 ```lua
-function _dir_.get_current_path() end
+function dir.get_current_path() end
 ```
 
 ## Get Base Path
 Return the base project path
 
 ```lua
-function _dir_.get_base_path() end
+function dir.get_base_path() end
 ```
 
 ## Get Assets Path
 Return the assets path
 
 ```lua
-function _dir_.get_assets_path() end
+function dir.get_assets_path() end
 ```
 
 ## Get Logs Path
 Return the logs path
 
 ```lua
-function _dir_.get_logs_path() end
+function dir.get_logs_path() end
 ```
 
 ## List Directories
 Return the an table with the content of a directory, if not exists return nil
 
 ```lua
-function _dir_.list_dir(path = string) end
+function dir.list_dir(path = string) end
 ```
 
 ## Reduce Path By
 Reduce a path n times and return it
 
 ```lua
-function _dir_.reduce_path_by(path = string, n = number) end
+function dir.reduce_path_by(path = string, n = number) end
 ```
 
 ## Get File Name Extension
 Recieve a file path and return the extension
 
 ```lua
-function _dir_.get_file_name_ext(path = string) end
+function dir.get_file_name_ext(path = string) end
 ```
 
 ## Get Path Or File Name
 Recieve a file or dir path and return only its name
 
 ```lua
-function _dir_.get_path_or_file_name(path = string) end
+function dir.get_path_or_file_name(path = string) end
 ```
 
 ## Get File Name No Extension
 Recieve a file path and return only its name without extension
 
 ```lua
-function _dir_.get_file_name_no_ext(path = string) end
+function dir.get_file_name_no_ext(path = string) end
 ```
 
-# Input
+# Input Module
 
 ## Get Keyboard Key
 Get the key status
@@ -860,7 +888,7 @@ Argument is a string in KeyboardKey format (see last chapter below)
 Return the result as a string in InputAction format (see last chapter below)
 
 ```lua
-function _input_.get_key(key = string) end
+function input.get_key(key = string) end
 ```
 
 ## Get Modifier Key
@@ -871,21 +899,21 @@ Argument is a string in KeyModifier format (see last chapter below)
 Return the result as a string in InputAction format (see last chapter below)
 
 ```lua
-function _input_.get_mod(key = string) end
+function input.get_mod(key = string) end
 ```
 
 ## Get Mouse Position
 Return a vec2 with mouse coordinates
 
 ```lua
-function _input_.get_mouse_pos() end
+function input.get_mouse_pos() end
 ```
 
 ## Get Mouse Variation
 Return a vec2 with mouse variations
 
 ```lua
-function _input_.get_mouse_variation() end
+function input.get_mouse_variation() end
 ```
 
 ## Get Mouse Button
@@ -896,10 +924,10 @@ Argument is a string in MouseButton format (see last chapter below)
 Return the result as a string in InputAction format (see last chapter below)
 
 ```lua
-function _input_.get_mouse_button(key = string) end
+function input.get_mouse_button(key = string) end
 ```
 
-# Image
+# Image Module
 
 ## Open
 Open a image and return its info
@@ -909,7 +937,7 @@ Argument is a string with path
 Return the result as a table or nil if failed
 
 ```lua
-function _img_.open(key = string) end
+function img.open(path = string) end
 ```
 The returned table format
 ```lua
@@ -925,106 +953,106 @@ The returned table format
 }
 ```
 
-# Command
+# Command Module
 
 ## Enable VSync
 Enables the vsync
 
 ```lua
-function _comand_.enable_vsync() end
+function command.enable_vsync() end
 ```
 
 ## Disable VSync
 Disables the vsync
 
 ```lua
-function _comand_.disable_vsync() end
+function command.disable_vsync() end
 ```
 
 ## Enable Depth Testing
 Enables the depth testing
 
 ```lua
-function _comand_.enable_depth_testing() end
+function command.enable_depth_testing() end
 ```
 
 ## Disable Depth Testing
 Disables the depth testing
 
 ```lua
-function _comand_.disable_depth_testing() end
+function command.disable_depth_testing() end
 ```
 
 ## Set Depth Testing Mode
 Set the depth testing mode, receive a string in Depth Testing Mode format (see below enums)
 
 ```lua
-function _comand_.set_depth_testing_mode(mode = string) end
+function command.set_depth_testing_mode(mode = string) end
 ```
 
 ## Enable Culling Face
 Enable the face culling
 
 ```lua
-function _comand_.enable_culling_face() end
+function command.enable_culling_face() end
 ```
 
 ## Disable Culling Face
 Disable the face culling
 
 ```lua
-function _comand_.disable_culling_face() end
+function command.disable_culling_face() end
 ```
 ## Set Culling Face Mode
 Set the face culling mode with Culling Face Mode format (see enums below)
 
 ```lua
-function _comand_.set_culling_face_mode(mode = string) end
+function command.set_culling_face_mode(mode = string) end
 ```
 
 ## Set Primitive Line Size
 Set the primitive Line size, recieve as argument with number type
 
 ```lua
-function _comand_.set_primitive_line_size(size = number) end
+function command.set_primitive_line_size(size = number) end
 ```
 
 ## Set Primitive Point Size
 Set the primitive point size, recieve as argument with number type
 
 ```lua
-function _comand_.set_primitive_point_size(size = number) end
+function command.set_primitive_point_size(size = number) end
 ```
 
 ## Set Polygon Draw Mode
 Set the polygons draw mode in Polygon Mode string format (see enums below)
 
 ```lua
-function _comand_.set_polygon_draw_mode(mode = string) end
+function command.set_polygon_draw_mode(mode = string) end
 ```
 
 ## Enable Blending
 Enables the blending
 
 ```lua
-function _comand_.enable_blending() end
+function command.enable_blending() end
 ```
 
 ## Disable Blending
 Disables the blending
 
 ```lua
-function _comand_.disable_blending() end
+function command.disable_blending() end
 ```
 
-# Shader
+# Shader Module
 
 ## Create Shader
 Create a shader, receive a table with creation information
 
 Return id if success else return nil
 ```lua
-function _shader_.create(arg = table) end
+function shader.create(arg = table) end
 ```
 The argument table format
 ```lua
@@ -1040,7 +1068,7 @@ Delete a shader, receive the id
 
 Return bool indicating success
 ```lua
-function _shader_.destroy(id = number) end
+function shader.destroy(id = number) end
 ```
 
 ## Activate Shader
@@ -1048,14 +1076,14 @@ Activate a shader, receive the id
 
 Return bool indicating success
 ```lua
-function _shader_.activate(id = number) end
+function shader.activate(id = number) end
 ```
 
 ## Disable Current Shader
 Disable the current active shader
 
 ```lua
-function _shader_.unactive_all() end
+function shader.unactive_all() end
 ```
 
 ## Set Shader Bool
@@ -1063,7 +1091,7 @@ Set bool variable into shader, receive the id and data information
 
 Return bool indicating success
 ```lua
-function _shader_.set_bool(id = number, name = string, value = bool) end
+function shader.set_bool(id = number, name = string, value = bool) end
 ```
 
 ## Set Shader Integer
@@ -1071,7 +1099,7 @@ Set integer variable into shader, receive the id and data information
 
 Return bool indicating success
 ```lua
-function _shader_.set_int(id = number, name = string, value = number) end
+function shader.set_int(id = number, name = string, value = number) end
 ```
 
 ## Set Shader Float
@@ -1079,7 +1107,7 @@ Set float variable into shader, receive the id and data information
 
 Return bool indicating success
 ```lua
-function _shader_.set_float(id = number, name = string, value = number) end
+function shader.set_float(id = number, name = string, value = number) end
 ```
 
 ## Set Shader XY
@@ -1087,7 +1115,7 @@ Set XY (separated vec2) variable into shader, receive the id and data informatio
 
 Return bool indicating success
 ```lua
-function _shader_.set_xy(id = number, name = string, x = number, y = number) end
+function shader.set_xy(id = number, name = string, x = number, y = number) end
 ```
 
 ## Set Shader XYZ
@@ -1095,7 +1123,7 @@ Set XYZ (separated vec3) variable into shader, receive the id and data informati
 
 Return bool indicating success
 ```lua
-function _shader_.set_xyz(id = number, name = string, x = number, y = number, z = number) end
+function shader.set_xyz(id = number, name = string, x = number, y = number, z = number) end
 ```
 
 ## Set Shader XYZW
@@ -1103,7 +1131,7 @@ Set XYZW (separated vec4) variable into shader, receive the id and data informat
 
 Return bool indicating success
 ```lua
-function _shader_.set_xyzw(id = number, name = string, x = number, y = number, z = number, w = number) end
+function shader.set_xyzw(id = number, name = string, x = number, y = number, z = number, w = number) end
 ```
 
 ## Set Shader vec2
@@ -1111,7 +1139,7 @@ Set a vec2 variable into shader, receive the id and data information
 
 Return bool indicating success
 ```lua
-function _shader_.set_vec2(id = number, name = string, {x = number, y = number}) end
+function shader.set_vec2(id = number, name = string, {x = number, y = number}) end
 ```
 
 ## Set Shader vec3
@@ -1119,7 +1147,7 @@ Set vec3 variable into shader, receive the id and data information
 
 Return bool indicating success
 ```lua
-function _shader_.set_vec3(id = number, name = string, {x = number, y = number, z = number}) end
+function shader.set_vec3(id = number, name = string, {x = number, y = number, z = number}) end
 ```
 
 ## Set Shader vec4
@@ -1127,7 +1155,7 @@ Set vec4 variable into shader, receive the id and data information
 
 Return bool indicating success
 ```lua
-function _shader_.set_vec4(id = number, name = string, { x = number, y = number, z = number, w = number}) end
+function shader.set_vec4(id = number, name = string, { x = number, y = number, z = number, w = number}) end
 ```
 
 ## Set Shader mat2
@@ -1135,7 +1163,7 @@ Set mat2 variable into shader, receive the id and data information
 
 Return bool indicating success
 ```lua
-function _shader_.set_mat2(id = number, name = string, mat2 = table) end
+function shader.set_mat2(id = number, name = string, mat2 = table) end
 ```
 
 The argument table format
@@ -1151,7 +1179,7 @@ Set mat3 variable into shader, receive the id and data information
 
 Return bool indicating success
 ```lua
-function _shader_.set_mat3(id = number, name = string, mat3 = table) end
+function shader.set_mat3(id = number, name = string, mat3 = table) end
 ```
 
 The argument table format
@@ -1168,7 +1196,7 @@ Set mat4 variable into shader, receive the id and data information
 
 Return bool indicating success
 ```lua
-function _shader_.set_mat4(id = number, name = string, mat4 = table) end
+function shader.set_mat4(id = number, name = string, mat4 = table) end
 ```
 
 The argument table format
@@ -1181,14 +1209,14 @@ The argument table format
 }
 ```
 
-# Texture
+# Texture Module
 
 ## Create Empty Texture
 Create a empty texture, receive a table with creation information
 
 Return id if success else return nil
 ```lua
-function _texture_.create_empty(arg = table) end
+function texture.create_empty(arg = table) end
 ```
 The argument table format
 ```lua
@@ -1211,7 +1239,7 @@ Create a texture, receive a table with creation information
 
 Return id if success else return nil
 ```lua
-function _texture_.create(arg = table) end
+function texture.create(arg = table) end
 ```
 The argument table format
 ```lua
@@ -1231,7 +1259,7 @@ Destroy a texture, receive the id
 
 Return bool indicating success
 ```lua
-function _texture_.destroy(id = number) end
+function texture.destroy(id = number) end
 ```
 
 ## Active Texture
@@ -1239,24 +1267,24 @@ Active a texture, receive the id and the texture unit slot as a number
 
 Return bool indicating success
 ```lua
-function _texture_.active(id = number, slot = number) end
+function texture.active(id = number, slot = number) end
 ```
 
 ## Disable Texture Unit
 Remove any texture at a texture unit slot
 
 ```lua
-function _texture_.disable_texture_unit(slot = number) end
+function texture.disabletextureunit(slot = number) end
 ```
 
-# Framebuffer
+# Framebuffer Module
 
 ## Create Framebuffer
 Create a framebuffer, receive a table with creation information
 
 Return id if success else return nil
 ```lua
-function _framebuffer_.create(arg = table) end
+function framebuffer.create(arg = table) end
 ```
 The argument table format
 ```lua
@@ -1277,7 +1305,7 @@ Destroy a framebuffer, receive the id
 
 Return bool indicating success
 ```lua
-function _framebuffer_.destroy(id = number) end
+function framebuffer.destroy(id = number) end
 ```
 
 ## Active Framebuffer
@@ -1285,21 +1313,21 @@ Active a framebuffer, receive the id
 
 Return bool indicating success
 ```lua
-function _framebuffer_.active(id = number) end
+function framebuffer.active(id = number) end
 ```
 
 ## Active Default Framebuffer
 Active the default screen buffer of the window
 
 ```lua
-function _framebuffer_.active_default() end
+function framebuffer.active_default() end
 ```
 
 ## Get Framebuffer Attachments Size
 Receive the framebuffer id and return a framebuffer number of texture attachments, else nil if not finded
 
 ```lua
-function _framebuffer_.get_attachments_size(id = number) end
+function framebuffer.get_attachments_size(id = number) end
 ```
 
 ## Get Framebuffer Attachment
@@ -1307,7 +1335,7 @@ Receive the framebuffer id and the texture attachment position
 
 Return the id of the texture attachment, else nil if not finded
 ```lua
-function _framebuffer_.get_attachment(id = number, index = number) end
+function framebuffer.get_attachment(id = number, index = number) end
 ```
 
 ## Set Current Framebuffer 
@@ -1315,7 +1343,7 @@ Receive the framebuffer id and the set as current used
 
 Return the bool indicating success
 ```lua
-function _framebuffer_.set_current(id = number, index = number) end
+function framebuffer.set_current(id = number, index = number) end
 ```
 
 ## Get Current Framebuffer 
@@ -1323,21 +1351,21 @@ Get the current framebuffer id
 
 Return the id if exists, else nil
 ```lua
-function _framebuffer_.get_current() end
+function framebuffer.get_current() end
 ```
 
 ## Clear Current Framebuffer
 Clear the current framebuffer
 
 ```lua
-function _framebuffer_.clear(color = vec4) end
+function framebuffer.clear(color = vec4) end
 ```
 
 ## Set Framebuffer Clear Modes
 Set the framebuffer clear modes
 
 ```lua
-function _framebuffer_.set_clear_modes(modes = table) end
+function framebuffer.set_clear_modes(modes = table) end
 ```
 
 The argument table format
@@ -1353,7 +1381,7 @@ The argument table format
 Set current view port, recieve a vec4 format table
 
 ```lua
-function _framebuffer_.set_viewport(viewport = table) end
+function framebuffer.set_viewport(viewport = table) end
 ```
 
 The argument table format
@@ -1366,14 +1394,14 @@ The argument table format
 }
 ```
 
-# Vertex
+# Vertex Module
 
 ## Create Vertex Data
 Create a vertex data, receive a table with creation information, and an optional table with index data
 
 Return id if success else return nil
 ```lua
-function _vertex_.create(vertexData = table, indexData = table) end
+function vertex.create(vertexData = table, indexData = table) end
 ```
 The first argument table format
 ```lua
@@ -1421,7 +1449,7 @@ Destroy a vertex data, receive the id
 
 Return bool indicating success
 ```lua
-function _vertex_.destroy(id = number) end
+function vertex.destroy(id = number) end
 ```
 
 ## Activate Vertex Data
@@ -1429,7 +1457,7 @@ Activate a vertex data, receive the id
 
 Return bool indicating success
 ```lua
-function _vertex_.activate(id = number) end
+function vertex.activate(id = number) end
 ```
 
 ## Call to Draw Vertex Data
@@ -1439,7 +1467,7 @@ drawMode is in Drawing Type format (see enums below)
 
 Return bool indicating success
 ```lua
-function _vertex_.draw(id = number, drawMode = string) end
+function vertex.draw(id = number, drawMode = string) end
 ```
 
 ## Modify Vertex Data
@@ -1447,7 +1475,7 @@ Modify a vertex data, receive the id and modification data as a table
 
 Return bool indicating success
 ```lua
-function _vertex_.modify(id = number, modifyData = table) end
+function vertex.modify(id = number, modifyData = table) end
 ```
 
 The argument table format
@@ -1471,10 +1499,10 @@ Return id of vertex data
 dataUse argument is in Data Use format (see enums below)
 
 ```lua
-function _generator_.gen_2d_point(dataUse = string) end
-function _generator_.gen_2d_line(dataUse = string, filled = bool) end
-function _generator_.gen_2d_circle(dataUse = string, filled = bool, segments = number) end
-function _generator_.gen_2d_triangle(dataUse = string, filled = bool) end
+function generator.gen_2d_point(dataUse = string) end
+function generator.gen_2d_line(dataUse = string, filled = bool) end
+function generator.gen_2d_circle(dataUse = string, filled = bool, segments = number) end
+function generator.gen_2d_triangle(dataUse = string, filled = bool) end
 ```
 
 ## Generate 3D meshes
@@ -1483,13 +1511,129 @@ Return id of vertex data
 dataUse argument is in Data Use format (see enums below)
 
 ```lua
-function _generator_.gen_3d_circle(dataUse = string, filled = bool, segments = number) end
-function _generator_.gen_3d_cube(dataUse = string, filled = bool) end
-function _generator_.gen_3d_line(dataUse = string) end
-function _generator_.gen_3d_point(dataUse = string) end
-function _generator_.gen_3d_rect(dataUse = string, filled = bool) end
-function _generator_.gen_3d_sphere(dataUse = string, filled = bool, segments = number) end
-function _generator_.gen_3d_triangle(dataUse = string, filled = bool) end
+function generator.gen_3d_circle(dataUse = string, filled = bool, segments = number) end
+function generator.gen_3d_cube(dataUse = string, filled = bool) end
+function generator.gen_3d_line(dataUse = string) end
+function generator.gen_3d_point(dataUse = string) end
+function generator.gen_3d_rect(dataUse = string, filled = bool) end
+function generator.gen_3d_sphere(dataUse = string, filled = bool, segments = number) end
+function generator.gen_3d_triangle(dataUse = string, filled = bool) end
+```
+
+# Audio Module
+
+## Create Audio
+
+Returns id if success, else return nil
+
+```lua
+function audio.create2D(path = string) end
+function audio.create3D(path = string) end
+```
+
+## Destroy Audio
+
+```lua
+function audio.destroy(id = number) end
+```
+
+## Pause/Resume Audio
+
+```lua
+function audio.pause(id = number) end
+function audio.resume(id = number) end
+```
+
+## Check if audio has finished playing
+
+```lua
+function audio.is_finished(id = number) end
+```
+
+## Get/Set the position of the audio
+
+Returns vec3
+
+```lua
+function audio.get_position(id = number) end
+function audio.set_position(id = number, vec3) end
+```
+## Get/Set the velocity of playing 
+
+```lua
+function audio.set_velocity(id = number, vec3) end
+function audio.get_velocity(id = number) end
+```
+
+## Get/Set the audio to play in loop
+
+```lua
+function audio.set_loop(id = number, bool) end
+function audio.get_loop(id = number) end
+```
+
+## Get/Set the minimal distance
+
+Changes the distance at which the 3D sound stops getting louder
+
+```lua
+function audio.set_min_distance(id, number) end
+function audio.get_min_distance(id) end
+```
+
+## Get/Set the max distance
+
+This value causes the sound to stop attenuating after it reaches the max distance
+
+```lua
+function audio.set_max_distance(id, number) end
+function audio.get_max_distance(id) end
+```
+
+## Get/Set the max distance
+
+The balance of the sound, value between -1 and 1
+
+```lua
+function audio.set_pan(id, number) end
+function audio.get_pan(id) end
+```
+
+## Get/Set the speed
+
+Plays the sound at a higher or lower speed, increasing or decreasing its frequency which makes it sound lower or higher
+
+```lua
+function audio.set_speed(id, number) end
+function audio.get_speed(id) end
+```
+
+## Get the play max length
+
+Returns the play lenght of the audio (number)
+
+```lua
+function audio.get_length(id) end
+```
+
+## Get/Set the position of playing of the audio (0 to max)
+
+```lua
+function audio.set_play_position(id, number) end
+function audio.get_play_position(id) end
+```
+
+## Get/Set the audio volume
+
+```lua
+function audio.set_volume(id, number) end
+function audio.get_volume(id) end
+```
+
+## Set the position of the listener in the world (global)
+
+```lua
+function audio.set_listener_position(vec3) end
 ```
 
 # Enums

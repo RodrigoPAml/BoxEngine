@@ -5,6 +5,18 @@ namespace BoxEngine {
 namespace Project {
 
 	/// <summary>
+	/// Represents an execution type
+	/// </summary>
+	enum class ExecutionType
+	{
+		Normal, // Start, Update, Destroy (scripts)
+		Destroy, // Destroy (go)
+		Movement, // Change father (go)
+		IndexChange, // Change position relative to the father (go)
+		ScriptIndexChange, // Change script index change (script)
+	};
+
+	/// <summary>
 	/// Represents the project state.
 	/// </summary>
 	enum class ProjectState

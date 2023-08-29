@@ -31,6 +31,9 @@ extern "C"
 	#include "lualib.h"
 }
 
+// IrrKlang sound
+#include <irrKlang.h>
+
 // C++ Headers
 #include <iostream>
 #include <string>
@@ -108,6 +111,8 @@ extern "C"
 #include <Engine/Drawing/Primitives2D.hpp>
 #include <Engine/Drawing/Primitives3D.hpp>
 
+#include <Engine/Audio/Audio.hpp>
+
 #include <Engine/Data/ProjectEnums.hpp>
 #include <Engine/Data/ProjectUtils.hpp>
 
@@ -117,7 +122,6 @@ extern "C"
 #include <Engine/Project/Entities/GameObject.hpp>
 #include <Engine/Serialization/Serialization.hpp>
 #include <Engine/Project/Entities/GoExecution.hpp>
-#include <Engine/Project/Entities/GoMovement.hpp>
 #include <Engine/Data/ProjectData.hpp>
 
 #include <Engine/Utils/Lua.hpp>
@@ -138,6 +142,7 @@ extern "C"
 #include <Engine/Project/Managers/Connections/Log/LogConnection.hpp>
 #include <Engine/Project/Managers/Connections/Utils/UtilsConnection.hpp>
 #include <Engine/Project/Managers/Connections/Scene/GoScriptConnection.hpp>
+#include <Engine/Project/Managers/Connections/Audio/AudioConnection.hpp>
 
 #include <Engine/Project/Managers/ConnectionManager.hpp>
 #include <Engine/Project/Managers/ScriptManager.hpp>

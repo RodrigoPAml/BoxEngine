@@ -70,9 +70,9 @@ namespace Editor {
 		this->bottomBar.ClearLogs();
 	}
 
-	void Editor::InspectGo(Project::GameObjectWeakPtr go)
+	void Editor::InspectGo(std::string goId)
 	{
-		this->inspector.InspectGo(go);
+		this->inspector.InspectGo(goId);
 	}
 
 	glm::vec2 Editor::GetTopStartPoint() const

@@ -79,12 +79,7 @@ namespace Editor {
 			GUI::ContinueSameLine();
 
 			if (GUI::ImageButton(this->guid + "add_go_global", GUI::GetIcon("add.png")))
-			{
-				if(project->GetState() == ProjectState::Idle)
-					Project::GetCurrentProject()->AddGameObjectInEditor("New Game Object");
-				else 
-					project->AddGameObject("New Game Object", true);
-			}
+				project->AddGameObject("New Game Object", true);
 
 			if (GUI::IsCurrentItemHovered())
 			{
@@ -137,7 +132,7 @@ namespace Editor {
 
 		if (this->sourceGoId.size() > 0)
 		{
-			project->ChangeGoFatherEditor(this->sourceGoId, this->destinyGoId);
+			project->ChangeGoFather(this->sourceGoId, this->destinyGoId);
 			this->sourceGoId = "";
 			this->destinyGoId = "";
 		}
@@ -172,7 +167,7 @@ namespace Editor {
 			GUI::ContinueSameLine();
 
 			if (GUI::Selectable(go->GetId(), go->GetName()))
-				Editor::GetCurrentEditor()->InspectGo(go);
+				Editor::GetCurrentEditor()->InspectGo(go->GetId());
 
 			if (GUI::IsCurrentItemClickedRight())
 			{
@@ -181,7 +176,7 @@ namespace Editor {
 				this->clickedGoId = go->GetId();
 			}
 
-			if (project->GetState() == ProjectState::Idle && GUI::BeginSourceDragDrop())
+			if (GUI::BeginSourceDragDrop())
 			{
 				GUI::Text(go->GetName());
 				GUI::SetDragDropData("move_go", go->GetId());
@@ -245,11 +240,7 @@ namespace Editor {
 				GUI::ContinueSameLine();
 				if (GUI::Button("Create"))
 				{
-					if(project->GetState() == ProjectState::Idle)
-						project->AddGameObjectInEditor(this->createGoInput, this->clickedGoId);
-					else 
-						project->AddGameObject(this->createGoInput, true, this->clickedGoId);
-
+					project->AddGameObject(this->createGoInput, true, this->clickedGoId);
 					GUI::CloseCurrentPopUp();
 				}
 
@@ -257,14 +248,12 @@ namespace Editor {
 			}
 
 			if (GUI::Selectable(this->guid + "delete_go", "Delete"))
-			{
-				if (project->GetState() == ProjectState::Idle)
-					project->RemoveGameObjectInEditor(this->clickedGoId);
-				else
-					project->DestroyGameObject(this->clickedGoId);
-			}
+				project->DestroyGameObject(this->clickedGoId);
 
-			if (project->GetState() == ProjectState::Idle && GUI::Selectable(this->guid + "move_top", "Move to Root"))
+			if (GUI::Selectable(this->guid + "duplicate_go", "Duplicate"))
+				project->DuplicateGo(this->clickedGoId);
+
+			if (GUI::Selectable(this->guid + "move_top", "Move to Root"))
 				this->sourceGoId = this->clickedGoId;
 
 			GUI::EndPopUp();

@@ -28,7 +28,7 @@ namespace Editor {
 		bool openAddScriptModal = false;
 
 		std::string scriptFilter = "";
-		Project::GameObjectWeakPtr go;
+		std::string goId;
 		std::string goName = "";
 		std::string scriptDataName = "";
 		int scriptDataType = 0;
@@ -42,7 +42,7 @@ namespace Editor {
 		void Start();
 		void Update();
 		void InspectProjectSettings();
-		void InspectGo(Project::GameObjectWeakPtr go);
+		void InspectGo(std::string goId);
 
 		void SetMinY(float value);
 		float GetMinX() const;

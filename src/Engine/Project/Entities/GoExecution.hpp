@@ -11,31 +11,60 @@ namespace Project {
 	{
 	private:
 		/// <summary>
-		/// Go of instruction
+		/// Execution type
 		/// </summary>
-		GameObjectPtr go;
+		ExecutionType type;
+
+		/// <summary>
+		/// Go of the instruction
+		/// </summary>
+		GameObjectPtr go = nullptr;
 
 		/// <summary>
 		/// Script of the instruction
 		/// </summary>
-		ScriptPtr script;
+		ScriptPtr script = nullptr;
 
 		/// <summary>
 		/// The instruction
 		/// </summary>
-		std::string command;
+		std::string command = "";
 
 		/// <summary>
-		/// If the go is to be destroyed with it scripts
+		/// The new index if instruction is for change go or script position
 		/// </summary>
-		bool isDestroy = false;
+		int newIndex = -1;
+
+		/// <summary>
+		/// The new index father of the go
+		/// </summary>
+		std::string newFather = "";
 	public:
+		// For normal commands on script
 		GoExecution(GameObjectPtr go, ScriptPtr script, std::string command);
+		
+		// For destroy go
+		GoExecution(GameObjectPtr go);
+
+		// Change script index
+		GoExecution(GameObjectPtr go, ScriptPtr script, unsigned int newIndex);
+
+		// Change go index
+		GoExecution(GameObjectPtr go, unsigned int newIndex);
+
+		// Change go father
+		GoExecution(GameObjectPtr go, std::string fatherId);
 
 		/// <summary>
-		/// Get game object of instruction.
+		/// Get Execution type
 		/// </summary>
-		GameObjectPtr GetGo() const;
+		/// <returns></returns>
+		ExecutionType GetType() const;
+
+		/// <summary>
+		/// Get go of instruction.
+		/// </summary>
+		GameObjectPtr GetGameObject() const;
 
 		/// <summary>
 		/// Get script of instruction.
@@ -49,14 +78,15 @@ namespace Project {
 		std::string GetCommand() const;
 
 		/// <summary>
-		/// If the go is destroyed.
+		/// Get the new index for go or script
 		/// </summary>
 		/// <returns></returns>
-		bool IsDestroyed() const;
-
+		int GetNewIndex() const;
+		
 		/// <summary>
-		/// Set if the go is destroyed.
+		/// Get the new father 
 		/// </summary>
-		void SetIsDestroy(bool value);
+		/// <returns></returns>
+		std::string GetNewFatherId() const;
 	};
 }}

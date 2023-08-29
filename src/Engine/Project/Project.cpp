@@ -132,8 +132,22 @@ namespace Project {
         // Copy documentation
         std::string doc = Directory::GetDocsPath() + "/api.md";
         std::string pathDoc = this->GetBasePath() + "/Docs";
+        std::string newPathDoc = pathDoc + "/api.md";
+
+        if (Directory::Exists(newPathDoc))
+            Directory::Delete(newPathDoc);
+
         Directory::CreateDirectory(pathDoc);
-        Directory::Copy(doc, pathDoc + "/api.md");
+        Directory::Copy(doc, newPathDoc);
+
+        // Copy base lua file
+        std::string originFile = Directory::GetResourcePath() + "/scripts/engine.lua";
+        std::string baseFile = this->GetAssetsPath() + "/engine.lua";
+
+        if (Directory::Exists(baseFile))
+            Directory::Delete(baseFile);
+
+        Directory::Copy(originFile, baseFile);
     }
 
     void Project::SetDirty()
@@ -256,8 +270,6 @@ namespace Project {
                 this->state = ProjectState::Stoping;
                 hasError = true;
             }
-
-            this->data.frameMovements.clear();
         }
 
         if (this->state == ProjectState::Stoping)
@@ -270,7 +282,6 @@ namespace Project {
             this->scriptManager->DestroyAllScripts(hasError, root);
 
             // Also here destroy the gos (script ref go with this).
-            this->data.frameMovements.clear();
             this->goManager->Unload();
 
             if (hasError)
@@ -321,42 +332,19 @@ namespace Project {
         this->scriptManager->LoadScriptNames(this->GetAssetsPath());
     }
 
-    void Project::AddGameObjectInEditor(const std::string& name, const std::string& fatherId)
-    {
-        this->isModified = this->goManager->AddGameObject(name, true, fatherId) != nullptr;
-    }
-
-    void Project::RemoveGameObjectInEditor(const std::string& goId)
-    {
-        this->isModified = true;
-        this->goManager->RemoveGameObjectReferences(goId);
-    }
-
-    void Project::ChangeGoFatherEditor(const std::string& goId, const std::string& fatherId)
-    {
-        this->isModified = true;
-        this->goManager->ChangeGoFather(goId, fatherId);
-    }
-
-    void Project::ChangeGoPositionEditor(const std::string& goId, int displacement)
-    {
-        this->isModified = true;
-        this->goManager->ChangeGoPosition(goId, displacement);
-    }
-
-    void Project::ChangeScriptPositionEditor(const std::string& goId, const std::string& scriptName, int displacement)
-    {
-        this->isModified = true;
-        this->goManager->ChangeScriptPosition(goId, scriptName, displacement);
-    }
-
     GameObjectPtr Project::AddGameObject(const std::string& name, bool active, const std::string& fatherId)
     {
+        if (this->state == ProjectState::Idle)
+            this->isModified = true;
+
         return this->goManager->AddGameObject(name, active, fatherId);
     }
 
     bool Project::DestroyGameObject(const std::string& id)
     {
+        if (this->state == ProjectState::Idle)
+            this->isModified = true;
+
         return this->goManager->RemoveGameObject(id);
     }
 
@@ -365,14 +353,58 @@ namespace Project {
         return this->goManager->GetGameObject(id);
     }
 
+    void Project::DuplicateGo(const std::string& goId)
+    {
+        if (this->state == ProjectState::Idle)
+            this->isModified = true;
+        
+        auto go = this->goManager->GetGameObject(goId);
+
+        if (go != nullptr)
+        {
+            auto father = go->GetFather();
+            this->goManager->DuplicateGo(goId, father != nullptr ? father->GetId() : "");
+        }
+    }
+
+    void Project::ChangeGoFather(const std::string& goId, const std::string& fatherId)
+    {
+        if(this->state == ProjectState::Idle)
+            this->isModified = true;
+
+        this->goManager->ChangeGoFather(goId, fatherId);
+    }
+
+    void Project::ChangeGoPosition(const std::string& goId, int displacement)
+    {
+        if (this->state == ProjectState::Idle)
+            this->isModified = true;
+
+        this->goManager->ChangeGoPosition(goId, displacement);
+    }
+
     bool Project::AddScript(const std::string& goId, const std::string& scriptName)
     {
+        if (this->state == ProjectState::Idle)
+            this->isModified = true;
+
         return this->scriptManager->AddScript(this->goManager->GetGameObject(goId), scriptName);
     }
 
     bool Project::DestroyScript(const std::string& goId, const std::string& scriptName)
     {
+        if (this->state == ProjectState::Idle)
+            this->isModified = true;
+
         return this->scriptManager->DestroyScript(this->goManager->GetGameObject(goId), scriptName);
+    }
+
+    void Project::ChangeScriptPosition(const std::string& goId, const std::string& scriptName, int displacement)
+    {
+        if (this->state == ProjectState::Idle)
+            this->isModified = true;
+
+        this->goManager->ChangeScriptPosition(goId, scriptName, displacement);
     }
 
     std::vector<GameObjectPtr> Project::GetGosFromRoot() const
@@ -421,10 +453,7 @@ namespace Project {
         this->data.current = framebuffer;
     }
 
-    void Project::PlanExecution(
-        const std::vector<GameObjectPtr>& gos, 
-        std::vector<GoExecution>& executions
-    )
+    void Project::PlanExecution(const std::vector<GameObjectPtr>& gos, std::vector<GoExecution>& executions)
     {
         for (const GameObjectPtr go : gos)
         {
@@ -469,8 +498,7 @@ namespace Project {
             }
 
             // Actually destroy the go
-            auto exec = GoExecution(go, nullptr, "");
-            exec.SetIsDestroy(true);
+            auto exec = GoExecution(go);
             executions.push_back(exec);
         }
     }
@@ -482,12 +510,12 @@ namespace Project {
         for (const GoExecution& exec : executions)
         {
             // Execute scripts, if fail return error
-            if (exec.GetScript() != nullptr && !this->scriptManager->ExecuteScript(exec))
+            if (exec.GetType() == ExecutionType::Normal && exec.GetScript() != nullptr && !this->scriptManager->ExecuteScript(exec))
                 return false;
 
             // if destroy save to remove refs later
-            if (exec.IsDestroyed())
-                toRemove.insert(exec.GetGo());
+            if(exec.GetType() == ExecutionType::Destroy)
+                toRemove.insert(exec.GetGameObject());
         }
 
         // Remove destroyed gos.

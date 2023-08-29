@@ -52,7 +52,7 @@ namespace Project {
 		bool updateScriptData = false;
 
 		/// <summary>
-		/// Total current existant scripts
+		/// Total current existent scripts
 		/// </summary>
 		static int Total;
 	public:

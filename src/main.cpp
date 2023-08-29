@@ -2,7 +2,7 @@
 
 #include <BoxEngine.hpp>
 
-static BoxEngine::Editor::ProjectManager* OpenProjectManager()
+static BoxEngine::Editor::ProjectManager* OpenProjectManager(bool external)
 {
 	using namespace BoxEngine::Editor;
 
@@ -10,7 +10,10 @@ static BoxEngine::Editor::ProjectManager* OpenProjectManager()
 
 	manager->Awake();
 	manager->Start();
-	manager->Update();
+
+	if (!external)
+		manager->Update();
+
 	manager->Destroy();
 
 	return manager;
@@ -25,9 +28,21 @@ int main(int argc, char* argv[])
 	using namespace BoxEngine::Utils;
 	using namespace BoxEngine::Editor;
 
-	auto manager = OpenProjectManager();
+	bool external = argc > 1;
 
-	ProjectPtr project = manager->GetProject();
+	ProjectPtr project = nullptr;
+	auto manager = OpenProjectManager(external);
+
+	if (external)
+	{
+		auto projectName = argv[1];
+
+		project = ProjectPtr(new Project());
+		project->LoadFrom(projectName);
+	}
+	else
+		project = manager->GetProject();
+
 	delete manager;
 	
 	if (project == nullptr)
@@ -35,9 +50,14 @@ int main(int argc, char* argv[])
 	
 	Project::SetCurrentProject(project);
 
-	EditorPtr editor = EditorPtr(new Editor());
-	editor->SetCurrentEditor(editor);
-	editor->Awake();
+	EditorPtr editor = nullptr;
+
+	if (!external)
+	{
+		editor = EditorPtr(new Editor());
+		editor->SetCurrentEditor(editor);
+		editor->Awake();
+	}
 
 	project->Load();
 
@@ -45,7 +65,10 @@ int main(int argc, char* argv[])
 	Window::Maximize();
 	Window::SetIcons({ ImagePtr(new Image(Directory::GetResourcePath() + "/icons/settings.png"))});
 
-	editor->Start();
+	if (!external)
+		editor->Start();
+	else
+		project->Start();
 
 	while(Window::ShouldRun())
 	{	
@@ -53,15 +76,22 @@ int main(int argc, char* argv[])
 		Framebuffer::SetClearModes({ ClearMode::COLOR, ClearMode::DEPTH });
 		Framebuffer::Clear({0.0f, 0.0f, 0.0f, 0.0f});
 		
-		editor->Update();
+		if (!external)
+		{
+			editor->Update();
+			project->SetScreenLimits(editor->GetTopStartPoint(), editor->GetBottomEndPoint());
+		}
+		else 
+			project->SetScreenLimits({0, 0}, Window::GetSize());
 
-		project->SetScreenLimits(editor->GetTopStartPoint(), editor->GetBottomEndPoint());
 		project->Execute();
 
 		Window::SwapAndPollEvents();
 	}
 
-	editor->Destroy();
+	if(!external)
+		editor->Destroy();
+	
 	Window::Destroy();
 
 	return 0;

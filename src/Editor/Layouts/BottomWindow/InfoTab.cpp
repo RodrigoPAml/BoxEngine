@@ -24,7 +24,6 @@ namespace Editor {
 			auto fpsValue = project->GetCurrentFPS();
 			auto frametimeValue = project->GetCurrentFrameTime();
 
-			GUI::Separator();
 			GUI::SetFontScale(0.7);
 		
 			auto showTotalizers = GUI::Header("Totalizers");
@@ -39,6 +38,7 @@ namespace Editor {
 				GUI::Text("Texture instance count: " + std::to_string(GPU::Texture::GetInstanceCount()));
 				GUI::Text("Vertex instance count: " + std::to_string(GPU::Vertex::GetInstanceCount()));
 				GUI::Text("Shader instance count: " + std::to_string(GPU::Shader::GetInstanceCount()));
+				GUI::Text("Audio instance count: " + std::to_string(Audio::Audio::GetInstaceCount()));
 				GUI::Text("Framebuffer instance count: " + std::to_string(GPU::Framebuffer::GetInstanceCount()));
 				GUI::Text("Stack size: " + std::to_string(project->GetStackSize()));
 				GUI::Unident(10);

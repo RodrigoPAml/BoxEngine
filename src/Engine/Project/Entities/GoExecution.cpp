@@ -9,30 +9,65 @@ namespace Project {
 		this->go = go;
 		this->script = script;
 		this->command = command;
+		this->type = ExecutionType::Normal;
 	}
 
-	GameObjectPtr GoExecution::GetGo() const
+	GoExecution::GoExecution(GameObjectPtr go)
+	{
+		this->go = go;
+		this->type = ExecutionType::Destroy;
+	}
+
+	GoExecution::GoExecution(GameObjectPtr go, ScriptPtr script, unsigned int newIndex)
+	{
+		this->go = go;
+		this->script = script;
+		this->newIndex = newIndex;
+		this->type = ExecutionType::ScriptIndexChange;
+	}
+
+	GoExecution::GoExecution(GameObjectPtr go, unsigned int newIndex)
+	{
+		this->go = go;
+		this->script = script;
+		this->newIndex = newIndex;
+		this->type = ExecutionType::ScriptIndexChange;
+	}
+
+	GoExecution::GoExecution(GameObjectPtr go, std::string fatherId)
+	{
+		this->go = go;
+		this->newFather = fatherId;
+		this->type = ExecutionType::Movement;
+	}
+
+	ExecutionType GoExecution::GetType() const
+	{
+		return this->type;
+	}
+
+	GameObjectPtr GoExecution::GetGameObject() const
 	{
 		return this->go;
 	}
-	
+
 	ScriptPtr GoExecution::GetScript() const
 	{
 		return this->script;
 	}
-	
+
 	std::string GoExecution::GetCommand() const
 	{
 		return this->command;
 	}
-	
-	bool GoExecution::IsDestroyed() const
+
+	int GoExecution::GetNewIndex() const
 	{
-		return this->isDestroy;
+		return this->newIndex;
 	}
-	
-	void GoExecution::SetIsDestroy(bool value)
+
+	std::string GoExecution::GetNewFatherId() const
 	{
-		this->isDestroy = value;
+		return this->newFather;
 	}
 }}

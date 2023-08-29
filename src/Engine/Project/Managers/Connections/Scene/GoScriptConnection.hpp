@@ -41,10 +41,13 @@ namespace Connection {
 		static int DestroyGo(lua_State* L);
 		static int UpdateGo(lua_State* L);
 		static int GetGo(lua_State* L);
+		static int ChangeGoFather(lua_State* L);
+		static int ChangeGoIndex(lua_State* L);
 
 		// Scripts
 		static int GetScript(lua_State* L);
-		static int AddScript(lua_State* L);
+		static int AddScript(lua_State* L); 
 		static int RemoveScript(lua_State* L);
+		static int ChangeScriptIndex(lua_State* L);
 	};
 }}}

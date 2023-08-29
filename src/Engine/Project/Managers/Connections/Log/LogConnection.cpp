@@ -18,10 +18,6 @@ namespace Connection {
 		lua_register(this->state, "__log__", DebugLog);
 		lua_register(this->state, "__error__", DebugError);
 		lua_register(this->state, "__warning__", DebugWarning);
-
-		auto content = Utils::Directory::ReadFile(Utils::Directory::GetResourcePath() + "/scripts/logs.lua");
-
-		luaL_dostring(this->state, content.c_str());
 	}
 
 	void LogConnection::SetCurrentGo(GameObjectPtr go)

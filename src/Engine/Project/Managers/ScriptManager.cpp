@@ -17,7 +17,7 @@ namespace Project {
 		
 		// Add script names
 		for (const auto& item : this->paths)
-			this->list.push_back(item.first);
+			this->list.emplace_back(item.first);
 		
 		return hasError;
 	}
@@ -65,27 +65,10 @@ namespace Project {
 	void ScriptManager::GetScriptsExecution(const GameObjectPtr go, std::vector<GoExecution>& executions)
 	{
 		auto& scripts = go->GetScripts();
-		bool isToDestroy = go->IsToDestroy();
 
 		// Plan execution for scripts of this go
 		for (ScriptPtr script : scripts)
 		{
-			// if go is set to be destroyed and have been started, we need to call the destroy any way.
-			if (isToDestroy)
-			{
-				if (script->IsStarted())
-				{
-					std::string command = script->GetName() + ".destroy()";
-
-					auto exec = GoExecution(go, script, command);
-					exec.SetIsDestroy(true);
-
-					executions.push_back(exec);
-				}
-
-				continue;
-			}
-
 			if (script->GetState() == ScriptState::ToLoad)
 				executions.push_back(GoExecution(go, script, ""));
 			else if (script->GetState() == ScriptState::ToStart && go->GetActive())
@@ -110,7 +93,7 @@ namespace Project {
 	{
 		// Execute a plan for the scripts
 		auto script = execution.GetScript();
-		auto go = execution.GetGo();
+		auto go = execution.GetGameObject();
 		auto state = script->GetState();
 
 		this->connectionManager->SetCurrentGo(go);
@@ -165,11 +148,13 @@ namespace Project {
 						return false;
 					}
 
+					script->SetState(ScriptState::ToStart);
+					script->SetPath(this->paths[scriptName]);
+
 					// Register go instance data
 					this->connectionManager->CreateScriptData(go, script);
 
 					this->loaded.push_back(scriptName);
-					script->SetPath(this->paths[scriptName]);
 				}
 			}
 		}
@@ -215,6 +200,16 @@ namespace Project {
 		// Set script to be add in go.
 		if (go != nullptr)
 		{
+			if (go->IsToDestroy())
+			{
+				Debug::Logging::Log(
+					"[Project]: Can't add script " + scriptName + " to go " + go->GetId() + " because its destroyed",
+					Debug::LogSeverity::Error,
+					Debug::LogOrigin::Engine,
+					{ {"go_id", go->GetId()}, {"script_name", scriptName} }
+				);
+			}
+
 			ScriptPtr script = ScriptPtr(new Script(scriptName));
 			return go->AddScript(script);
 		}

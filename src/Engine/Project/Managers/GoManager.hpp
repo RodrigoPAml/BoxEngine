@@ -43,6 +43,9 @@ namespace Project {
 		// Remove go references in every thing
 		void RemoveGameObjectReferences(GameObjectPtr go);
 		void RemoveGameObjectReferences(const std::string& id);
+
+		// Duplicate go (editor)
+		void DuplicateGo(const std::string& id, const std::string fatherId = "");
 	private:
 		// Add go when reading from file.
 		void AddGameObjectFromFile(

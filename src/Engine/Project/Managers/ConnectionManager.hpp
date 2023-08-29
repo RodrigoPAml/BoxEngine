@@ -46,6 +46,8 @@ namespace Project {
 		Connection::DrawingConnectionPtr drawing;
 		// Functions for window
 		Connection::WindowConnectionPtr window;
+		// Functions for audio
+		Connection::AudioConnectionPtr audio;
 
 		lua_State* state = nullptr;
 	public:

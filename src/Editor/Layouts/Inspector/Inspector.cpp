@@ -73,9 +73,9 @@ namespace Editor {
 		this->useSeverityNotification = this->debugConfig.openGlSeverities.contains(Debug::OpenGlErrorSeverity::SEVERITY_NOTIFICATION);
 	}
 
-	void Inspector::InspectGo(Project::GameObjectWeakPtr go)
+	void Inspector::InspectGo(std::string goId)
 	{
-		auto ref = go.lock();
+		auto ref = Project::Project::GetCurrentProject()->GetGameObject(goId);
 
 		if (ref == nullptr)
 			return;
@@ -84,7 +84,7 @@ namespace Editor {
 		this->isInspectingProjectSettings = false;
 		this->goName = ref->GetName();
 		this->goActive = ref->GetActive();
-		this->go = go;
+		this->goId = goId;
 	}
 
 	void Inspector::SetMinY(float value)
@@ -224,20 +224,20 @@ namespace Editor {
 		using namespace BoxEngine::Window;
 		using Window = BoxEngine::Window::Window;
 
-		GameObjectPtr go = this->go.lock();
+		GameObjectPtr go = project->GetGameObject(goId);
 
 		if (go == nullptr)
 			return;
 		
 		// Header info, only gos information
-		if (GUI::BeginInnerWindow(this->guid + "window", {0, 105}))
+		if (GUI::BeginInnerWindow(this->guid + "window_header", {0, 105}))
 		{
 			this->ShowGoEditorHeader(go);
 			GUI::EndInnerWindow();
 		}
 
 		// Window that show scripts and its data
-		if (GUI::BeginInnerWindow(this->guid + "window2", { 0, 0 }))
+		if (GUI::BeginInnerWindow(this->guid + "window_scripts", { 0, 0 }))
 		{
 			this->ShowGoEditorScripts(go);
 			GUI::EndInnerWindow();
@@ -252,6 +252,9 @@ namespace Editor {
 		using Project = BoxEngine::Project::Project;
 		using namespace BoxEngine::Window;
 		using Window = BoxEngine::Window::Window;
+
+		if (go == nullptr)
+			return;
 
 		// Show id
 		GUI::SetFontScale(0.65);
@@ -319,7 +322,7 @@ namespace Editor {
 
 		// Move up go
 		if (GUI::ImageButton(this->guid + "move_up", GUI::GetIcon("up.png")))
-			project->ChangeGoPositionEditor(go->GetId(), -1);
+			project->ChangeGoPosition(go->GetId(), -1);
 
 		if (GUI::IsCurrentItemHovered())
 		{
@@ -332,7 +335,7 @@ namespace Editor {
 
 		// Move Down go
 		if (GUI::ImageButton(this->guid + "move_down", GUI::GetIcon("down.png")))
-			project->ChangeGoPositionEditor(go->GetId(), 1);
+			project->ChangeGoPosition(go->GetId(), 1);
 
 		if (GUI::IsCurrentItemHovered())
 		{
@@ -384,6 +387,9 @@ namespace Editor {
 
 		std::vector<ScriptPtr> toRemoves;
 		int id = 0;
+
+		if (go == nullptr)
+			return;
 
 		for (const auto& script : go->GetScripts())
 		{
@@ -474,7 +480,7 @@ namespace Editor {
 		GUI::ContinueSameLine();
 	
 		if (GUI::ImageButton(this->guid + "move_script_up" + scriptName, GUI::GetIcon("up.png")))
-			project->ChangeScriptPositionEditor(go->GetId(), script->GetName(), -1);
+			project->ChangeScriptPosition(go->GetId(), script->GetName(), -1);
 
 		if (GUI::IsCurrentItemHovered())
 		{
@@ -486,7 +492,7 @@ namespace Editor {
 		GUI::ContinueSameLine();
 
 		if (GUI::ImageButton(this->guid + "move_script_down" + scriptName, GUI::GetIcon("down.png")))
-			project->ChangeScriptPositionEditor(go->GetId(), script->GetName(), 1);
+			project->ChangeScriptPosition(go->GetId(), script->GetName(), 1);
 
 		if (GUI::IsCurrentItemHovered())
 		{

@@ -156,6 +156,9 @@ namespace Window {
 	{
 		auto id = "##" + label;
 
+		if (val - (int)val == 0)
+			return ImGui::InputDouble(id.c_str(), &val, 0, 0, "%.0f");
+
 		return ImGui::InputDouble(id.c_str(), &val, 0, 0, "%.6f");
 	}
 

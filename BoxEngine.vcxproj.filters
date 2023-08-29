@@ -210,7 +210,10 @@
     <ClCompile Include="lib\glad\src\glad.c">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Project\Entities\GoMovement.cpp">
+    <ClCompile Include="src\Engine\Audio\Audio.cpp">
+      <Filter>Arquivos de Origem</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Project\Managers\Connections\Audio\AudioConnection.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
   </ItemGroup>
@@ -497,7 +500,10 @@
     <ClInclude Include="src\Engine\Data\CameraUtils.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Project\Entities\GoMovement.hpp">
+    <ClInclude Include="src\Engine\Audio\Audio.hpp">
+      <Filter>Arquivos de Origem</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Project\Managers\Connections\Audio\AudioConnection.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
   </ItemGroup>

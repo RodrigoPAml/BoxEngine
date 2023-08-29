@@ -23,7 +23,9 @@ namespace Connection {
 		Utils::Lua::RegTable(this->state, "destroy", DestroyGo);
 		Utils::Lua::RegTable(this->state, "get", GetGo);
 		Utils::Lua::RegTable(this->state, "update", UpdateGo);
-	
+		Utils::Lua::RegTable(this->state, "change_father", ChangeGoFather);
+		Utils::Lua::RegTable(this->state, "change_index", ChangeGoIndex);
+
 		lua_setglobal(this->state, "_go_");
 
 		// Script manager
@@ -32,6 +34,7 @@ namespace Connection {
 		Utils::Lua::RegTable(this->state, "get", GetScript);
 		Utils::Lua::RegTable(this->state, "add", AddScript);
 		Utils::Lua::RegTable(this->state, "remove", RemoveScript);
+		Utils::Lua::RegTable(this->state, "change_index", RemoveScript);
 
 		lua_setglobal(this->state, "_script_");
 	}
@@ -184,6 +187,70 @@ namespace Connection {
 		return 1;
 	}
 
+	int GoScriptConnection::ChangeGoFather(lua_State* L)
+	{
+		auto top = lua_gettop(L);
+
+		if (top != 2 && top != 1)
+			return luaL_error(L, "expecting 1 or 2 arguments in function call");
+
+		std::string goId = "";
+		std::string fatherId = "";
+
+		if (lua_isstring(L, 1))
+			goId = lua_tostring(L, 1);
+		else return luaL_error(L, "argument 1 is expected to be string");
+
+		if (!lua_isnoneornil(L, 2) && !lua_isstring(L, 2))
+			return luaL_error(L, "argument 2 is expected to be a string");
+		else if(lua_isstring(L, 2))
+			fatherId = lua_tostring(L, 2);
+
+		GameObjectPtr go = Project::GetCurrentProject()->GetGameObject(goId);
+
+		if (go == nullptr)
+			lua_pushboolean(L, false);
+		else
+		{
+			Project::GetCurrentProject()->ChangeGoFather(go->GetId(), fatherId);
+			lua_pushboolean(L, true);
+		}
+
+		return 1;
+	}
+
+	int GoScriptConnection::ChangeGoIndex(lua_State* L)
+	{
+		auto top = lua_gettop(L);
+
+		if (top != 2)
+			return luaL_error(L, "expecting 2 arguments in function call");
+
+		std::string goId = "";
+		int index = 0;
+
+		if (lua_isstring(L, 1))
+			goId = lua_tostring(L, 1);
+		else return luaL_error(L, "argument 1 is expected to be string");
+
+		if (!lua_isnumber(L, 2))
+			return luaL_error(L, "argument 2 is expected to be a number");
+		else
+			index = lua_tonumber(L, 2);
+
+		GameObjectPtr go = Project::GetCurrentProject()->GetGameObject(goId);
+
+		if (go == nullptr)
+			lua_pushboolean(L, false);
+		else
+		{
+			Project::GetCurrentProject()->ChangeGoPosition(go->GetId(), index);
+			lua_pushboolean(L, true);
+		}
+
+		return 1;
+	}
+
 	int GoScriptConnection::GetGo(lua_State* L)
 	{
 		// Return information of the go, it childrens and scripts
@@ -249,7 +316,6 @@ namespace Connection {
 
 	int GoScriptConnection::GetScript(lua_State* L)
 	{
-		// Return information of the script
 		auto top = lua_gettop(L);
 
 		if (top != 2)
@@ -298,7 +364,6 @@ namespace Connection {
 
 	int GoScriptConnection::AddScript(lua_State* L)
 	{
-		// Return information of the script
 		auto top = lua_gettop(L);
 
 		if (top != 2)
@@ -322,7 +387,6 @@ namespace Connection {
 
 	int GoScriptConnection::RemoveScript(lua_State* L)
 	{
-		// Return information of the script
 		auto top = lua_gettop(L);
 
 		if (top != 2)
@@ -342,5 +406,33 @@ namespace Connection {
 		lua_pushboolean(L, Project::GetCurrentProject()->DestroyScript(goId, scriptName));
 
 		return 1;
+	}
+
+	int GoScriptConnection::ChangeScriptIndex(lua_State* L)
+	{
+		auto top = lua_gettop(L);
+
+		if (top != 3)
+			return luaL_error(L, "expecting 2 arguments in function call");
+
+		std::string goId = "";
+		std::string scriptName = "";
+		int newIndex = 0;
+
+		if (lua_isstring(L, 1))
+			scriptName = lua_tostring(L, 1);
+		else return luaL_error(L, "argument 1 is expected to be a string");
+
+		if (lua_isstring(L, 2))
+			scriptName = lua_tostring(L, 2);
+		else return luaL_error(L, "argument 2 is expected to be a string");
+
+		if (lua_isnumber(L, 3))
+			newIndex = lua_tonumber(L, 3);
+		else return luaL_error(L, "argument 3 is expected to be a number");
+
+		Project::GetCurrentProject()->ChangeScriptPosition(goId, scriptName, newIndex);
+
+		return 0;
 	}
 }}}

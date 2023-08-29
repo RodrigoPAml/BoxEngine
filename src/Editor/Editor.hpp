@@ -27,7 +27,7 @@ namespace Editor {
 
 		void InspectProjectSettings();
 		void ClearLogs();
-		void InspectGo(Project::GameObjectWeakPtr go);
+		void InspectGo(std::string goId);
 		
 		glm::vec2 GetTopStartPoint() const;
 		glm::vec2 GetBottomEndPoint() const;

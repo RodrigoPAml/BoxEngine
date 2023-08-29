@@ -130,6 +130,7 @@ namespace Window {
 		Drawing::Primitives3D::Instance().Release();
 		Drawing::Primitives2D::Instance().Release();
 		Drawing::TextureRenderer::Instance().Release();
+		Audio::Audio::ReleaseEngine();
 		GUI::Release();
 			
 		glfwDestroyWindow(instance.windowPtr);

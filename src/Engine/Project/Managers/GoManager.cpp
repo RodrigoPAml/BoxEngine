@@ -68,7 +68,12 @@ namespace Project {
             }
             else
             {
-                Debug::Logging::Log("[Project]: When creating go " + name + ": Can't find father with id " + fatherId, Debug::LogSeverity::Error, Debug::LogOrigin::Engine);
+                Debug::Logging::Log(
+                    "[Project]: When creating go " + name + ": Can't find father with id " + fatherId, 
+                    Debug::LogSeverity::Error, 
+                    Debug::LogOrigin::Engine,
+                    { {"father_id", fatherId} }
+                );
                 return nullptr;
             }
         }
@@ -76,9 +81,9 @@ namespace Project {
         newGo->SetFather(fatherGo);
 
         if (fatherGo != nullptr)
-            fatherGo->childrens.push_back(newGo);
+            fatherGo->childrens.emplace_back(newGo);
         else
-            this->gos.push_back(newGo);
+            this->gos.emplace_back(newGo);
 
         this->gosMap[newGo->id] = newGo;
 
@@ -91,7 +96,12 @@ namespace Project {
             RemoveGameObject(this->gosMap[id]);
         else
         {
-            Debug::Logging::Log("[Project]: Can't find go with " + id + " to be destroyed.", Debug::LogSeverity::Warning, Debug::LogOrigin::Engine);
+            Debug::Logging::Log(
+                "[Project]: Can't find go with id " + id + " to be destroyed.", 
+                Debug::LogSeverity::Warning,
+                Debug::LogOrigin::Engine,
+                { {"go_id", id} }
+            );
             return false;
         }
 
@@ -115,7 +125,22 @@ namespace Project {
             GameObjectPtr newFather = this->gosMap[fatherId];
 
             if (this->IsDegreeFather(newFather, go))
+            {
+                Debug::Logging::Log("[Project]: Can't change go father with id " + id + " because they already are family.", Debug::LogSeverity::Warning, Debug::LogOrigin::Engine, { {"go_id", id}, {"father_id", fatherId} });
                 return;
+            }
+
+            if (go->IsToDestroy())
+            {
+                Debug::Logging::Log("[Project]: Can't change go father with id " + id + " because it's destroyed.", Debug::LogSeverity::Warning, Debug::LogOrigin::Engine, { {"go_id", id}, {"father_id", fatherId} });
+                return;
+            }
+
+            if (newFather != nullptr && newFather->IsToDestroy())
+            {
+                Debug::Logging::Log("[Project]: Can't change go father with id " + id + " because new father is destroyed.", Debug::LogSeverity::Warning, Debug::LogOrigin::Engine, { {"go_id", id}, {"father_id", fatherId} });
+                return;
+            }
 
             if (oldFather != nullptr)
             {
@@ -128,8 +153,13 @@ namespace Project {
             go->SetFather(newFather);
 
             if (newFather != nullptr)
-                newFather->GetChildrens().push_back(go);
-            else this->gos.push_back(go);
+                newFather->GetChildrens().emplace_back(go);
+            else this->gos.emplace_back(go);
+        }
+        else
+        {
+            Debug::Logging::Log("[Project]: Can't change go father with id " + id + " because this go dont exists.", Debug::LogSeverity::Warning, Debug::LogOrigin::Engine, { {"go_id", id} });
+            return;
         }
     }
 
@@ -138,6 +168,12 @@ namespace Project {
         if (this->gosMap.contains(id))
         {
             GameObjectPtr go = this->gosMap[id];
+
+            if (go->IsToDestroy())
+            {
+                Debug::Logging::Log("[Project]: Can't change go position with id " + id + " because it's destroyed.", Debug::LogSeverity::Warning, Debug::LogOrigin::Engine, { {"go_id", id} });
+                return;
+            }
             
             auto& arr = go->GetFather() != nullptr ? go->GetFather()->GetChildrens() : this->gos;
 
@@ -151,7 +187,7 @@ namespace Project {
 
             int oldIndex = it - arr.begin();
 
-            int newPos = (arr.size()-1) + displacement;
+            int newPos = oldIndex + displacement;
             newPos = std::min((int)arr.size() - 1, newPos);
             newPos = std::max(newPos, 0);
 
@@ -167,6 +203,12 @@ namespace Project {
         {
             GameObjectPtr go = this->gosMap[id];
             ScriptPtr script = nullptr;
+
+            if (go->IsToDestroy())
+            {
+                Debug::Logging::Log("[Project]: Can't change go script position with id " + id + " because it's destroyed.", Debug::LogSeverity::Warning, Debug::LogOrigin::Engine, { {"go_id", id}});
+                return;
+            }
 
             for(auto item : go->GetScripts())
             {
@@ -189,7 +231,7 @@ namespace Project {
 
             int oldIndex = it - arr.begin();
 
-            int newPos = (arr.size() - 1) + displacement;
+            int newPos = oldIndex + displacement;
             newPos = std::min((int)arr.size() - 1, newPos);
             newPos = std::max(newPos, 0);
 
@@ -233,6 +275,36 @@ namespace Project {
         }
     }
 
+    void GoManager::DuplicateGo(const std::string& id, const std::string fatherId)
+    {
+        if (this->gosMap.contains(id))
+        {
+            GameObjectPtr go = this->gosMap[id];
+         
+            if (go->IsToDestroy())
+            {
+                Debug::Logging::Log("[Project]: Can't duplicate go with id " + id + " because it's destroyed.", Debug::LogSeverity::Warning, Debug::LogOrigin::Engine, { {"go_id", id} });
+                return;
+            }
+            
+            GameObjectPtr newGo = this->AddGameObject(go->GetName(), go->GetActive(), fatherId);
+            
+            if (fatherId == "")
+                this->gos.push_back(newGo);
+
+            for (const ScriptPtr script : go->GetScripts())
+            {
+                ScriptPtr newScript = ScriptPtr(new Script(script->GetName()));
+                newScript->SetScriptData(script->GetScriptData());
+                
+                newGo->AddScript(newScript);
+            }
+
+            for (const GameObjectPtr child : go->GetChildrens())
+                DuplicateGo(child->GetId(), newGo->GetId());
+        }
+    }
+
     #pragma region InternalFunctions
 
     void GoManager::AddGameObjectFromFile(
@@ -261,13 +333,13 @@ namespace Project {
              )
             {
                 script->MarkAsFailedToLoad();
-                Debug::Logging::Log("[Project]: When loading go " + name + " with id " + id + " script " + script->GetName() + " not founded!", Debug::LogSeverity::Warning, Debug::LogOrigin::Engine);
+                Debug::Logging::Log("[Project]: When loading go " + name + " with id " + id + " script " + script->GetName() + " not founded!", Debug::LogSeverity::Warning, Debug::LogOrigin::Engine, { {"go_id", id}});
             }
         }
 
         if (this->gosMap.contains("id"))
         {
-            Debug::Logging::Log("[Project]: Go " + name + " with id " + id + " already exists. It will be ignored with it childrens.", Debug::LogSeverity::Error, Debug::LogOrigin::Engine);
+            Debug::Logging::Log("[Project]: Go " + name + " with id " + id + " already exists. It will be ignored with it childrens.", Debug::LogSeverity::Error, Debug::LogOrigin::Engine, { {"go_id", id} });
             return;
         }
 
@@ -277,7 +349,7 @@ namespace Project {
                 fatherGo = this->gosMap.at(fatherId);
             else
             {
-                Debug::Logging::Log("[Project]: Failed to create go " + name + ": Can't find father with id " + fatherId, Debug::LogSeverity::Error, Debug::LogOrigin::Engine);
+                Debug::Logging::Log("[Project]: Failed to create go " + name + ": Can't find father with id " + fatherId, Debug::LogSeverity::Error, Debug::LogOrigin::Engine, { {"go_id", id}, {"father_id", fatherId} });
                 return;
             }
         }
@@ -285,9 +357,9 @@ namespace Project {
         newGo->SetFather(fatherGo);
 
         if (fatherGo != nullptr)
-            fatherGo->childrens.push_back(newGo);
+            fatherGo->childrens.emplace_back(newGo);
         else
-            this->gos.push_back(newGo);
+            this->gos.emplace_back(newGo);
 
         this->gosMap[newGo->id] = newGo;
     }
@@ -320,6 +392,9 @@ namespace Project {
     bool GoManager::IsDegreeFather(GameObjectPtr go, GameObjectPtr possibleFather)
     {
         if (go == nullptr)
+            return false;
+
+        if (possibleFather == nullptr)
             return false;
 
         auto father = go->GetFather();
