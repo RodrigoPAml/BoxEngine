@@ -699,7 +699,7 @@ The argument table format
 Return a table with current window size
 
 ```lua
-function window.getwindowsize() end
+function window.get_window_size() end
 ```
 
 The returned table format
@@ -714,7 +714,7 @@ The returned table format
 Return a table with current editor window size
 
 ```lua
-function window.get_editorwindowsize() end
+function window.get_editor_window_size() end
 ```
 
 The returned table format
@@ -729,7 +729,7 @@ The returned table format
 Return a table with the window limits
 
 ```lua
-function window.getwindowlimits() end
+function window.get_window_limits() end
 ```
 
 The returned table format
@@ -1234,6 +1234,22 @@ The argument table format
 }
 ```
 
+## Create Multisampled Texture
+Create a empty multisampled texture, receive a table with creation information
+
+Return id if success else return nil
+```lua
+function texture.create_multi_sampled(arg = table) end
+```
+The argument table format
+```lua
+{
+    texture_samples = number -- number of samples
+    texture_size = {x = number, y = number}, -- texture size, vec2 format
+    texture_internal_format = string, -- in Texture Internal Format
+}
+```
+
 ## Create Texture
 Create a texture, receive a table with creation information
 
@@ -1296,6 +1312,7 @@ The argument table format
         type = string -- in Render Buffer Attachment Type format (see enums below),
         format = string -- in Render Buffer Format (see enums below),
         size = {x = number, y = number} -- render buffer size
+        aliasing = number -- multisample in render buffer
     }
 }
 ```
@@ -1527,8 +1544,8 @@ function generator.gen_3d_triangle(dataUse = string, filled = bool) end
 Returns id if success, else return nil
 
 ```lua
-function audio.create2D(path = string) end
-function audio.create3D(path = string) end
+function audio.create_2d(path = string) end
+function audio.create_3d(path = string) end
 ```
 
 ## Destroy Audio
@@ -1634,6 +1651,57 @@ function audio.get_volume(id) end
 
 ```lua
 function audio.set_listener_position(vec3) end
+```
+
+# Font Module
+
+## Create Font
+
+Returns id if success, else return nil
+
+```lua
+function font.create_2d(path = string) end
+```
+
+## Destroy Font
+
+```lua
+function font.destroy(id = number) end
+```
+
+## Get/Set Position
+
+```lua
+function font.get_position(id = number) end
+function font.set_position(id = number, pos = vec2) end
+
+```
+
+## Get/Set Scale
+
+```lua
+function font.get_scale(id = number) end
+function font.set_scale(id = number, scale = vec2) end
+```
+
+## Get/Set Color
+
+```lua
+function font.get_color(id = number) end
+function font.set_color(id = number, color = vec3) end
+```
+
+## Get/Set Text
+
+```lua
+function font.get_text(id = number) end
+function font.set_text(id = number, text = string) end
+```
+
+## Draw Font
+
+```lua
+function font.draw(id = number) end
 ```
 
 # Enums

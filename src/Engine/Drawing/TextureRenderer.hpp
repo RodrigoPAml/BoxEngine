@@ -12,6 +12,7 @@ namespace Drawing {
 		friend class BoxEngine::Window::Window;
 	private:
 		GPU::ShaderPtr shader;
+		GPU::ShaderPtr shaderMultisampled;
 
 		GPU::VertexPtr mesh;
 	public:

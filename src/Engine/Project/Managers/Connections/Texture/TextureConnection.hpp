@@ -50,6 +50,7 @@ namespace Connection {
 		long FindId(GPU::TexturePtr texture);
 	private:
 		static int CreateEmptyTexture(lua_State* L);
+		static int CreateMultiSampledTexture(lua_State* L);
 		static int CreateTexture(lua_State* L);
 
 		static int DestroyTexture(lua_State* L);

@@ -39,6 +39,7 @@ namespace Editor {
 				GUI::Text("Vertex instance count: " + std::to_string(GPU::Vertex::GetInstanceCount()));
 				GUI::Text("Shader instance count: " + std::to_string(GPU::Shader::GetInstanceCount()));
 				GUI::Text("Audio instance count: " + std::to_string(Audio::Audio::GetInstaceCount()));
+				GUI::Text("Font instance count: " + std::to_string(Font::Font::GetInstaceCount()));
 				GUI::Text("Framebuffer instance count: " + std::to_string(GPU::Framebuffer::GetInstanceCount()));
 				GUI::Text("Stack size: " + std::to_string(project->GetStackSize()));
 				GUI::Unident(10);

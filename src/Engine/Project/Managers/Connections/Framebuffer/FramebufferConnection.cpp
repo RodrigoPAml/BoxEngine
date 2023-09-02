@@ -138,6 +138,8 @@ namespace Connection {
 
 				if (!Utils::Lua::GetTable(L, -3, "size", config.renderBufferAttachment.size))
 					return luaL_error(L, "argument size needs to be a vec2");
+
+				Utils::Lua::GetTable(L, -4, "aliasing", config.renderBufferAttachment.aliasing);
 			}
 			else if(!lua_isnoneornil(L, -1)) 
 				return luaL_error(L, "argument renderbuffer_attachment needs to be a table");

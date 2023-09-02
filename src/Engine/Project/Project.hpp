@@ -2,7 +2,7 @@
 #include <BoxEngine.hpp>
 
 // import 3d models
-// mode fullscreen
+// gui support 
 
 namespace BoxEngine {
 namespace Project {

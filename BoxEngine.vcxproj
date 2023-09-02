@@ -118,7 +118,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)lib\glfw\include;$(SolutionDir)lib\glm;$(SolutionDir)lib\stb_image;$(SolutionDir)lib\glad\include;$(SolutionDir)src;$(SolutionDir)lib\implot;$(SolutionDir)lib\imgui;$(SolutionDir)lib\json_nlohmann;$(SolutionDir)lib\lua_jit\src;$(SolutionDir)lib\irrKlang-64bit-1.6.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)lib\glfw\include;$(SolutionDir)lib\glm;$(SolutionDir)lib\stb_image;$(SolutionDir)lib\glad\include;$(SolutionDir)src;$(SolutionDir)lib\implot;$(SolutionDir)lib\imgui;$(SolutionDir)lib\json_nlohmann;$(SolutionDir)lib\lua_jit\src;$(SolutionDir)lib\irrKlang-64bit-1.6.0\include;$(SolutionDir)lib\freetype-windows-binaries-2.13.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <PrecompiledHeader>Create</PrecompiledHeader>
       <PrecompiledHeaderFile>BoxEngine.hpp</PrecompiledHeaderFile>
@@ -129,8 +129,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib\glfw\lib-vc2019;$(SolutionDir)lib\assimp\lib;$(SolutionDir)lib\lua_jit\src;$(SolutionDir)lib\irrKlang-64bit-1.6.0\lib\Winx64-visualStudio;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;glfw3dll.lib;assimp-vc142-mt.lib;lua51.lib;irrKlang.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\glfw\lib-vc2019;$(SolutionDir)lib\assimp\lib;$(SolutionDir)lib\lua_jit\src;$(SolutionDir)lib\irrKlang-64bit-1.6.0\lib\Winx64-visualStudio;$(SolutionDir)lib\freetype-windows-binaries-2.13.1\release dll\win64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;glfw3dll.lib;assimp-vc142-mt.lib;lua51.lib;irrKlang.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -185,6 +185,7 @@
     <ClCompile Include="src\Engine\Drawing\Primitives2D.cpp" />
     <ClCompile Include="src\Engine\Drawing\Primitives3D.cpp" />
     <ClCompile Include="src\Engine\Drawing\TextureRenderer.cpp" />
+    <ClCompile Include="src\Engine\Font\Font.cpp" />
     <ClCompile Include="src\Engine\GPU\Command.cpp" />
     <ClCompile Include="src\Engine\GPU\Framebuffer.cpp" />
     <ClCompile Include="src\Engine\GPU\Shader.cpp" />
@@ -203,6 +204,7 @@
     <ClCompile Include="src\Engine\Project\Managers\Connections\Command\CommandConnection.cpp" />
     <ClCompile Include="src\Engine\Project\Managers\Connections\Directory\DirectoryConnection.cpp" />
     <ClCompile Include="src\Engine\Project\Managers\Connections\Drawing\DrawingConnection.cpp" />
+    <ClCompile Include="src\Engine\Project\Managers\Connections\Font\FontConnection.cpp" />
     <ClCompile Include="src\Engine\Project\Managers\Connections\Framebuffer\FramebufferConnection.cpp" />
     <ClCompile Include="src\Engine\Project\Managers\Connections\Image\ImageConnection.cpp" />
     <ClCompile Include="src\Engine\Project\Managers\Connections\Input\InputConnection.cpp" />
@@ -281,6 +283,7 @@
     <ClInclude Include="src\Engine\Drawing\Primitives2D.hpp" />
     <ClInclude Include="src\Engine\Drawing\Primitives3D.hpp" />
     <ClInclude Include="src\Engine\Drawing\TextureRenderer.hpp" />
+    <ClInclude Include="src\Engine\Font\Font.hpp" />
     <ClInclude Include="src\Engine\GPU\Command.hpp" />
     <ClInclude Include="src\Engine\GPU\Framebuffer.hpp" />
     <ClInclude Include="src\Engine\GPU\Shader.hpp" />
@@ -299,6 +302,7 @@
     <ClInclude Include="src\Engine\Project\Managers\Connections\Command\CommandConnection.hpp" />
     <ClInclude Include="src\Engine\Project\Managers\Connections\Directory\DirectoryConnection.hpp" />
     <ClInclude Include="src\Engine\Project\Managers\Connections\Drawing\DrawingConnection.hpp" />
+    <ClInclude Include="src\Engine\Project\Managers\Connections\Font\FontConnection.hpp" />
     <ClInclude Include="src\Engine\Project\Managers\Connections\Framebuffer\FramebufferConnection.hpp" />
     <ClInclude Include="src\Engine\Project\Managers\Connections\Image\ImageConnection.hpp" />
     <ClInclude Include="src\Engine\Project\Managers\Connections\Input\InputConnection.hpp" />

@@ -32,9 +32,9 @@ namespace Window {
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, (int)windowConfig.openGlVersionMin);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-		bool HaveMSAA = (windowConfig.windowMSAA > 0);
+		bool haveMSAA = (windowConfig.windowMSAA > 0);
 
-		if(HaveMSAA) 
+		if(haveMSAA)
 			glfwWindowHint(GLFW_SAMPLES, windowConfig.windowMSAA);
 
 		instance.windowPtr = glfwCreateWindow(
@@ -87,7 +87,7 @@ namespace Window {
 		glfwSetWindowIconifyCallback(instance.windowPtr, WindowMinimizeCallback);
 		glfwSetWindowFocusCallback(instance.windowPtr, WindowFocusCallback);
 
-		if(HaveMSAA) 
+		if(haveMSAA)
 			glEnable(GL_MULTISAMPLE);
 
 		glViewport(0, 0, Window::GetSize().x, Window::GetSize().y);
@@ -131,8 +131,9 @@ namespace Window {
 		Drawing::Primitives2D::Instance().Release();
 		Drawing::TextureRenderer::Instance().Release();
 		Audio::Audio::ReleaseEngine();
+		Font::Font::Release();
 		GUI::Release();
-			
+
 		glfwDestroyWindow(instance.windowPtr);
 		glfwTerminate();
 

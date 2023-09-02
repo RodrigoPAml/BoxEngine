@@ -228,7 +228,10 @@ namespace Editor {
 					else if (!newFile.ends_with(".lua"))
 						Utils::Directory::CreateFile(newFile, "");
 					else
+					{
 						Utils::Directory::CreateFile(newFile, this->GetScriptFile(Utils::Directory::GetLastPartFromPathNoExtension(newFile)));
+						Project::Project::GetCurrentProject()->LoadScriptNameListForEditor();
+					}
 
 					this->shouldUpdate = true;
 					GUI::CloseCurrentPopUp();

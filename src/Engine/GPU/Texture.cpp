@@ -15,7 +15,6 @@ namespace GPU {
 
 		this->id = 0;
 		this->size = image->GetSize();
-		this->format = image->GetFormat();
 
 		glGenTextures(1, &this->id);
 		glBindTexture(GL_TEXTURE_2D, this->id);
@@ -79,7 +78,6 @@ namespace GPU {
 
 		this->id = 0;
 		this->size = configuration.size;
-		this->format = configuration.format;
 
 		glGenTextures(1, &this->id);
 		glBindTexture(GL_TEXTURE_2D, this->id);
@@ -113,13 +111,50 @@ namespace GPU {
 			this->size.x,
 			this->size.y,
 			0,
-			(GLint)this->format,
+			(GLint)configuration.format,
 			(GLenum)configuration.pixelFormat,
 			nullptr
 		);
 
 		if (configuration.minifyingFilter != MinifyingFilter::ONLY_LINEAR && configuration.minifyingFilter != MinifyingFilter::ONLY_NEAREST)
 			glGenerateMipmap(GL_TEXTURE_2D);
+
+		if (this->id == 0)
+			Debug::Logging::LogException("[Texture]: Failed to create texture", Debug::LogOrigin::Engine);
+		else
+			Debug::Logging::Log("[Texture]: Created with id " + std::to_string(this->id), Debug::LogSeverity::Notify, Debug::LogOrigin::EngineInternal);
+	}
+
+	Texture::Texture(const MultisampleTextureConfiguration& configuration)
+	{
+		Texture::TotalInstances++;
+
+		if (configuration.size.x <= 0 || configuration.size.y <= 0)
+			Debug::Logging::LogException(
+				"[Texture]: Cant create. Texture have invalid size: " +
+				std::to_string(configuration.size.x) +
+				" x " +
+				std::to_string(configuration.size.y),
+				Debug::LogOrigin::Engine
+			);
+
+		this->id = 0;
+		this->size = configuration.size;
+		this->internalType = GL_TEXTURE_2D_MULTISAMPLE;
+		this->samples = configuration.samples;
+
+		glGenTextures(1, &this->id);
+		glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, this->id);
+
+		glTexImage2DMultisample(
+			GL_TEXTURE_2D_MULTISAMPLE,
+			configuration.samples,
+			(GLint)configuration.internalFormat,
+			configuration.size.x,
+			configuration.size.y,
+			GL_TRUE
+		);
+
 
 		if (this->id == 0)
 			Debug::Logging::LogException("[Texture]: Failed to create texture", Debug::LogOrigin::Engine);
@@ -149,13 +184,34 @@ namespace GPU {
 			Debug::Logging::LogException("[Texture]: Cant use a texture if its empty", Debug::LogOrigin::Engine);
 
 		glActiveTexture(GL_TEXTURE0 + slot);
-		glBindTexture(GL_TEXTURE_2D, this->id);
+		glBindTexture(this->internalType, this->id);
+	}
+
+	int Texture::GetInternalType() const
+	{
+		return this->internalType;
+	}
+
+	bool Texture::IsMultiSampled() const
+	{
+		return this->internalType == GL_TEXTURE_2D_MULTISAMPLE;
+	}
+
+	bool Texture::GetNumberOfSamples() const
+	{
+		return this->samples;
+	}
+
+	glm::vec<2, unsigned int> Texture::GetSize() const
+	{
+		return this->size;
 	}
 
 	void Texture::DisableTextureUnit(const unsigned int slot)
 	{
 		glActiveTexture(GL_TEXTURE0 + slot);
 		glDisable(GL_TEXTURE_2D);
+		glDisable(GL_TEXTURE_2D_MULTISAMPLE);
 	}
 
 	unsigned int Texture::GetMaxTextureUnits()

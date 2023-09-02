@@ -59,6 +59,9 @@ namespace Project {
 		this->audio = AudioConnectionPtr(new AudioConnection(state));
 		AudioConnection::Set(this->audio);
 
+		this->font = FontConnectionPtr(new FontConnection(state));
+		FontConnection::Set(this->font);
+
 		auto engineContent = Utils::Directory::ReadFile(Utils::Directory::GetResourcePath() + "/scripts/engine.lua");
 		luaL_dostring(state, engineContent.c_str());
 
@@ -84,6 +87,7 @@ namespace Project {
 		this->drawing->Bind();
 		this->window->Bind();
 		this->audio->Bind();
+		this->font->Bind();
 	}
 
 	void ConnectionManager::SetCurrentGo(GameObjectPtr go)

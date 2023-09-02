@@ -23,6 +23,10 @@
 // Json
 #include <json_nlohmann.hpp>
 
+// FreeType
+#include <ft2build.h>
+#include FT_FREETYPE_H
+
 // Lua JIT
 extern "C"
 {
@@ -112,6 +116,7 @@ extern "C"
 #include <Engine/Drawing/Primitives3D.hpp>
 
 #include <Engine/Audio/Audio.hpp>
+#include <Engine/Font/Font.hpp>
 
 #include <Engine/Data/ProjectEnums.hpp>
 #include <Engine/Data/ProjectUtils.hpp>
@@ -143,6 +148,7 @@ extern "C"
 #include <Engine/Project/Managers/Connections/Utils/UtilsConnection.hpp>
 #include <Engine/Project/Managers/Connections/Scene/GoScriptConnection.hpp>
 #include <Engine/Project/Managers/Connections/Audio/AudioConnection.hpp>
+#include <Engine/Project/Managers/Connections/Font/FontConnection.hpp>
 
 #include <Engine/Project/Managers/ConnectionManager.hpp>
 #include <Engine/Project/Managers/ScriptManager.hpp>

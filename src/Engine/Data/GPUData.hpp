@@ -7,7 +7,7 @@ namespace GPU {
 	#pragma region TextureData
 
 	/// <summary>
-	/// Configuration so send a texture in memory to CPU.
+	/// Configuration so send a texture in memory to GPU.
 	/// </summary>
 	struct TextureDataConfiguration
 	{
@@ -25,7 +25,17 @@ namespace GPU {
 	};
 
 	/// <summary>
-	/// Configuration to create an empty texture in CPU.
+	/// Configuration to create an empty multisampled texture in GPU.
+	/// </summary>
+	struct MultisampleTextureConfiguration
+	{
+		unsigned int samples = 0;
+		TextureInternalFormat internalFormat = TextureInternalFormat::RGB;
+		glm::vec2 size = { 0,0 };
+	};
+
+	/// <summary>
+	/// Configuration to create an empty texture in GPU.
 	/// </summary>
 	struct TextureConfiguration : TextureDataConfiguration
 	{

@@ -16,8 +16,8 @@ namespace Connection {
 	{
 		lua_newtable(this->state);
 		
-		Utils::Lua::RegTable(this->state, "create2D", Create2DAudio);
-		Utils::Lua::RegTable(this->state, "create3D", Create3DAudio);
+		Utils::Lua::RegTable(this->state, "create_2d", Create2DAudio);
+		Utils::Lua::RegTable(this->state, "create_3d", Create3DAudio);
 		Utils::Lua::RegTable(this->state, "destroy", DestroyAudio);
 
 		Utils::Lua::RegTable(this->state, "resume", Resume);

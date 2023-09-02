@@ -15,13 +15,16 @@ namespace GPU {
 
 		glm::vec2 size = { 0,0 };
 
+		int aliasing = 0;
+
 		RenderBufferAttachment() = default;
 
-		RenderBufferAttachment(const RenderBufferAttachmentType type, const RenderBufferFormat format, const glm::vec2& size)
+		RenderBufferAttachment(const RenderBufferAttachmentType type, const RenderBufferFormat format, const glm::vec2& size, const int aliasing)
 		{
 			this->type = type;
 			this->format = format;
 			this->size = size;
+			this->aliasing = aliasing;
 		}
 	};
 

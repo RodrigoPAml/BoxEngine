@@ -22,7 +22,7 @@ namespace Drawing {
 
 		auto instance = Instance();
 
-		if (instance.shader == nullptr)
+		if (instance.shader == nullptr || instance.shaderMultisampled == nullptr)
 		{
 			Debug::Logging::Log("[TextureRenderer]: Attempt to draw an texture without a shader", Debug::LogSeverity::Warning, Debug::LogOrigin::Engine);
 			return;
@@ -34,8 +34,6 @@ namespace Drawing {
 			return;
 		}
 
-		instance.shader->Use();
-
 		glm::mat4 model(glm::mat4(1.0f));
 
 		model = glm::translate(model, glm::vec3(position, 0.0f));
@@ -45,9 +43,24 @@ namespace Drawing {
 
 		texture->Use(0);
 
-		instance.shader->SetMat4("model", model);
-		instance.shader->SetMat4("projection", cam->GetOrthoMatrix());
-		instance.shader->SetInt("image", 0);
+		if (texture->IsMultiSampled())
+		{
+			instance.shaderMultisampled->Use();
+
+			instance.shaderMultisampled->SetMat4("model", model);
+			instance.shaderMultisampled->SetMat4("projection", cam->GetOrthoMatrix());
+			instance.shaderMultisampled->SetInt("image", 0);
+			instance.shaderMultisampled->SetXY("texSize", texture->GetSize().x, texture->GetSize().y);
+			instance.shaderMultisampled->SetInt("samples", texture->GetNumberOfSamples());
+		}
+		else
+		{
+			instance.shader->Use();
+
+			instance.shader->SetMat4("model", model);
+			instance.shader->SetMat4("projection", cam->GetOrthoMatrix());
+			instance.shader->SetInt("image", 0);
+		}
 
 		instance.mesh->Use();
 		instance.mesh->Draw(GPU::DrawingType::TRIANGLES);
@@ -87,7 +100,30 @@ namespace Drawing {
 			"}"
 		};
 
+		const std::string fragShaderMS = {
+			"#version 330 core\n"
+			"layout(location = 0) out vec4 outColor;\n"
+			"in vec2 uv;\n"
+
+			"uniform sampler2DMS image;\n"
+
+			"uniform vec2 texSize;\n"
+
+			"uniform int samples;\n"
+
+			"void main()\n"
+			"{\n"
+			"  vec4 color = vec4(0.0);\n"
+			"  for(int i = 0; i < samples; i++)\n"
+			"  {\n"
+			"    color += texelFetch(image, ivec2(uv.x*texSize.x, uv.y*texSize.y), i);\n"
+			"  }\n"
+			"  outColor = color/samples;\n"
+			"}"
+		};
+
 		this->shader = GPU::ShaderPtr(new GPU::Shader(vertShader, fragShader, ""));
+		this->shaderMultisampled = GPU::ShaderPtr(new GPU::Shader(vertShader, fragShaderMS, ""));
 
 		float vertices[] =
 		{
@@ -109,10 +145,9 @@ namespace Drawing {
 
 	void TextureRenderer::Release()
 	{
-		mesh.~shared_ptr();
-		shader.~shared_ptr();
 		mesh = nullptr;
 		shader = nullptr;
+		shaderMultisampled = nullptr;
 
 		Debug::Logging::Log("[TextureRenderer]: Released", Debug::LogSeverity::Notify, Debug::LogOrigin::Engine);
 	}

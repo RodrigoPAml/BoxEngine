@@ -39,6 +39,18 @@ namespace Editor {
 					}
 				}
 
+				if (currentProject->GetState() != ProjectState::Idle && GUI::MenuItem("Force Save"))
+				{
+					try
+					{
+						currentProject->Save();
+					}
+					catch (const std::runtime_error& error)
+					{
+						Debug::Logging::Log(error.what(), Debug::LogSeverity::Error, Debug::LogOrigin::Engine);
+					}
+				}
+
 				if (project->GetState() == ProjectState::Idle && GUI::MenuItem("Discard changes"))
 				{
 					if (project != nullptr)

@@ -48,6 +48,8 @@ namespace Project {
 		Connection::WindowConnectionPtr window;
 		// Functions for audio
 		Connection::AudioConnectionPtr audio;
+		// Functions for fonts
+		Connection::FontConnectionPtr font;
 
 		lua_State* state = nullptr;
 	public:

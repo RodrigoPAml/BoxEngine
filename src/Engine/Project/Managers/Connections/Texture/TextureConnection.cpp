@@ -18,6 +18,8 @@ namespace Connection {
 		
 		Utils::Lua::RegTable(this->state, "create", CreateTexture);
 		Utils::Lua::RegTable(this->state, "create_empty", CreateEmptyTexture);
+		Utils::Lua::RegTable(this->state, "create_multi_sampled", CreateMultiSampledTexture);
+
 		Utils::Lua::RegTable(this->state, "destroy", DestroyTexture);
 
 		Utils::Lua::RegTable(this->state, "active", Active);
@@ -97,6 +99,51 @@ namespace Connection {
 
 			Utils::Lua::GetTable(L, 1, "ansiotropic_filter", config.ansiotropicFilter);
 			Utils::Lua::GetTable(L, 1, "border_color", config.borderColor);
+
+			if (!Utils::Lua::GetTable(L, 1, "texture_size", config.size))
+				return luaL_error(L, "argument texture_size needs to be a vec2");
+
+			GPU::TexturePtr texture = nullptr;
+			auto instance = TextureConnection::Get();
+
+			try
+			{
+				texture = GPU::TexturePtr(new GPU::Texture(config));
+				instance->textures[++instance->currentId] = texture;
+				lua_pushnumber(L, instance->currentId);
+				return 1;
+			}
+			catch (std::exception)
+			{
+				lua_pushnil(L);
+				texture = nullptr;
+				instance = nullptr;
+				return 1;
+			}
+		}
+		else return luaL_error(L, "argument 1 is expected to be a table");
+
+		lua_pushnil(L);
+		return 1;
+	}
+
+	int TextureConnection::CreateMultiSampledTexture(lua_State* L)
+	{
+		auto top = lua_gettop(L);
+
+		if (top != 1)
+			return luaL_error(L, "expecting 1 argument in function call");
+
+		if (lua_istable(L, 1))
+		{
+			GPU::MultisampleTextureConfiguration config;
+			std::string str;
+
+			if (!Utils::Lua::GetTable(L, 1, "texture_samples", config.samples))
+				return luaL_error(L, "argument samples needs to be a number");
+
+			if (Utils::Lua::GetTable(L, 1, "texture_internal_format", str))
+				config.internalFormat = GPU::TextureInternalFormatToString(str);
 
 			if (!Utils::Lua::GetTable(L, 1, "texture_size", config.size))
 				return luaL_error(L, "argument texture_size needs to be a vec2");

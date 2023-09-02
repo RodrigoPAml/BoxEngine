@@ -21,14 +21,21 @@ namespace GPU {
 		glm::vec<2, unsigned int> size;
 
 		/// <summary>
-		/// Texture format
+		/// The number of samples
 		/// </summary>
-		TextureFormat format;
+		int samples = 0;
+
+		/// <summary>
+		/// Texture chosen internal format
+		/// </summary>
+		int internalType = GL_TEXTURE_2D;
 
 		static int TotalInstances;
 	public:
 		Texture(const TextureDataConfiguration& configuration, Utils::ImagePtr texture);
 		Texture(const TextureConfiguration& configuration);
+		Texture(const MultisampleTextureConfiguration& configuration);
+
 		~Texture();
 
 		/// <summary>
@@ -40,6 +47,29 @@ namespace GPU {
 		/// Activate texture in slot.
 		/// </summary>
 		void Use(const unsigned int slot) const;
+
+		/// <summary>
+		/// Internal type GL_TEXTURE_2D or GL_TEXTURE_2D_MULTISAMPLE
+		/// </summary>
+		int GetInternalType() const;
+
+		/// <summary>
+		/// If the texture is multi sampled
+		/// </summary>
+		/// <returns></returns>
+		bool IsMultiSampled() const;
+
+		/// <summary>
+		/// If the texture is multi sampled
+		/// </summary>
+		/// <returns></returns>
+		bool GetNumberOfSamples() const;
+
+		/// <summary>
+		/// Returnt texture size
+		/// </summary>
+		/// <returns></returns>
+		glm::vec<2, unsigned int> GetSize() const;
 
 		/// <summary>
 		/// Disable texture in slot.

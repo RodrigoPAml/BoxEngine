@@ -27,7 +27,7 @@ namespace GPU {
 
 		for(auto i = 0; i < configuration.textureAttachments.size(); i++)
 		{
-			glFramebufferTexture2D(GL_FRAMEBUFFER, attach, GL_TEXTURE_2D, configuration.textureAttachments[i]->GetId(), 0);
+			glFramebufferTexture2D(GL_FRAMEBUFFER, attach, configuration.textureAttachments[i]->GetInternalType(), configuration.textureAttachments[i]->GetId(), 0);
 
 			attachments[i] = attach;
 			attach++;
@@ -39,7 +39,7 @@ namespace GPU {
 			glDrawBuffers(configuration.textureAttachments.size(), attachments);
 
 		if(configuration.depthAttachment.texture != nullptr)
-			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, configuration.depthAttachment.texture->GetId(), 0);
+			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, configuration.depthAttachment.texture->GetInternalType(), configuration.depthAttachment.texture->GetId(), 0);
 		
 		delete[] attachments;
 
@@ -48,12 +48,25 @@ namespace GPU {
 			glGenRenderbuffers(1, &this->renderBufferId);
 			glBindRenderbuffer(GL_RENDERBUFFER, this->renderBufferId);
 
-			glRenderbufferStorage(
-				GL_RENDERBUFFER, 
-				(GLenum)configuration.renderBufferAttachment.format,
-				configuration.renderBufferAttachment.size.x, 
-				configuration.renderBufferAttachment.size.y
-			);
+			if (configuration.renderBufferAttachment.aliasing > 0)
+			{
+				glRenderbufferStorageMultisample(
+					GL_RENDERBUFFER,
+					configuration.renderBufferAttachment.aliasing,
+					(GLenum)configuration.renderBufferAttachment.format,
+					configuration.renderBufferAttachment.size.x,
+					configuration.renderBufferAttachment.size.y
+				);
+			}
+			else
+			{
+				glRenderbufferStorage(
+					GL_RENDERBUFFER,
+					(GLenum)configuration.renderBufferAttachment.format,
+					configuration.renderBufferAttachment.size.x,
+					configuration.renderBufferAttachment.size.y
+				);
+			}
 
 			glFramebufferRenderbuffer(GL_FRAMEBUFFER, (GLenum)configuration.renderBufferAttachment.type, GL_RENDERBUFFER, this->renderBufferId);
 		}

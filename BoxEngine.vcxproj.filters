@@ -216,6 +216,12 @@
     <ClCompile Include="src\Engine\Project\Managers\Connections\Audio\AudioConnection.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
+    <ClCompile Include="src\Engine\Font\Font.cpp">
+      <Filter>Arquivos de Origem</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Project\Managers\Connections\Font\FontConnection.cpp">
+      <Filter>Arquivos de Origem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\BoxEngine.hpp">
@@ -504,6 +510,12 @@
       <Filter>Arquivos de Origem</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Project\Managers\Connections\Audio\AudioConnection.hpp">
+      <Filter>Arquivos de Cabeçalho</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Font\Font.hpp">
+      <Filter>Arquivos de Cabeçalho</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Project\Managers\Connections\Font\FontConnection.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
   </ItemGroup>

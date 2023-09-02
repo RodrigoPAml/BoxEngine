@@ -17,6 +17,9 @@ namespace Audio {
 		if (engine == nullptr)
 			engine = createIrrKlangDevice();
 
+		if(engine == nullptr)
+			Debug::Logging::Log("[Audio]: Failed to initialize audio module", Debug::LogSeverity::Error, Debug::LogOrigin::EngineInternal);
+
 		TotalInstances++;
 	}
 
@@ -26,6 +29,8 @@ namespace Audio {
 
 		if (this->sound != nullptr)
 			this->sound->drop();
+
+		Debug::Logging::Log("[Audio]: Destroyed audio from " + this->path, Debug::LogSeverity::Notify, Debug::LogOrigin::EngineInternal);
 	}
 
 	void Audio::Instantiate2D()
@@ -38,7 +43,13 @@ namespace Audio {
 		if(!Utils::Directory::Exists(this->path))
 			return;
 
+
 		this->sound = engine->play2D(this->path.c_str(), false, true, true, ESM_AUTO_DETECT, false);
+
+		if(this->sound != nullptr)
+			Debug::Logging::Log("[Audio]: Created 2D audio from " + this->path, Debug::LogSeverity::Notify, Debug::LogOrigin::EngineInternal);
+		else 
+			Debug::Logging::Log("[Audio]: Failed to create 2D audio from " + this->path, Debug::LogSeverity::Error, Debug::LogOrigin::EngineInternal);
 	}
 
 	void Audio::Instantiate3D()
@@ -51,6 +62,11 @@ namespace Audio {
 
 		using namespace irrklang;
 		this->sound = engine->play3D(this->path.c_str(), { 0, 0, 0 }, false, true, true, ESM_AUTO_DETECT, false);
+
+		if (this->sound != nullptr)
+			Debug::Logging::Log("[Audio]: Created 3D audio from " + this->path, Debug::LogSeverity::Notify, Debug::LogOrigin::EngineInternal);
+		else
+			Debug::Logging::Log("[Audio]: Failed to create 3D audio from " + this->path, Debug::LogSeverity::Error, Debug::LogOrigin::EngineInternal);
 	}
 
 	void Audio::Stop()
