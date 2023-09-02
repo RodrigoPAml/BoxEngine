@@ -41,6 +41,7 @@ namespace GPU {
 			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, supported);
 		}
 
+		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 		glTexImage2D(
 			GL_TEXTURE_2D, 
 			0, 

@@ -4,7 +4,7 @@
 namespace BoxEngine {
 namespace Drawing {
 
-	void Primitives3D::DrawCube(const glm::vec3& position, const glm::vec3& size, const glm::vec3& eulerAngles, const glm::vec3& color, const bool filled)
+	void Primitives3D::DrawCube(const glm::vec3& position, const glm::vec3& size, const glm::vec3& eulerAngles, const glm::vec4& color, const bool filled)
 	{
 		auto instance = Instance();
 
@@ -23,7 +23,7 @@ namespace Drawing {
 		}
 	}
 
-	void Primitives3D::DrawSphere(const glm::vec3& position, const glm::vec3& size, const glm::vec3& eulerAngles, const glm::vec3& color, const bool filled)
+	void Primitives3D::DrawSphere(const glm::vec3& position, const glm::vec3& size, const glm::vec3& eulerAngles, const glm::vec4& color, const bool filled)
 	{
 		auto instance = Instance();
 
@@ -42,7 +42,7 @@ namespace Drawing {
 		}
 	}
 
-	void Primitives3D::DrawPoint(const glm::vec3& position, const glm::vec3& color)
+	void Primitives3D::DrawPoint(const glm::vec3& position, const glm::vec4& color)
 	{
 		auto instance = Instance();
 
@@ -53,7 +53,7 @@ namespace Drawing {
 		instance.meshPoint->Draw(GPU::DrawingType::POINTS);
 	}
 
-	void Primitives3D::DrawLine(const glm::vec3& pos1, const glm::vec3& pos2, const glm::vec3& color)
+	void Primitives3D::DrawLine(const glm::vec3& pos1, const glm::vec3& pos2, const glm::vec4& color)
 	{
 		auto instance = Instance();
 
@@ -67,7 +67,7 @@ namespace Drawing {
 		instance.meshLine->ModifyData(0, 0, 6 * sizeof(float), v);
 	}
 
-	void Primitives3D::DrawRect(const glm::vec3& position, const glm::vec3& size, const glm::vec3& eulerAngles, const glm::vec3& color, const bool filled)
+	void Primitives3D::DrawRect(const glm::vec3& position, const glm::vec3& size, const glm::vec3& eulerAngles, const glm::vec4& color, const bool filled)
 	{
 		auto instance = Instance();
 
@@ -86,7 +86,7 @@ namespace Drawing {
 		}
 	}
 
-	void Primitives3D::DrawTriangle(const glm::vec3&pos1, const glm::vec3&pos2, const glm::vec3&pos3, const glm::vec3&color, const bool filled)
+	void Primitives3D::DrawTriangle(const glm::vec3&pos1, const glm::vec3&pos2, const glm::vec3&pos3, const glm::vec4&color, const bool filled)
 	{
 		auto instance = Instance();
 
@@ -104,7 +104,7 @@ namespace Drawing {
 			instance.meshTriangle->Draw(GPU::DrawingType::LINE_LOOP);
 	}
 
-	void Primitives3D::DrawCircle(const glm::vec3& pos, const glm::vec3& size, const glm::vec3& eulerAngles, const glm::vec3& color, const bool filled)
+	void Primitives3D::DrawCircle(const glm::vec3& pos, const glm::vec3& size, const glm::vec3& eulerAngles, const glm::vec4& color, const bool filled)
 	{
 		auto instance = Instance();
 
@@ -147,10 +147,10 @@ namespace Drawing {
 		const std::string fragShader = {
 			"#version 330 core\n"
 			"out vec4 colorOut;\n"
-			"uniform vec3 color;\n"
+			"uniform vec4 color;\n"
 			"void main()\n"
 			"{\n"
-			"	colorOut = vec4(color, 1.0f);\n"
+			"	colorOut = vec4(color);\n"
 			"}"
 		};
 
@@ -202,7 +202,7 @@ namespace Drawing {
 		Debug::Logging::Log("[Primitives3D]: Released", Debug::LogSeverity::Notify, Debug::LogOrigin::Engine);
 	}
 
-	bool Primitives3D::Setup(const glm::vec3& position, const glm::vec3& size, const glm::vec3& eulerAngles, const glm::vec3& color)
+	bool Primitives3D::Setup(const glm::vec3& position, const glm::vec3& size, const glm::vec3& eulerAngles, const glm::vec4& color)
 	{
 		const Camera::Camera3DPtr cam = Camera::Camera3D::GetCurrentCamera();
 

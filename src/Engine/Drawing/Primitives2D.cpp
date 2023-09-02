@@ -4,7 +4,7 @@
 namespace BoxEngine {
 namespace Drawing {
 
-	void Primitives2D::DrawRectangle(const glm::vec2& position, const glm::vec2& size, const float rotation, const glm::vec3& color, const bool filled)
+	void Primitives2D::DrawRectangle(const glm::vec2& position, const glm::vec2& size, const float rotation, const glm::vec4& color, const bool filled)
 	{
 		auto instance = Instance();
 
@@ -23,7 +23,7 @@ namespace Drawing {
 		}
 	}
 
-	void Primitives2D::DrawCircle(const glm::vec2& position, const glm::vec2& size, const float rotation, const glm::vec3& color, const bool filled)
+	void Primitives2D::DrawCircle(const glm::vec2& position, const glm::vec2& size, const float rotation, const glm::vec4& color, const bool filled)
 	{
 		auto instance = Instance();
 
@@ -42,7 +42,7 @@ namespace Drawing {
 		}
 	}
 
-	void Primitives2D::DrawTriangle(const glm::vec2& pos1, const glm::vec2& pos2, const glm::vec2& pos3, const glm::vec3& color, const bool filled)
+	void Primitives2D::DrawTriangle(const glm::vec2& pos1, const glm::vec2& pos2, const glm::vec2& pos3, const glm::vec4& color, const bool filled)
 	{
 		auto instance = Instance();
 		
@@ -60,7 +60,7 @@ namespace Drawing {
 			instance.triangleMesh->Draw(GPU::DrawingType::LINE_LOOP);
 	}
 
-	void Primitives2D::DrawPoint(const glm::vec2& position, const glm::vec3& color)
+	void Primitives2D::DrawPoint(const glm::vec2& position, const glm::vec4& color)
 	{
 		auto instance = Instance();
 
@@ -71,7 +71,7 @@ namespace Drawing {
 		instance.pointMesh->Draw(GPU::DrawingType::POINTS);
 	}
 
-	void Primitives2D::DrawLine(const glm::vec2& pos1, const glm::vec2& pos2, const glm::vec3& color)
+	void Primitives2D::DrawLine(const glm::vec2& pos1, const glm::vec2& pos2, const glm::vec4& color)
 	{
 		auto instance = Instance();
 
@@ -108,13 +108,13 @@ namespace Drawing {
 		const std::string fragShader = {
 			"#version 330 core\n"
 			"out vec4 colorOut;\n"
-			"uniform vec3 color;\n"
+			"uniform vec4 color;\n"
 			"void main()\n"
 			"{\n"
-			"	colorOut = vec4(color, 1.0);\n"
+			"	colorOut = vec4(color.xyzw);\n"
 			"}"
 		};
-
+	
 		this->shader = GPU::ShaderPtr(new GPU::Shader(vertShader, fragShader, ""));
 
 		this->rectMesh = Utils::Generator::Generate2DRect(GPU::DataUse::STATIC_DRAW);
@@ -151,7 +151,7 @@ namespace Drawing {
 		Debug::Logging::Log("[Primitives2D]: Released", Debug::LogSeverity::Notify, Debug::LogOrigin::Engine);
 	}
 
-	bool Primitives2D::Setup(const glm::vec2& position, const glm::vec2& size, const float rotation, const glm::vec3& color)
+	bool Primitives2D::Setup(const glm::vec2& position, const glm::vec2& size, const float rotation, const glm::vec4& color)
 	{
 		const Camera::Camera2DPtr cam = Camera::Camera2D::GetCurrentCamera();
 
@@ -176,7 +176,7 @@ namespace Drawing {
 		this->shader->Use();
 		this->shader->SetMat4("model", model);
 		this->shader->SetMat4("projection", cam->GetOrthoMatrix());
-		this->shader->SetVec3("color", color);
+		this->shader->SetVec4("color", color);
 
 		return true;
 	}

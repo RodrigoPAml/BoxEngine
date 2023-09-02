@@ -21,11 +21,11 @@ namespace Drawing {
 
 		GPU::ShaderPtr shader;
 	public:
-		static void DrawRectangle(const glm::vec2& position, const glm::vec2& size, const float rotation, const glm::vec3& color, const bool filled = true);
-		static void DrawCircle(const glm::vec2& position, const glm::vec2& size, const float rotation, const glm::vec3& color, const bool filled = true);
-		static void DrawTriangle(const glm::vec2& pos1, const glm::vec2& pos2, const glm::vec2& pos3, const glm::vec3& color, const bool filled = true);
-		static void DrawPoint(const glm::vec2& position, const glm::vec3& color);
-		static void DrawLine(const glm::vec2& pos1, const glm::vec2& pos2, const glm::vec3& color);
+		static void DrawRectangle(const glm::vec2& position, const glm::vec2& size, const float rotation, const glm::vec4& color, const bool filled = true);
+		static void DrawCircle(const glm::vec2& position, const glm::vec2& size, const float rotation, const glm::vec4& color, const bool filled = true);
+		static void DrawTriangle(const glm::vec2& pos1, const glm::vec2& pos2, const glm::vec2& pos3, const glm::vec4& color, const bool filled = true);
+		static void DrawPoint(const glm::vec2& position, const glm::vec4& color);
+		static void DrawLine(const glm::vec2& pos1, const glm::vec2& pos2, const glm::vec4& color);
 	private:
 		Primitives2D() {};
 
@@ -37,6 +37,6 @@ namespace Drawing {
 		void Init();
 		void Release();
 
-		bool Setup(const glm::vec2& position, const glm::vec2& size, const float rotation, const glm::vec3& color);
+		bool Setup(const glm::vec2& position, const glm::vec2& size, const float rotation, const glm::vec4& color);
 	};
 }}

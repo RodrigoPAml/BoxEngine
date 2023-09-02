@@ -161,8 +161,8 @@ namespace Font {
     {
         FT_Face face;
 
-        glPixelStorei(GL_PACK_ALIGNMENT, 1);
-        glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+       glPixelStorei(GL_PACK_ALIGNMENT, 1);
+       glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
         if (FT_New_Face(lib, path.c_str(), 0, &face))
         {

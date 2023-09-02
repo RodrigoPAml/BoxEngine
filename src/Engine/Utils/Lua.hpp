@@ -385,7 +385,7 @@ namespace Lua {
 			if (!GetTable(L, -3, "z", value.z))
 				return false;
 
-			if (!GetTable(L, -4, "w", value.z))
+			if (!GetTable(L, -4, "w", value.w))
 				return false;
 		}
 		else

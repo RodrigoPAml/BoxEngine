@@ -63,7 +63,7 @@ namespace Connection {
 		if (lua_istable(L, 1))
 		{
 			glm::vec2 position, size;
-			glm::vec3 color = { 1, 0, 0 };
+			glm::vec4 color = { 1, 0, 0, 1 };
 			float rotation = 0;
 			bool filled = true;
 
@@ -94,7 +94,7 @@ namespace Connection {
 
 		if (lua_istable(L, 1))
 		{
-			glm::vec3 color = { 1,0,0 };
+			glm::vec4 color = { 1, 0, 0, 1 };
 			glm::vec2 position, size;
 			float rotation = 0;
 			bool filled = true;
@@ -126,7 +126,7 @@ namespace Connection {
 
 		if (lua_istable(L, 1))
 		{
-			glm::vec3 color = { 1, 0, 0 };
+			glm::vec4 color = { 1, 0, 0, 1 };
 			glm::vec2 position, size;
 			float rotation = 0;
 			bool filled = true;
@@ -157,7 +157,7 @@ namespace Connection {
 
 		if (lua_istable(L, 1))
 		{
-			glm::vec3 color = { 1, 0, 0 };
+			glm::vec4 color = { 1, 0, 0, 1 };
 			glm::vec2 position;
 
 			if (!Utils::Lua::GetTable(L, 1, "color", color))
@@ -181,7 +181,7 @@ namespace Connection {
 
 		if (lua_istable(L, 1))
 		{
-			glm::vec3 color = { 1, 0, 0 };
+			glm::vec4 color = { 1, 0, 0, 1 };
 			glm::vec2 pos1, pos2;
 
 			Utils::Lua::GetTable(L, 1, "color", color);
@@ -208,7 +208,8 @@ namespace Connection {
 
 		if (lua_istable(L, 1))
 		{
-			glm::vec3 position, size, color = { 1, 0, 0 }, rotation = { 0, 0, 0 };
+			glm::vec4 color = { 1, 0, 0, 1 };
+			glm::vec3 position, size, rotation = { 0, 0, 0 };
 			bool filled = false;
 
 			if (!Utils::Lua::GetTable(L, 1, "position", position))
@@ -237,7 +238,8 @@ namespace Connection {
 
 		if (lua_istable(L, 1))
 		{
-			glm::vec3 position, size, color = { 1, 0 , 0 }, rotation = { 0, 0, 0 };
+			glm::vec4 color = { 1, 0, 0, 1 };
+			glm::vec3 position, size, rotation = { 0, 0, 0 };
 			bool filled = false;
 
 			if (!Utils::Lua::GetTable(L, 1, "position", position))
@@ -266,7 +268,8 @@ namespace Connection {
 
 		if (lua_istable(L, 1))
 		{
-			glm::vec3 position, color = { 1, 0, 0 };
+			glm::vec4 color = { 1, 0, 0, 1 };
+			glm::vec3 position;
 
 			Utils::Lua::GetTable(L, 1, "color", color);
 
@@ -289,7 +292,8 @@ namespace Connection {
 
 		if (lua_istable(L, 1))
 		{
-			glm::vec3 position1, position2, color = { 1, 0, 0 };
+			glm::vec4 color = { 1, 0, 0, 1 };
+			glm::vec3 position1, position2;
 
 			Utils::Lua::GetTable(L, 1, "color", color);
 
@@ -315,7 +319,8 @@ namespace Connection {
 
 		if (lua_istable(L, 1))
 		{
-			glm::vec3 position, size, color = { 1, 0, 0 }, rotation = { 0, 0, 0 };
+			glm::vec4 color = { 1, 0, 0, 1 };
+			glm::vec3 position, size, rotation = { 0, 0, 0 };
 			bool filled = false;
 
 			if (!Utils::Lua::GetTable(L, 1, "position", position))
@@ -344,7 +349,8 @@ namespace Connection {
 
 		if (lua_istable(L, 1))
 		{
-			glm::vec3 position, size, color = { 1, 0, 0 }, rotation = { 0, 0, 0 };
+			glm::vec4 color = { 1, 0, 0, 1 };
+			glm::vec3 position, size, rotation = { 0, 0, 0 };
 			bool filled = false;
 
 			if (!Utils::Lua::GetTable(L, 1, "position", position))
@@ -373,7 +379,8 @@ namespace Connection {
 
 		if (lua_istable(L, 1))
 		{
-			glm::vec3 position, size, color = { 1, 0, 0 }, rotation = { 0, 0, 0 };
+			glm::vec4 color = { 1, 0, 0, 1 };
+			glm::vec3 position, size, rotation = { 0, 0, 0 };
 			bool filled = false;
 
 			if (!Utils::Lua::GetTable(L, 1, "position", position))
