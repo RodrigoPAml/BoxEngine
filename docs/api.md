@@ -126,20 +126,20 @@ Returned table format
 }
 ```
 
-## Update Go
-Update a gameobject, pass the table by argument with update information
+## Set Go active
+Update a gameobject, active property
 
 Return a boolean indicating success
 ```lua
-function go.update(arg = table) end
+function go.set_active(goId = string, active = bool) end
 ```
 
-The argument table format
+## Set Go Name
+Update a gameobject, name property
+
+Return a boolean indicating success
 ```lua
-{
-    name = string, -- optional
-    active = boolean, -- optional
-}
+function go.set_name(goId = string, name = string) end
 ```
 
 ## Change Go Father
@@ -907,6 +907,13 @@ Return a vec2 with mouse coordinates
 
 ```lua
 function input.get_mouse_pos() end
+```
+
+## Get Camera Mouse Position
+Return a vec2 with mouse coordinates based on current camera
+
+```lua
+function input.get_cam_mouse_pos() end
 ```
 
 ## Get Mouse Variation

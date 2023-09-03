@@ -39,7 +39,8 @@ namespace Connection {
 		static int GetId(lua_State* L);
 		static int CreateGo(lua_State* L);
 		static int DestroyGo(lua_State* L);
-		static int UpdateGo(lua_State* L);
+		static int SetActive(lua_State* L);
+		static int SetName(lua_State* L);
 		static int GetGo(lua_State* L);
 		static int ChangeGoFather(lua_State* L);
 		static int ChangeGoIndex(lua_State* L);

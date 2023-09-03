@@ -39,6 +39,7 @@ namespace Connection {
 		static int GetKey(lua_State* L);
 		static int GetMod(lua_State* L);
 		static int GetMousePos(lua_State* L);
+		static int GetCamMousePos(lua_State* L);
 		static int GetMouseVar(lua_State* L);
 		static int GetMouseButton(lua_State* L);
 	};

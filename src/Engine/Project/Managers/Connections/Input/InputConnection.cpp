@@ -20,6 +20,7 @@ namespace Connection {
 		Utils::Lua::RegTable(this->state, "get_mod", GetMod);
 
 		Utils::Lua::RegTable(this->state, "get_mouse_pos", GetMousePos);
+		Utils::Lua::RegTable(this->state, "get_cam_mouse_pos", GetCamMousePos);
 		Utils::Lua::RegTable(this->state, "get_mouse_var", GetMouseVar);
 		Utils::Lua::RegTable(this->state, "get_mouse_button", GetMouseButton);
 
@@ -90,9 +91,9 @@ namespace Connection {
 		auto pos = Input::Mouse::GetMousePosition();
 
 		// x = x min
-		// y = y max
+		// y = y min
 		// z = x max
-		// w = y min
+		// w = y max
 		auto box = Project::GetCurrentProject()->GetScreenLimits();
 		
 		float x = std::max(pos.x - box.x, 0.0f);
@@ -104,6 +105,44 @@ namespace Connection {
 		lua_newtable(L);
 		Utils::Lua::RegTable(L, "x", x);
 		Utils::Lua::RegTable(L, "y", y);
+
+		return 1;
+	}
+
+	int InputConnection::GetCamMousePos(lua_State* L)
+	{
+		auto top = lua_gettop(L);
+
+		if (top != 0)
+			return luaL_error(L, "expecting no argument in function call");
+
+		auto cam = Camera::Camera2D::GetCurrentCamera();
+
+		if (cam == nullptr)
+			lua_pushnil(L);
+		else
+		{
+			auto pos = Input::Mouse::GetMousePosition();
+
+			// x = x min
+			// y = y max
+			// z = x max
+			// w = y min
+			auto box = Project::GetCurrentProject()->GetScreenLimits();
+
+			float x = std::max(pos.x - box.x, 0.0f);
+			x = std::min(x, box.z);
+
+			float y = std::max(pos.y - box.y, 0.0f);
+			y = std::min(y, box.w);
+			
+			float maxX = std::abs(box.x - box.z);
+			float maxY = std::abs(box.y - box.w);
+
+			lua_newtable(L);
+			Utils::Lua::RegTable(L, "x", (x/maxX)*cam->GetRight());
+			Utils::Lua::RegTable(L, "y", (y/maxY)*cam->GetTop());
+		}
 
 		return 1;
 	}
@@ -132,6 +171,10 @@ namespace Connection {
 			return luaL_error(L, "expecting 1 argument in function call");
 		
 		std::string key = "";
+
+		if (lua_isstring(L, 1))
+			key = lua_tostring(L, 1);
+		else return luaL_error(L, "argument 1 is expected to be string");
 
 		auto var = Input::Mouse::GetMouseButtonState(Input::MapMouseButton(key));
 

@@ -119,8 +119,12 @@ function go.get(id)
 	return _go_.get(id)
 end
 
-function go.update(table)
-	return _go_.update(table)
+function go.set_name(goId, name)
+	return _go_.set_name(goId, name)
+end
+
+function go.set_active(goId, active)
+	return _go_.set_active(goId, active)
 end
 
 function go.change_father(goId, fatherId)
@@ -345,6 +349,10 @@ end
 
 function input.get_mouse_pos() 
 	return _input_.get_mouse_pos() 
+end
+
+function input.get_cam_mouse_pos() 
+	return _input_.get_cam_mouse_pos() 
 end
 
 function input.get_mouse_variation() 

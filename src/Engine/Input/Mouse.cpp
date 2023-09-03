@@ -69,8 +69,8 @@ namespace Input {
 	{
 		double xpos, ypos;
 		glfwGetCursorPos(Instance().windowPtr, &xpos, &ypos);
-
-		return {xpos, ypos};
+		
+		return {xpos, Window::Window::GetSize().y - ypos};
 	}
 
 	glm::vec<2, int> Mouse::GetMouseVariation()

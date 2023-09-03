@@ -22,7 +22,8 @@ namespace Connection {
 		Utils::Lua::RegTable(this->state, "create", CreateGo);
 		Utils::Lua::RegTable(this->state, "destroy", DestroyGo);
 		Utils::Lua::RegTable(this->state, "get", GetGo);
-		Utils::Lua::RegTable(this->state, "update", UpdateGo);
+		Utils::Lua::RegTable(this->state, "set_active", SetActive);
+		Utils::Lua::RegTable(this->state, "set_name", SetName);
 		Utils::Lua::RegTable(this->state, "change_father", ChangeGoFather);
 		Utils::Lua::RegTable(this->state, "change_index", ChangeGoIndex);
 
@@ -138,7 +139,7 @@ namespace Connection {
 		return 1;
 	}
 
-	int GoScriptConnection::UpdateGo(lua_State* L)
+	int GoScriptConnection::SetActive(lua_State* L)
 	{
 		auto top = lua_gettop(L);
 
@@ -146,12 +147,15 @@ namespace Connection {
 			return luaL_error(L, "expecting 2 arguments in function call");
 
 		std::string goId = "";
+		bool active = false;
+
 		if (lua_isstring(L, 1))
 			goId = lua_tostring(L, 1);
 		else return luaL_error(L, "argument 1 is expected to be string");
 
-		if (!lua_istable(L, 2))
-			return luaL_error(L, "argument 2 is expected to be a table");
+		if (lua_isboolean(L, 2))
+			active = lua_toboolean(L, 2);
+		else return luaL_error(L, "argument 2 is expected to be bool");
 
 		GameObjectPtr go = Project::GetCurrentProject()->GetGameObject(goId);
 
@@ -159,28 +163,39 @@ namespace Connection {
 			lua_pushboolean(L, false);
 		else
 		{
-			// changes active of go
-			lua_getfield(L, 2, "active");
+			go->SetActive(active);
 
-			if (lua_isboolean(L, -1))
-				go->SetActive(lua_toboolean(L, -1));
-			else if (!lua_isnil(L, -1))
-			{
-				go = nullptr;
-				return luaL_error(L, "argument active needs to be a boolean");
-			}
+			lua_pushboolean(L, true);
+		}
 
-			// changes name of go
-			lua_getfield(L, 2, "name");
+		return 1;
+	}
 
-			if (lua_isstring(L, -1))
-				go->SetName(lua_tostring(L, -1));
-			else if (!lua_isnil(L, -1))
-			{
-				go = nullptr;
-				return luaL_error(L, "argument name needs to be a string");
-			}
+	int GoScriptConnection::SetName(lua_State* L)
+	{
+		auto top = lua_gettop(L);
 
+		if (top != 2)
+			return luaL_error(L, "expecting 2 arguments in function call");
+
+		std::string goId = "";
+		std::string name = "";
+
+		if (lua_isstring(L, 1))
+			goId = lua_tostring(L, 1);
+		else return luaL_error(L, "argument 1 is expected to be string");
+
+		if (lua_isstring(L, 2))
+			name = lua_tostring(L, 2);
+		else return luaL_error(L, "argument 2 is expected to be string");
+
+		GameObjectPtr go = Project::GetCurrentProject()->GetGameObject(goId);
+
+		if (go == nullptr)
+			lua_pushboolean(L, false);
+		else
+		{
+			go->SetName(name);
 			lua_pushboolean(L, true);
 		}
 
