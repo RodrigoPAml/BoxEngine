@@ -2,8 +2,10 @@
 
 BoxEngine is application to build 2D and 3D general applications like games using the scripting language lua.
 
-This engine is ideal to build applications using the abstract layers implemented with OpenGL with fast prototypes
+This engine is ideal to build applications using the abstract layers implemented with OpenGL for fast prototypes
 Its uses the GameObject architecture to build the scenes with script attached to give it behaviour.
+
+The engine runs in c++ but the scripting language is in LUA (with JIT compiler), a brazilian language.
 
 Projects can be run in production mode (pass folder via argument) or editor mode
 
@@ -60,6 +62,20 @@ function teste.destroy()
     log('destroy')
 end
 ```
+
+# Libraries used
+
+* GLFW https://www.glfw.org/ (Window manipulation)
+* GLAD https://glad.dav1d.de/ (OpenGL initialization)
+* FreeType https://freetype.org/ (Font lib)
+* ImGui https://github.com/ocornut/imgui (GUI lib)
+* ImPlot https://github.com/epezent/implot (GUI Plots)
+* https://www.ambiera.com/irrklang/ (Audio lib)
+* Assimp https://github.com/assimp/assimp (load 3d models)
+* GLM https://github.com/g-truc/glm (math library)
+* Nlohmann JSON https://github.com/nlohmann/json (json manipulation)
+* STB_IMAGE https://github.com/nothings/stb/blob/master/stb_image.h (image lib)
+* LUA JIT https://luajit.org/ (jitted scripit language) 
 
 # Screen Shoots
 
