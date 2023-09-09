@@ -79,10 +79,14 @@ The first came is called "Air Fither and game be found in games folder
 
 It's a game about destroying enemies airplane and getting the better possible score
 
+This game was made to validade the engine release
+
 ![1](https://github.com/RodrigoPAml/BoxEngine/assets/41243039/2ebb77d7-cc41-4283-a906-1e16ce172ae5)
 
 
 ![2](https://github.com/RodrigoPAml/BoxEngine/assets/41243039/0d4bcb86-7090-43f3-9c04-753486ce9c49)
+
+Future a 3d game will be released
 
 
 
