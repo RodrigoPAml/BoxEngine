@@ -81,9 +81,9 @@ end
 
 ## Playing in editor mode
 
-![image](https://github.com/RodrigoPAml/BoxEngine/assets/41243039/3eb808f2-61cb-47f0-b12e-2b0ff5ed5aa6)
+![image](https://github.com/RodrigoPAml/BoxEngine/assets/41243039/f0d02127-782f-4fb4-9209-b1361e0e2b19)
 
-![image](https://github.com/RodrigoPAml/BoxEngine/assets/41243039/e5222e7d-badf-4ced-a4ad-9bd14c697449)
+![image](https://github.com/RodrigoPAml/BoxEngine/assets/41243039/de860063-8b48-4131-ad01-637ad0eb92c2)
 
 # Scripting API Documentation
 
@@ -97,15 +97,8 @@ It's a game about destroying enemies airplane and getting the better possible sc
 
 This game was made to validade the engine release
 
-![1](https://github.com/RodrigoPAml/BoxEngine/assets/41243039/2ebb77d7-cc41-4283-a906-1e16ce172ae5)
+![1](https://github.com/RodrigoPAml/BoxEngine/assets/41243039/13caab37-b00e-419d-be03-69e44108b269)
 
-
-![2](https://github.com/RodrigoPAml/BoxEngine/assets/41243039/0d4bcb86-7090-43f3-9c04-753486ce9c49)
+![2](https://github.com/RodrigoPAml/BoxEngine/assets/41243039/051d48c1-22e7-407a-9e16-b421f5f43b9c)
 
 Future a 3d game will be released
-
-
-
-
-
-
