@@ -24,7 +24,7 @@ namespace Editor {
 		bool shouldOpenWarningModal = false;
 		bool shouldOpenProject = false;
 
-		std::string startingPath = "C:/Users/Rodrigo/Desktop";
+		std::string startingPath = "C:/Users";
 	public:
 		ProjectManager() = default;
 		~ProjectManager() = default;

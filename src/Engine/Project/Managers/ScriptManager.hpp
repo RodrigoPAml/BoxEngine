@@ -56,11 +56,15 @@ namespace Project {
 		void GetScriptsExecution(const GameObjectPtr go, std::vector<GoExecution>& executions);
 
 		// Execute script of a go
-		bool ExecuteScript(const GoExecution& execution);
+		bool ExecuteScript(const GoExecution& execution, bool setAsCurrent = true);
 
 		// Add and remove script at runtime
 		bool AddScript(GameObjectPtr go, const std::string& scriptName);
 		bool DestroyScript(GameObjectPtr go, const std::string& scriptName);
+		
+		// In case you just created a go and want it scripts to load imediatly
+		// Otherwise will be in the next frame
+		bool PreLoadScripts(GameObjectPtr go);
 
 		int GetStackSize();
 	private:

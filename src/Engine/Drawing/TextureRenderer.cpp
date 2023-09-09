@@ -4,7 +4,7 @@
 namespace BoxEngine {
 namespace Drawing {
 
-	void TextureRenderer::Draw(const GPU::TexturePtr texture, const glm::vec2& position, const glm::vec2& size, const float rotation)
+	void TextureRenderer::Draw(const GPU::TexturePtr texture, const glm::vec2& position, const glm::vec2& size, const glm::vec4& color, const float rotation)
 	{
 		const Camera::Camera2DPtr cam = Camera::Camera2D::GetCurrentCamera();
 
@@ -50,6 +50,7 @@ namespace Drawing {
 			instance.shaderMultisampled->SetMat4("model", model);
 			instance.shaderMultisampled->SetMat4("projection", cam->GetOrthoMatrix());
 			instance.shaderMultisampled->SetInt("image", 0);
+			instance.shaderMultisampled->SetVec4("texColor", color);
 			instance.shaderMultisampled->SetXY("texSize", texture->GetSize().x, texture->GetSize().y);
 			instance.shaderMultisampled->SetInt("samples", texture->GetNumberOfSamples());
 		}
@@ -58,6 +59,7 @@ namespace Drawing {
 			instance.shader->Use();
 
 			instance.shader->SetMat4("model", model);
+			instance.shader->SetVec4("color", color);
 			instance.shader->SetMat4("projection", cam->GetOrthoMatrix());
 			instance.shader->SetInt("image", 0);
 		}
@@ -92,11 +94,12 @@ namespace Drawing {
 			"#version 330 core\n"
 			"layout(location = 0) out vec4 outColor;\n"
 			"in vec2 uv;\n"
+			"uniform vec4 color;\n"
 			"uniform sampler2D image;\n"
 			"void main()\n"
 			"{\n"
 			"  vec4 texFrag = texture(image, uv);\n"
-			"  outColor =  vec4(texFrag.xyzw);\n"
+			"  outColor =  vec4(texFrag.xyzw) + color;\n"
 			"}"
 		};
 
@@ -104,6 +107,7 @@ namespace Drawing {
 			"#version 330 core\n"
 			"layout(location = 0) out vec4 outColor;\n"
 			"in vec2 uv;\n"
+			"uniform vec4 texColor;\n"
 
 			"uniform sampler2DMS image;\n"
 
@@ -118,7 +122,7 @@ namespace Drawing {
 			"  {\n"
 			"    color += texelFetch(image, ivec2(uv.x*texSize.x, uv.y*texSize.y), i);\n"
 			"  }\n"
-			"  outColor = color/samples;\n"
+			"  outColor = color/samples + texColor;\n"
 			"}"
 		};
 

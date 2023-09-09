@@ -16,7 +16,7 @@ namespace Drawing {
 
 		GPU::VertexPtr mesh;
 	public:
-		static void Draw(const GPU::TexturePtr texture, const glm::vec2& position, const glm::vec2& size, const float rotation);
+		static void Draw(const GPU::TexturePtr texture, const glm::vec2& position, const glm::vec2& size, const glm::vec4& color, const float rotation);
 	private:
 		TextureRenderer() {};
 

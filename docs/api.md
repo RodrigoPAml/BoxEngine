@@ -24,18 +24,30 @@ Transform any data type into a string and return it
 function to_string(object = any) end
 ```
 
-# Utils Module
+# Engine Module
 
 ## Get FPS
 Return a number with current fps
 ```lua
-function utils.get_fps() end
+function engine.get_fps() end
 ```
 
 ## Get Frame Time
 Return a number with current frametime
 ```lua
-function utils.get_frametime() end
+function engine.get_frametime() end
+```
+
+## Stop
+Stop engine and exit application
+```lua
+function engine.stop() end
+```
+
+## Restart
+Restart application
+```lua
+function engine.restart() end
 ```
 
 # Time Module
@@ -86,6 +98,14 @@ Argument table format
     active = boolean, -- optional
     father_id = number, -- the id of the father go, also optional
 }
+```
+
+## Create Copy Go
+Create a copy from gameobject
+
+Returns the id of new go in case of success
+```lua
+function go.create_copy(goId = string, newFatherId = string) end
 ```
 
 ## Destroy Go
@@ -159,6 +179,19 @@ The displacement argument changes the index based on the current index
 
 ```lua
 function go.change_index(goId = string, displacement = number) end
+```
+
+## Change Go Index
+Load scripts into memory in case you need to access it immediately
+
+Normally the script of a go is loaded only in the next frame and
+started in the next frame after being loaded, if needed this behaviour 
+can be changed with this
+
+If fail this will trigger an internal error
+
+```lua
+function go.load_scripts(goId = string) end
 ```
 
 # Script Module
@@ -297,6 +330,16 @@ Recieve the camera id
 Return a bool indicating success
 ```lua
 function cam2d.set_current(id = number) end
+```
+
+## Get Current 2D Camera
+Get the current 2D camera id
+
+Return the camera id or nil
+
+Return a bool indicating success
+```lua
+function cam2d.get_current() end
 ```
 
 # Camera 3D Module
@@ -569,6 +612,7 @@ The argument table format
     size = {x =number, y =number}, -- size, vec2 format
     texture_id = number, the texture id
     rotation = number, -- rotation in degrees, optional
+    color = {x =number, y =number, z = number, w = number}, -- color, vec4 format, optional
 }
 ```
 

@@ -98,7 +98,7 @@ shader = {}
 texture = {}
 time = {}
 vertex = {}
-utils = {}
+engine = {}
 window = {}
 audio = {}
 font = {}
@@ -113,6 +113,10 @@ end
 
 function go.destroy(id)
 	return _go_.destroy(id)	
+end
+
+function go.create_copy(goId, newFatherId)
+	return _go_.create_copy(goId, newFatherId)
 end
 
 function go.get(id)
@@ -133,6 +137,10 @@ end
 
 function go.change_index(goId, displacement)
 	return _go_.change_index(goId, displacement)
+end
+
+function go.load_scripts(goId)
+	return _go_.load_scripts(goId)
 end
 
 function script.get(goId, scriptName)
@@ -173,6 +181,10 @@ end
 
 function cam2d.set_current(id)
 	return _cam2d_.set_current(id)
+end
+
+function cam2d.get_current()
+	return _cam2d_.get_current()
 end
 
 function cam3d.create(object)
@@ -623,12 +635,20 @@ function time.get_datetime()
 	return _time_.get_datetime()
 end
 
-function utils.get_fps() 
-	return _utils_.get_fps()
+function engine.get_fps() 
+	return _engine_.get_fps()
 end
 
-function utils.get_frametime() 
-	return _utils_.get_frametime()
+function engine.get_frametime() 
+	return _engine_.get_frametime()
+end
+
+function engine.stop() 
+	return _engine_.stop()
+end
+
+function engine.restart() 
+	return _engine_.restart()
 end
 
 function window.get_window_size() 

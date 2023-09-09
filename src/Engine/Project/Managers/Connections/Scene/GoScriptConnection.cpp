@@ -21,10 +21,12 @@ namespace Connection {
 		Utils::Lua::RegTable(this->state, "current", GetId);
 		Utils::Lua::RegTable(this->state, "create", CreateGo);
 		Utils::Lua::RegTable(this->state, "destroy", DestroyGo);
+		Utils::Lua::RegTable(this->state, "create_copy", Copy);
 		Utils::Lua::RegTable(this->state, "get", GetGo);
 		Utils::Lua::RegTable(this->state, "set_active", SetActive);
 		Utils::Lua::RegTable(this->state, "set_name", SetName);
 		Utils::Lua::RegTable(this->state, "change_father", ChangeGoFather);
+		Utils::Lua::RegTable(this->state, "load_scripts", LoadScripts);
 		Utils::Lua::RegTable(this->state, "change_index", ChangeGoIndex);
 
 		lua_setglobal(this->state, "_go_");
@@ -135,6 +137,33 @@ namespace Connection {
 		bool ret = Project::GetCurrentProject()->DestroyGameObject(goId);
 
 		lua_pushboolean(L, ret);
+
+		return 1;
+	}
+
+	int GoScriptConnection::Copy(lua_State* L)
+	{
+		// Destroy go and return if succeed or not
+		auto top = lua_gettop(L);
+
+		if (top != 1 && top != 2)
+			return luaL_error(L, "expecting 1 or 2 arguments in function call");
+
+		std::string goId = "";
+		if (lua_isstring(L, 1))
+			goId = lua_tostring(L, 1);
+		else return luaL_error(L, "argument 1 is expected to be string");
+
+		std::string fatherId = "";
+		if (lua_isstring(L, 2))
+			fatherId = lua_tostring(L, 2);
+
+		std::string result = Project::GetCurrentProject()->DuplicateGo(goId, fatherId);
+
+		if (result == "")
+			lua_pushnil(L);
+		else
+			lua_pushstring(L, result.c_str());
 
 		return 1;
 	}
@@ -266,6 +295,27 @@ namespace Connection {
 		return 1;
 	}
 
+	int GoScriptConnection::LoadScripts(lua_State* L)
+	{
+		auto top = lua_gettop(L);
+
+		if (top != 1)
+			return luaL_error(L, "expecting 1 argument in function call");
+
+		std::string goId = "";
+
+		if (lua_isstring(L, 1))
+			goId = lua_tostring(L, 1);
+		else return luaL_error(L, "argument 1 is expected to be string");
+		
+		bool result = Project::GetCurrentProject()->PreLoadScripts(goId);
+		
+		if(!result)
+			return luaL_error(L, "internal error when loading scripts at runtime");
+
+		return 0;
+	}
+
 	int GoScriptConnection::GetGo(lua_State* L)
 	{
 		// Return information of the go, it childrens and scripts
@@ -309,7 +359,7 @@ namespace Connection {
 				lua_newtable(L);
 				auto scripts = go->GetScripts();
 				for (int i = 0; i < scripts.size(); i++)
-					Utils::Lua::RegTable(L, i, scripts[i]->GetName());
+					Utils::Lua::RegTable(L, i+1, scripts[i]->GetName());
 			}
 			lua_settable(L, index);
 
@@ -321,7 +371,7 @@ namespace Connection {
 
 				auto childrens = go->GetChildrens();
 				for (int i = 0; i < childrens.size(); i++)
-					Utils::Lua::RegTable(L, i, childrens[i]->GetId());
+					Utils::Lua::RegTable(L, i+1, childrens[i]->GetId());
 			}
 			lua_settable(L, index);
 		}

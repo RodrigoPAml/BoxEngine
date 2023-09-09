@@ -145,7 +145,7 @@ extern "C"
 #include <Engine/Project/Managers/Connections/Camera/Camera2DConnection.hpp>
 #include <Engine/Project/Managers/Connections/Input/InputConnection.hpp>
 #include <Engine/Project/Managers/Connections/Log/LogConnection.hpp>
-#include <Engine/Project/Managers/Connections/Utils/UtilsConnection.hpp>
+#include <Engine/Project/Managers/Connections/Engine/EngineConnection.hpp>
 #include <Engine/Project/Managers/Connections/Scene/GoScriptConnection.hpp>
 #include <Engine/Project/Managers/Connections/Audio/AudioConnection.hpp>
 #include <Engine/Project/Managers/Connections/Font/FontConnection.hpp>

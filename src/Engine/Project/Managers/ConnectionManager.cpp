@@ -17,8 +17,8 @@ namespace Project {
 		this->logs = LogConnectionPtr(new LogConnection(state));
 		LogConnection::Set(this->logs);
 
-		this->utils = UtilsConnectionPtr(new UtilsConnection(state));
-		UtilsConnection::Set(this->utils);
+		this->engine = EngineConnectionPtr(new EngineConnection(state));
+		EngineConnection::Set(this->engine);
 
 		this->cam2d = Camera2DConnectionPtr(new Camera2DConnection(state));
 		Camera2DConnection::Set(this->cam2d);
@@ -72,7 +72,7 @@ namespace Project {
 	{
 		this->goScript->Bind();
 		this->input->Bind();
-		this->utils->Bind();
+		this->engine->Bind();
 		this->logs->Bind();
 		this->cam2d->Bind();
 		this->cam3d->Bind();

@@ -10,6 +10,11 @@ namespace Project {
 	struct ProjectData
 	{
 		/// <summary>
+		/// If project is set to restart
+		/// </summary>
+		bool restart = false;
+
+		/// <summary>
 		/// Current FPS
 		/// </summary>
 		double fps = 0;

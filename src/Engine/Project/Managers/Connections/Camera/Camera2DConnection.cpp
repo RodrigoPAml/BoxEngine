@@ -23,6 +23,7 @@ namespace Connection {
 		Utils::Lua::RegTable(this->state, "update", UpdateCamera);
 		Utils::Lua::RegTable(this->state, "get_matrix", GetMatrix);
 		Utils::Lua::RegTable(this->state, "set_current", SetCurrentCamera);
+		Utils::Lua::RegTable(this->state, "get_current", GetCurrentCamera);
 
 		lua_setglobal(this->state, "_cam2d_");
 	}
@@ -266,6 +267,38 @@ namespace Connection {
 
 		lua_pushboolean(L, cam != nullptr);
 
+		return 1;
+	}
+	
+	int Camera2DConnection::GetCurrentCamera(lua_State* L)
+	{
+		auto top = lua_gettop(L);
+
+		if (top != 0)
+			return luaL_error(L, "expecting no argument in function call");
+
+		auto camera = Camera::Camera2D::GetCurrentCamera();
+
+		if (camera == nullptr)
+		{
+			lua_pushnil(L);
+			return 1;
+		}
+		else
+		{
+			auto instance = Camera2DConnection::Get();
+
+			for (const auto& pair : instance->cameras) 
+			{
+				if (pair.second == camera)
+				{
+					lua_pushnumber(L, pair.first);
+					return 1;
+				}
+			}
+		}
+
+		lua_pushnil(L);
 		return 1;
 	}
 }}}

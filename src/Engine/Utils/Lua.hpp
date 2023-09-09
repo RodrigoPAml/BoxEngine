@@ -53,6 +53,7 @@ namespace Lua {
 		lua_pushstring(state, name);
 		lua_pushnil(state);
 		lua_settable(state, -3);
+		lua_pop(state, 1);
 	}
 
 	// Register a str key with a str value into table

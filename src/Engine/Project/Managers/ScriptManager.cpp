@@ -89,14 +89,15 @@ namespace Project {
 		}
 	}
 
-	bool ScriptManager::ExecuteScript(const GoExecution& execution)
+	bool ScriptManager::ExecuteScript(const GoExecution& execution, bool setAsCurrent)
 	{
 		// Execute a plan for the scripts
 		auto script = execution.GetScript();
 		auto go = execution.GetGameObject();
 		auto state = script->GetState();
 
-		this->connectionManager->SetCurrentGo(go);
+		if(setAsCurrent)
+			this->connectionManager->SetCurrentGo(go);
 
 		// Check if needs to be loaded
 		if (state == ScriptState::ToLoad)
@@ -251,6 +252,27 @@ namespace Project {
 		return false;
 	}
 
+	bool ScriptManager::PreLoadScripts(GameObjectPtr go)
+	{
+		if (go != nullptr)
+		{
+			for (auto script : go->GetScripts())
+			{
+				GoExecution exec = GoExecution(go, script, "");
+				if (script->GetState() == ScriptState::ToLoad && !this->ExecuteScript(exec, false))
+					return false;
+			}
+
+			for (GameObjectPtr child : go->GetChildrens())
+			{
+				if (!PreLoadScripts(child))
+					return false;
+			}
+		}
+
+		return true;
+	}
+
 	int ScriptManager::GetStackSize()
 	{
 		if(this->connectionManager != nullptr)
@@ -271,7 +293,7 @@ namespace Project {
 
 			if (Utils::Directory::IsDirectory(file))
 				LoadScriptsPaths(file, error);
-			else if (this->paths.contains(fileName))
+			else if (extension == "lua" && this->paths.contains(fileName))
 			{
 				error = true;
 

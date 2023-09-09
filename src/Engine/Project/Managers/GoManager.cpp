@@ -275,22 +275,19 @@ namespace Project {
         }
     }
 
-    void GoManager::DuplicateGo(const std::string& id, const std::string fatherId)
+    std::string GoManager::DuplicateGo(const std::string& id, const std::string fatherId, bool isFirst)
     {
         if (this->gosMap.contains(id))
         {
             GameObjectPtr go = this->gosMap[id];
          
-            if (go->IsToDestroy())
+            if (isFirst && RecursiveCheckDestroyed(go))
             {
-                Debug::Logging::Log("[Project]: Can't duplicate go with id " + id + " because it's destroyed.", Debug::LogSeverity::Warning, Debug::LogOrigin::Engine, { {"go_id", id} });
-                return;
+                Debug::Logging::Log("[Project]: Can't duplicate go with id " + id + " because him or its childrens are destroyed.", Debug::LogSeverity::Warning, Debug::LogOrigin::Engine, { {"go_id", id} });
+                return  "";
             }
             
             GameObjectPtr newGo = this->AddGameObject(go->GetName(), go->GetActive(), fatherId);
-            
-            if (fatherId == "")
-                this->gos.push_back(newGo);
 
             for (const ScriptPtr script : go->GetScripts())
             {
@@ -301,8 +298,12 @@ namespace Project {
             }
 
             for (const GameObjectPtr child : go->GetChildrens())
-                DuplicateGo(child->GetId(), newGo->GetId());
+                DuplicateGo(child->GetId(), newGo->GetId(), false);
+
+            return newGo->GetId();
         }
+
+        return "";
     }
 
     #pragma region InternalFunctions
@@ -407,6 +408,20 @@ namespace Project {
                 father = father->GetFather();
         }
             
+        return false;
+    }
+
+    bool GoManager::RecursiveCheckDestroyed(GameObjectPtr go)
+    {
+        if (go->IsToDestroy())
+            return true;
+
+        for (GameObjectPtr child : go->GetChildrens())
+        {
+            if (RecursiveCheckDestroyed(child))
+                return true;
+        }
+
         return false;
     }
     

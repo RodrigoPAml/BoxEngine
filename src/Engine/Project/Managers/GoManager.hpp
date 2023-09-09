@@ -45,7 +45,7 @@ namespace Project {
 		void RemoveGameObjectReferences(const std::string& id);
 
 		// Duplicate go (editor)
-		void DuplicateGo(const std::string& id, const std::string fatherId = "");
+		std::string DuplicateGo(const std::string& id, const std::string fatherId = "", bool isFirst = true);
 	private:
 		// Add go when reading from file.
 		void AddGameObjectFromFile(
@@ -64,5 +64,8 @@ namespace Project {
 
 		// Verify if go is in some degree its father
 		bool IsDegreeFather(GameObjectPtr go, GameObjectPtr possibleFather);
+
+		// Verify if any of the go children in destroyd
+		bool RecursiveCheckDestroyed(GameObjectPtr go);
 	};
 }}

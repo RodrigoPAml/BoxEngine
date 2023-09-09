@@ -111,7 +111,7 @@
     <ClCompile Include="src\Engine\Project\Managers\Connections\Time\TimeConnection.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Project\Managers\Connections\Utils\UtilsConnection.cpp">
+    <ClCompile Include="src\Engine\Project\Managers\Connections\Engine\EngineConnection.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Project\Managers\Connections\Vertex\VertexConnection.cpp">
@@ -386,7 +386,7 @@
     <ClInclude Include="src\Engine\Project\Managers\Connections\Time\TimeConnection.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Project\Managers\Connections\Utils\UtilsConnection.hpp">
+    <ClInclude Include="src\Engine\Project\Managers\Connections\Engine\EngineConnection.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Project\Managers\Connections\Vertex\VertexConnection.hpp">

@@ -131,7 +131,7 @@ namespace Connection {
 		if (lua_isnumber(L, 1))
 		{
 			auto instance = ShaderConnection::Get();
-			lua_pushboolean(L, instance->shaders.erase(lua_tonumber(L, 1) > 0));
+			lua_pushboolean(L, instance->shaders.erase(lua_tonumber(L, 1)));
 		}
 		else return luaL_error(L, "argument 1 is expected to be a number");
 

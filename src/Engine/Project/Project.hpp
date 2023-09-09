@@ -87,6 +87,7 @@ namespace Project {
 		void Stop();
 		void Reload();
 		void Execute();
+		void StopThenStart();
 
 		// Global References
 		static ProjectPtr GetCurrentProject();
@@ -100,7 +101,7 @@ namespace Project {
 		GameObjectPtr AddGameObject(const std::string& name, bool active, const std::string& fatherId = "");
 		bool DestroyGameObject(const std::string& id);
 		GameObjectPtr GetGameObject(const std::string& id);
-		void DuplicateGo(const std::string& goId);
+		std::string DuplicateGo(const std::string& goId, const std::string& fatherId = "");
 		void ChangeGoFather(const std::string& goId, const std::string& fatherId = "");
 		void ChangeGoPosition(const std::string& goId, int displacement);
 
@@ -108,6 +109,7 @@ namespace Project {
 		bool AddScript(const std::string& goId, const std::string& scriptName);
 		bool DestroyScript(const std::string& goId, const std::string& scriptName);
 		void ChangeScriptPosition(const std::string& goId, const std::string& scriptName, int displacement);
+		bool PreLoadScripts(const std::string& goId);
 
 		// Get gos root
 		std::vector<GameObjectPtr> GetGosFromRoot() const;

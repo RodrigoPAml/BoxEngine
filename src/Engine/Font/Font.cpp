@@ -23,7 +23,7 @@ namespace Font {
                 AllocShader();
             }
             else
-                Debug::Logging::Log("[Font]: Failed to initialize font module", Debug::LogSeverity::Error, Debug::LogOrigin::EngineInternal);
+                Debug::Logging::LogException("[Font]: Failed to initialize font module", Debug::LogOrigin::Engine);
         }
 
         if (IsInit)
@@ -166,7 +166,7 @@ namespace Font {
 
         if (FT_New_Face(lib, path.c_str(), 0, &face))
         {
-            Debug::Logging::Log("[Font]: Failed to create font from " + path, Debug::LogSeverity::Error, Debug::LogOrigin::EngineInternal);
+            Debug::Logging::LogException("[Font]: Failed to create font from " + path, Debug::LogOrigin::Engine);
             return false;
         }
         else

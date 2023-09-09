@@ -5,14 +5,14 @@ namespace BoxEngine {
 namespace Project {
 namespace Connection {
 
-	class UtilsConnection;
-	typedef std::shared_ptr<UtilsConnection> UtilsConnectionPtr;
-	typedef std::weak_ptr<UtilsConnection> UtilsConnectionWeakPtr;
+	class EngineConnection;
+	typedef std::shared_ptr<EngineConnection> EngineConnectionPtr;
+	typedef std::weak_ptr<EngineConnection> EngineConnectionWeakPtr;
 
 	/// <summary>
-	/// Functions C++/LUA to handle utility functions.
+	/// Functions C++/LUA to handle engine functions.
 	/// </summary>
-	class UtilsConnection
+	class EngineConnection
 	{
 	private:
 		lua_State* state;
@@ -25,17 +25,19 @@ namespace Connection {
 		/// <summary>
 		/// Global reference.
 		/// </summary>
-		static std::weak_ptr<UtilsConnection> current;
+		static std::weak_ptr<EngineConnection> current;
 	public:
-		UtilsConnection(lua_State* state);
+		EngineConnection(lua_State* state);
 
 		void Bind();
 		void SetCurrentGo(GameObjectPtr go);
 
-		static UtilsConnectionPtr Get();
-		static void Set(UtilsConnectionPtr instance);
+		static EngineConnectionPtr Get();
+		static void Set(EngineConnectionPtr instance);
 	private:
 		static int GetFPS(lua_State* L);
 		static int GetFrametime(lua_State* L);
+		static int StopEngine(lua_State* L);
+		static int RestartEngine(lua_State* L);
 	};
 }}}

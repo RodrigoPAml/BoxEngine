@@ -213,7 +213,7 @@
     <ClCompile Include="src\Engine\Project\Managers\Connections\Shader\ShaderConnection.cpp" />
     <ClCompile Include="src\Engine\Project\Managers\Connections\Texture\TextureConnection.cpp" />
     <ClCompile Include="src\Engine\Project\Managers\Connections\Time\TimeConnection.cpp" />
-    <ClCompile Include="src\Engine\Project\Managers\Connections\Utils\UtilsConnection.cpp" />
+    <ClCompile Include="src\Engine\Project\Managers\Connections\Engine\EngineConnection.cpp" />
     <ClCompile Include="src\Engine\Project\Managers\Connections\Vertex\VertexConnection.cpp" />
     <ClCompile Include="src\Engine\Project\Managers\Connections\Window\WindowConnection.cpp" />
     <ClCompile Include="src\Engine\Project\Managers\GoManager.cpp" />
@@ -311,7 +311,7 @@
     <ClInclude Include="src\Engine\Project\Managers\Connections\Shader\ShaderConnection.hpp" />
     <ClInclude Include="src\Engine\Project\Managers\Connections\Texture\TextureConnection.hpp" />
     <ClInclude Include="src\Engine\Project\Managers\Connections\Time\TimeConnection.hpp" />
-    <ClInclude Include="src\Engine\Project\Managers\Connections\Utils\UtilsConnection.hpp" />
+    <ClInclude Include="src\Engine\Project\Managers\Connections\Engine\EngineConnection.hpp" />
     <ClInclude Include="src\Engine\Project\Managers\Connections\Vertex\VertexConnection.hpp" />
     <ClInclude Include="src\Engine\Project\Managers\Connections\Window\WindowConnection.hpp" />
     <ClInclude Include="src\Engine\Project\Managers\GoManager.hpp" />

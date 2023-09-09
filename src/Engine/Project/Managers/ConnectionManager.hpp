@@ -20,8 +20,8 @@ namespace Project {
 		Connection::InputConnectionPtr input;
 		// Functions for logs
 		Connection::LogConnectionPtr logs;
-		// Functions for utility
-		Connection::UtilsConnectionPtr utils;
+		// Functions for engine
+		Connection::EngineConnectionPtr engine;
 		// Functions for cam2d
 		Connection::Camera2DConnectionPtr cam2d;
 		// Functions for cam3d

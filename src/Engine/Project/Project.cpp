@@ -235,7 +235,15 @@ namespace Project {
         this->CalculateMetrics();
 
         if (this->state == ProjectState::Idle)
+        {
+            if (this->data.restart)
+            {
+                this->data.restart = false;
+                this->Start();
+            }
+
             return;
+        }
 
         bool hasError = false;
         if (this->state == ProjectState::Loading)
@@ -309,6 +317,14 @@ namespace Project {
         }
     }
 
+    void Project::StopThenStart()
+    {
+        if (state == ProjectState::Running)
+            this->state = ProjectState::Stoping;
+
+        this->data.restart = true;
+    }
+
     ProjectPtr Project::GetCurrentProject()
     {
         if (current.expired())
@@ -343,7 +359,11 @@ namespace Project {
     bool Project::DestroyGameObject(const std::string& id)
     {
         if (this->state == ProjectState::Idle)
-            this->isModified = true;
+        {
+           this->isModified = true;
+           this->goManager->RemoveGameObjectReferences(id);
+           return true;
+        }
 
         return this->goManager->RemoveGameObject(id);
     }
@@ -353,7 +373,7 @@ namespace Project {
         return this->goManager->GetGameObject(id);
     }
 
-    void Project::DuplicateGo(const std::string& goId)
+    std::string Project::DuplicateGo(const std::string& goId, const std::string& fatherId)
     {
         if (this->state == ProjectState::Idle)
             this->isModified = true;
@@ -362,9 +382,10 @@ namespace Project {
 
         if (go != nullptr)
         {
-            auto father = go->GetFather();
-            this->goManager->DuplicateGo(goId, father != nullptr ? father->GetId() : "");
+            return this->goManager->DuplicateGo(goId, fatherId, true);
         }
+
+        return "";
     }
 
     void Project::ChangeGoFather(const std::string& goId, const std::string& fatherId)
@@ -405,6 +426,18 @@ namespace Project {
             this->isModified = true;
 
         this->goManager->ChangeScriptPosition(goId, scriptName, displacement);
+    }
+
+    bool Project::PreLoadScripts(const std::string& goId)
+    {
+        auto go = this->goManager->GetGameObject(goId);
+
+        if (go != nullptr)
+        {
+            return this->scriptManager->PreLoadScripts(go);
+        }
+
+        return true;
     }
 
     std::vector<GameObjectPtr> Project::GetGosFromRoot() const
