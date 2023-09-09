@@ -1,11 +1,11 @@
 # BoxEngine
 
-BoxEngine is application to build 2D and 3D general applications like games using the scripting language lua.
+BoxEngine is an engine to build 2D and 3D general applications, like games, using the scripting language lua.
 
 This engine is ideal to build applications using the abstract layers implemented with OpenGL for fast prototypes
-Its uses the GameObject architecture to build the scenes with script attached to give it behaviour.
+Its uses the GameObject architecture to build the scene with script attached to give it behaviour.
 
-The engine runs in c++ but the scripting language is in LUA (with JIT compiler), a brazilian language.
+The engine runs in c++ but the scripting language is in LUA (with JIT compiler), a Brazilian language.
 
 Projects can be run in production mode (pass folder via argument) or editor mode
 
@@ -17,7 +17,7 @@ Projects can be run in production mode (pass folder via argument) or editor mode
 * audio module (2d and 3d audios)
 * font module (with support for any .ttf)
 * camera module (support for 2d and 3d camera manipulations)
-* debug/logging module (logging suport also in scripting)
+* debug/logging module (logging support also in scripting)
 * texture module (allows to manipulate texture with the GPU)
 * shader module (allows to create and use shader with the GPU)
 * vertex module (allows to allocate mesh with the GPU)
@@ -91,7 +91,7 @@ Read the scripting api documentation [here](https://github.com/RodrigoPAml/BoxEn
 
 # First game
 
-The first came is called "Air Fither and game be found in games folder
+The first game is called "Air Fither and game be found in games folder
 
 It's a game about destroying enemies airplane and getting the better possible score
 
@@ -101,4 +101,4 @@ This game was made to validade the engine release
 
 ![2](https://github.com/RodrigoPAml/BoxEngine/assets/41243039/051d48c1-22e7-407a-9e16-b421f5f43b9c)
 
-Future a 3d game will be released
+In the future, a 3d game will be released
