@@ -70,7 +70,7 @@ end
 * FreeType https://freetype.org/ (Font lib)
 * ImGui https://github.com/ocornut/imgui (GUI lib)
 * ImPlot https://github.com/epezent/implot (GUI Plots)
-* https://www.ambiera.com/irrklang/ (Audio lib)
+* Irrklang https://www.ambiera.com/irrklang/ (Audio lib)
 * Assimp https://github.com/assimp/assimp (load 3d models)
 * GLM https://github.com/g-truc/glm (math library)
 * Nlohmann JSON https://github.com/nlohmann/json (json manipulation)
