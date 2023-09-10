@@ -78,10 +78,12 @@ namespace Connection {
 			// Read the amount of vertices used
 			if (!Utils::Lua::GetTable(L, 1, "vertices_count", vd.verticesCount) || vd.verticesCount <= 0)
 				return luaL_error(L, "argument vertices_count needs to be a number and greater than zero in first table");
-			
+			lua_pop(L, 1);
+
 			// Read the number of buffers used
 			if (!Utils::Lua::GetTable(L, 1, "buffers_count", buffersCount) || buffersCount <= 0)
 				return luaL_error(L, "argument buffers_count needs to be a number and greater than zero in first table");
+			lua_pop(L, 1);
 
 			// Read each buffers
 			lua_getfield(L, 1, "buffers");
@@ -93,61 +95,70 @@ namespace Connection {
 					GPU::VertexBufferDescriptor buffer;
 					int elementsCount = 0;
 
-					lua_rawgeti(L, -i, i);
+					lua_rawgeti(L, -1, i);
 
 					if (lua_istable(L, -1))
 					{
-						if (Utils::Lua::GetTable(L, 1, "use", str))
+						if (Utils::Lua::GetTable(L, -1, "use", str))
 							buffer.use = GPU::DataUseFromString(str);
+						lua_pop(L, 1);
 
-						if (!Utils::Lua::GetTable(L, 1, "type", str))
+						if (!Utils::Lua::GetTable(L, -1, "type", str))
 							return ReturnErrorSafe(vd, vi, "argument type needs to be a string in first table", L);
+						lua_pop(L, 1);
 
 						buffer.type = GPU::VertexBufferTypeFromString(str);
 
-						if (!Utils::Lua::GetTable(L, 1, "layouts_count", elementsCount) || elementsCount <= 0 )
+						if (!Utils::Lua::GetTable(L, -1, "layouts_count", elementsCount) || elementsCount <= 0 )
 							return ReturnErrorSafe(vd, vi, "argument layouts_count needs to be a number and positive in first table", L);
+						lua_pop(L, 1);
 
 						// Read elements of buffer
 						lua_getfield(L, -1, "layouts");
 						int layoutCount = 0;
 						if (lua_istable(L, -1))
 						{
-							for (int j = 1; j <= elementsCount; i++)
+							for (int j = 1; j <= elementsCount; j++)
 							{
 								GPU::VertexElement element;
 
-								lua_rawgeti(L, -j, j);
+								lua_rawgeti(L, -1, j);
 
 								// Read element
 								if (lua_istable(L, -1))
 								{
-									if (!Utils::Lua::GetTable(L, 1, "count", element.count) || element.count <= 0)
+									if (!Utils::Lua::GetTable(L, -1, "count", element.count) || element.count <= 0)
 										return ReturnErrorSafe(vd, vi, "argument count needs to be a number and positive in first table", L);
+									lua_pop(L, 1);
 
 									layoutCount += element.count;
-									Utils::Lua::GetTable(L, 1, "normalized", element.isNormalized);
+									Utils::Lua::GetTable(L, -1, "normalized", element.isNormalized);
+									lua_pop(L, 1);
 
 									buffer.elements.push_back(element);
 								}
 								else return ReturnErrorSafe(vd, vi, "argument layout at index needs to be a table in first table", L);
+
+								lua_pop(L, 1);
 							}
 						}
 						else return ReturnErrorSafe(vd, vi, "argument layouts needs to be a table in first table", L);
-
+						lua_pop(L, 1);
+				
 						if (buffer.type == GPU::VertexBufferType::DOUBLE)
 						{
 							buffer.data = new double[vd.verticesCount * layoutCount];
 
 							if (!Utils::Lua::GetTable(L, -1, "data", (double*)buffer.data, vd.verticesCount * layoutCount))
 								return ReturnErrorSafe(vd, vi, "argument data needs to be a table in first table", L);
+							lua_pop(L, 1);
 						}
 						else if (buffer.type == GPU::VertexBufferType::FLOAT)
 						{
 							buffer.data = new float[vd.verticesCount * layoutCount];
-
 							if (!Utils::Lua::GetTable(L, -1, "data", (float*)buffer.data, vd.verticesCount * layoutCount))
 								return ReturnErrorSafe(vd, vi, "argument data needs to be a table in first table", L);
+							lua_pop(L, 1);
 						}
 						else if (buffer.type == GPU::VertexBufferType::INT)
 						{
@@ -155,36 +166,42 @@ namespace Connection {
 
 							if (!Utils::Lua::GetTable(L, -1, "data", (int*)buffer.data, vd.verticesCount * layoutCount))
 								return ReturnErrorSafe(vd, vi, "argument data needs to be a table in first table", L);
+							lua_pop(L, 1);
 						}
 						else return ReturnErrorSafe(vd, vi, "buffer only support types of INT, DOUBLE or FLOAT", L);
 					}
 					else return ReturnErrorSafe(vd, vi, "argument buffer at index needs to be a table in first table", L);
 
 					vd.buffers.push_back(buffer);
+					lua_pop(L, 1);
 				}
 			}
-			return ReturnErrorSafe(vd, vi, "argument buffers needs to be a table in first table", L);
-
-			lua_pushnil(L);
+			else return ReturnErrorSafe(vd, vi, "argument buffers needs to be a table in first table", L);
+		
+			lua_pop(L, 1);
 		}
 		else return ReturnErrorSafe(vd, vi, "argument 1 is expected to be a table", L);
 
+		// Indices
 		if (lua_istable(L, 2))
 		{
 			if (Utils::Lua::GetTable(L, 2, "use", str))
 				vi.use = GPU::DataUseFromString(str);
+			lua_pop(L, 1);
 
 			if (!Utils::Lua::GetTable(L, 2, "count", vi.count) || vi.count <= 0)
 				return ReturnErrorSafe(vd, vi, "argument type needs to be a number and positive in second table", L);
+			lua_pop(L, 1);
 
 			vi.indices = new unsigned int[vi.count];
 
 			if (!Utils::Lua::GetTable(L, 2, "data", (unsigned int*)vi.indices, vi.count))
 				return ReturnErrorSafe(vd, vi, "argument data needs to be a table in second table", L);
+			lua_pop(L, 1);
 
 			haveIndices = true;
 		}
-		else if (!lua_isnone(L, 2))
+		else if (!lua_isnoneornil(L, 2))
 			return ReturnErrorSafe(vd, vi, "argument 2 needs to be a table", L);
 
 		GPU::VertexPtr vertex = nullptr;

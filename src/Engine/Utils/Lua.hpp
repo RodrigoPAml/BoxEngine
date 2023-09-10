@@ -476,11 +476,13 @@ namespace Lua {
 		{
 			for (int i = 1; i <= size; i++)
 			{
-				lua_rawgeti(L, -i, i);
+				lua_rawgeti(L, -1, i);
 
 				if (lua_isnumber(L, -1))
 					arr[i] = (lua_tonumber(L, -1));
 				else return false;
+			
+				lua_pop(L, 1);
 			}
 		}
 		else
@@ -504,11 +506,13 @@ namespace Lua {
 		{
 			for (int i = 1; i <= size; i++)
 			{
-				lua_rawgeti(L, -i, i);
+				lua_rawgeti(L, -1, i);
 
 				if (lua_isnumber(L, -1))
 					arr[i] = (lua_tonumber(L, -1));
 				else return false;
+
+				lua_pop(L, 1);
 			}
 		}
 		else
@@ -532,11 +536,13 @@ namespace Lua {
 		{
 			for (int i = 1; i <= size; i++)
 			{
-				lua_rawgeti(L, -i, i);
+				lua_rawgeti(L, -1, i);
 
 				if (lua_isnumber(L, -1))
 					arr[i] = (lua_tonumber(L, -1));
 				else return false;
+
+				lua_pop(L, 1);
 			}
 		}
 		else
@@ -560,11 +566,13 @@ namespace Lua {
 		{
 			for (int i = 1; i <= size; i++)
 			{
-				lua_rawgeti(L, -i, i);
+				lua_rawgeti(L, -1, i);
 
 				if (lua_isnumber(L, -1))
 					arr[i] = (lua_tonumber(L, -1));
 				else return false;
+
+				lua_pop(L, 1);
 			}
 		}
 		else
