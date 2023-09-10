@@ -19,7 +19,7 @@ namespace Connection {
 		Utils::Lua::RegTable(this->state, "create", CreateShader);
 		Utils::Lua::RegTable(this->state, "destroy", DestroyShader);
 
-		Utils::Lua::RegTable(this->state, "active", Active);
+		Utils::Lua::RegTable(this->state, "activate", Active);
 		Utils::Lua::RegTable(this->state, "unactive_all", UnactiveAll);
 
 		Utils::Lua::RegTable(this->state, "set_bool", SetShaderBool);
@@ -71,9 +71,13 @@ namespace Connection {
 
 			if (!Utils::Lua::GetTable(L, 1, "vertex_path", vertexPath))
 				return luaL_error(L, "argument vertex needs to exists and be a string");
+			lua_pop(L, 1);
 
-			Utils::Lua::GetTable(L, 1, "fragment_path", vertexPath);
+			Utils::Lua::GetTable(L, 1, "fragment_path", fragmentPath);
+			lua_pop(L, 1);
+
 			Utils::Lua::GetTable(L, 1, "geometry_path", geometryPath);
+			lua_pop(L, 1);
 
 			bool success = false;
 

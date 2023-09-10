@@ -242,7 +242,7 @@ namespace Lua {
 			lua_pushnumber(L, vec.z);
 			lua_settable(L, -3);
 
-			lua_pushstring(L, "z");
+			lua_pushstring(L, "w");
 			lua_pushnumber(L, vec.w);
 			lua_settable(L, -3);
 		}
