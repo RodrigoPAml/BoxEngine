@@ -102,3 +102,15 @@ This game was made to validade the engine release
 ![2](https://github.com/RodrigoPAml/BoxEngine/assets/41243039/051d48c1-22e7-407a-9e16-b421f5f43b9c)
 
 In the future, a 3d game will be released
+
+# Fractal project
+
+One implemented fractal and one retrieved from shader toy (link in shader file)
+
+![image](https://github.com/RodrigoPAml/BoxEngine/assets/41243039/b17b1fe9-c4b1-42d4-8a97-e17d224e339d)
+
+My fractal
+
+![image](https://github.com/RodrigoPAml/BoxEngine/assets/41243039/8baca372-0148-4342-9be8-33c5525ec58a)
+
+
