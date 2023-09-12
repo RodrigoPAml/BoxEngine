@@ -479,7 +479,7 @@ namespace Lua {
 				lua_rawgeti(L, -1, i);
 
 				if (lua_isnumber(L, -1))
-					arr[i] = (lua_tonumber(L, -1));
+					arr[i - 1] = (lua_tonumber(L, -1));
 				else return false;
 			
 				lua_pop(L, 1);
@@ -509,7 +509,7 @@ namespace Lua {
 				lua_rawgeti(L, -1, i);
 
 				if (lua_isnumber(L, -1))
-					arr[i] = (lua_tonumber(L, -1));
+					arr[i-1] = (lua_tonumber(L, -1));
 				else return false;
 
 				lua_pop(L, 1);
@@ -539,7 +539,7 @@ namespace Lua {
 				lua_rawgeti(L, -1, i);
 
 				if (lua_isnumber(L, -1))
-					arr[i] = (lua_tonumber(L, -1));
+					arr[i - 1] = (lua_tonumber(L, -1));
 				else return false;
 
 				lua_pop(L, 1);
@@ -569,7 +569,7 @@ namespace Lua {
 				lua_rawgeti(L, -1, i);
 
 				if (lua_isnumber(L, -1))
-					arr[i] = (lua_tonumber(L, -1));
+					arr[i - 1] = (lua_tonumber(L, -1));
 				else return false;
 
 				lua_pop(L, 1);

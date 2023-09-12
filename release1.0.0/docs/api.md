@@ -295,10 +295,10 @@ function cam2d.get_matrix(id = number) end
 The returned table format is a mat4
 ```lua
 {
-    1 = {{x = number, y =number, z =number, w =number}},
-    2 = {{x = number, y =number, z =number, w =number}},
-    3 = {{x = number, y =number, z =number, w =number}},
-    4 = {{x = number, y =number, z =number, w =number}}
+    1 = {{x = number, y = number, z = number, w = number}},
+    2 = {{x = number, y = number, z = number, w = number}},
+    3 = {{x = number, y = number, z = number, w = number}},
+    4 = {{x = number, y = number, z = number, w = number}}
 }
 ```
 
@@ -477,10 +477,10 @@ function cam3d.get_view_matrix(id = number) end
 The returned table format
 ```lua
 {
-    1 = {{x = number, y =number, z =number, w =number}},
-    2 = {{x = number, y =number, z =number, w =number}},
-    3 = {{x = number, y =number, z =number, w =number}},
-    4 = {{x = number, y =number, z =number, w =number}}
+    1 = {{x = number, y = number, z = number, w =n umber}},
+    2 = {{x = number, y = number, z = number, w = number}},
+    3 = {{x = number, y = number, z = number, w = number}},
+    4 = {{x = number, y = number, z = number, w = number}}
 }
 ```
 
@@ -496,10 +496,10 @@ function cam3d.get_projection_matrix(id = number) end
 The returned table format
 ```lua
 {
-    1 = {{x = number, y =number, z =number, w =number}},
-    2 = {{x = number, y =number, z =number, w =number}},
-    3 = {{x = number, y =number, z =number, w =number}},
-    4 = {{x = number, y =number, z =number, w =number}}
+    1 = {{x = number, y = number, z = number, w = number}},
+    2 = {{x = number, y = number, z = number, w = number}},
+    3 = {{x = number, y = number, z = number, w = number}},
+    4 = {{x = number, y = number, z = number, w = number}}
 }
 ```
 
@@ -523,9 +523,9 @@ function draw2d.rect(object = table) end
 The argument table format
 ```lua
 {
-    position = {x =number, y =number}, -- position, vec2 format
-    size = {x =number, y =number}, -- size, vec2 format
-    color = {x =number, y =number, z =number}, -- color, vec3 format, optional
+    position = {x = number, y = number}, -- position, vec2 format
+    size = {x = number, y = number}, -- size, vec2 format
+    color = {x = number, y = number, z = number}, -- color, vec3 format, optional
     rotation = number, -- rotation in degrees, optional
     filled = boolean, -- fill or not the shape, optional
 }
@@ -541,9 +541,9 @@ function draw2d.circle(object = table) end
 The argument table format
 ```lua
 {
-    position = {x =number, y =number}, -- position, vec2 format
-    size = {x =number, y =number}, -- size, vec2 format
-    color = {x =number, y =number, z =number}, -- color, vec3 format, optional
+    position = {x = number, y = number}, -- position, vec2 format
+    size = {x = number, y = number}, -- size, vec2 format
+    color = {x = number, y = number, z = number}, -- color, vec3 format, optional
     rotation = number, -- rotation in degrees, optional
     filled = boolean, -- fill or not the shape, optional
 }
@@ -559,9 +559,9 @@ function draw2d.triangle(object = table) end
 The argument table format
 ```lua
 {
-    position = {x =number, y =number}, -- position, vec2 format
-    size = {x =number, y =number}, -- size, vec2 format
-    color = {x =number, y =number, z =number}, -- color, vec3 format, optional
+    position = {x = number, y = number}, -- position, vec2 format
+    size = {x = number, y = number}, -- size, vec2 format
+    color = {x = number, y = number, z = number}, -- color, vec3 format, optional
     rotation = number, -- rotation in degrees, optional
     filled = boolean, -- fill or not the shape, optional
 }
@@ -577,9 +577,9 @@ function draw2d.line(object = table) end
 The argument table format
 ```lua
 {
-    position_start = {x =number, y =number}, -- start position, vec2 format
-    position_end = {x =number, y =number}, -- end position, vec2 format
-    color = {x =number, y =number, z =number}, -- color, vec3 format, optional
+    position_start = {x = number, y = number}, -- start position, vec2 format
+    position_end = {x = number, y = number}, -- end position, vec2 format
+    color = {x = number, y = number, z = number}, -- color, vec3 format, optional
 }
 ```
 
@@ -593,8 +593,8 @@ function draw2d.point(object = table) end
 The argument table format
 ```lua
 {
-    position = {x =number, y =number}, -- position, vec2 format
-    color = {x =number, y =number, z =number}, -- color, vec3 format, optional
+    position = {x = number, y = number}, -- position, vec2 format
+    color = {x = number, y = number, z = number}, -- color, vec3 format, optional
 }
 ```
 
@@ -608,11 +608,11 @@ function draw2d.texture(object = table) end
 The argument table format
 ```lua
 {
-    position = {x =number, y =number}, -- position, vec2 format
-    size = {x =number, y =number}, -- size, vec2 format
+    position = {x = number, y = number}, -- position, vec2 format
+    size = {x = number, y = number}, -- size, vec2 format
     texture_id = number, the texture id
     rotation = number, -- rotation in degrees, optional
-    color = {x =number, y =number, z = number, w = number}, -- color, vec4 format, optional
+    color = {x = number, y = number, z = number, w = number}, -- color, vec4 format, optional
 }
 ```
 
@@ -626,10 +626,10 @@ function draw3d.cube(object = table) end
 The argument table format
 ```lua
 {
-    position = {x =number, y =number = z =number}, -- position, vec3 format
-    size = {x =number, y =number = z =number}, -- size, vec3 format
-    color = {x =number, y =number, z =number}, -- color, vec3 format, optional
-    rotation = {x =number, y =number, z =number}, -- rotation in degrees in vec3 format, optional
+    position = {x = number, y = number = z = number}, -- position, vec3 format
+    size = {x = number, y = number = z = number}, -- size, vec3 format
+    color = {x = number, y = number, z = number}, -- color, vec3 format, optional
+    rotation = {x = number, y = number, z = number}, -- rotation in degrees in vec3 format, optional
     filled = boolean, -- fill or not the shape, optional
 }
 ```
@@ -644,10 +644,10 @@ function draw3d.sphere(object = table) end
 The argument table format
 ```lua
 {
-    position = {x =number, y =number = z =number}, -- position, vec3 format
-    size = {x =number, y =number = z =number}, -- size, vec3 format
-    color = {x =number, y =number, z =number}, -- color, vec3 format, optional
-    rotation = {x =number, y =number, z =number}, -- rotation in degrees in vec3 format, optional
+    position = {x = number, y = number = z = number}, -- position, vec3 format
+    size = {x = number, y = number = z = number}, -- size, vec3 format
+    color = {x = number, y = number, z = number}, -- color, vec3 format, optional
+    rotation = {x = number, y = number, z = number}, -- rotation in degrees in vec3 format, optional
     filled = boolean, -- fill or not the shape, optional
 }
 ```
@@ -662,8 +662,8 @@ function draw3d.point(object = table) end
 The argument table format
 ```lua
 {
-    position = {x =number, y =number = z =number}, -- position, vec3 format
-    color = {x =number, y =number, z =number}, -- color, vec3 format, optional
+    position = {x = number, y = number = z = number}, -- position, vec3 format
+    color = {x = number, y = number, z = number}, -- color, vec3 format, optional
 }
 ```
 
@@ -677,9 +677,9 @@ function draw3d.line(object = table) end
 The argument table format
 ```lua
 {
-    position_start = {x =number, y =number = z =number}, -- position start, vec3 format
-    position_end = {x =number, y =number = z =number}, -- position end, vec3 format
-    color = {x =number, y =number, z =number}, -- color, vec3 format, optional
+    position_start = {x = number, y = number = z = number}, -- position start, vec3 format
+    position_end = {x = number, y = number = z = number}, -- position end, vec3 format
+    color = {x = number, y = number, z = number}, -- color, vec3 format, optional
 }
 ```
 
@@ -693,10 +693,10 @@ function draw3d.rect(object = table) end
 The argument table format
 ```lua
 {
-    position = {x =number, y =number = z =number}, -- position, vec3 format
-    size = {x =number, y =number = z =number}, -- size, vec3 format
-    color = {x =number, y =number, z =number}, -- color, vec3 format, optional
-    rotation = {x =number, y =number, z =number}, -- rotation in degrees in vec3 format, optional
+    position = {x = number, y = number = z = number}, -- position, vec3 format
+    size = {x = number, y = number = z = number}, -- size, vec3 format
+    color = {x = number, y = number, z = number}, -- color, vec3 format, optional
+    rotation = {x = number, y = number, z = number}, -- rotation in degrees in vec3 format, optional
     filled = boolean, -- fill or not the shape, optional
 }
 ```
@@ -711,10 +711,10 @@ function draw3d.triangle(object = table) end
 The argument table format
 ```lua
 {
-    position = {x =number, y =number = z =number}, -- position, vec3 format
-    size = {x =number, y =number = z =number}, -- size, vec3 format
-    color = {x =number, y =number, z =number}, -- color, vec3 format, optional
-    rotation = {x =number, y =number, z =number}, -- rotation in degrees in vec3 format, optional
+    position = {x = number, y = number = z = number}, -- position, vec3 format
+    size = {x = number, y = number = z = number}, -- size, vec3 format
+    color = {x = number, y = number, z = number}, -- color, vec3 format, optional
+    rotation = {x = number, y = number, z = number}, -- rotation in degrees in vec3 format, optional
     filled = boolean, -- fill or not the shape, optional
 }
 ```
@@ -729,10 +729,10 @@ function draw3d.circle(object = table) end
 The argument table format
 ```lua
 {
-    position = {x =number, y =number = z =number}, -- position, vec3 format
-    size = {x =number, y =number = z =number}, -- size, vec3 format
-    color = {x =number, y =number, z =number}, -- color, vec3 format, optional
-    rotation = {x =number, y =number, z =number}, -- rotation in degrees in vec3 format, optional
+    position = {x = number, y = number = z = number}, -- position, vec3 format
+    size = {x = number, y = number = z = number}, -- size, vec3 format
+    color = {x = number, y = number, z = number}, -- color, vec3 format, optional
+    rotation = {x = number, y = number, z = number}, -- rotation in degrees in vec3 format, optional
     filled = boolean, -- fill or not the shape, optional
 }
 ```
@@ -1753,6 +1753,40 @@ function font.set_text(id = number, text = string) end
 
 ```lua
 function font.draw(id = number) end
+```
+
+# Math Module
+
+## Make model
+
+Return mat4 matrix
+
+```lua
+function math.make_model() 
+```
+
+## Translate mat4
+
+Return a traslated mat4 matrix
+
+```lua
+math.translate_mat4(mat4, vec3) 
+```
+
+## Rotate mat4
+
+Return a rotated mat4 matrix
+
+```lua
+math.rotate_mat4(mat4, vec3, angle) 
+```
+
+## Scale Mat4
+
+Return a scaled mat4 matrix
+
+```lua
+return _math_.scale_mat4(mat4, vec3) 
 ```
 
 # Enums

@@ -149,6 +149,7 @@ extern "C"
 #include <Engine/Project/Managers/Connections/Scene/GoScriptConnection.hpp>
 #include <Engine/Project/Managers/Connections/Audio/AudioConnection.hpp>
 #include <Engine/Project/Managers/Connections/Font/FontConnection.hpp>
+#include <Engine/Project/Managers/Connections/Math/MathConnection.hpp>
 
 #include <Engine/Project/Managers/ConnectionManager.hpp>
 #include <Engine/Project/Managers/ScriptManager.hpp>

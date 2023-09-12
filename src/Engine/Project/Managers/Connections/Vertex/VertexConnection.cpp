@@ -19,7 +19,7 @@ namespace Connection {
 		Utils::Lua::RegTable(this->state, "create", CreateVertex);
 		Utils::Lua::RegTable(this->state, "destroy", DestroyVertex);
 
-		Utils::Lua::RegTable(this->state, "active", Active);
+		Utils::Lua::RegTable(this->state, "activate", Active);
 		Utils::Lua::RegTable(this->state, "modify", Modify);
 		Utils::Lua::RegTable(this->state, "draw", Draw);
 

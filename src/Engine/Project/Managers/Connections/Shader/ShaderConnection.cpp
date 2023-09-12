@@ -415,11 +415,14 @@ namespace Connection {
 			label = lua_tostring(L, 2);
 		else return luaL_error(L, "argument 2 is expected to be a string");
 
-		glm::vec2 value;
+		glm::vec2 vec;
 		if (lua_istable(L, 3))
 		{
-			if(!Utils::Lua::GetTable(L, 3, "value", value))
-				return luaL_error(L, "argument 3 is expected to be a table with vec2");
+			if (!Utils::Lua::GetTable(L, 3, "x", vec.x))
+				return luaL_error(L, "argument 3 is expected to be a table, missing x");
+
+			if (!Utils::Lua::GetTable(L, 3, "y", vec.y))
+				return luaL_error(L, "argument 3 is expected to be a table, missing y");
 		}
 		else return luaL_error(L, "argument 3 is expected to be a table");
 
@@ -427,7 +430,7 @@ namespace Connection {
 		auto shader = instance->shaders[id];
 
 		if (shader != nullptr)
-			shader->SetVec2(label, value);
+			shader->SetVec2(label, vec);
 
 		lua_pushboolean(L, shader != nullptr);
 		return 1;
@@ -450,11 +453,17 @@ namespace Connection {
 			label = lua_tostring(L, 2);
 		else return luaL_error(L, "argument 2 is expected to be a string");
 
-		glm::vec3 value;
+		glm::vec3 vec;
 		if (lua_istable(L, 3))
 		{
-			if (!Utils::Lua::GetTable(L, 3, "value", value))
-				return luaL_error(L, "argument 3 is expected to be a table with vec3");
+			if (!Utils::Lua::GetTable(L, 3, "x", vec.x))
+				return luaL_error(L, "argument 3 is expected to be a table, missing x");
+
+			if (!Utils::Lua::GetTable(L, 3, "y", vec.y))
+				return luaL_error(L, "argument 3 is expected to be a table, missing y");
+
+			if (!Utils::Lua::GetTable(L, 3, "z", vec.z))
+				return luaL_error(L, "argument 3 is expected to be a table, missing z");
 		}
 		else return luaL_error(L, "argument 3 is expected to be a table");
 
@@ -462,7 +471,7 @@ namespace Connection {
 		auto shader = instance->shaders[id];
 
 		if (shader != nullptr)
-			shader->SetVec3(label, value);
+			shader->SetVec3(label, vec);
 
 		lua_pushboolean(L, shader != nullptr);
 		return 1;
@@ -485,19 +494,29 @@ namespace Connection {
 			label = lua_tostring(L, 2);
 		else return luaL_error(L, "argument 2 is expected to be a string");
 
-		glm::vec4 value;
+		glm::vec4 vec;
 		if (lua_istable(L, 3))
 		{
-			if (!Utils::Lua::GetTable(L, 3, "value", value))
-				return luaL_error(L, "argument 3 is expected to be a table with vec4");
+			if (!Utils::Lua::GetTable(L, 3, "x", vec.x))
+				return luaL_error(L, "argument 3 is expected to be a table, missing x");
+
+			if (!Utils::Lua::GetTable(L, 3, "y", vec.y))
+				return luaL_error(L, "argument 3 is expected to be a table, missing y");
+
+			if (!Utils::Lua::GetTable(L, 3, "z", vec.z))
+				return luaL_error(L, "argument 3 is expected to be a table, missing z");
+
+			if (!Utils::Lua::GetTable(L, 3, "w", vec.w))
+				return luaL_error(L, "argument 3 is expected to be a table, missing z");
 		}
 		else return luaL_error(L, "argument 3 is expected to be a table");
+
 
 		auto instance = ShaderConnection::Get();
 		auto shader = instance->shaders[id];
 
 		if (shader != nullptr)
-			shader->SetVec4(label, value);
+			shader->SetVec4(label, vec);
 
 		lua_pushboolean(L, shader != nullptr);
 		return 1;

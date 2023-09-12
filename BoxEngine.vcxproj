@@ -209,6 +209,7 @@
     <ClCompile Include="src\Engine\Project\Managers\Connections\Image\ImageConnection.cpp" />
     <ClCompile Include="src\Engine\Project\Managers\Connections\Input\InputConnection.cpp" />
     <ClCompile Include="src\Engine\Project\Managers\Connections\Log\LogConnection.cpp" />
+    <ClCompile Include="src\Engine\Project\Managers\Connections\Math\MathConnection.cpp" />
     <ClCompile Include="src\Engine\Project\Managers\Connections\Scene\GoScriptConnection.cpp" />
     <ClCompile Include="src\Engine\Project\Managers\Connections\Shader\ShaderConnection.cpp" />
     <ClCompile Include="src\Engine\Project\Managers\Connections\Texture\TextureConnection.cpp" />
@@ -307,6 +308,7 @@
     <ClInclude Include="src\Engine\Project\Managers\Connections\Image\ImageConnection.hpp" />
     <ClInclude Include="src\Engine\Project\Managers\Connections\Input\InputConnection.hpp" />
     <ClInclude Include="src\Engine\Project\Managers\Connections\Log\LogConnection.hpp" />
+    <ClInclude Include="src\Engine\Project\Managers\Connections\Math\MathConnection.hpp" />
     <ClInclude Include="src\Engine\Project\Managers\Connections\Scene\GoScriptConnection.hpp" />
     <ClInclude Include="src\Engine\Project\Managers\Connections\Shader\ShaderConnection.hpp" />
     <ClInclude Include="src\Engine\Project\Managers\Connections\Texture\TextureConnection.hpp" />

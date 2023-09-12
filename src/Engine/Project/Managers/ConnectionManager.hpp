@@ -50,6 +50,8 @@ namespace Project {
 		Connection::AudioConnectionPtr audio;
 		// Functions for fonts
 		Connection::FontConnectionPtr font;
+		// Functions for math
+		Connection::MathConnectionPtr math;
 
 		lua_State* state = nullptr;
 	public:

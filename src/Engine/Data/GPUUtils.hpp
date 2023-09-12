@@ -21,7 +21,7 @@ namespace GPU {
 			return DrawingType::LINE_STRIP_ADJACENCY;
 		else if (key == "POINTS")
 			return DrawingType::POINTS;
-		else if (key == "STREAM_CTRIANGLESOPY")
+		else if (key == "TRIANGLES")
 			return DrawingType::TRIANGLES;
 		else if (key == "TRIANGLES_ADJACENCY")
 			return DrawingType::TRIANGLES_ADJACENCY;

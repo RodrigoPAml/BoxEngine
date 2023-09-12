@@ -71,13 +71,13 @@ namespace Connection {
 
 				if (Utils::Lua::GetTable(L, 1, "texture_attachments", textures, textureCount))
 				{
-					for (int i = 1; i <= textureCount; i++)
+					for (int i = 0; i < textureCount; i++)
 					{
 						if (!TextureConnection::Get()->Exists(textures[i]))
 						{
 							Debug::Logging::Log(
 								"Failed to create framebuffer because texture " + std::to_string(textures[i]) + " dont exist",
-								Debug::LogSeverity::Warning,
+								Debug::LogSeverity::Error,
 								Debug::LogOrigin::Engine
 							);
 							

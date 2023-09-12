@@ -810,3 +810,19 @@ end
 function font.draw(id) 
 	return _font_.draw(id) 	
 end
+
+function math.make_model() 
+	return _math_.make_model() 
+end
+
+function math.translate_mat4(mat4, vec3) 
+	return _math_.translate_mat4(mat4, vec3) 
+end
+
+function math.rotate_mat4(mat4, vec3, angle) 
+	return _math_.rotate_mat4(mat4, vec3, angle) 
+end
+
+function math.scale_mat4(mat4, vec3) 
+	return _math_.scale_mat4(mat4, vec3) 
+end

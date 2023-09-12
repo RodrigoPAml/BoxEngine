@@ -1,1 +1,1 @@
-./release1.0.0/BoxEngine.exe "games/Air Fighter"
+./release1.0.0/BoxEngine.exe "projects/Air Fighter"

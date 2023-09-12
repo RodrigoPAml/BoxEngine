@@ -1,0 +1,196 @@
+{
+  "debug": {
+    "autoLogGLFWErrors": true,
+    "autoLogOpenGLErrors": false,
+    "enableGlfwDebugging": true,
+    "enableOpenGLDebugging": true,
+    "openglSeverities": [
+      33387,
+      37190,
+      37191,
+      37192
+    ]
+  },
+  "logging": {
+    "logCallback": true,
+    "logConsole": false,
+    "logFile": false
+  },
+  "project_name": "Fractal",
+  "scene": [
+    {
+      "active": true,
+      "childrens": [],
+      "id": "12f9b466-6",
+      "name": "begin_frame",
+      "scripts": [
+        {
+          "data": [],
+          "name": "begin_frame"
+        }
+      ]
+    },
+    {
+      "active": true,
+      "childrens": [
+        {
+          "active": true,
+          "childrens": [],
+          "id": "b6539016-c",
+          "name": "fractal",
+          "scripts": [
+            {
+              "data": [
+                {
+                  "name": "translate_amount",
+                  "type": 1,
+                  "value": "4.000000"
+                },
+                {
+                  "name": "max_y",
+                  "type": 1,
+                  "value": "1080.000000"
+                },
+                {
+                  "name": "center_y",
+                  "type": 1,
+                  "value": "0.894814"
+                },
+                {
+                  "name": "size_y",
+                  "type": 1,
+                  "value": "1080.000000"
+                },
+                {
+                  "name": "max_iterations",
+                  "type": 1,
+                  "value": "300.000000"
+                },
+                {
+                  "name": "max_x",
+                  "type": 1,
+                  "value": "1920.000000"
+                },
+                {
+                  "name": "size_x",
+                  "type": 1,
+                  "value": "1920.000000"
+                },
+                {
+                  "name": "center_x",
+                  "type": 1,
+                  "value": "-0.109492"
+                },
+                {
+                  "name": "zoom",
+                  "type": 1,
+                  "value": "-0.000004"
+                },
+                {
+                  "name": "samples",
+                  "type": 1,
+                  "value": "8.000000"
+                },
+                {
+                  "name": "file_name",
+                  "type": 2,
+                  "value": "shader_top.frag"
+                }
+              ],
+              "name": "fractal"
+            }
+          ]
+        },
+        {
+          "active": false,
+          "childrens": [],
+          "id": "b38ca74e-7",
+          "name": "fractal_basic",
+          "scripts": [
+            {
+              "data": [
+                {
+                  "name": "translate_amount",
+                  "type": 1,
+                  "value": "0.010000"
+                },
+                {
+                  "name": "max_y",
+                  "type": 1,
+                  "value": "1080.000000"
+                },
+                {
+                  "name": "center_y",
+                  "type": 1,
+                  "value": "0.894814"
+                },
+                {
+                  "name": "size_y",
+                  "type": 1,
+                  "value": "1080.000000"
+                },
+                {
+                  "name": "max_iterations",
+                  "type": 1,
+                  "value": "10000.000000"
+                },
+                {
+                  "name": "max_x",
+                  "type": 1,
+                  "value": "1920.000000"
+                },
+                {
+                  "name": "size_x",
+                  "type": 1,
+                  "value": "1920.000000"
+                },
+                {
+                  "name": "center_x",
+                  "type": 1,
+                  "value": "-0.109492"
+                },
+                {
+                  "name": "zoom",
+                  "type": 1,
+                  "value": "-0.000004"
+                },
+                {
+                  "name": "samples",
+                  "type": 1,
+                  "value": "0"
+                },
+                {
+                  "name": "file_name",
+                  "type": 2,
+                  "value": "shader.frag"
+                }
+              ],
+              "name": "fractal"
+            }
+          ]
+        }
+      ],
+      "id": "0f2489b2-0",
+      "name": "scene",
+      "scripts": []
+    },
+    {
+      "active": true,
+      "childrens": [],
+      "id": "4951cfa6-1",
+      "name": "end_frame",
+      "scripts": [
+        {
+          "data": [
+            {
+              "name": "begin_id",
+              "type": 2,
+              "value": "12f9b466-6"
+            }
+          ],
+          "name": "end_frame"
+        }
+      ]
+    }
+  ]
+}
