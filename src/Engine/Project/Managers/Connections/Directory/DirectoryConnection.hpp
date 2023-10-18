@@ -59,5 +59,7 @@ namespace Connection {
 		static int GetExtensionFromPath(lua_State* L);
 		static int GetLastPartFromPath(lua_State* L);
 		static int GetLastPartFromPathNoExt(lua_State* L);
+
+		static int Exec(lua_State* L);
 	};
 }}}

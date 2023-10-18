@@ -383,6 +383,9 @@ namespace Connection {
 		if (top != 1)
 			return luaL_error(L, "expecting 1 argument in function call");
 
+		if (!HaveFramebuffer())
+			return luaL_error(L, "no current framebuffer to draw");
+
 		int id = 0;
 		if (lua_isnumber(L, 1))
 			id = lua_tonumber(L, 1);
@@ -396,5 +399,10 @@ namespace Connection {
 
 		lua_pushboolean(L, font != nullptr);
 		return 1;
+	}
+
+	bool FontConnection::HaveFramebuffer()
+	{
+		return BoxEngine::GPU::Framebuffer::GetCurrendUsedId() != 0;
 	}
 }}}

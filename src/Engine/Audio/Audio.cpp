@@ -29,10 +29,9 @@ namespace Audio {
 
 		if (this->sound != nullptr)
 		{
-			this->sound->stop();
 			this->sound->drop();
+			this->sound = nullptr;
 		}
-
 
 		Debug::Logging::Log("[Audio]: Destroyed audio from " + this->path, Debug::LogSeverity::Notify, Debug::LogOrigin::EngineInternal);
 	}
@@ -265,6 +264,12 @@ namespace Audio {
 	void Audio::SetListenerPosition(const glm::vec3& pos, const glm::vec3& dir)
 	{
 		engine->setListenerPosition({ pos.x, pos.y, pos.z }, {dir.x, dir.y, dir.z});
+	}
+
+	void Audio::StopAllAudios()
+	{
+		if (engine != nullptr)
+			engine->stopAllSounds();
 	}
 
 	int Audio::GetInstaceCount()

@@ -54,7 +54,7 @@ namespace Connection {
 		static int Active(lua_State* L);
 		static int GetAttachmentSize(lua_State* L);
 		static int GetAttachment(lua_State* L);
-		static int ActiveDefault(lua_State* L);
+		static int ActiveNone(lua_State* L);
 
 		static int Clear(lua_State* L);
 		static int SetClearModes(lua_State* L);

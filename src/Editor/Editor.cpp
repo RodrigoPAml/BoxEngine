@@ -75,16 +75,16 @@ namespace Editor {
 		this->inspector.InspectGo(goId);
 	}
 
-	glm::vec2 Editor::GetTopStartPoint() const
+	glm::vec2 Editor::GetTopStartPoint(bool correctY) const
 	{
 		// Min x, Min y
-		return glm::vec2(this->gameTree.GetMaxX(), Window::Window::GetSize().y - this->bottomBar.GetMinY());
+		return glm::vec2(this->gameTree.GetMaxX(), correctY ? Window::Window::GetSize().y - this->bottomBar.GetMinY() : this->bottomBar.GetMinY());
 	}
 
-	glm::vec2 Editor::GetBottomEndPoint() const
+	glm::vec2 Editor::GetBottomEndPoint(bool correctY) const
 	{
 		// Max x, Max y
-		double maxY = Window::Window::GetSize().y - TOPBAR_Y;
+		double maxY = correctY ? Window::Window::GetSize().y - TOPBAR_Y : Window::Window::GetSize().y;
 
 		if (maxY < 0)
 			maxY = 0;

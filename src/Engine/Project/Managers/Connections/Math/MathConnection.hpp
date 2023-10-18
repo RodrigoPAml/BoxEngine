@@ -35,8 +35,8 @@ namespace Connection {
 		static MathConnectionPtr Get();
 		static void Set(MathConnectionPtr instance);
 	private:
-		// Logging
-		static int MakeModel(lua_State* L);
+		static int MakeMat4(lua_State* L);
+		static int MakeIdentityMat4(lua_State* L);
 		static int TranslateMat4(lua_State* L);
 		static int RotateMat4(lua_State* L);
 		static int ScaleMat4(lua_State* L);

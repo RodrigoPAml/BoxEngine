@@ -85,6 +85,10 @@ function menu.draw_current_option()
         go.set_active(this.game_id, true)
     end
 
+    if (this.option == 1 and input.get_mouse_button('LEFT') == 'PRESS') then
+        dir.exec('explorer https://github.com/RodrigoPAml/BoxEngine')
+     end
+
     if (this.option == 2 and input.get_mouse_button('LEFT') == 'PRESS') then
        engine.stop()
     end
@@ -174,6 +178,7 @@ end
 
 function menu.destroy()
     local this = menu[go.current()]
+    
     font.destroy(this.font)
     texture.destroy(this.texture)
     audio.destroy(this.sound)

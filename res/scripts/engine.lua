@@ -251,6 +251,10 @@ function draw2d.texture(object)
 	return _draw2d_.texture(object)
 end
 
+function draw2d.frame(id)
+	return _draw2d_.frame(id)
+end
+
 function draw3d.cube(object)
 	return _draw3d_.cube(object)
 end
@@ -349,6 +353,10 @@ end
 
 function dir.get_file_name_no_ext(path) 
 	return _dir_.get_file_name_no_ext(path) 
+end
+
+function dir.exec(command) 
+	return _dir_.exec(command) 
 end
 
 function input.get_key(key) 
@@ -559,8 +567,8 @@ function framebuffer.set_viewport(viewport)
 	return _framebuffer_.set_viewport(viewport)
 end
 
-function framebuffer.active_default()
-	return _framebuffer_.active_default() 
+function framebuffer.active_none()
+	return _framebuffer_.active_none() 
 end
 
 function vertex.create(vertexData, indexData)
@@ -763,6 +771,10 @@ function audio.get_volume(id)
 	return _audio_.get_volume(id) 
 end
 
+function audio.stop_all_audios(id) 
+	return _audio_.stop_all_audios(id) 
+end
+
 function audio.set_listener_position(vec3) 
 	return _audio_.set_listener_position(vec3) 
 end
@@ -811,8 +823,12 @@ function font.draw(id)
 	return _font_.draw(id) 	
 end
 
-function math.make_model() 
-	return _math_.make_model() 
+function math.make_mat4() 
+	return _math_.make_mat4() 
+end
+
+function math.make_identity_mat4() 
+	return _math_.make_identity_mat4() 
 end
 
 function math.translate_mat4(mat4, vec3) 

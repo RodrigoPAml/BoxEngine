@@ -61,5 +61,7 @@ namespace Connection {
 		static int GetText(lua_State* L);
 
 		static int Draw(lua_State* L);
+
+		static bool HaveFramebuffer();
 	};
 }}}

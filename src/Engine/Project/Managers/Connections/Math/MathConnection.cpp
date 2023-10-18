@@ -16,7 +16,8 @@ namespace Connection {
 	{
 		lua_newtable(this->state);
 
-		Utils::Lua::RegTable(this->state, "make_model", MakeModel);
+		Utils::Lua::RegTable(this->state, "make_mat4", MakeMat4);
+		Utils::Lua::RegTable(this->state, "make_identity_mat4", MakeIdentityMat4);
 		Utils::Lua::RegTable(this->state, "translate_mat4", TranslateMat4);
 		Utils::Lua::RegTable(this->state, "rotate_mat4", RotateMat4);
 		Utils::Lua::RegTable(this->state, "scale_mat4", ScaleMat4);
@@ -39,7 +40,26 @@ namespace Connection {
 		current = instance;
 	}
 
-	int MathConnection::MakeModel(lua_State* L)
+	int MathConnection::MakeMat4(lua_State* L)
+	{
+		auto top = lua_gettop(L);
+
+		if (top != 0)
+			return luaL_error(L, "expecting no arguments in function call");
+
+		glm::mat4 mat = glm::mat4();
+
+		// Register four tables direct in this table
+		lua_newtable(L);
+		Utils::Lua::RegTable(L, 1, mat[0]);
+		Utils::Lua::RegTable(L, 2, mat[1]);
+		Utils::Lua::RegTable(L, 3, mat[2]);
+		Utils::Lua::RegTable(L, 4, mat[3]);
+
+		return 1;
+	}
+
+	int MathConnection::MakeIdentityMat4(lua_State* L)
 	{
 		auto top = lua_gettop(L);
 

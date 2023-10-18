@@ -65,12 +65,12 @@ namespace Input {
 		return (InputAction)glfwGetMouseButton(Instance().windowPtr, (int)button);
 	}
 
-	glm::vec<2, int> Mouse::GetMousePosition()
+	glm::vec<2, int> Mouse::GetMousePosition(bool correctY)
 	{
 		double xpos, ypos;
 		glfwGetCursorPos(Instance().windowPtr, &xpos, &ypos);
 		
-		return {xpos, Window::Window::GetSize().y - ypos};
+		return {xpos, correctY ? Window::Window::GetSize().y - ypos : ypos};
 	}
 
 	glm::vec<2, int> Mouse::GetMouseVariation()

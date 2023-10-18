@@ -51,5 +51,8 @@ namespace Connection {
 		static int Draw3DCircle(lua_State* L);
 	
 		static int DrawTexture(lua_State* L);
+		static int DrawFrame(lua_State* L);
+
+		static bool HaveFramebuffer();
 	};
 }}}

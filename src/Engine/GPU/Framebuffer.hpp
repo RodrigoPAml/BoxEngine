@@ -15,7 +15,20 @@ namespace GPU {
 
 		std::vector<TexturePtr> texturesAttachments;
 
+		/// <summary>
+		/// Current framebuffer is being used (0 is default)
+		/// </summary>
+		static int CurrentUsedId;
+
+		/// <summary>
+		/// Total framebuffers instantiated
+		/// </summary>
 		static int TotalInstances;
+
+		/// <summary>
+		/// Clear modes of OpenGL setted here (mask)
+		/// </summary>
+		static unsigned int ClearModeSum;
 	public:
 		Framebuffer(const FramebufferConfiguration& configuration);
 		~Framebuffer();
@@ -59,8 +72,13 @@ namespace GPU {
 		/// Current existing framebuffers
 		/// </summary>
 		static int GetInstanceCount();
+
+		/// <summary>
+		/// Current framebuffer id being used
+		/// If return 0 this means the default framebuffer
+		/// </summary>
+		static int GetCurrendUsedId();
 	private:
-		static unsigned int ClearModeSum;
 	};
 
 	typedef std::shared_ptr<Framebuffer> FramebufferPtr;

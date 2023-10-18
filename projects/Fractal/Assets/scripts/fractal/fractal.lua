@@ -90,7 +90,7 @@ function fractal.draw_fractal()
     shader.activate(this.shader)
     shader.set_mat4(cam2d.get_current(), "projection", cam2d.get_matrix(cam2d.get_current()))
 
-    local model = math.make_model()
+    local model = math.make_identity_mat4()
     model = math.translate_mat4(model, { x = this.size_x / 2 - this.size_x / 2, y = this.size_y / 2 - this.size_y / 2, z = 0 })
     model = math.scale_mat4(model, { x = this.size_x, y = this.size_y, z = 1 })
 

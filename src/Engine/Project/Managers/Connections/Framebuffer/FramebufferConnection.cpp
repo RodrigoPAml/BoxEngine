@@ -25,7 +25,7 @@ namespace Connection {
 
 		Utils::Lua::RegTable(this->state, "set_current", SetCurrent);
 		Utils::Lua::RegTable(this->state, "get_current", GetCurrent);
-		Utils::Lua::RegTable(this->state, "active_default", ActiveDefault);
+		Utils::Lua::RegTable(this->state, "active_none", ActiveNone);
 
 		Utils::Lua::RegTable(this->state, "clear", Clear);
 		Utils::Lua::RegTable(this->state, "set_clear_modes", SetClearModes);
@@ -312,7 +312,7 @@ namespace Connection {
 		return 1;
 	}
 
-	int FramebufferConnection::ActiveDefault(lua_State* L)
+	int FramebufferConnection::ActiveNone(lua_State* L)
 	{
 		auto top = lua_gettop(L);
 

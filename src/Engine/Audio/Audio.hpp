@@ -68,6 +68,7 @@ namespace Audio {
 		float GetVolume();
 
 		static void SetListenerPosition(const glm::vec3& pos, const glm::vec3& dir);
+		static void StopAllAudios();
 		static int GetInstaceCount();
 		static void ReleaseEngine();
 	};

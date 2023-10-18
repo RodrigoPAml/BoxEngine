@@ -40,6 +40,8 @@ namespace Connection {
 		Utils::Lua::RegTable(this->state, "get_file_name_ext", GetExtensionFromPath);
 		Utils::Lua::RegTable(this->state, "get_file_name_no_ext", GetLastPartFromPathNoExt);
 
+		Utils::Lua::RegTable(this->state, "exec", Exec);
+
 		lua_setglobal(this->state, "_dir_");
 	}
 
@@ -371,5 +373,22 @@ namespace Connection {
 
 		lua_pushstring(L, Utils::Directory::GetLastPartFromPathNoExtension(filename).c_str());
 		return 1;
+	}
+	
+	int DirectoryConnection::Exec(lua_State* L)
+	{
+		if (lua_gettop(L) != 1)
+			return luaL_error(L, "expecting 1 argument in function call");
+
+		std::string command = "";
+
+		if (lua_isstring(L, 1))
+			command = lua_tostring(L, 1);
+		else
+			return luaL_error(L, "argument 1 needs to be a string");
+
+		Utils::Directory::Execute(command);
+
+		return 0;
 	}
 }}}

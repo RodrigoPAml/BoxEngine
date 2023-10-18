@@ -792,6 +792,18 @@ namespace Connection {
 		return 1;
 	}
 
+	int AudioConnection::StopAllAudios(lua_State* L)
+	{
+		auto top = lua_gettop(L);
+
+		if (top != 0)
+			return luaL_error(L, "expecting no arguments in function call");
+
+		Audio::Audio::StopAllAudios();
+
+		return 0;
+	}
+
 	int AudioConnection::SetListenerPosition(lua_State* L)
 	{
 		auto top = lua_gettop(L);
@@ -835,24 +847,10 @@ namespace Connection {
 	{
 		auto top = lua_gettop(L);
 
-		if (top != 1)
-			return luaL_error(L, "expecting 1 arguments in function call");
+		if (top != 0)
+			return luaL_error(L, "expecting no arguments in function call");
 
-		int id = 0;
-		if (lua_isnumber(L, 1))
-			id = lua_tonumber(L, 1);
-		else return luaL_error(L, "argument 1 is expected to be a number");
-
-		auto instance = AudioConnection::Get();
-		auto audio = instance->audios[id];
-
-		if (audio == nullptr)
-		{
-			lua_pushnil(L);
-			return 1;
-		}
-
-		lua_pushnumber(L, audio->GetSpeed());
+		lua_pushnumber(L, Audio::Audio::GetInstaceCount());
 
 		return 1;
 	}

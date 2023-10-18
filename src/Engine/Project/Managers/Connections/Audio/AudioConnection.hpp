@@ -84,6 +84,8 @@ namespace Connection {
 		static int SetVolume(lua_State* L);
 		static int GetVolume(lua_State* L);
 
+		static int StopAllAudios(lua_State* L);
+
 		static int SetListenerPosition(lua_State* L);
 		static int GetTotalInstacesCount(lua_State* L);
 	};

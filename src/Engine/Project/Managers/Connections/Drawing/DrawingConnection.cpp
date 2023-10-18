@@ -22,6 +22,7 @@ namespace Connection {
 		Utils::Lua::RegTable(this->state, "rect", Draw2DRectangle);
 		Utils::Lua::RegTable(this->state, "triangle", Draw2DTriangle);
 		Utils::Lua::RegTable(this->state, "texture", DrawTexture);
+		Utils::Lua::RegTable(this->state, "frame", DrawFrame);
 
 		lua_setglobal(this->state, "_draw2d_");
 
@@ -60,6 +61,9 @@ namespace Connection {
 		if (top != 1)
 			return luaL_error(L, "expecting 1 argument in function call");
 
+		if (!HaveFramebuffer())
+			return luaL_error(L, "no current framebuffer to draw");
+
 		if (lua_istable(L, 1))
 		{
 			glm::vec2 position, size;
@@ -92,6 +96,9 @@ namespace Connection {
 		if (top != 1)
 			return luaL_error(L, "expecting 1 argument in function call");
 
+		if (!HaveFramebuffer())
+			return luaL_error(L, "no current framebuffer to draw");
+
 		if (lua_istable(L, 1))
 		{
 			glm::vec4 color = { 1, 0, 0, 1 };
@@ -123,6 +130,9 @@ namespace Connection {
 
 		if (top != 1)
 			return luaL_error(L, "expecting 1 argument in function call");
+	
+		if (!HaveFramebuffer())
+			return luaL_error(L, "no current framebuffer to draw");
 
 		if (lua_istable(L, 1))
 		{
@@ -155,6 +165,9 @@ namespace Connection {
 		if (top != 1)
 			return luaL_error(L, "expecting 1 argument in function call");
 
+		if (!HaveFramebuffer())
+			return luaL_error(L, "no current framebuffer to draw");
+
 		if (lua_istable(L, 1))
 		{
 			glm::vec4 color = { 1, 0, 0, 1 };
@@ -178,6 +191,9 @@ namespace Connection {
 
 		if (top != 1)
 			return luaL_error(L, "expecting 1 argument in function call");
+
+		if (!HaveFramebuffer())
+			return luaL_error(L, "no current framebuffer to draw");
 
 		if (lua_istable(L, 1))
 		{
@@ -205,6 +221,9 @@ namespace Connection {
 
 		if (top != 1)
 			return luaL_error(L, "expecting 1 argument in function call");
+
+		if (!HaveFramebuffer())
+			return luaL_error(L, "no current framebuffer to draw");
 
 		if (lua_istable(L, 1))
 		{
@@ -236,6 +255,9 @@ namespace Connection {
 		if (top != 1)
 			return luaL_error(L, "expecting 1 argument in function call");
 
+		if (!HaveFramebuffer())
+			return luaL_error(L, "no current framebuffer to draw");
+
 		if (lua_istable(L, 1))
 		{
 			glm::vec4 color = { 1, 0, 0, 1 };
@@ -266,6 +288,9 @@ namespace Connection {
 		if (top != 1)
 			return luaL_error(L, "expecting 1 argument in function call");
 
+		if (!HaveFramebuffer())
+			return luaL_error(L, "no current framebuffer to draw");
+
 		if (lua_istable(L, 1))
 		{
 			glm::vec4 color = { 1, 0, 0, 1 };
@@ -289,6 +314,9 @@ namespace Connection {
 
 		if (top != 1)
 			return luaL_error(L, "expecting 1 argument in function call");
+
+		if (!HaveFramebuffer())
+			return luaL_error(L, "no current framebuffer to draw");
 
 		if (lua_istable(L, 1))
 		{
@@ -316,6 +344,9 @@ namespace Connection {
 
 		if (top != 1)
 			return luaL_error(L, "expecting 1 argument in function call");
+
+		if (!HaveFramebuffer())
+			return luaL_error(L, "no current framebuffer to draw");
 
 		if (lua_istable(L, 1))
 		{
@@ -347,6 +378,9 @@ namespace Connection {
 		if (top != 1)
 			return luaL_error(L, "expecting 1 argument in function call");
 
+		if (!HaveFramebuffer())
+			return luaL_error(L, "no current framebuffer to draw");
+
 		if (lua_istable(L, 1))
 		{
 			glm::vec4 color = { 1, 0, 0, 1 };
@@ -376,6 +410,9 @@ namespace Connection {
 
 		if (top != 1)
 			return luaL_error(L, "expecting 1 argument in function call");
+
+		if (!HaveFramebuffer())
+			return luaL_error(L, "no current framebuffer to draw");
 
 		if (lua_istable(L, 1))
 		{
@@ -407,6 +444,9 @@ namespace Connection {
 		if (top != 1)
 			return luaL_error(L, "expecting 1 argument in function call");
 
+		if (!HaveFramebuffer())
+			return luaL_error(L, "no current framebuffer to draw");
+
 		if (lua_istable(L, 1))
 		{
 			glm::vec2 position, size;
@@ -434,5 +474,38 @@ namespace Connection {
 		else return luaL_error(L, "expecting argument 1 to be a table");
 
 		return 0;
+	}
+
+	int DrawingConnection::DrawFrame(lua_State* L)
+	{
+		auto top = lua_gettop(L);
+
+		if (top != 1)
+			return luaL_error(L, "expecting 1 argument in function call");
+
+		if (lua_isnumber(L, 1))
+		{
+			unsigned int textureId = lua_tonumber(L, 1);
+
+			auto windowLimits = Project::GetCurrentProject()->GetScreenLimits();
+			auto windowSize = glm::vec2(std::abs(windowLimits.x - windowLimits.z), std::abs(windowLimits.y - windowLimits.w));
+
+			glm::vec2 position = glm::vec2(windowLimits.x + windowSize.x / 2, windowLimits.y + windowSize.y / 2);
+			glm::vec4 color = { 0, 0, 0 ,0 };
+			float rotation = 0;
+
+			auto texture = TextureConnection::Get()->Get(textureId);
+
+			if (texture != nullptr)
+				Drawing::TextureRenderer::Draw(texture, position, windowSize, color, rotation);
+		}
+		else return luaL_error(L, "expecting argument 1 to be a number");
+
+		return 0;
+	}
+
+	bool DrawingConnection::HaveFramebuffer()
+	{
+		return BoxEngine::GPU::Framebuffer::GetCurrendUsedId() != 0;
 	}
 }}}

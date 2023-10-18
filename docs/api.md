@@ -616,6 +616,13 @@ The argument table format
 }
 ```
 
+## Draw 2D Texture in Editor Frame
+Draw a 2d texture in Editor Frame
+
+```lua
+function draw2d.frame(textureId = number) end
+```
+
 ## Draw 3D Cube
 Draw a 3D cube
 
@@ -920,6 +927,14 @@ Recieve a file path and return only its name without extension
 
 ```lua
 function dir.get_file_name_no_ext(path = string) end
+```
+
+## Execute a system command
+
+Recieve a string command
+
+```lua
+function dir.exec(command = string) end
 ```
 
 # Input Module
@@ -1384,11 +1399,11 @@ Return bool indicating success
 function framebuffer.active(id = number) end
 ```
 
-## Active Default Framebuffer
-Active the default screen buffer of the window
+## Disable All Framebuffer
+Active the default screen buffer of the window, witch can't be used
 
 ```lua
-function framebuffer.active_default() end
+function framebuffer.active_none() end
 ```
 
 ## Get Framebuffer Attachments Size
@@ -1698,6 +1713,14 @@ function audio.set_volume(id, number) end
 function audio.get_volume(id) end
 ```
 
+## Stop all audios
+
+Stop all audios
+
+```lua
+function audio.stop_all_audios() end
+```
+
 ## Set the position of the listener in the world (global)
 
 ```lua
@@ -1757,12 +1780,19 @@ function font.draw(id = number) end
 
 # Math Module
 
-## Make model
+## Make mat4 model
 
-Return mat4 matrix
+Return a mat4 matrix
 
 ```lua
-function math.make_model() 
+function math.make_mat4() 
+```
+## Make mat4 identity model
+
+Return a mat4 identity matrix
+
+```lua
+function math.make_identity_mat4() 
 ```
 
 ## Translate mat4

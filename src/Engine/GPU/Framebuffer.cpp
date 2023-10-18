@@ -8,6 +8,8 @@ namespace GPU {
 
 	int Framebuffer::TotalInstances = 0;
 
+	int Framebuffer::CurrentUsedId = 0;
+
 	Framebuffer::Framebuffer(const FramebufferConfiguration& configuration)
 	{
 		Framebuffer::TotalInstances++;
@@ -86,12 +88,14 @@ namespace GPU {
 			Debug::Logging::LogException("[Framebuffer]: Failed to create render buffer", Debug::LogOrigin::Engine);
 		else 
 			Debug::Logging::Log("[Framebuffer]: Created with id " + std::to_string(this->id), Debug::LogSeverity::Notify, Debug::LogOrigin::EngineInternal);
-	
 	}
 
 	Framebuffer::~Framebuffer()
 	{
 		Framebuffer::TotalInstances--;
+
+		if (this->id == CurrentUsedId)
+			CurrentUsedId = 0;
 
 		if (this->id != 0)
 		{
@@ -111,6 +115,8 @@ namespace GPU {
 		if (this->id == 0)
 			Debug::Logging::LogException("[Framebuffer]: Can't use an empty framebuffer", Debug::LogOrigin::Engine);
 
+		CurrentUsedId = this->id;
+
 		glBindFramebuffer(GL_FRAMEBUFFER, this->id);
 	}
 
@@ -129,6 +135,8 @@ namespace GPU {
 
 	void Framebuffer::ActiveDefault()
 	{
+		CurrentUsedId = 0;
+
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		glBindRenderbuffer(GL_RENDERBUFFER, 0);
 	}
@@ -159,5 +167,10 @@ namespace GPU {
 	int Framebuffer::GetInstanceCount()
 	{
 		return Framebuffer::TotalInstances;
+	}
+
+	int Framebuffer::GetCurrendUsedId()
+	{
+		return Framebuffer::CurrentUsedId;
 	}
 }}

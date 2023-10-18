@@ -29,8 +29,8 @@ namespace Editor {
 		void ClearLogs();
 		void InspectGo(std::string goId);
 		
-		glm::vec2 GetTopStartPoint() const;
-		glm::vec2 GetBottomEndPoint() const;
+		glm::vec2 GetTopStartPoint(bool correctY = true) const;
+		glm::vec2 GetBottomEndPoint(bool correctY = true) const;
 
 		static EditorPtr GetCurrentEditor();
 		static void SetCurrentEditor(EditorPtr editor);

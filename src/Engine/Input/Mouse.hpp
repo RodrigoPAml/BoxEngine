@@ -65,7 +65,7 @@ namespace Input {
 		/// <summary>
 		/// Returns the current mouse position.
 		/// </summary>
-		static glm::vec<2, int> GetMousePosition();
+		static glm::vec<2, int> GetMousePosition(bool correctY = true);
 
 		/// <summary>
 		/// Returns the current mouse delta.

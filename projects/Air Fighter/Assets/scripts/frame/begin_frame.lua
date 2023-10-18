@@ -15,13 +15,15 @@ function begin_frame.start()
 
    -- famebuffer object to hold the texture above
    this.framebuffer_id = framebuffer.create(
-      {
-         texture_attachments_count = 1, -- number of texture attachments,
-         texture_attachments = { this.texture_id }
-      })
+   {
+      texture_attachments_count = 1, -- number of texture attachments,
+      texture_attachments = { this.texture_id }
+   })
 
    -- set as global
    framebuffer.set_current(this.framebuffer_id)
+   framebuffer.active(this.framebuffer_id)
+
    cam2d.set_current(this.camera_fb_id)
 
    -- enable bleding and vsync
