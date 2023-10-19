@@ -2,6 +2,7 @@
 #include "EngineConnection.hpp"
 
 namespace BoxEngine {
+namespace Engine {
 namespace Project {
 namespace Connection {
 
@@ -16,10 +17,10 @@ namespace Connection {
 	{
 		lua_newtable(this->state);
 
-		Utils::Lua::RegTable(this->state, "get_fps", GetFPS);
-		Utils::Lua::RegTable(this->state, "get_frametime", GetFrametime);
-		Utils::Lua::RegTable(this->state, "stop", StopEngine);
-		Utils::Lua::RegTable(this->state, "restart", RestartEngine);
+		LuaUtils::RegTable(this->state, "get_fps", GetFPS);
+		LuaUtils::RegTable(this->state, "get_frametime", GetFrametime);
+		LuaUtils::RegTable(this->state, "stop", StopEngine);
+		LuaUtils::RegTable(this->state, "restart", RestartEngine);
 
 		lua_setglobal(this->state, "_engine_");
 	}
@@ -82,4 +83,4 @@ namespace Connection {
 		Project::GetCurrentProject()->StopThenStart();
 		return 0;
 	}
-}}}
+}}}}

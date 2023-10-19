@@ -3,6 +3,8 @@
 
 namespace BoxEngine {
 namespace Editor {
+	
+	using namespace Modules;
 
 	/// <summary>
 	/// Represents an item of the tree of files of project

@@ -2,12 +2,15 @@
 #include <BoxEngine.hpp>
 
 namespace BoxEngine {
+namespace Engine {
 namespace Project {
 namespace Connection {
 
 	class VertexConnection;
 	typedef std::shared_ptr<VertexConnection> VertexConnectionPtr;
 	typedef std::weak_ptr<VertexConnection> VertexConnectionWeakPtr;
+
+	using namespace Modules;
 
 	/// <summary>
 	/// Functions C++/LUA to handle vertex functions.
@@ -73,4 +76,4 @@ namespace Connection {
 			lua_State* L
 		);
 	};
-}}}
+}}}}

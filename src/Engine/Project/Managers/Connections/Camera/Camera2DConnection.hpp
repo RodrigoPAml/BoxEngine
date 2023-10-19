@@ -2,12 +2,15 @@
 #include <BoxEngine.hpp>
 
 namespace BoxEngine {
+namespace Engine {
 namespace Project {
 namespace Connection {
 
 	class Camera2DConnection;
 	typedef std::shared_ptr<Camera2DConnection> Camera2DConnectionPtr;
 	typedef std::weak_ptr<Camera2DConnection> Camera2DConnectionWeakPtr;
+
+	using namespace Modules;
 
 	/// <summary>
 	/// Functions C++/LUA to handle 2d cameras.
@@ -55,4 +58,4 @@ namespace Connection {
 		static int SetCurrentCamera(lua_State* L);
 		static int GetCurrentCamera(lua_State* L);
 	};
-}}}
+}}}}

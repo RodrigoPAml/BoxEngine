@@ -4,6 +4,9 @@
 namespace BoxEngine {
 namespace Editor {
 
+	using namespace Modules;
+	using namespace Engine;
+
 	void TopBar::Reset()
 	{
 		this->reset = true;
@@ -11,10 +14,10 @@ namespace Editor {
 
 	void TopBar::Update()
 	{
-		using namespace BoxEngine::Window;
-		using namespace BoxEngine::Project;
-		using Project = BoxEngine::Project::Project;
-		using Window = BoxEngine::Window::Window;
+		using namespace Window;
+		using namespace Project;
+		using Project = Engine::Project::Project;
+		using Window = Modules::Window::Window;
 			
 		ProjectPtr currentProject = Project::GetCurrentProject();
 

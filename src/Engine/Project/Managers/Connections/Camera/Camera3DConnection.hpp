@@ -2,12 +2,15 @@
 #include <BoxEngine.hpp>
 
 namespace BoxEngine {
+namespace Engine {
 namespace Project {
 namespace Connection {
 
 	class Camera3DConnection;
 	typedef std::shared_ptr<Camera3DConnection> Camera3DConnectionPtr;
 	typedef std::weak_ptr<Camera3DConnection> Camera3DConnectionWeakPtr;
+
+	using namespace Modules;
 
 	/// <summary>
 	/// Functions C++/LUA to handle 3d cameras.
@@ -60,4 +63,4 @@ namespace Connection {
 	
 		static int SetCurrentCamera(lua_State* L);
 	};
-}}}
+}}}}

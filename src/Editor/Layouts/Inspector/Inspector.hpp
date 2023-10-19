@@ -4,6 +4,8 @@
 namespace BoxEngine {
 namespace Editor {
 
+	using namespace Engine;
+
 	class Inspector : public Layout
 	{
 	private:

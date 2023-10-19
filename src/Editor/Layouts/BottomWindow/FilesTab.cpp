@@ -4,9 +4,11 @@
 namespace BoxEngine {
 namespace Editor {
 
+	using namespace Modules;
+
 	void FilesTab::Start()
 	{
-		using Project = BoxEngine::Project::Project;
+		using Project = Engine::Project::Project;
 
 		this->basePath = Project::GetCurrentProject()->GetBasePath();
 		this->guid = Utils::Directory::NewGuid();
@@ -15,7 +17,7 @@ namespace Editor {
 
 	void FilesTab::Update()
 	{
-		using GUI = BoxEngine::Window::GUI;
+		using GUI = Modules::Window::GUI;
 
 		if (this->shouldUpdate)
 		{
@@ -56,7 +58,7 @@ namespace Editor {
 
 	void FilesTab::UpdateTree()
 	{
-		using GUI = BoxEngine::Window::GUI;
+		using GUI = Modules::Window::GUI;
 		using namespace Window;
 
 		this->tree.clear();
@@ -70,7 +72,7 @@ namespace Editor {
 
 	bool FilesTab::UpdateTree(TreeItem& father)
 	{
-		using GUI = BoxEngine::Window::GUI;
+		using GUI = Modules::Window::GUI;
 		using namespace Window;
 
 		bool isFiltered = true;
@@ -100,7 +102,7 @@ namespace Editor {
 
 	void FilesTab::DrawTree(const TreeItem& father)
 	{
-		using GUI = BoxEngine::Window::GUI;
+		using GUI = Modules::Window::GUI;
 		using namespace Window;
 
 		if (father.filtered)
@@ -166,7 +168,7 @@ namespace Editor {
 
 	void FilesTab::DrawPopUps()
 	{
-		using GUI = BoxEngine::Window::GUI;
+		using GUI = Modules::Window::GUI;
 		using namespace Window;
 
 		if (this->openPopUp)
@@ -230,7 +232,7 @@ namespace Editor {
 					else
 					{
 						Utils::Directory::CreateFile(newFile, this->GetScriptFile(Utils::Directory::GetLastPartFromPathNoExtension(newFile)));
-						Project::Project::GetCurrentProject()->LoadScriptNameListForEditor();
+						Engine::Project::Project::GetCurrentProject()->LoadScriptNameListForEditor();
 					}
 
 					this->shouldUpdate = true;

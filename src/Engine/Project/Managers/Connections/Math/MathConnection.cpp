@@ -2,6 +2,7 @@
 #include "MathConnection.hpp"
 
 namespace BoxEngine {
+namespace Engine {
 namespace Project {
 namespace Connection {
 
@@ -16,11 +17,11 @@ namespace Connection {
 	{
 		lua_newtable(this->state);
 
-		Utils::Lua::RegTable(this->state, "make_mat4", MakeMat4);
-		Utils::Lua::RegTable(this->state, "make_identity_mat4", MakeIdentityMat4);
-		Utils::Lua::RegTable(this->state, "translate_mat4", TranslateMat4);
-		Utils::Lua::RegTable(this->state, "rotate_mat4", RotateMat4);
-		Utils::Lua::RegTable(this->state, "scale_mat4", ScaleMat4);
+		LuaUtils::RegTable(this->state, "make_mat4", MakeMat4);
+		LuaUtils::RegTable(this->state, "make_identity_mat4", MakeIdentityMat4);
+		LuaUtils::RegTable(this->state, "translate_mat4", TranslateMat4);
+		LuaUtils::RegTable(this->state, "rotate_mat4", RotateMat4);
+		LuaUtils::RegTable(this->state, "scale_mat4", ScaleMat4);
 
 		lua_setglobal(this->state, "_math_");
 	}
@@ -51,10 +52,10 @@ namespace Connection {
 
 		// Register four tables direct in this table
 		lua_newtable(L);
-		Utils::Lua::RegTable(L, 1, mat[0]);
-		Utils::Lua::RegTable(L, 2, mat[1]);
-		Utils::Lua::RegTable(L, 3, mat[2]);
-		Utils::Lua::RegTable(L, 4, mat[3]);
+		LuaUtils::RegTable(L, 1, mat[0]);
+		LuaUtils::RegTable(L, 2, mat[1]);
+		LuaUtils::RegTable(L, 3, mat[2]);
+		LuaUtils::RegTable(L, 4, mat[3]);
 
 		return 1;
 	}
@@ -70,10 +71,10 @@ namespace Connection {
 
 		// Register four tables direct in this table
 		lua_newtable(L);
-		Utils::Lua::RegTable(L, 1, mat[0]);
-		Utils::Lua::RegTable(L, 2, mat[1]);
-		Utils::Lua::RegTable(L, 3, mat[2]);
-		Utils::Lua::RegTable(L, 4, mat[3]);
+		LuaUtils::RegTable(L, 1, mat[0]);
+		LuaUtils::RegTable(L, 2, mat[1]);
+		LuaUtils::RegTable(L, 3, mat[2]);
+		LuaUtils::RegTable(L, 4, mat[3]);
 
 		return 1;
 	}
@@ -88,16 +89,16 @@ namespace Connection {
 		glm::mat4 mat;
 		if (lua_istable(L, 1))
 		{
-			if (!Utils::Lua::GetTable(L, 1, 1, mat[0]))
+			if (!LuaUtils::GetTable(L, 1, 1, mat[0]))
 				return luaL_error(L, "argument 1 is expected to be a table, missing vec4 1");
 
-			if (!Utils::Lua::GetTable(L, 1, 2, mat[1]))
+			if (!LuaUtils::GetTable(L, 1, 2, mat[1]))
 				return luaL_error(L, "argument 1 is expected to be table, missing vec4 2");
 
-			if (!Utils::Lua::GetTable(L, 1, 3, mat[2]))
+			if (!LuaUtils::GetTable(L, 1, 3, mat[2]))
 				return luaL_error(L, "argument 1 is expected to be a table, missing vec4 3");
 
-			if (!Utils::Lua::GetTable(L, 1, 4, mat[3]))
+			if (!LuaUtils::GetTable(L, 1, 4, mat[3]))
 				return luaL_error(L, "argument 1 is expected to be a table, missing vec4 4");
 		}
 		else return luaL_error(L, "argument 1 is expected to be a table with mat4 format");
@@ -105,13 +106,13 @@ namespace Connection {
 		glm::vec3 vec;
 		if (lua_istable(L, 2))
 		{
-			if (!Utils::Lua::GetTable(L, 2, "x", vec.x))
+			if (!LuaUtils::GetTable(L, 2, "x", vec.x))
 				return luaL_error(L, "argument 2 is expected to be a table, missing x");
 
-			if (!Utils::Lua::GetTable(L, 2, "y", vec.y))
+			if (!LuaUtils::GetTable(L, 2, "y", vec.y))
 				return luaL_error(L, "argument 2 is expected to be a table, missing y");
 
-			if (!Utils::Lua::GetTable(L, 2, "z", vec.z))
+			if (!LuaUtils::GetTable(L, 2, "z", vec.z))
 				return luaL_error(L, "argument 2 is expected to be a table, missing z");
 		}
 		else return luaL_error(L, "argument 2 is expected to be a table");
@@ -120,10 +121,10 @@ namespace Connection {
 
 		// Register four tables direct in this table
 		lua_newtable(L);
-		Utils::Lua::RegTable(L, 1, model[0]);
-		Utils::Lua::RegTable(L, 2, model[1]);
-		Utils::Lua::RegTable(L, 3, model[2]);
-		Utils::Lua::RegTable(L, 4, model[3]);
+		LuaUtils::RegTable(L, 1, model[0]);
+		LuaUtils::RegTable(L, 2, model[1]);
+		LuaUtils::RegTable(L, 3, model[2]);
+		LuaUtils::RegTable(L, 4, model[3]);
 
 		return 1;
 	}
@@ -138,16 +139,16 @@ namespace Connection {
 		glm::mat4 mat;
 		if (lua_istable(L, 1))
 		{
-			if (!Utils::Lua::GetTable(L, 1, 1, mat[0]))
+			if (!LuaUtils::GetTable(L, 1, 1, mat[0]))
 				return luaL_error(L, "argument 1 is expected to be a table, missing vec4 1");
 
-			if (!Utils::Lua::GetTable(L, 1, 2, mat[1]))
+			if (!LuaUtils::GetTable(L, 1, 2, mat[1]))
 				return luaL_error(L, "argument 1 is expected to be table, missing vec4 2");
 
-			if (!Utils::Lua::GetTable(L, 1, 3, mat[2]))
+			if (!LuaUtils::GetTable(L, 1, 3, mat[2]))
 				return luaL_error(L, "argument 1 is expected to be a table, missing vec4 3");
 
-			if (!Utils::Lua::GetTable(L, 1, 4, mat[3]))
+			if (!LuaUtils::GetTable(L, 1, 4, mat[3]))
 				return luaL_error(L, "argument 1 is expected to be a table, missing vec4 4");
 		}
 		else return luaL_error(L, "argument 1 is expected to be a table with mat4 format");
@@ -155,13 +156,13 @@ namespace Connection {
 		glm::vec3 vec;
 		if (lua_istable(L, 2))
 		{
-			if (!Utils::Lua::GetTable(L, 2, "x", vec.x))
+			if (!LuaUtils::GetTable(L, 2, "x", vec.x))
 				return luaL_error(L, "argument 2 is expected to be a table, missing x");
 
-			if (!Utils::Lua::GetTable(L, 2, "y", vec.y))
+			if (!LuaUtils::GetTable(L, 2, "y", vec.y))
 				return luaL_error(L, "argument 2 is expected to be a table, missing y");
 
-			if (!Utils::Lua::GetTable(L, 2, "z", vec.z))
+			if (!LuaUtils::GetTable(L, 2, "z", vec.z))
 				return luaL_error(L, "argument 2 is expected to be a table, missing z");
 		}
 		else return luaL_error(L, "argument 2 is expected to be a table");
@@ -175,10 +176,10 @@ namespace Connection {
 
 		// Register four tables direct in this table
 		lua_newtable(L);
-		Utils::Lua::RegTable(L, 1, model[0]);
-		Utils::Lua::RegTable(L, 2, model[1]);
-		Utils::Lua::RegTable(L, 3, model[2]);
-		Utils::Lua::RegTable(L, 4, model[3]);
+		LuaUtils::RegTable(L, 1, model[0]);
+		LuaUtils::RegTable(L, 2, model[1]);
+		LuaUtils::RegTable(L, 3, model[2]);
+		LuaUtils::RegTable(L, 4, model[3]);
 
 		return 1;
 	}
@@ -193,16 +194,16 @@ namespace Connection {
 		glm::mat4 mat;
 		if (lua_istable(L, 1))
 		{
-			if (!Utils::Lua::GetTable(L, 1, 1, mat[0]))
+			if (!LuaUtils::GetTable(L, 1, 1, mat[0]))
 				return luaL_error(L, "argument 1 is expected to be a table, missing vec4 1");
 
-			if (!Utils::Lua::GetTable(L, 1, 2, mat[1]))
+			if (!LuaUtils::GetTable(L, 1, 2, mat[1]))
 				return luaL_error(L, "argument 1 is expected to be table, missing vec4 2");
 
-			if (!Utils::Lua::GetTable(L, 1, 3, mat[2]))
+			if (!LuaUtils::GetTable(L, 1, 3, mat[2]))
 				return luaL_error(L, "argument 1 is expected to be a table, missing vec4 3");
 
-			if (!Utils::Lua::GetTable(L, 1, 4, mat[3]))
+			if (!LuaUtils::GetTable(L, 1, 4, mat[3]))
 				return luaL_error(L, "argument 1 is expected to be a table, missing vec4 4");
 		}
 		else return luaL_error(L, "argument 1 is expected to be a table with mat4 format");
@@ -210,13 +211,13 @@ namespace Connection {
 		glm::vec3 vec;
 		if (lua_istable(L, 2))
 		{
-			if (!Utils::Lua::GetTable(L, 2, "x", vec.x))
+			if (!LuaUtils::GetTable(L, 2, "x", vec.x))
 				return luaL_error(L, "argument 2 is expected to be a table, missing x");
 
-			if (!Utils::Lua::GetTable(L, 2, "y", vec.y))
+			if (!LuaUtils::GetTable(L, 2, "y", vec.y))
 				return luaL_error(L, "argument 2 is expected to be a table, missing y");
 
-			if (!Utils::Lua::GetTable(L, 2, "z", vec.z))
+			if (!LuaUtils::GetTable(L, 2, "z", vec.z))
 				return luaL_error(L, "argument 2 is expected to be a table, missing z");
 		}
 		else return luaL_error(L, "argument 2 is expected to be a table");
@@ -225,11 +226,11 @@ namespace Connection {
 
 		// Register four tables direct in this table
 		lua_newtable(L);
-		Utils::Lua::RegTable(L, 1, model[0]);
-		Utils::Lua::RegTable(L, 2, model[1]);
-		Utils::Lua::RegTable(L, 3, model[2]);
-		Utils::Lua::RegTable(L, 4, model[3]);
+		LuaUtils::RegTable(L, 1, model[0]);
+		LuaUtils::RegTable(L, 2, model[1]);
+		LuaUtils::RegTable(L, 3, model[2]);
+		LuaUtils::RegTable(L, 4, model[3]);
 
 		return 1;
 	}
-}}}
+}}}}

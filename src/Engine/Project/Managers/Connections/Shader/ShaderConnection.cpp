@@ -2,6 +2,7 @@
 #include "ShaderConnection.hpp"
 
 namespace BoxEngine {
+namespace Engine {
 namespace Project {
 namespace Connection {
 
@@ -16,27 +17,27 @@ namespace Connection {
 	{
 		lua_newtable(this->state);
 		
-		Utils::Lua::RegTable(this->state, "create", CreateShader);
-		Utils::Lua::RegTable(this->state, "destroy", DestroyShader);
+		LuaUtils::RegTable(this->state, "create", CreateShader);
+		LuaUtils::RegTable(this->state, "destroy", DestroyShader);
 
-		Utils::Lua::RegTable(this->state, "activate", Active);
-		Utils::Lua::RegTable(this->state, "unactive_all", UnactiveAll);
+		LuaUtils::RegTable(this->state, "activate", Active);
+		LuaUtils::RegTable(this->state, "unactive_all", UnactiveAll);
 
-		Utils::Lua::RegTable(this->state, "set_bool", SetShaderBool);
-		Utils::Lua::RegTable(this->state, "set_float", SetShaderFloat);
-		Utils::Lua::RegTable(this->state, "set_int", SetShaderInt);
+		LuaUtils::RegTable(this->state, "set_bool", SetShaderBool);
+		LuaUtils::RegTable(this->state, "set_float", SetShaderFloat);
+		LuaUtils::RegTable(this->state, "set_int", SetShaderInt);
 
-		Utils::Lua::RegTable(this->state, "set_mat2", SetShaderMat2);
-		Utils::Lua::RegTable(this->state, "set_mat3", SetShaderMat3);
-		Utils::Lua::RegTable(this->state, "set_mat4", SetShaderMat4);
+		LuaUtils::RegTable(this->state, "set_mat2", SetShaderMat2);
+		LuaUtils::RegTable(this->state, "set_mat3", SetShaderMat3);
+		LuaUtils::RegTable(this->state, "set_mat4", SetShaderMat4);
 
-		Utils::Lua::RegTable(this->state, "set_vec2", SetShaderVec2);
-		Utils::Lua::RegTable(this->state, "set_vec3", SetShaderVec3);
-		Utils::Lua::RegTable(this->state, "set_vec4", SetShaderVec4);
+		LuaUtils::RegTable(this->state, "set_vec2", SetShaderVec2);
+		LuaUtils::RegTable(this->state, "set_vec3", SetShaderVec3);
+		LuaUtils::RegTable(this->state, "set_vec4", SetShaderVec4);
 
-		Utils::Lua::RegTable(this->state, "set_xy", SetShaderXY);
-		Utils::Lua::RegTable(this->state, "set_xyz", SetShaderXYZ);
-		Utils::Lua::RegTable(this->state, "set_xyzw", SetShaderXYZW);
+		LuaUtils::RegTable(this->state, "set_xy", SetShaderXY);
+		LuaUtils::RegTable(this->state, "set_xyz", SetShaderXYZ);
+		LuaUtils::RegTable(this->state, "set_xyzw", SetShaderXYZW);
 
 		lua_setglobal(this->state, "_shader_");
 	}
@@ -69,14 +70,14 @@ namespace Connection {
 			std::string fragmentPath = "";
 			std::string geometryPath = "";
 
-			if (!Utils::Lua::GetTable(L, 1, "vertex_path", vertexPath))
+			if (!LuaUtils::GetTable(L, 1, "vertex_path", vertexPath))
 				return luaL_error(L, "argument vertex needs to exists and be a string");
 			lua_pop(L, 1);
 
-			Utils::Lua::GetTable(L, 1, "fragment_path", fragmentPath);
+			LuaUtils::GetTable(L, 1, "fragment_path", fragmentPath);
 			lua_pop(L, 1);
 
-			Utils::Lua::GetTable(L, 1, "geometry_path", geometryPath);
+			LuaUtils::GetTable(L, 1, "geometry_path", geometryPath);
 			lua_pop(L, 1);
 
 			bool success = false;
@@ -418,10 +419,10 @@ namespace Connection {
 		glm::vec2 vec;
 		if (lua_istable(L, 3))
 		{
-			if (!Utils::Lua::GetTable(L, 3, "x", vec.x))
+			if (!LuaUtils::GetTable(L, 3, "x", vec.x))
 				return luaL_error(L, "argument 3 is expected to be a table, missing x");
 
-			if (!Utils::Lua::GetTable(L, 3, "y", vec.y))
+			if (!LuaUtils::GetTable(L, 3, "y", vec.y))
 				return luaL_error(L, "argument 3 is expected to be a table, missing y");
 		}
 		else return luaL_error(L, "argument 3 is expected to be a table");
@@ -456,13 +457,13 @@ namespace Connection {
 		glm::vec3 vec;
 		if (lua_istable(L, 3))
 		{
-			if (!Utils::Lua::GetTable(L, 3, "x", vec.x))
+			if (!LuaUtils::GetTable(L, 3, "x", vec.x))
 				return luaL_error(L, "argument 3 is expected to be a table, missing x");
 
-			if (!Utils::Lua::GetTable(L, 3, "y", vec.y))
+			if (!LuaUtils::GetTable(L, 3, "y", vec.y))
 				return luaL_error(L, "argument 3 is expected to be a table, missing y");
 
-			if (!Utils::Lua::GetTable(L, 3, "z", vec.z))
+			if (!LuaUtils::GetTable(L, 3, "z", vec.z))
 				return luaL_error(L, "argument 3 is expected to be a table, missing z");
 		}
 		else return luaL_error(L, "argument 3 is expected to be a table");
@@ -497,16 +498,16 @@ namespace Connection {
 		glm::vec4 vec;
 		if (lua_istable(L, 3))
 		{
-			if (!Utils::Lua::GetTable(L, 3, "x", vec.x))
+			if (!LuaUtils::GetTable(L, 3, "x", vec.x))
 				return luaL_error(L, "argument 3 is expected to be a table, missing x");
 
-			if (!Utils::Lua::GetTable(L, 3, "y", vec.y))
+			if (!LuaUtils::GetTable(L, 3, "y", vec.y))
 				return luaL_error(L, "argument 3 is expected to be a table, missing y");
 
-			if (!Utils::Lua::GetTable(L, 3, "z", vec.z))
+			if (!LuaUtils::GetTable(L, 3, "z", vec.z))
 				return luaL_error(L, "argument 3 is expected to be a table, missing z");
 
-			if (!Utils::Lua::GetTable(L, 3, "w", vec.w))
+			if (!LuaUtils::GetTable(L, 3, "w", vec.w))
 				return luaL_error(L, "argument 3 is expected to be a table, missing z");
 		}
 		else return luaL_error(L, "argument 3 is expected to be a table");
@@ -542,10 +543,10 @@ namespace Connection {
 		glm::mat2 mat;
 		if (lua_istable(L, 3))
 		{
-			if (!Utils::Lua::GetTable(L, 3, 1, mat[0]))
+			if (!LuaUtils::GetTable(L, 3, 1, mat[0]))
 				return luaL_error(L, "argument 3 is expected to be a table, missing vec2 1");
 
-			if (!Utils::Lua::GetTable(L, 3, 2, mat[1]))
+			if (!LuaUtils::GetTable(L, 3, 2, mat[1]))
 				return luaL_error(L, "argument 3 is expected to be table, missing vec2 2");
 		}
 		else return luaL_error(L, "argument 3 is expected to be a table with mat2 format");
@@ -580,13 +581,13 @@ namespace Connection {
 		glm::mat3 mat;
 		if (lua_istable(L, 3))
 		{
-			if (!Utils::Lua::GetTable(L, 3, 1, mat[0]))
+			if (!LuaUtils::GetTable(L, 3, 1, mat[0]))
 				return luaL_error(L, "argument 3 is expected to be a table, missing vec3 1");
 
-			if (!Utils::Lua::GetTable(L, 3, 2, mat[1]))
+			if (!LuaUtils::GetTable(L, 3, 2, mat[1]))
 				return luaL_error(L, "argument 3 is expected to be table, missing vec3 2");
 
-			if (!Utils::Lua::GetTable(L, 3, 3, mat[2]))
+			if (!LuaUtils::GetTable(L, 3, 3, mat[2]))
 				return luaL_error(L, "argument 3 is expected to be table, missing vec3 3");
 		}
 		else return luaL_error(L, "argument 3 is expected to be a table with mat3 format");
@@ -621,16 +622,16 @@ namespace Connection {
 		glm::mat4 mat;
 		if (lua_istable(L, 3))
 		{
-			if(!Utils::Lua::GetTable(L, 3, 1, mat[0]))
+			if(!LuaUtils::GetTable(L, 3, 1, mat[0]))
 				return luaL_error(L, "argument 3 is expected to be a table, missing vec4 1");
 
-			if (!Utils::Lua::GetTable(L, 3, 2, mat[1]))
+			if (!LuaUtils::GetTable(L, 3, 2, mat[1]))
 				return luaL_error(L, "argument 3 is expected to be table, missing vec4 2");
 
-			if (!Utils::Lua::GetTable(L, 3, 3, mat[2]))
+			if (!LuaUtils::GetTable(L, 3, 3, mat[2]))
 				return luaL_error(L, "argument 3 is expected to be a table, missing vec4 3");
 
-			if (!Utils::Lua::GetTable(L, 3, 4, mat[3]))
+			if (!LuaUtils::GetTable(L, 3, 4, mat[3]))
 				return luaL_error(L, "argument 3 is expected to be a table, missing vec4 4");
 		}
 		else return luaL_error(L, "argument 3 is expected to be a table with mat4 format");
@@ -644,4 +645,4 @@ namespace Connection {
 		lua_pushboolean(L, shader != nullptr);
 		return 1;
 	}
-}}}
+}}}}

@@ -59,65 +59,66 @@ extern "C"
 #include <set>
 #include <map>
 
-// Canvas Engine
-#include <Engine/Data/UtilsData.hpp>
-#include <Engine/Utils/Time.hpp>
+// Engine modules
+#include <Modules/Data/UtilsData.hpp>
+#include <Modules/Utils/Time.hpp>
 
-#include <Engine/Data/DebugEnums.hpp>
-#include <Engine/Data/DebugData.hpp>
-#include <Engine/Data/DebugCallbacks.hpp>
-#include <Engine/Data/DebugUtils.hpp>
+#include <Modules/Data/DebugEnums.hpp>
+#include <Modules/Data/DebugData.hpp>
+#include <Modules/Data/DebugCallbacks.hpp>
+#include <Modules/Data/DebugUtils.hpp>
 
-#include <Engine/Debug/Logging.hpp>
-#include <Engine/Debug/Debugging.hpp>
+#include <Modules/Debug/Logging.hpp>
+#include <Modules/Debug/Debugging.hpp>
 
-#include <Engine/Data/GPUEnums.hpp>
-#include <Engine/Data/GPUData.hpp>
-#include <Engine/Data/GPUUtils.hpp>
+#include <Modules/Data/GPUEnums.hpp>
+#include <Modules/Data/GPUData.hpp>
+#include <Modules/Data/GPUUtils.hpp>
 
-#include <Engine/Utils/Image.hpp>
-#include <Engine/Utils/Directory.hpp>
+#include <Modules/Utils/Image.hpp>
+#include <Modules/Utils/Directory.hpp>
 
-#include <Engine/GPU/Texture.hpp>
-#include <Engine/GPU/Shader.hpp>
+#include <Modules/GPU/Texture.hpp>
+#include <Modules/GPU/Shader.hpp>
 
-#include <Engine/Data/FramebufferData.hpp>
-#include <Engine/Data/FramebufferUtils.hpp>
+#include <Modules/Data/FramebufferData.hpp>
+#include <Modules/Data/FramebufferUtils.hpp>
 
-#include <Engine/GPU/Framebuffer.hpp>
-#include <Engine/GPU/Vertex.hpp>
-#include <Engine/GPU/Command.hpp>
+#include <Modules/GPU/Framebuffer.hpp>
+#include <Modules/GPU/Vertex.hpp>
+#include <Modules/GPU/Command.hpp>
 
-#include <Engine/Data/WindowEnums.hpp>
-#include <Engine/Data/WindowData.hpp>
-#include <Engine/Data/WindowCallbacks.hpp>
+#include <Modules/Data/WindowEnums.hpp>
+#include <Modules/Data/WindowData.hpp>
+#include <Modules/Data/WindowCallbacks.hpp>
 
-#include <Engine/Window/GUI.hpp>
-#include <Engine/Window/Window.hpp>
+#include <Modules/Window/GUI.hpp>
+#include <Modules/Window/Window.hpp>
 
-#include <Engine/Data/InputEnums.hpp>
-#include <Engine/Data/InputUtils.hpp>
-#include <Engine/Data/InputCallbacks.hpp>
+#include <Modules/Data/InputEnums.hpp>
+#include <Modules/Data/InputUtils.hpp>
+#include <Modules/Data/InputCallbacks.hpp>
 
-#include <Engine/Input/Mouse.hpp>
-#include <Engine/Input/Keyboard.hpp>
+#include <Modules/Input/Mouse.hpp>
+#include <Modules/Input/Keyboard.hpp>
 
-#include <Engine/Data/CameraEnums.hpp>
-#include <Engine/Data/CameraData.hpp>
-#include <Engine/Data/CameraUtils.hpp>
+#include <Modules/Data/CameraEnums.hpp>
+#include <Modules/Data/CameraData.hpp>
+#include <Modules/Data/CameraUtils.hpp>
 
-#include <Engine/Camera/Camera2D.hpp>
-#include <Engine/Camera/Camera3D.hpp>
+#include <Modules/Camera/Camera2D.hpp>
+#include <Modules/Camera/Camera3D.hpp>
 
-#include <Engine/Utils/Generator.hpp>
+#include <Modules/Utils/Generator.hpp>
 
-#include <Engine/Drawing/TextureRenderer.hpp>
-#include <Engine/Drawing/Primitives2D.hpp>
-#include <Engine/Drawing/Primitives3D.hpp>
+#include <Modules/Drawing/TextureRenderer.hpp>
+#include <Modules/Drawing/Primitives2D.hpp>
+#include <Modules/Drawing/Primitives3D.hpp>
 
-#include <Engine/Audio/Audio.hpp>
-#include <Engine/Font/Font.hpp>
+#include <Modules/Audio/Audio.hpp>
+#include <Modules/Font/Font.hpp>
 
+// Engine main files
 #include <Engine/Data/ProjectEnums.hpp>
 #include <Engine/Data/ProjectUtils.hpp>
 
@@ -129,7 +130,7 @@ extern "C"
 #include <Engine/Project/Entities/GoExecution.hpp>
 #include <Engine/Data/ProjectData.hpp>
 
-#include <Engine/Utils/Lua.hpp>
+#include <Engine/LuaUtils/Lua.hpp>
 
 #include <Engine/Project/Managers/Connections/Window/WindowConnection.hpp>
 #include <Engine/Project/Managers/Connections/Drawing/DrawingConnection.hpp>

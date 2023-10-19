@@ -2,6 +2,7 @@
 #include "GoScriptConnection.hpp"
 
 namespace BoxEngine {
+namespace Engine {
 namespace Project {
 namespace Connection {
 
@@ -18,26 +19,26 @@ namespace Connection {
 		lua_newtable(this->state);
 
 		// Current go id
-		Utils::Lua::RegTable(this->state, "current", GetId);
-		Utils::Lua::RegTable(this->state, "create", CreateGo);
-		Utils::Lua::RegTable(this->state, "destroy", DestroyGo);
-		Utils::Lua::RegTable(this->state, "create_copy", Copy);
-		Utils::Lua::RegTable(this->state, "get", GetGo);
-		Utils::Lua::RegTable(this->state, "set_active", SetActive);
-		Utils::Lua::RegTable(this->state, "set_name", SetName);
-		Utils::Lua::RegTable(this->state, "change_father", ChangeGoFather);
-		Utils::Lua::RegTable(this->state, "load_scripts", LoadScripts);
-		Utils::Lua::RegTable(this->state, "change_index", ChangeGoIndex);
+		LuaUtils::RegTable(this->state, "current", GetId);
+		LuaUtils::RegTable(this->state, "create", CreateGo);
+		LuaUtils::RegTable(this->state, "destroy", DestroyGo);
+		LuaUtils::RegTable(this->state, "create_copy", Copy);
+		LuaUtils::RegTable(this->state, "get", GetGo);
+		LuaUtils::RegTable(this->state, "set_active", SetActive);
+		LuaUtils::RegTable(this->state, "set_name", SetName);
+		LuaUtils::RegTable(this->state, "change_father", ChangeGoFather);
+		LuaUtils::RegTable(this->state, "load_scripts", LoadScripts);
+		LuaUtils::RegTable(this->state, "change_index", ChangeGoIndex);
 
 		lua_setglobal(this->state, "_go_");
 
 		// Script manager
 		lua_newtable(this->state);
 
-		Utils::Lua::RegTable(this->state, "get", GetScript);
-		Utils::Lua::RegTable(this->state, "add", AddScript);
-		Utils::Lua::RegTable(this->state, "remove", RemoveScript);
-		Utils::Lua::RegTable(this->state, "change_index", RemoveScript);
+		LuaUtils::RegTable(this->state, "get", GetScript);
+		LuaUtils::RegTable(this->state, "add", AddScript);
+		LuaUtils::RegTable(this->state, "remove", RemoveScript);
+		LuaUtils::RegTable(this->state, "change_index", RemoveScript);
 
 		lua_setglobal(this->state, "_script_");
 	}
@@ -87,12 +88,12 @@ namespace Connection {
 
 		if (lua_istable(L, 1))
 		{
-			Utils::Lua::GetTable(L, 1, "name", goName);
-			Utils::Lua::GetTable(L, 1, "active", active);
+			LuaUtils::GetTable(L, 1, "name", goName);
+			LuaUtils::GetTable(L, 1, "active", active);
 
 			if (top == 3)
 			{
-				if (!Utils::Lua::GetTable(L, 1, "father_id", fatherId))
+				if (!LuaUtils::GetTable(L, 1, "father_id", fatherId))
 					return luaL_error(L, "argument father_id needs to be a string");
 			}
 		}
@@ -109,13 +110,13 @@ namespace Connection {
 			auto father = go->GetFather();
 
 			lua_newtable(L);
-			Utils::Lua::RegTable(L, "id", id);
-			Utils::Lua::RegTable(L, "active", go->GetActive());
+			LuaUtils::RegTable(L, "id", id);
+			LuaUtils::RegTable(L, "active", go->GetActive());
 
 			if (father != nullptr)
-				Utils::Lua::RegTable(L, "father_id", father->GetId());
+				LuaUtils::RegTable(L, "father_id", father->GetId());
 			else
-				Utils::Lua::RegTable(L, "father_id");
+				LuaUtils::RegTable(L, "father_id");
 		}
 
 		return 1;
@@ -341,16 +342,16 @@ namespace Connection {
 			// Table for the go info
 			lua_newtable(L);
 
-			Utils::Lua::RegTable(L, "id", go->GetId());
-			Utils::Lua::RegTable(L, "active", go->GetActive());
-			Utils::Lua::RegTable(L, "name", go->GetName());
+			LuaUtils::RegTable(L, "id", go->GetId());
+			LuaUtils::RegTable(L, "active", go->GetActive());
+			LuaUtils::RegTable(L, "name", go->GetName());
 
 			if (father != nullptr)
-				Utils::Lua::RegTable(L, "father_id", father->GetId());
+				LuaUtils::RegTable(L, "father_id", father->GetId());
 			else
-				Utils::Lua::RegTable(L, "father_id");
+				LuaUtils::RegTable(L, "father_id");
 
-			Utils::Lua::RegTable(L, "is_to_destroy", go->IsToDestroy());
+			LuaUtils::RegTable(L, "is_to_destroy", go->IsToDestroy());
 
 			// Inner table for scripts info
 			int index = lua_gettop(L);
@@ -359,7 +360,7 @@ namespace Connection {
 				lua_newtable(L);
 				auto scripts = go->GetScripts();
 				for (int i = 0; i < scripts.size(); i++)
-					Utils::Lua::RegTable(L, i+1, scripts[i]->GetName());
+					LuaUtils::RegTable(L, i+1, scripts[i]->GetName());
 			}
 			lua_settable(L, index);
 
@@ -371,7 +372,7 @@ namespace Connection {
 
 				auto childrens = go->GetChildrens();
 				for (int i = 0; i < childrens.size(); i++)
-					Utils::Lua::RegTable(L, i+1, childrens[i]->GetId());
+					LuaUtils::RegTable(L, i+1, childrens[i]->GetId());
 			}
 			lua_settable(L, index);
 		}
@@ -419,10 +420,10 @@ namespace Connection {
 		// Table for the go info
 		lua_newtable(L);
 
-		Utils::Lua::RegTable(L, "name", script->GetName());
-		Utils::Lua::RegTable(L, "path", script->GetPath());
-		Utils::Lua::RegTable(L, "state", ScriptStateToString(script->GetState()));
-		Utils::Lua::RegTable(L, "is_started", script->IsStarted());
+		LuaUtils::RegTable(L, "name", script->GetName());
+		LuaUtils::RegTable(L, "path", script->GetPath());
+		LuaUtils::RegTable(L, "state", ScriptStateToString(script->GetState()));
+		LuaUtils::RegTable(L, "is_started", script->IsStarted());
 
 		return 1;
 	}
@@ -500,4 +501,4 @@ namespace Connection {
 
 		return 0;
 	}
-}}}
+}}}}

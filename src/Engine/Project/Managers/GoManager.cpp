@@ -2,11 +2,12 @@
 #include "GoManager.hpp"
 
 namespace BoxEngine {
+namespace Engine {
 namespace Project {
 
     void GoManager::Load(nlohmann::json& data)
     {
-        using namespace BoxEngine::Utils;
+        using namespace Utils;
         using namespace std::placeholders;
 
         Debug::Logging::Log("[Project]: Loading gos", Debug::LogSeverity::Warning, Debug::LogOrigin::Engine);
@@ -426,4 +427,4 @@ namespace Project {
     }
     
     #pragma endregion
-}}
+}}}

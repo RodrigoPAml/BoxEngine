@@ -2,6 +2,7 @@
 #include "ImageConnection.hpp"
 
 namespace BoxEngine {
+namespace Engine {
 namespace Project {
 namespace Connection {
 
@@ -16,7 +17,7 @@ namespace Connection {
 	{
 		lua_newtable(this->state);
 
-		Utils::Lua::RegTable(this->state, "open", OpenImage);
+		LuaUtils::RegTable(this->state, "open", OpenImage);
 
 		lua_setglobal(this->state, "_img_");
 	}
@@ -65,8 +66,8 @@ namespace Connection {
 		else
 		{
 			lua_newtable(L);
-			Utils::Lua::RegTable(L, "size", img->GetSize());
-			Utils::Lua::RegTable(L, "path", img->GetLoadedPath());
+			LuaUtils::RegTable(L, "size", img->GetSize());
+			LuaUtils::RegTable(L, "path", img->GetLoadedPath());
 			
 			auto format = img->GetFormat();
 			auto formatStr = "";
@@ -80,10 +81,10 @@ namespace Connection {
 			else
 				formatStr = "RGB";
 			
-			Utils::Lua::RegTable(L, "format", formatStr);
-			Utils::Lua::RegTable(L, "data", img->GetData(), (int)(img->GetSize().x*img->GetSize().y));
+			LuaUtils::RegTable(L, "format", formatStr);
+			LuaUtils::RegTable(L, "data", img->GetData(), (int)(img->GetSize().x*img->GetSize().y));
 		}
 
 		return 1;
 	}
-}}}
+}}}}

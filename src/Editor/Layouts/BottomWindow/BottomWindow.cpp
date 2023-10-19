@@ -3,6 +3,8 @@
 
 namespace BoxEngine {
 namespace Editor {
+	
+	using namespace Modules;
 
 	void BottomWindow::Awake()
 	{
@@ -20,8 +22,8 @@ namespace Editor {
 
 	void BottomWindow::Update()
 	{
-		using namespace BoxEngine::Window;
-		using Window = BoxEngine::Window::Window;
+		using namespace Window;
+		using Window = Modules::Window::Window;
 
 		auto size = Window::GetSize();
 

@@ -4,6 +4,9 @@
 namespace BoxEngine {
 namespace Editor {
 	
+	using namespace Modules;
+	using namespace Engine;
+
 	void Inspector::Start()
 	{
 		this->guid = Utils::Directory::NewGuid();
@@ -11,11 +14,11 @@ namespace Editor {
 
 	void Inspector::Update()
 	{
-		using namespace BoxEngine::Window;
-		using Window = BoxEngine::Window::Window;
+		using namespace Modules::Window;
+		using Window = Modules::Window::Window;
 
 		auto size = Window::GetSize();
-		auto project = Project::Project::GetCurrentProject();
+		auto project = Engine::Project::Project::GetCurrentProject();
 
 		if (this->reset)
 		{
@@ -102,8 +105,8 @@ namespace Editor {
 
 	void Inspector::ShowProjectSettings()
 	{
-		using namespace BoxEngine::Window;
-		using Window = BoxEngine::Window::Window;
+		using namespace Modules::Window;
+		using Window = Modules::Window::Window;
 
 		auto project = Project::Project::GetCurrentProject();
 	
@@ -219,10 +222,10 @@ namespace Editor {
 	{
 		auto project = Project::Project::GetCurrentProject();
 
-		using namespace BoxEngine::Project;
-		using Project = BoxEngine::Project::Project;
-		using namespace BoxEngine::Window;
-		using Window = BoxEngine::Window::Window;
+		using namespace Project;
+		using Project = Engine::Project::Project;
+		using namespace Modules::Window;
+		using Window = Modules::Window::Window;
 
 		GameObjectPtr go = project->GetGameObject(goId);
 
@@ -248,10 +251,10 @@ namespace Editor {
 	{
 		auto project = Project::Project::GetCurrentProject();
 
-		using namespace BoxEngine::Project;
-		using Project = BoxEngine::Project::Project;
-		using namespace BoxEngine::Window;
-		using Window = BoxEngine::Window::Window;
+		using namespace Project;
+		using Project = Engine::Project::Project;
+		using namespace Modules::Window;
+		using Window = Modules::Window::Window;
 
 		if (go == nullptr)
 			return;
@@ -380,10 +383,10 @@ namespace Editor {
 	{
 		auto project = Project::Project::GetCurrentProject();
 
-		using namespace BoxEngine::Project;
-		using Project = BoxEngine::Project::Project;
-		using namespace BoxEngine::Window;
-		using Window = BoxEngine::Window::Window;
+		using namespace Project;
+		using Project = Engine::Project::Project;
+		using namespace Modules::Window;
+		using Window = Modules::Window::Window;
 
 		std::vector<ScriptPtr> toRemoves;
 		int id = 0;
@@ -455,10 +458,10 @@ namespace Editor {
 	{
 		auto project = Project::Project::GetCurrentProject();
 
-		using namespace BoxEngine::Project;
-		using Project = BoxEngine::Project::Project;
-		using namespace BoxEngine::Window;
-		using Window = BoxEngine::Window::Window;
+		using namespace Project;
+		using Project = Engine::Project::Project;
+		using namespace Modules::Window;
+		using Window = Modules::Window::Window;
 
 		std::string scriptName = script->GetName();
 		GUI::SetFontScale(0.9);

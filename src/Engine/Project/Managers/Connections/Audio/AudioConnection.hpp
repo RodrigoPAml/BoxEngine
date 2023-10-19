@@ -2,6 +2,7 @@
 #include <BoxEngine.hpp>
 
 namespace BoxEngine {
+namespace Engine {
 namespace Project {
 namespace Connection {
 
@@ -89,4 +90,4 @@ namespace Connection {
 		static int SetListenerPosition(lua_State* L);
 		static int GetTotalInstacesCount(lua_State* L);
 	};
-}}}
+}}}}

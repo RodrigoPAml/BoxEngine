@@ -4,6 +4,8 @@
 namespace BoxEngine {
 namespace Editor {
 
+	using namespace Engine;
+
 	/// <summary>
 	/// Represents Info tab in bottom window.
 	/// </summary>

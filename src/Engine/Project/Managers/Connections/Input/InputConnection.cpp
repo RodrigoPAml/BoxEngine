@@ -2,6 +2,7 @@
 #include "InputConnection.hpp"
 
 namespace BoxEngine {
+namespace Engine {
 namespace Project {
 namespace Connection {
 
@@ -16,13 +17,13 @@ namespace Connection {
 	{
 		lua_newtable(this->state);
 
-		Utils::Lua::RegTable(this->state, "get_key", GetKey);
-		Utils::Lua::RegTable(this->state, "get_mod", GetMod);
+		LuaUtils::RegTable(this->state, "get_key", GetKey);
+		LuaUtils::RegTable(this->state, "get_mod", GetMod);
 
-		Utils::Lua::RegTable(this->state, "get_mouse_pos", GetMousePos);
-		Utils::Lua::RegTable(this->state, "get_cam_mouse_pos", GetCamMousePos);
-		Utils::Lua::RegTable(this->state, "get_mouse_var", GetMouseVar);
-		Utils::Lua::RegTable(this->state, "get_mouse_button", GetMouseButton);
+		LuaUtils::RegTable(this->state, "get_mouse_pos", GetMousePos);
+		LuaUtils::RegTable(this->state, "get_cam_mouse_pos", GetCamMousePos);
+		LuaUtils::RegTable(this->state, "get_mouse_var", GetMouseVar);
+		LuaUtils::RegTable(this->state, "get_mouse_button", GetMouseButton);
 
 		lua_setglobal(this->state, "_input_");
 	}
@@ -103,8 +104,8 @@ namespace Connection {
 		y = std::min(y, box.w);
 
 		lua_newtable(L);
-		Utils::Lua::RegTable(L, "x", x);
-		Utils::Lua::RegTable(L, "y", y);
+		LuaUtils::RegTable(L, "x", x);
+		LuaUtils::RegTable(L, "y", y);
 
 		return 1;
 	}
@@ -140,8 +141,8 @@ namespace Connection {
 			float maxY = std::abs(box.y - box.w);
 
 			lua_newtable(L);
-			Utils::Lua::RegTable(L, "x", (x/maxX)*cam->GetRight());
-			Utils::Lua::RegTable(L, "y", (y/maxY)*cam->GetTop());
+			LuaUtils::RegTable(L, "x", (x/maxX)*cam->GetRight());
+			LuaUtils::RegTable(L, "y", (y/maxY)*cam->GetTop());
 		}
 
 		return 1;
@@ -157,8 +158,8 @@ namespace Connection {
 		auto var = Input::Mouse::GetMouseVariation();
 
 		lua_newtable(L);
-		Utils::Lua::RegTable(L, "x", var.x);
-		Utils::Lua::RegTable(L, "y", var.y);
+		LuaUtils::RegTable(L, "x", var.x);
+		LuaUtils::RegTable(L, "y", var.y);
 
 		return 1;
 	}
@@ -182,4 +183,4 @@ namespace Connection {
 
 		return 1;
 	}
-}}}
+}}}}

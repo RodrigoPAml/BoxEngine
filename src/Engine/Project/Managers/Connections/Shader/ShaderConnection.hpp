@@ -2,6 +2,7 @@
 #include <BoxEngine.hpp>
 
 namespace BoxEngine {
+namespace Engine {
 namespace Project {
 namespace Connection {
 
@@ -67,4 +68,4 @@ namespace Connection {
 		static int SetShaderMat3(lua_State* L);
 		static int SetShaderMat4(lua_State* L);
 	};
-}}}
+}}}}

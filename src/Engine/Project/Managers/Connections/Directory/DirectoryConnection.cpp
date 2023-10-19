@@ -2,6 +2,7 @@
 #include "DirectoryConnection.hpp"
 
 namespace BoxEngine {
+namespace Engine {
 namespace Project {
 namespace Connection {
 
@@ -16,31 +17,31 @@ namespace Connection {
 	{
 		lua_newtable(this->state);
 
-		Utils::Lua::RegTable(this->state, "read_file", ReadFile);
-		Utils::Lua::RegTable(this->state, "create_file", CreateFile);
-		Utils::Lua::RegTable(this->state, "create_folder", CreateFolder);
+		LuaUtils::RegTable(this->state, "read_file", ReadFile);
+		LuaUtils::RegTable(this->state, "create_file", CreateFile);
+		LuaUtils::RegTable(this->state, "create_folder", CreateFolder);
 
-		Utils::Lua::RegTable(this->state, "move", Move);
-		Utils::Lua::RegTable(this->state, "copy", Copy);
-		Utils::Lua::RegTable(this->state, "delete", Delete);
+		LuaUtils::RegTable(this->state, "move", Move);
+		LuaUtils::RegTable(this->state, "copy", Copy);
+		LuaUtils::RegTable(this->state, "delete", Delete);
 
-		Utils::Lua::RegTable(this->state, "is_file", IsFile);
-		Utils::Lua::RegTable(this->state, "is_dir", IsDir);
-		Utils::Lua::RegTable(this->state, "exists", Exists);
+		LuaUtils::RegTable(this->state, "is_file", IsFile);
+		LuaUtils::RegTable(this->state, "is_dir", IsDir);
+		LuaUtils::RegTable(this->state, "exists", Exists);
 
-		Utils::Lua::RegTable(this->state, "get_current_path", GetCurrentPath);
-		Utils::Lua::RegTable(this->state, "get_base_path", GetBasePath);
-		Utils::Lua::RegTable(this->state, "get_assets_path", GetAssetsPath);
-		Utils::Lua::RegTable(this->state, "get_logs_path", GetLogsPath);
+		LuaUtils::RegTable(this->state, "get_current_path", GetCurrentPath);
+		LuaUtils::RegTable(this->state, "get_base_path", GetBasePath);
+		LuaUtils::RegTable(this->state, "get_assets_path", GetAssetsPath);
+		LuaUtils::RegTable(this->state, "get_logs_path", GetLogsPath);
 
-		Utils::Lua::RegTable(this->state, "list_dir", ListDirectories);
+		LuaUtils::RegTable(this->state, "list_dir", ListDirectories);
 
-		Utils::Lua::RegTable(this->state, "reduce_path_by", RemovePartsFromPath);
-		Utils::Lua::RegTable(this->state, "get_path_or_file_name", GetLastPartFromPath);
-		Utils::Lua::RegTable(this->state, "get_file_name_ext", GetExtensionFromPath);
-		Utils::Lua::RegTable(this->state, "get_file_name_no_ext", GetLastPartFromPathNoExt);
+		LuaUtils::RegTable(this->state, "reduce_path_by", RemovePartsFromPath);
+		LuaUtils::RegTable(this->state, "get_path_or_file_name", GetLastPartFromPath);
+		LuaUtils::RegTable(this->state, "get_file_name_ext", GetExtensionFromPath);
+		LuaUtils::RegTable(this->state, "get_file_name_no_ext", GetLastPartFromPathNoExt);
 
-		Utils::Lua::RegTable(this->state, "exec", Exec);
+		LuaUtils::RegTable(this->state, "exec", Exec);
 
 		lua_setglobal(this->state, "_dir_");
 	}
@@ -77,8 +78,8 @@ namespace Connection {
 			return luaL_error(L, "argument 1 needs to be a string");
 
 		lua_newtable(L);
-		Utils::Lua::RegTable(L, "open", open);
-		Utils::Lua::RegTable(L, "content", content);
+		LuaUtils::RegTable(L, "open", open);
+		LuaUtils::RegTable(L, "content", content);
 
 		return 1;
 	}
@@ -295,7 +296,7 @@ namespace Connection {
 			int idx = 0;
 			for (std::string& item : Utils::Directory::ListDirectories(path, false))
 			{
-				Utils::Lua::RegTable(L, idx, item);
+				LuaUtils::RegTable(L, idx, item);
 				idx++;
 			}
 		}
@@ -391,4 +392,4 @@ namespace Connection {
 
 		return 0;
 	}
-}}}
+}}}}

@@ -2,6 +2,7 @@
 #include "FramebufferConnection.hpp"
 
 namespace BoxEngine {
+namespace Engine {
 namespace Project {
 namespace Connection {
 
@@ -16,20 +17,20 @@ namespace Connection {
 	{
 		lua_newtable(this->state);
 		
-		Utils::Lua::RegTable(this->state, "create", CreateFramebuffer);
-		Utils::Lua::RegTable(this->state, "destroy", DestroyFramebuffer);
+		LuaUtils::RegTable(this->state, "create", CreateFramebuffer);
+		LuaUtils::RegTable(this->state, "destroy", DestroyFramebuffer);
 
-		Utils::Lua::RegTable(this->state, "active", Active);
-		Utils::Lua::RegTable(this->state, "get_attachments_size", GetAttachmentSize);
-		Utils::Lua::RegTable(this->state, "get_attachment", GetAttachment);
+		LuaUtils::RegTable(this->state, "active", Active);
+		LuaUtils::RegTable(this->state, "get_attachments_size", GetAttachmentSize);
+		LuaUtils::RegTable(this->state, "get_attachment", GetAttachment);
 
-		Utils::Lua::RegTable(this->state, "set_current", SetCurrent);
-		Utils::Lua::RegTable(this->state, "get_current", GetCurrent);
-		Utils::Lua::RegTable(this->state, "active_none", ActiveNone);
+		LuaUtils::RegTable(this->state, "set_current", SetCurrent);
+		LuaUtils::RegTable(this->state, "get_current", GetCurrent);
+		LuaUtils::RegTable(this->state, "active_none", ActiveNone);
 
-		Utils::Lua::RegTable(this->state, "clear", Clear);
-		Utils::Lua::RegTable(this->state, "set_clear_modes", SetClearModes);
-		Utils::Lua::RegTable(this->state, "set_viewport", SwitchViewPort);
+		LuaUtils::RegTable(this->state, "clear", Clear);
+		LuaUtils::RegTable(this->state, "set_clear_modes", SetClearModes);
+		LuaUtils::RegTable(this->state, "set_viewport", SwitchViewPort);
 
 		lua_setglobal(this->state, "_framebuffer_");
 	}
@@ -62,14 +63,14 @@ namespace Connection {
 			
 			// texture count
 			unsigned int textureCount = 0;
-			if (!Utils::Lua::GetTable(L, 1, "texture_attachments_count", textureCount))
+			if (!LuaUtils::GetTable(L, 1, "texture_attachments_count", textureCount))
 				return luaL_error(L, "argument texture_attachments_count needs to be a number");
 
 			if (textureCount > 0)
 			{
 				unsigned int* textures = new unsigned int[textureCount];
 
-				if (Utils::Lua::GetTable(L, 1, "texture_attachments", textures, textureCount))
+				if (LuaUtils::GetTable(L, 1, "texture_attachments", textures, textureCount))
 				{
 					for (int i = 0; i < textureCount; i++)
 					{
@@ -101,7 +102,7 @@ namespace Connection {
 			
 			// depth attachment
 			unsigned int depthTexture;
-			if (Utils::Lua::GetTable(L, 1, "depth_attachment", depthTexture))
+			if (LuaUtils::GetTable(L, 1, "depth_attachment", depthTexture))
 			{
 				if (!TextureConnection::Get()->Exists(depthTexture))
 				{
@@ -126,20 +127,20 @@ namespace Connection {
 			{
 				std::string str;
 
-				if (!Utils::Lua::GetTable(L, -1, "type", str))
+				if (!LuaUtils::GetTable(L, -1, "type", str))
 					return luaL_error(L, "argument type needs to be a string");
 
 				config.renderBufferAttachment.type = GPU::GetRenderBufferAttachmentTypeFromString(str);
 
-				if (!Utils::Lua::GetTable(L, -2, "format", str))
+				if (!LuaUtils::GetTable(L, -2, "format", str))
 					return luaL_error(L, "argument format needs to be a string");
 				
 				config.renderBufferAttachment.format = GPU::GetRenderBufferFormatFromString(str);
 
-				if (!Utils::Lua::GetTable(L, -3, "size", config.renderBufferAttachment.size))
+				if (!LuaUtils::GetTable(L, -3, "size", config.renderBufferAttachment.size))
 					return luaL_error(L, "argument size needs to be a vec2");
 
-				Utils::Lua::GetTable(L, -4, "aliasing", config.renderBufferAttachment.aliasing);
+				LuaUtils::GetTable(L, -4, "aliasing", config.renderBufferAttachment.aliasing);
 			}
 			else if(!lua_isnoneornil(L, -1)) 
 				return luaL_error(L, "argument renderbuffer_attachment needs to be a table");
@@ -334,16 +335,16 @@ namespace Connection {
 		glm::vec4 value;
 		if (lua_istable(L, 1))
 		{
-			if (!Utils::Lua::GetTable(L, -1, "x", value.x))
+			if (!LuaUtils::GetTable(L, -1, "x", value.x))
 				return luaL_error(L, "argument x is expected to be a number");
 
-			if (!Utils::Lua::GetTable(L, -2, "y", value.y))
+			if (!LuaUtils::GetTable(L, -2, "y", value.y))
 				return luaL_error(L, "argument y is expected to be a number");
 
-			if (!Utils::Lua::GetTable(L, -3, "z", value.z))
+			if (!LuaUtils::GetTable(L, -3, "z", value.z))
 				return luaL_error(L, "argument z is expected to be a number");
 
-			if (!Utils::Lua::GetTable(L, -4, "w", value.w))
+			if (!LuaUtils::GetTable(L, -4, "w", value.w))
 				return luaL_error(L, "argument w is expected to be a number");
 		}
 		else return luaL_error(L, "argument 1 is expected to be a table");
@@ -365,21 +366,21 @@ namespace Connection {
 		{
 			bool value;
 			
-			if (Utils::Lua::GetTable(L, 1, "color", value))
+			if (LuaUtils::GetTable(L, 1, "color", value))
 			{
 				if (value)
 					modes.insert(GPU::ClearMode::COLOR);
 			}
 			else return luaL_error(L, "expecting argument color to be a boolean");
 
-			if (Utils::Lua::GetTable(L, 1, "depth", value))
+			if (LuaUtils::GetTable(L, 1, "depth", value))
 			{
 				if (value)
 					modes.insert(GPU::ClearMode::DEPTH);
 			}
 			else return luaL_error(L, "expecting argument depth to be a boolean");
 
-			if (Utils::Lua::GetTable(L, 1, "stencil", value))
+			if (LuaUtils::GetTable(L, 1, "stencil", value))
 			{
 				if (value)
 					modes.insert(GPU::ClearMode::STENCIL);
@@ -403,16 +404,16 @@ namespace Connection {
 		glm::vec4 vec;
 		if (lua_istable(L, 1))
 		{
-			if (!Utils::Lua::GetTable(L, -1, "x", vec.x))
+			if (!LuaUtils::GetTable(L, -1, "x", vec.x))
 				return luaL_error(L, "argument x is expected to be a number");
 
-			if (!Utils::Lua::GetTable(L, -2, "y", vec.y))
+			if (!LuaUtils::GetTable(L, -2, "y", vec.y))
 				return luaL_error(L, "argument y is expected to be a number");
 
-			if (!Utils::Lua::GetTable(L, -3, "z", vec.z))
+			if (!LuaUtils::GetTable(L, -3, "z", vec.z))
 				return luaL_error(L, "argument z is expected to be a number");
 
-			if (!Utils::Lua::GetTable(L, -4, "w", vec.w))
+			if (!LuaUtils::GetTable(L, -4, "w", vec.w))
 				return luaL_error(L, "argument w is expected to be a number");
 		}
 		else return luaL_error(L, "argument 1 is expected to be a table");
@@ -421,4 +422,4 @@ namespace Connection {
 
 		return 1;
 	}
-}}}
+}}}}

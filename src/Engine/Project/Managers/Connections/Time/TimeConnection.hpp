@@ -2,6 +2,7 @@
 #include <BoxEngine.hpp>
 
 namespace BoxEngine {
+namespace Engine {
 namespace Project {
 namespace Connection {
 
@@ -38,4 +39,4 @@ namespace Connection {
 		static int GetTimestamp(lua_State* L);
 		static int GetDateTime(lua_State* L);
 	};
-}}}
+}}}}

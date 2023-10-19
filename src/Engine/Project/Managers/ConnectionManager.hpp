@@ -2,6 +2,7 @@
 #include <BoxEngine.hpp>
 
 namespace BoxEngine {
+namespace Engine {
 namespace Project {
 
 	class ConnectionManager;
@@ -65,4 +66,4 @@ namespace Project {
 		void UpdateScriptData(GameObjectPtr go, ScriptPtr script);
 		void DeleteScriptData(GameObjectPtr go, ScriptPtr script);
 	};
-}}
+}}}

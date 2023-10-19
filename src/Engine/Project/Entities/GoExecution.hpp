@@ -2,6 +2,7 @@
 #include "BoxEngine.hpp"
 
 namespace BoxEngine {
+namespace Engine {
 namespace Project {
 
 	/// <summary>
@@ -89,4 +90,4 @@ namespace Project {
 		/// <returns></returns>
 		std::string GetNewFatherId() const;
 	};
-}}
+}}}

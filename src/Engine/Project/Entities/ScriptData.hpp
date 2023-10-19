@@ -2,6 +2,7 @@
 #include <BoxEngine.hpp>
 
 namespace BoxEngine {
+namespace Engine {
 namespace Project {
 
 	/// <summary>
@@ -36,4 +37,4 @@ namespace Project {
 		void SetModified(const bool value);
 		bool IsModified();
 	};
-}}
+}}}

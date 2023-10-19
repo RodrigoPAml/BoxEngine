@@ -2,6 +2,7 @@
 #include "WindowConnection.hpp"
 
 namespace BoxEngine {
+namespace Engine {
 namespace Project {
 namespace Connection {
 
@@ -16,9 +17,9 @@ namespace Connection {
 	{
 		lua_newtable(this->state);
 
-		Utils::Lua::RegTable(this->state, "get_window_size", GetWindowSize);
-		Utils::Lua::RegTable(this->state, "get_editor_window_size", GetEditorWindowSize);
-		Utils::Lua::RegTable(this->state, "get_window_limits", GetWindowLimits);
+		LuaUtils::RegTable(this->state, "get_window_size", GetWindowSize);
+		LuaUtils::RegTable(this->state, "get_editor_window_size", GetEditorWindowSize);
+		LuaUtils::RegTable(this->state, "get_window_limits", GetWindowLimits);
 
 		lua_setglobal(this->state, "_window_");
 	}
@@ -48,8 +49,8 @@ namespace Connection {
 		auto sizes = Project::GetCurrentProject()->GetScreenLimits();
 		
 		lua_newtable(L);
-		Utils::Lua::RegTable(L, "x", std::abs(sizes.x - sizes.z));
-		Utils::Lua::RegTable(L, "y", std::abs(sizes.y - sizes.w));
+		LuaUtils::RegTable(L, "x", std::abs(sizes.x - sizes.z));
+		LuaUtils::RegTable(L, "y", std::abs(sizes.y - sizes.w));
 
 		return 1;
 	}
@@ -64,8 +65,8 @@ namespace Connection {
 		auto size = Window::Window::GetSize();
 
 		lua_newtable(L);
-		Utils::Lua::RegTable(L, "x", size.x);
-		Utils::Lua::RegTable(L, "y", size.y);
+		LuaUtils::RegTable(L, "x", size.x);
+		LuaUtils::RegTable(L, "y", size.y);
 
 		return 1;
 	}
@@ -80,11 +81,11 @@ namespace Connection {
 		auto sizes = Project::GetCurrentProject()->GetScreenLimits();
 
 		lua_newtable(L);
-		Utils::Lua::RegTable(L, "min_x", sizes.x);
-		Utils::Lua::RegTable(L, "min_y", sizes.y);
-		Utils::Lua::RegTable(L, "max_x", sizes.z);
-		Utils::Lua::RegTable(L, "max_y", sizes.w);
+		LuaUtils::RegTable(L, "min_x", sizes.x);
+		LuaUtils::RegTable(L, "min_y", sizes.y);
+		LuaUtils::RegTable(L, "max_x", sizes.z);
+		LuaUtils::RegTable(L, "max_y", sizes.w);
 
 		return 1;
 	}
-}}}
+}}}}

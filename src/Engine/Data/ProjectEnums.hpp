@@ -2,6 +2,7 @@
 #include <BoxEngine.hpp>
 
 namespace BoxEngine {
+namespace Engine {
 namespace Project {
 
 	/// <summary>
@@ -48,4 +49,4 @@ namespace Project {
 		number = 1,
 		string = 2
 	};
-}}
+}}}

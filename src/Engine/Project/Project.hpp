@@ -5,7 +5,10 @@
 // gui support 
 
 namespace BoxEngine {
+namespace Engine {
 namespace Project {
+	
+	using namespace Modules;
 
 	class Project;
 	typedef std::shared_ptr<Project> ProjectPtr;
@@ -132,4 +135,4 @@ namespace Project {
 		// Execute plans
 		bool Execute(const std::vector<GoExecution>& executions);
 	};
-}}
+}}}

@@ -2,6 +2,7 @@
 #include "AudioConnection.hpp"
 
 namespace BoxEngine {
+namespace Engine {
 namespace Project {
 namespace Connection {
 
@@ -16,45 +17,45 @@ namespace Connection {
 	{
 		lua_newtable(this->state);
 		
-		Utils::Lua::RegTable(this->state, "create_2d", Create2DAudio);
-		Utils::Lua::RegTable(this->state, "create_3d", Create3DAudio);
-		Utils::Lua::RegTable(this->state, "destroy", DestroyAudio);
+		LuaUtils::RegTable(this->state, "create_2d", Create2DAudio);
+		LuaUtils::RegTable(this->state, "create_3d", Create3DAudio);
+		LuaUtils::RegTable(this->state, "destroy", DestroyAudio);
 
-		Utils::Lua::RegTable(this->state, "resume", Resume);
-		Utils::Lua::RegTable(this->state, "pause", Pause);
+		LuaUtils::RegTable(this->state, "resume", Resume);
+		LuaUtils::RegTable(this->state, "pause", Pause);
 
-		Utils::Lua::RegTable(this->state, "is_finished", IsFinished);
+		LuaUtils::RegTable(this->state, "is_finished", IsFinished);
 
-		Utils::Lua::RegTable(this->state, "get_position", GetPosition);
-		Utils::Lua::RegTable(this->state, "set_position", SetPosition);
+		LuaUtils::RegTable(this->state, "get_position", GetPosition);
+		LuaUtils::RegTable(this->state, "set_position", SetPosition);
 
-		Utils::Lua::RegTable(this->state, "set_velocity", SetVelocity);
-		Utils::Lua::RegTable(this->state, "get_velocity", GetVelocity);
+		LuaUtils::RegTable(this->state, "set_velocity", SetVelocity);
+		LuaUtils::RegTable(this->state, "get_velocity", GetVelocity);
 
-		Utils::Lua::RegTable(this->state, "set_loop", SetLoop);
-		Utils::Lua::RegTable(this->state, "get_loop", GetLoop);
+		LuaUtils::RegTable(this->state, "set_loop", SetLoop);
+		LuaUtils::RegTable(this->state, "get_loop", GetLoop);
 
-		Utils::Lua::RegTable(this->state, "set_min_distance", SetMinDistance);
-		Utils::Lua::RegTable(this->state, "get_min_distance", GetMinDistance);
+		LuaUtils::RegTable(this->state, "set_min_distance", SetMinDistance);
+		LuaUtils::RegTable(this->state, "get_min_distance", GetMinDistance);
 
-		Utils::Lua::RegTable(this->state, "set_max_distance", SetMaxDistance);
-		Utils::Lua::RegTable(this->state, "get_max_distance", GetMaxDistance);
+		LuaUtils::RegTable(this->state, "set_max_distance", SetMaxDistance);
+		LuaUtils::RegTable(this->state, "get_max_distance", GetMaxDistance);
 
-		Utils::Lua::RegTable(this->state, "set_pan", SetPan);
-		Utils::Lua::RegTable(this->state, "get_pan", GetPan);
+		LuaUtils::RegTable(this->state, "set_pan", SetPan);
+		LuaUtils::RegTable(this->state, "get_pan", GetPan);
 
-		Utils::Lua::RegTable(this->state, "set_speed", SetSpeed);
-		Utils::Lua::RegTable(this->state, "get_speed", GetSpeed);
+		LuaUtils::RegTable(this->state, "set_speed", SetSpeed);
+		LuaUtils::RegTable(this->state, "get_speed", GetSpeed);
 
-		Utils::Lua::RegTable(this->state, "get_length", GetPlayLength);
+		LuaUtils::RegTable(this->state, "get_length", GetPlayLength);
 
-		Utils::Lua::RegTable(this->state, "set_play_position", SetPlayPosition);
-		Utils::Lua::RegTable(this->state, "get_play_position", GetPlayPosition);
+		LuaUtils::RegTable(this->state, "set_play_position", SetPlayPosition);
+		LuaUtils::RegTable(this->state, "get_play_position", GetPlayPosition);
 
-		Utils::Lua::RegTable(this->state, "set_volume", SetVolume);
-		Utils::Lua::RegTable(this->state, "get_volume", GetVolume);
+		LuaUtils::RegTable(this->state, "set_volume", SetVolume);
+		LuaUtils::RegTable(this->state, "get_volume", GetVolume);
 
-		Utils::Lua::RegTable(this->state, "set_listener_position", SetListenerPosition);
+		LuaUtils::RegTable(this->state, "set_listener_position", SetListenerPosition);
 
 		lua_setglobal(this->state, "_audio_");
 	}
@@ -250,13 +251,13 @@ namespace Connection {
 		glm::vec3 vec;
 		if (lua_istable(L, 2))
 		{
-			if (!Utils::Lua::GetTable(L, -1, "x", vec.x))
+			if (!LuaUtils::GetTable(L, -1, "x", vec.x))
 				return luaL_error(L, "argument x is expected to be a number");
 
-			if (!Utils::Lua::GetTable(L, -2, "y", vec.y))
+			if (!LuaUtils::GetTable(L, -2, "y", vec.y))
 				return luaL_error(L, "argument y is expected to be a number");
 
-			if (!Utils::Lua::GetTable(L, -3, "z", vec.z))
+			if (!LuaUtils::GetTable(L, -3, "z", vec.z))
 				return luaL_error(L, "argument z is expected to be a number");
 		}
 		else return luaL_error(L, "argument 2 is expected to be a table with vec3 format");
@@ -327,13 +328,13 @@ namespace Connection {
 		glm::vec3 vec;
 		if (lua_istable(L, 2))
 		{
-			if (!Utils::Lua::GetTable(L, -1, "x", vec.x))
+			if (!LuaUtils::GetTable(L, -1, "x", vec.x))
 				return luaL_error(L, "argument x is expected to be a number");
 
-			if (!Utils::Lua::GetTable(L, -2, "y", vec.y))
+			if (!LuaUtils::GetTable(L, -2, "y", vec.y))
 				return luaL_error(L, "argument y is expected to be a number");
 
-			if (!Utils::Lua::GetTable(L, -3, "z", vec.z))
+			if (!LuaUtils::GetTable(L, -3, "z", vec.z))
 				return luaL_error(L, "argument z is expected to be a number");
 		}
 		else return luaL_error(L, "argument 2 is expected to be a table with vec3 format");
@@ -814,13 +815,13 @@ namespace Connection {
 		glm::vec3 vec1;
 		if (lua_istable(L, 1))
 		{
-			if (!Utils::Lua::GetTable(L, -1, "x", vec1.x))
+			if (!LuaUtils::GetTable(L, -1, "x", vec1.x))
 				return luaL_error(L, "argument x is expected to be a number");
 
-			if (!Utils::Lua::GetTable(L, -2, "y", vec1.y))
+			if (!LuaUtils::GetTable(L, -2, "y", vec1.y))
 				return luaL_error(L, "argument y is expected to be a number");
 
-			if (!Utils::Lua::GetTable(L, -3, "z", vec1.z))
+			if (!LuaUtils::GetTable(L, -3, "z", vec1.z))
 				return luaL_error(L, "argument z is expected to be a number");
 		}
 		else return luaL_error(L, "argument 1 is expected to be a table with vec3 format");
@@ -828,13 +829,13 @@ namespace Connection {
 		glm::vec3 vec2;
 		if (lua_istable(L, 2))
 		{
-			if (!Utils::Lua::GetTable(L, -1, "x", vec2.x))
+			if (!LuaUtils::GetTable(L, -1, "x", vec2.x))
 				return luaL_error(L, "argument x is expected to be a number");
 
-			if (!Utils::Lua::GetTable(L, -2, "y", vec2.y))
+			if (!LuaUtils::GetTable(L, -2, "y", vec2.y))
 				return luaL_error(L, "argument y is expected to be a number");
 
-			if (!Utils::Lua::GetTable(L, -3, "z", vec2.z))
+			if (!LuaUtils::GetTable(L, -3, "z", vec2.z))
 				return luaL_error(L, "argument z is expected to be a number");
 		}
 		else return luaL_error(L, "argument 2 is expected to be a table with vec3 format");
@@ -854,4 +855,4 @@ namespace Connection {
 
 		return 1;
 	}
-}}}
+}}}}

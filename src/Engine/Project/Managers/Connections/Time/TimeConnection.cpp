@@ -2,6 +2,7 @@
 #include "TimeConnection.hpp"
 
 namespace BoxEngine {
+namespace Engine {
 namespace Project {
 namespace Connection {
 
@@ -16,8 +17,8 @@ namespace Connection {
 	{
 		lua_newtable(this->state);
 
-		Utils::Lua::RegTable(this->state, "get_timestamp", GetTimestamp);
-		Utils::Lua::RegTable(this->state, "get_datetime", GetDateTime);
+		LuaUtils::RegTable(this->state, "get_timestamp", GetTimestamp);
+		LuaUtils::RegTable(this->state, "get_datetime", GetDateTime);
 
 		lua_setglobal(this->state, "_time_");
 	}
@@ -56,13 +57,13 @@ namespace Connection {
 
 		lua_newtable(L);
 
-		Utils::Lua::RegTable(L, "day", date.day);
-		Utils::Lua::RegTable(L, "hour", date.hour);
-		Utils::Lua::RegTable(L, "month", date.month);
-		Utils::Lua::RegTable(L, "minute", date.minute);
-		Utils::Lua::RegTable(L, "second", date.second);
-		Utils::Lua::RegTable(L, "year", (int)date.year);
+		LuaUtils::RegTable(L, "day", date.day);
+		LuaUtils::RegTable(L, "hour", date.hour);
+		LuaUtils::RegTable(L, "month", date.month);
+		LuaUtils::RegTable(L, "minute", date.minute);
+		LuaUtils::RegTable(L, "second", date.second);
+		LuaUtils::RegTable(L, "year", (int)date.year);
 
 		return 1;
 	}
-}}}
+}}}}

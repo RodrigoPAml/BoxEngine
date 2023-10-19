@@ -2,6 +2,7 @@
 #include "ScriptManager.hpp"
 
 namespace BoxEngine {
+namespace Engine {
 namespace Project {
 
 	bool ScriptManager::LoadScriptNames(const std::string& basePath)
@@ -353,4 +354,4 @@ namespace Project {
 	}
 
 	#pragma endregion
-}}
+}}}

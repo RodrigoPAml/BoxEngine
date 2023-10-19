@@ -2,6 +2,7 @@
 #include <BoxEngine.hpp>
 
 namespace BoxEngine {
+namespace Engine {
 namespace Project {
 namespace Connection {
 
@@ -54,4 +55,4 @@ namespace Connection {
 		static int EnableBlending(lua_State* L);
 		static int DisableBlending(lua_State* L);
 	};
-}}}
+}}}}

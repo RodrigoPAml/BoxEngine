@@ -4,6 +4,8 @@
 namespace BoxEngine {
 namespace Editor {
 
+	using namespace Engine;
+
 	class GameTree : public Layout
 	{
 	private:
@@ -34,9 +36,9 @@ namespace Editor {
 		void SetMinY(float value);
 	private:
 		void DrawGameTree();
-		void RecursiveDrawGameTree(std::vector<Project::GameObjectPtr>& gos, bool inactive = false);
+		void RecursiveDrawGameTree(std::vector<Engine::Project::GameObjectPtr>& gos, bool inactive = false);
 
-		bool isFiltered(Project::GameObjectPtr go, std::string value);
+		bool isFiltered(Engine::Project::GameObjectPtr go, std::string value);
 
 		void DrawMenus();
 	};

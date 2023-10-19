@@ -4,6 +4,8 @@
 namespace BoxEngine {
 namespace Editor {
 
+	using namespace Engine;
+
 	/// <summary>
 	/// Represents log tab in bottom window.
 	/// </summary>

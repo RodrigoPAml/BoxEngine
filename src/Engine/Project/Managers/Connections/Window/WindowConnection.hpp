@@ -2,6 +2,7 @@
 #include <BoxEngine.hpp>
 
 namespace BoxEngine {
+namespace Engine {
 namespace Project {
 namespace Connection {
 
@@ -40,4 +41,4 @@ namespace Connection {
 
 		static int GetWindowLimits(lua_State* L);
 	};
-}}}
+}}}}

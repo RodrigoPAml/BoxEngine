@@ -2,6 +2,7 @@
 #include <BoxEngine.hpp>
 
 namespace BoxEngine {
+namespace Engine {
 namespace Project {
 
 	class GameObject;
@@ -90,4 +91,4 @@ namespace Project {
 
 		static int GetCurrentGosCount();
 	};
-}}
+}}}

@@ -2,6 +2,7 @@
 #include <BoxEngine.hpp>
 
 namespace BoxEngine {
+namespace Engine {
 namespace Project {
 
 	class Script;
@@ -82,4 +83,4 @@ namespace Project {
 
 		static int GetCurrentScriptsCount();
 	};
-}}
+}}}

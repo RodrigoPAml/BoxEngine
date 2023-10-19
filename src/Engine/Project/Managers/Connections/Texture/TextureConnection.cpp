@@ -2,6 +2,7 @@
 #include "TextureConnection.hpp"
 
 namespace BoxEngine {
+namespace Engine {
 namespace Project {
 namespace Connection {
 
@@ -16,14 +17,14 @@ namespace Connection {
 	{
 		lua_newtable(this->state);
 		
-		Utils::Lua::RegTable(this->state, "create", CreateTexture);
-		Utils::Lua::RegTable(this->state, "create_empty", CreateEmptyTexture);
-		Utils::Lua::RegTable(this->state, "create_multi_sampled", CreateMultiSampledTexture);
+		LuaUtils::RegTable(this->state, "create", CreateTexture);
+		LuaUtils::RegTable(this->state, "create_empty", CreateEmptyTexture);
+		LuaUtils::RegTable(this->state, "create_multi_sampled", CreateMultiSampledTexture);
 
-		Utils::Lua::RegTable(this->state, "destroy", DestroyTexture);
+		LuaUtils::RegTable(this->state, "destroy", DestroyTexture);
 
-		Utils::Lua::RegTable(this->state, "active", Active);
-		Utils::Lua::RegTable(this->state, "disable_texture_unit", DisableTextureUnit);
+		LuaUtils::RegTable(this->state, "active", Active);
+		LuaUtils::RegTable(this->state, "disable_texture_unit", DisableTextureUnit);
 
 		lua_setglobal(this->state, "_texture_");
 	}
@@ -76,31 +77,31 @@ namespace Connection {
 			GPU::TextureConfiguration config;
 			std::string str;
 			
-			if(Utils::Lua::GetTable(L, 1, "minifying_filter", str))
+			if(LuaUtils::GetTable(L, 1, "minifying_filter", str))
 				config.minifyingFilter = GPU::MinifyingFilterFromString(str);
 
-			if (Utils::Lua::GetTable(L, 1, "magnification_filter", str))
+			if (LuaUtils::GetTable(L, 1, "magnification_filter", str))
 				config.magnificationFilter = GPU::MagnificationFilterFromString(str);
 
-			if (Utils::Lua::GetTable(L, 1, "texture_wrap_t", str))
+			if (LuaUtils::GetTable(L, 1, "texture_wrap_t", str))
 				config.textureWrapT = GPU::TextureWrapFromString(str);
 
-			if (Utils::Lua::GetTable(L, 1, "texture_wrap_s", str))
+			if (LuaUtils::GetTable(L, 1, "texture_wrap_s", str))
 				config.textureWrapS = GPU::TextureWrapFromString(str);
 
-			if (Utils::Lua::GetTable(L, 1, "texture_internal_format", str))
+			if (LuaUtils::GetTable(L, 1, "texture_internal_format", str))
 				config.internalFormat = GPU::TextureInternalFormatToString(str);
 
-			if (Utils::Lua::GetTable(L, 1, "texture_pixel_format", str))
+			if (LuaUtils::GetTable(L, 1, "texture_pixel_format", str))
 				config.pixelFormat = GPU::TexturePixelFormatFromString(str);
 
-			if (Utils::Lua::GetTable(L, 1, "texture_format", str))
+			if (LuaUtils::GetTable(L, 1, "texture_format", str))
 				config.format = GPU::TextureFormatFromString(str);
 
-			Utils::Lua::GetTable(L, 1, "ansiotropic_filter", config.ansiotropicFilter);
-			Utils::Lua::GetTable(L, 1, "border_color", config.borderColor);
+			LuaUtils::GetTable(L, 1, "ansiotropic_filter", config.ansiotropicFilter);
+			LuaUtils::GetTable(L, 1, "border_color", config.borderColor);
 
-			if (!Utils::Lua::GetTable(L, 1, "texture_size", config.size))
+			if (!LuaUtils::GetTable(L, 1, "texture_size", config.size))
 				return luaL_error(L, "argument texture_size needs to be a vec2");
 
 			GPU::TexturePtr texture = nullptr;
@@ -139,13 +140,13 @@ namespace Connection {
 			GPU::MultisampleTextureConfiguration config;
 			std::string str;
 
-			if (!Utils::Lua::GetTable(L, 1, "texture_samples", config.samples))
+			if (!LuaUtils::GetTable(L, 1, "texture_samples", config.samples))
 				return luaL_error(L, "argument samples needs to be a number");
 
-			if (Utils::Lua::GetTable(L, 1, "texture_internal_format", str))
+			if (LuaUtils::GetTable(L, 1, "texture_internal_format", str))
 				config.internalFormat = GPU::TextureInternalFormatToString(str);
 
-			if (!Utils::Lua::GetTable(L, 1, "texture_size", config.size))
+			if (!LuaUtils::GetTable(L, 1, "texture_size", config.size))
 				return luaL_error(L, "argument texture_size needs to be a vec2");
 
 			GPU::TexturePtr texture = nullptr;
@@ -184,22 +185,22 @@ namespace Connection {
 			GPU::TextureDataConfiguration config;
 			std::string str;
 
-			if (Utils::Lua::GetTable(L, 1, "minifying_filter", str))
+			if (LuaUtils::GetTable(L, 1, "minifying_filter", str))
 				config.minifyingFilter = GPU::MinifyingFilterFromString(str);
 
-			if (Utils::Lua::GetTable(L, 1, "magnification_filter", str))
+			if (LuaUtils::GetTable(L, 1, "magnification_filter", str))
 				config.magnificationFilter = GPU::MagnificationFilterFromString(str);
 
-			if (Utils::Lua::GetTable(L, 1, "texture_wrap_t", str))
+			if (LuaUtils::GetTable(L, 1, "texture_wrap_t", str))
 				config.textureWrapT = GPU::TextureWrapFromString(str);
 
-			if (Utils::Lua::GetTable(L, 1, "texture_wrap_s", str))
+			if (LuaUtils::GetTable(L, 1, "texture_wrap_s", str))
 				config.textureWrapS = GPU::TextureWrapFromString(str);
 
-			Utils::Lua::GetTable(L, 1, "ansiotropic_filter", config.ansiotropicFilter);
-			Utils::Lua::GetTable(L, 1, "border_color", config.borderColor);
+			LuaUtils::GetTable(L, 1, "ansiotropic_filter", config.ansiotropicFilter);
+			LuaUtils::GetTable(L, 1, "border_color", config.borderColor);
 
-			if (!Utils::Lua::GetTable(L, 1, "image_path", str))
+			if (!LuaUtils::GetTable(L, 1, "image_path", str))
 				return luaL_error(L, "argument image_path needs to be a string");
 
 			Utils::ImagePtr image = nullptr;
@@ -314,4 +315,4 @@ namespace Connection {
 
 		return 0;
 	}
-}}}
+}}}}

@@ -2,6 +2,7 @@
 #include "GoExecution.hpp"
 
 namespace BoxEngine {
+namespace Engine {
 namespace Project {
 
 	GoExecution::GoExecution(GameObjectPtr go, ScriptPtr script, std::string command)
@@ -70,4 +71,4 @@ namespace Project {
 	{
 		return this->newFather;
 	}
-}}
+}}}

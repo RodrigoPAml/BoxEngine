@@ -4,6 +4,8 @@
 namespace BoxEngine {
 namespace Editor {
 
+	using namespace Modules;
+
 	std::weak_ptr<Editor> Editor::current;
 
 	void Editor::Awake()
@@ -30,7 +32,7 @@ namespace Editor {
 
 	void Editor::Update()
 	{
-		using namespace BoxEngine::Window;
+		using namespace Window;
 
 		GUI::BeginFrame();
 

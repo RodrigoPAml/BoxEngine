@@ -2,6 +2,7 @@
 #include "LogConnection.hpp"
 
 namespace BoxEngine {
+namespace Engine {
 namespace Project {
 namespace Connection {
 
@@ -122,4 +123,4 @@ namespace Connection {
 
 		return 0;
 	}
-}}}
+}}}}

@@ -21,12 +21,15 @@ static BoxEngine::Editor::ProjectManager* OpenProjectManager(bool external)
 
 int main(int argc, char* argv[])
 {
-	using namespace BoxEngine::Window;
-	using namespace BoxEngine::GPU;
-	using namespace BoxEngine::Debug;
-	using namespace BoxEngine::Project;
-	using namespace BoxEngine::Utils;
+	using namespace BoxEngine::Modules::Window;
+	using namespace BoxEngine::Modules::GPU;
+	using namespace BoxEngine::Modules::Debug;
+	using namespace BoxEngine::Engine::Project;
+	using namespace BoxEngine::Modules::Utils;
 	using namespace BoxEngine::Editor;
+
+	using Project = BoxEngine::Engine::Project::Project;
+	using Window = BoxEngine::Modules::Window::Window;
 
 	bool external = argc > 1;
 

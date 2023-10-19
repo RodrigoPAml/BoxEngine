@@ -2,6 +2,7 @@
 #include "DrawingConnection.hpp"
 
 namespace BoxEngine {
+namespace Engine {
 namespace Project {
 namespace Connection {
 
@@ -16,25 +17,25 @@ namespace Connection {
 	{
 		lua_newtable(this->state);
 		
-		Utils::Lua::RegTable(this->state, "circle", Draw2DCircle);
-		Utils::Lua::RegTable(this->state, "line", Draw2DLine);
-		Utils::Lua::RegTable(this->state, "point", Draw2DPoint);
-		Utils::Lua::RegTable(this->state, "rect", Draw2DRectangle);
-		Utils::Lua::RegTable(this->state, "triangle", Draw2DTriangle);
-		Utils::Lua::RegTable(this->state, "texture", DrawTexture);
-		Utils::Lua::RegTable(this->state, "frame", DrawFrame);
+		LuaUtils::RegTable(this->state, "circle", Draw2DCircle);
+		LuaUtils::RegTable(this->state, "line", Draw2DLine);
+		LuaUtils::RegTable(this->state, "point", Draw2DPoint);
+		LuaUtils::RegTable(this->state, "rect", Draw2DRectangle);
+		LuaUtils::RegTable(this->state, "triangle", Draw2DTriangle);
+		LuaUtils::RegTable(this->state, "texture", DrawTexture);
+		LuaUtils::RegTable(this->state, "frame", DrawFrame);
 
 		lua_setglobal(this->state, "_draw2d_");
 
 		lua_newtable(this->state);
 
-		Utils::Lua::RegTable(this->state, "circle", Draw3DCircle);
-		Utils::Lua::RegTable(this->state, "cube", Draw3DCube);
-		Utils::Lua::RegTable(this->state, "line", Draw3DLine);
-		Utils::Lua::RegTable(this->state, "point", Draw3DPoint);
-		Utils::Lua::RegTable(this->state, "rect", Draw3DRect);
-		Utils::Lua::RegTable(this->state, "sphere", Draw3DSphere);
-		Utils::Lua::RegTable(this->state, "triangle", Draw3DTriangle);
+		LuaUtils::RegTable(this->state, "circle", Draw3DCircle);
+		LuaUtils::RegTable(this->state, "cube", Draw3DCube);
+		LuaUtils::RegTable(this->state, "line", Draw3DLine);
+		LuaUtils::RegTable(this->state, "point", Draw3DPoint);
+		LuaUtils::RegTable(this->state, "rect", Draw3DRect);
+		LuaUtils::RegTable(this->state, "sphere", Draw3DSphere);
+		LuaUtils::RegTable(this->state, "triangle", Draw3DTriangle);
 
 		lua_setglobal(this->state, "_draw3d_");
 	}
@@ -71,16 +72,16 @@ namespace Connection {
 			float rotation = 0;
 			bool filled = true;
 
-			Utils::Lua::GetTable(L, 1, "color", color);
+			LuaUtils::GetTable(L, 1, "color", color);
 
-			if (!Utils::Lua::GetTable(L, 1, "position", position))
+			if (!LuaUtils::GetTable(L, 1, "position", position))
 				return luaL_error(L, "expecting position argument to be a vec2");
 
-			if (!Utils::Lua::GetTable(L, 1, "size", size))
+			if (!LuaUtils::GetTable(L, 1, "size", size))
 				return luaL_error(L, "expecting size argument to be a vec2");
 
-			Utils::Lua::GetTable(L, 1, "rotation", rotation);
-			Utils::Lua::GetTable(L, 1, "filled", filled);
+			LuaUtils::GetTable(L, 1, "rotation", rotation);
+			LuaUtils::GetTable(L, 1, "filled", filled);
 
 			Drawing::Primitives2D::DrawRectangle(position, size, rotation, color, filled);
 		}
@@ -106,16 +107,16 @@ namespace Connection {
 			float rotation = 0;
 			bool filled = true;
 
-			Utils::Lua::GetTable(L, 1, "color", color);
+			LuaUtils::GetTable(L, 1, "color", color);
 
-			if (!Utils::Lua::GetTable(L, 1, "position", position))
+			if (!LuaUtils::GetTable(L, 1, "position", position))
 				return luaL_error(L, "expecting position argument to be a vec2");
 
-			if (!Utils::Lua::GetTable(L, 1, "size", size))
+			if (!LuaUtils::GetTable(L, 1, "size", size))
 				return luaL_error(L, "expecting size argument to be a vec2");
 
-			Utils::Lua::GetTable(L, 1, "rotation", rotation);
-			Utils::Lua::GetTable(L, 1, "filled", filled);
+			LuaUtils::GetTable(L, 1, "rotation", rotation);
+			LuaUtils::GetTable(L, 1, "filled", filled);
 
 			Drawing::Primitives2D::DrawCircle(position, size, rotation, color, filled);
 		}
@@ -141,15 +142,15 @@ namespace Connection {
 			float rotation = 0;
 			bool filled = true;
 
-			if (!Utils::Lua::GetTable(L, 1, "size", size))
+			if (!LuaUtils::GetTable(L, 1, "size", size))
 				return luaL_error(L, "expecting size argument to be a vec2");
 
-			if (!Utils::Lua::GetTable(L, 1, "position", position))
+			if (!LuaUtils::GetTable(L, 1, "position", position))
 				return luaL_error(L, "expecting position argument to be a vec2");
 
-			Utils::Lua::GetTable(L, 1, "color", color);
-			Utils::Lua::GetTable(L, 1, "rotation", rotation);
-			Utils::Lua::GetTable(L, 1, "filled", filled);
+			LuaUtils::GetTable(L, 1, "color", color);
+			LuaUtils::GetTable(L, 1, "rotation", rotation);
+			LuaUtils::GetTable(L, 1, "filled", filled);
 
 			Drawing::Primitives2D::DrawRectangle(position, size, rotation, color, filled);
 		}
@@ -173,10 +174,10 @@ namespace Connection {
 			glm::vec4 color = { 1, 0, 0, 1 };
 			glm::vec2 position;
 
-			if (!Utils::Lua::GetTable(L, 1, "color", color))
+			if (!LuaUtils::GetTable(L, 1, "color", color))
 				return luaL_error(L, "expecting color argument to be a vec3");
 
-			Utils::Lua::GetTable(L, 1, "position", position);
+			LuaUtils::GetTable(L, 1, "position", position);
 
 			Drawing::Primitives2D::DrawPoint(position, color);
 		}
@@ -200,12 +201,12 @@ namespace Connection {
 			glm::vec4 color = { 1, 0, 0, 1 };
 			glm::vec2 pos1, pos2;
 
-			Utils::Lua::GetTable(L, 1, "color", color);
+			LuaUtils::GetTable(L, 1, "color", color);
 
-			if (!Utils::Lua::GetTable(L, 1, "position_start", pos1))
+			if (!LuaUtils::GetTable(L, 1, "position_start", pos1))
 				return luaL_error(L, "expecting position_start argument to be a vec2");
 
-			if (!Utils::Lua::GetTable(L, 1, "position_end", pos1))
+			if (!LuaUtils::GetTable(L, 1, "position_end", pos1))
 				return luaL_error(L, "expecting position_end argument to be a vec2");
 
 			Drawing::Primitives2D::DrawLine(pos1, pos2, color);
@@ -231,15 +232,15 @@ namespace Connection {
 			glm::vec3 position, size, rotation = { 0, 0, 0 };
 			bool filled = false;
 
-			if (!Utils::Lua::GetTable(L, 1, "position", position))
+			if (!LuaUtils::GetTable(L, 1, "position", position))
 				return luaL_error(L, "expecting position argument to be a vec3");
 
-			if (!Utils::Lua::GetTable(L, 1, "size", size))
+			if (!LuaUtils::GetTable(L, 1, "size", size))
 				return luaL_error(L, "expecting size argument to be a vec3");
 
-			Utils::Lua::GetTable(L, 1, "color", color);
-			Utils::Lua::GetTable(L, 1, "rotation", rotation);
-			Utils::Lua::GetTable(L, 1, "filled", filled);
+			LuaUtils::GetTable(L, 1, "color", color);
+			LuaUtils::GetTable(L, 1, "rotation", rotation);
+			LuaUtils::GetTable(L, 1, "filled", filled);
 
 			Drawing::Primitives3D::DrawCube(position, size, rotation, color, filled);
 		}
@@ -264,15 +265,15 @@ namespace Connection {
 			glm::vec3 position, size, rotation = { 0, 0, 0 };
 			bool filled = false;
 
-			if (!Utils::Lua::GetTable(L, 1, "position", position))
+			if (!LuaUtils::GetTable(L, 1, "position", position))
 				return luaL_error(L, "expecting position argument to be a vec3");
 
-			if (!Utils::Lua::GetTable(L, 1, "size", size))
+			if (!LuaUtils::GetTable(L, 1, "size", size))
 				return luaL_error(L, "expecting size argument to be a vec3");
 
-			Utils::Lua::GetTable(L, 1, "rotation", rotation);
-			Utils::Lua::GetTable(L, 1, "color", color);
-			Utils::Lua::GetTable(L, 1, "filled", filled);
+			LuaUtils::GetTable(L, 1, "rotation", rotation);
+			LuaUtils::GetTable(L, 1, "color", color);
+			LuaUtils::GetTable(L, 1, "filled", filled);
 
 			Drawing::Primitives3D::DrawSphere(position, size, rotation, color, filled);
 		}
@@ -296,9 +297,9 @@ namespace Connection {
 			glm::vec4 color = { 1, 0, 0, 1 };
 			glm::vec3 position;
 
-			Utils::Lua::GetTable(L, 1, "color", color);
+			LuaUtils::GetTable(L, 1, "color", color);
 
-			if (!Utils::Lua::GetTable(L, 1, "position", position))
+			if (!LuaUtils::GetTable(L, 1, "position", position))
 				return luaL_error(L, "expecting position argument to be a vec3");
 
 			Drawing::Primitives3D::DrawPoint(position, color);
@@ -323,12 +324,12 @@ namespace Connection {
 			glm::vec4 color = { 1, 0, 0, 1 };
 			glm::vec3 position1, position2;
 
-			Utils::Lua::GetTable(L, 1, "color", color);
+			LuaUtils::GetTable(L, 1, "color", color);
 
-			if (!Utils::Lua::GetTable(L, 1, "position_start", position1))
+			if (!LuaUtils::GetTable(L, 1, "position_start", position1))
 				return luaL_error(L, "expecting position_start argument to be a vec3");
 
-			if (!Utils::Lua::GetTable(L, 1, "position_end", position2))
+			if (!LuaUtils::GetTable(L, 1, "position_end", position2))
 				return luaL_error(L, "expecting position_end argument to be a vec3");
 
 			Drawing::Primitives3D::DrawLine(position1, position2, color);
@@ -354,15 +355,15 @@ namespace Connection {
 			glm::vec3 position, size, rotation = { 0, 0, 0 };
 			bool filled = false;
 
-			if (!Utils::Lua::GetTable(L, 1, "position", position))
+			if (!LuaUtils::GetTable(L, 1, "position", position))
 				return luaL_error(L, "expecting position argument to be a vec3");
 
-			if (!Utils::Lua::GetTable(L, 1, "size", size))
+			if (!LuaUtils::GetTable(L, 1, "size", size))
 				return luaL_error(L, "expecting size argument to be a vec3");
 			
-			Utils::Lua::GetTable(L, 1, "color", color);
-			Utils::Lua::GetTable(L, 1, "rotation", rotation);
-			Utils::Lua::GetTable(L, 1, "filled", filled);
+			LuaUtils::GetTable(L, 1, "color", color);
+			LuaUtils::GetTable(L, 1, "rotation", rotation);
+			LuaUtils::GetTable(L, 1, "filled", filled);
 
 			Drawing::Primitives3D::DrawRect(position, size, rotation, color, filled);
 		}
@@ -387,15 +388,15 @@ namespace Connection {
 			glm::vec3 position, size, rotation = { 0, 0, 0 };
 			bool filled = false;
 
-			if (!Utils::Lua::GetTable(L, 1, "position", position))
+			if (!LuaUtils::GetTable(L, 1, "position", position))
 				return luaL_error(L, "expecting position argument to be a vec3");
 
-			if (!Utils::Lua::GetTable(L, 1, "size", size))
+			if (!LuaUtils::GetTable(L, 1, "size", size))
 				return luaL_error(L, "expecting size argument to be a vec3");
 
-			Utils::Lua::GetTable(L, 1, "rotation", rotation);
-			Utils::Lua::GetTable(L, 1, "filled", filled);
-			Utils::Lua::GetTable(L, 1, "color", color);
+			LuaUtils::GetTable(L, 1, "rotation", rotation);
+			LuaUtils::GetTable(L, 1, "filled", filled);
+			LuaUtils::GetTable(L, 1, "color", color);
 
 			Drawing::Primitives3D::DrawTriangle(position, size, rotation, color, filled);
 		}
@@ -420,15 +421,15 @@ namespace Connection {
 			glm::vec3 position, size, rotation = { 0, 0, 0 };
 			bool filled = false;
 
-			if (!Utils::Lua::GetTable(L, 1, "position", position))
+			if (!LuaUtils::GetTable(L, 1, "position", position))
 				return luaL_error(L, "expecting position argument to be a vec3");
 
-			if (!Utils::Lua::GetTable(L, 1, "size", size))
+			if (!LuaUtils::GetTable(L, 1, "size", size))
 				return luaL_error(L, "expecting size argument to be a vec3");
 
-			Utils::Lua::GetTable(L, 1, "rotation", rotation);
-			Utils::Lua::GetTable(L, 1, "filled", filled);
-			Utils::Lua::GetTable(L, 1, "color", color);
+			LuaUtils::GetTable(L, 1, "rotation", rotation);
+			LuaUtils::GetTable(L, 1, "filled", filled);
+			LuaUtils::GetTable(L, 1, "color", color);
 
 			Drawing::Primitives3D::DrawCircle(position, size, rotation, color, filled);
 		}
@@ -454,17 +455,17 @@ namespace Connection {
 			float rotation = 0;
 			unsigned int textureId;
 
-			if (!Utils::Lua::GetTable(L, 1, "position", position))
+			if (!LuaUtils::GetTable(L, 1, "position", position))
 				return luaL_error(L, "expecting position argument to be a vec2");
 
-			if (!Utils::Lua::GetTable(L, 1, "size", size))
+			if (!LuaUtils::GetTable(L, 1, "size", size))
 				return luaL_error(L, "expecting size argument to be a vec2");
 
-			if (!Utils::Lua::GetTable(L, 1, "texture_id", textureId))
+			if (!LuaUtils::GetTable(L, 1, "texture_id", textureId))
 				return luaL_error(L, "expecting texture_id argument to be a number");
 
-			Utils::Lua::GetTable(L, 1, "rotation", rotation);
-			Utils::Lua::GetTable(L, 1, "color", color);
+			LuaUtils::GetTable(L, 1, "rotation", rotation);
+			LuaUtils::GetTable(L, 1, "color", color);
 
 			auto texture = TextureConnection::Get()->Get(textureId);
 		
@@ -506,6 +507,6 @@ namespace Connection {
 
 	bool DrawingConnection::HaveFramebuffer()
 	{
-		return BoxEngine::GPU::Framebuffer::GetCurrendUsedId() != 0;
+		return GPU::Framebuffer::GetCurrendUsedId() != 0;
 	}
-}}}
+}}}}

@@ -4,6 +4,8 @@
 namespace BoxEngine {
 namespace Editor {
 
+	using namespace Modules;
+
 	void GameTree::Awake()
 	{
 		this->guid = Utils::Directory::NewGuid();
@@ -11,10 +13,10 @@ namespace Editor {
 
 	void GameTree::Update()
 	{
-		using namespace BoxEngine::Window;
-		using namespace BoxEngine::Project;
-		using Window = BoxEngine::Window::Window;
-		using Project = BoxEngine::Project::Project;
+		using namespace Modules::Window;
+		using namespace Engine::Project;
+		using Window = Modules::Window::Window;
+		using Project = Engine::Project::Project;
 
 		auto size = Window::GetSize();
 		auto project = Project::GetCurrentProject();
@@ -122,8 +124,8 @@ namespace Editor {
 
 	void GameTree::DrawGameTree()
 	{
-		using Project = BoxEngine::Project::Project;
-		using namespace BoxEngine::Project;
+		using Project = Engine::Project::Project;
+		using namespace Engine::Project;
 
 		auto gos = Project::GetCurrentProject()->GetGosFromRoot();
 		auto project = Project::GetCurrentProject();
@@ -138,11 +140,11 @@ namespace Editor {
 		}
 	}
 
-	void GameTree::RecursiveDrawGameTree(std::vector<Project::GameObjectPtr>& gos, bool inactive)
+	void GameTree::RecursiveDrawGameTree(std::vector<Engine::Project::GameObjectPtr>& gos, bool inactive)
 	{
-		using Project = BoxEngine::Project::Project;
-		using namespace BoxEngine::Project;
-		using namespace BoxEngine::Window;
+		using Project = Engine::Project::Project;
+		using namespace Engine::Project;
+		using namespace Modules::Window;
 
 		auto project = Project::GetCurrentProject();
 
@@ -205,7 +207,7 @@ namespace Editor {
 		}
 	}
 
-	bool GameTree::isFiltered(Project::GameObjectPtr go, std::string value)
+	bool GameTree::isFiltered(Engine::Project::GameObjectPtr go, std::string value)
 	{
 		if (go->GetName().find(value) != std::string::npos || go->GetId().find(value) != std::string::npos)
 			return false;
@@ -219,10 +221,11 @@ namespace Editor {
 
 	void GameTree::DrawMenus()
 	{
-		using namespace BoxEngine::Project;
-		using namespace BoxEngine::Window;
-		using Window = BoxEngine::Window::Window;
-		using Project = BoxEngine::Project::Project;
+		using Project = Engine::Project::Project;
+		using namespace Engine::Project;
+
+		using namespace Modules::Window;
+		using Window = Modules::Window::Window;
 
 		auto project = Project::GetCurrentProject();
 

@@ -2,14 +2,17 @@
 #include "Project.hpp"
 
 namespace BoxEngine {
+namespace Engine {
 namespace Project {
+
+    using namespace Modules;
 
     std::weak_ptr<Project> Project::current;
 
     void Project::Create()
     {
         using json = nlohmann::json;
-        using namespace BoxEngine::Utils;
+        using namespace Utils;
 
         auto debugConfig = Debug::Debugging::GetConfiguration();
         auto loggingConfig = Debug::Logging::GetConfiguration();
@@ -54,7 +57,7 @@ namespace Project {
     void Project::Save()
     {
         using json = nlohmann::json;
-        using namespace BoxEngine::Utils;
+        using namespace Utils;
            
         auto debugConfig = Debug::Debugging::GetConfiguration();
         auto loggingConfig = Debug::Logging::GetConfiguration();
@@ -105,7 +108,7 @@ namespace Project {
     void Project::Load()
     {
         using json = nlohmann::json;
-        using namespace BoxEngine::Utils;
+        using namespace Utils;
 
         std::string rawJson = Directory::ReadFile(this->GetProjectSettingsPath());
         json data = json::parse(rawJson);
@@ -557,4 +560,4 @@ namespace Project {
 
         return true;
     }
-}}
+}}}

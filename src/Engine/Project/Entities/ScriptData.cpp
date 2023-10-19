@@ -2,6 +2,7 @@
 #include "Script.hpp"
 
 namespace BoxEngine {
+namespace Engine {
 namespace Project {
 
 	ScriptData::ScriptData(std::string name, std::string value, ScriptDataType type)
@@ -51,4 +52,4 @@ namespace Project {
 	{
 		return this->isModified;
 	}
-}}
+}}}

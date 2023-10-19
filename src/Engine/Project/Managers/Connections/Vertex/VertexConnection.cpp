@@ -2,6 +2,7 @@
 #include "VertexConnection.hpp"
 
 namespace BoxEngine {
+namespace Engine {
 namespace Project {
 namespace Connection {
 
@@ -16,29 +17,29 @@ namespace Connection {
 	{
 		lua_newtable(this->state);
 		
-		Utils::Lua::RegTable(this->state, "create", CreateVertex);
-		Utils::Lua::RegTable(this->state, "destroy", DestroyVertex);
+		LuaUtils::RegTable(this->state, "create", CreateVertex);
+		LuaUtils::RegTable(this->state, "destroy", DestroyVertex);
 
-		Utils::Lua::RegTable(this->state, "activate", Active);
-		Utils::Lua::RegTable(this->state, "modify", Modify);
-		Utils::Lua::RegTable(this->state, "draw", Draw);
+		LuaUtils::RegTable(this->state, "activate", Active);
+		LuaUtils::RegTable(this->state, "modify", Modify);
+		LuaUtils::RegTable(this->state, "draw", Draw);
 
 		lua_setglobal(this->state, "_vertex_");
 
 		lua_newtable(this->state);
 
-		Utils::Lua::RegTable(this->state, "gen_2d_point", Generate2DPoint);
-		Utils::Lua::RegTable(this->state, "gen_2d_line", Generate2DLine);
-		Utils::Lua::RegTable(this->state, "gen_2d_circle", Generate2DCircle);
-		Utils::Lua::RegTable(this->state, "gen_2d_triangle", Generate2DTriangle);
+		LuaUtils::RegTable(this->state, "gen_2d_point", Generate2DPoint);
+		LuaUtils::RegTable(this->state, "gen_2d_line", Generate2DLine);
+		LuaUtils::RegTable(this->state, "gen_2d_circle", Generate2DCircle);
+		LuaUtils::RegTable(this->state, "gen_2d_triangle", Generate2DTriangle);
 
-		Utils::Lua::RegTable(this->state, "gen_3d_circle", Generate3DCircle);
-		Utils::Lua::RegTable(this->state, "gen_3d_cube", Generate3DCube);
-		Utils::Lua::RegTable(this->state, "gen_3d_line", Generate3DLine);
-		Utils::Lua::RegTable(this->state, "gen_3d_point", Generate3DPoint);
-		Utils::Lua::RegTable(this->state, "gen_3d_rect", Generate3DRect);
-		Utils::Lua::RegTable(this->state, "gen_3d_sphere", Generate3DSphere);
-		Utils::Lua::RegTable(this->state, "gen_3d_triangle", Generate3DTriangle);
+		LuaUtils::RegTable(this->state, "gen_3d_circle", Generate3DCircle);
+		LuaUtils::RegTable(this->state, "gen_3d_cube", Generate3DCube);
+		LuaUtils::RegTable(this->state, "gen_3d_line", Generate3DLine);
+		LuaUtils::RegTable(this->state, "gen_3d_point", Generate3DPoint);
+		LuaUtils::RegTable(this->state, "gen_3d_rect", Generate3DRect);
+		LuaUtils::RegTable(this->state, "gen_3d_sphere", Generate3DSphere);
+		LuaUtils::RegTable(this->state, "gen_3d_triangle", Generate3DTriangle);
 	
 		lua_setglobal(this->state, "_generator_");
 	}
@@ -76,12 +77,12 @@ namespace Connection {
 			int buffersCount = 0;
 
 			// Read the amount of vertices used
-			if (!Utils::Lua::GetTable(L, 1, "vertices_count", vd.verticesCount) || vd.verticesCount <= 0)
+			if (!LuaUtils::GetTable(L, 1, "vertices_count", vd.verticesCount) || vd.verticesCount <= 0)
 				return luaL_error(L, "argument vertices_count needs to be a number and greater than zero in first table");
 			lua_pop(L, 1);
 
 			// Read the number of buffers used
-			if (!Utils::Lua::GetTable(L, 1, "buffers_count", buffersCount) || buffersCount <= 0)
+			if (!LuaUtils::GetTable(L, 1, "buffers_count", buffersCount) || buffersCount <= 0)
 				return luaL_error(L, "argument buffers_count needs to be a number and greater than zero in first table");
 			lua_pop(L, 1);
 
@@ -99,17 +100,17 @@ namespace Connection {
 
 					if (lua_istable(L, -1))
 					{
-						if (Utils::Lua::GetTable(L, -1, "use", str))
+						if (LuaUtils::GetTable(L, -1, "use", str))
 							buffer.use = GPU::DataUseFromString(str);
 						lua_pop(L, 1);
 
-						if (!Utils::Lua::GetTable(L, -1, "type", str))
+						if (!LuaUtils::GetTable(L, -1, "type", str))
 							return ReturnErrorSafe(vd, vi, "argument type needs to be a string in first table", L);
 						lua_pop(L, 1);
 
 						buffer.type = GPU::VertexBufferTypeFromString(str);
 
-						if (!Utils::Lua::GetTable(L, -1, "layouts_count", elementsCount) || elementsCount <= 0 )
+						if (!LuaUtils::GetTable(L, -1, "layouts_count", elementsCount) || elementsCount <= 0 )
 							return ReturnErrorSafe(vd, vi, "argument layouts_count needs to be a number and positive in first table", L);
 						lua_pop(L, 1);
 
@@ -127,12 +128,12 @@ namespace Connection {
 								// Read element
 								if (lua_istable(L, -1))
 								{
-									if (!Utils::Lua::GetTable(L, -1, "count", element.count) || element.count <= 0)
+									if (!LuaUtils::GetTable(L, -1, "count", element.count) || element.count <= 0)
 										return ReturnErrorSafe(vd, vi, "argument count needs to be a number and positive in first table", L);
 									lua_pop(L, 1);
 
 									layoutCount += element.count;
-									Utils::Lua::GetTable(L, -1, "normalized", element.isNormalized);
+									LuaUtils::GetTable(L, -1, "normalized", element.isNormalized);
 									lua_pop(L, 1);
 
 									buffer.elements.push_back(element);
@@ -149,14 +150,14 @@ namespace Connection {
 						{
 							buffer.data = new double[vd.verticesCount * layoutCount];
 
-							if (!Utils::Lua::GetTable(L, -1, "data", (double*)buffer.data, vd.verticesCount * layoutCount))
+							if (!LuaUtils::GetTable(L, -1, "data", (double*)buffer.data, vd.verticesCount * layoutCount))
 								return ReturnErrorSafe(vd, vi, "argument data needs to be a table in first table", L);
 							lua_pop(L, 1);
 						}
 						else if (buffer.type == GPU::VertexBufferType::FLOAT)
 						{
 							buffer.data = new float[vd.verticesCount * layoutCount];
-							if (!Utils::Lua::GetTable(L, -1, "data", (float*)buffer.data, vd.verticesCount * layoutCount))
+							if (!LuaUtils::GetTable(L, -1, "data", (float*)buffer.data, vd.verticesCount * layoutCount))
 								return ReturnErrorSafe(vd, vi, "argument data needs to be a table in first table", L);
 							lua_pop(L, 1);
 						}
@@ -164,7 +165,7 @@ namespace Connection {
 						{
 							buffer.data = new int[vd.verticesCount * layoutCount];
 
-							if (!Utils::Lua::GetTable(L, -1, "data", (int*)buffer.data, vd.verticesCount * layoutCount))
+							if (!LuaUtils::GetTable(L, -1, "data", (int*)buffer.data, vd.verticesCount * layoutCount))
 								return ReturnErrorSafe(vd, vi, "argument data needs to be a table in first table", L);
 							lua_pop(L, 1);
 						}
@@ -185,17 +186,17 @@ namespace Connection {
 		// Indices
 		if (lua_istable(L, 2))
 		{
-			if (Utils::Lua::GetTable(L, 2, "use", str))
+			if (LuaUtils::GetTable(L, 2, "use", str))
 				vi.use = GPU::DataUseFromString(str);
 			lua_pop(L, 1);
 
-			if (!Utils::Lua::GetTable(L, 2, "count", vi.count) || vi.count <= 0)
+			if (!LuaUtils::GetTable(L, 2, "count", vi.count) || vi.count <= 0)
 				return ReturnErrorSafe(vd, vi, "argument type needs to be a number and positive in second table", L);
 			lua_pop(L, 1);
 
 			vi.indices = new unsigned int[vi.count];
 
-			if (!Utils::Lua::GetTable(L, 2, "data", (unsigned int*)vi.indices, vi.count))
+			if (!LuaUtils::GetTable(L, 2, "data", (unsigned int*)vi.indices, vi.count))
 				return ReturnErrorSafe(vd, vi, "argument data needs to be a table in second table", L);
 			lua_pop(L, 1);
 
@@ -315,16 +316,16 @@ namespace Connection {
 			std::string typeStr;
 			GPU::VertexBufferType type;
 
-			if (!Utils::Lua::GetTable(L, 2, "start", start))
+			if (!LuaUtils::GetTable(L, 2, "start", start))
 				return luaL_error(L, "argument start in second table is expected to be a number");
 
-			if (Utils::Lua::GetTable(L, 2, "size", tam))
+			if (LuaUtils::GetTable(L, 2, "size", tam))
 				return luaL_error(L, "argument tam in second table is expected to be a number");
 
-			if (Utils::Lua::GetTable(L, 2, "buffer", buffer))
+			if (LuaUtils::GetTable(L, 2, "buffer", buffer))
 				return luaL_error(L, "argument buffer in second table is expected to be a number");
 			
-			if (!Utils::Lua::GetTable(L, 2, "type", typeStr))
+			if (!LuaUtils::GetTable(L, 2, "type", typeStr))
 				return luaL_error(L, "argument buffer in second table is expected to be a number");
 
 			if (typeStr == "DOUBLE")
@@ -344,7 +345,7 @@ namespace Connection {
 			{
 				data = new double[tam];
 
-				if (!Utils::Lua::GetTable(L, -1, "data", (double*)data, tam))
+				if (!LuaUtils::GetTable(L, -1, "data", (double*)data, tam))
 				{
 					delete[] data;
 					return luaL_error(L, "arguments data needs to be a valid number array in second table");
@@ -354,7 +355,7 @@ namespace Connection {
 			{
 				data = new float[tam];
 
-				if (!Utils::Lua::GetTable(L, -1, "data", (float*)data, tam))
+				if (!LuaUtils::GetTable(L, -1, "data", (float*)data, tam))
 				{
 					delete[] data;
 					return luaL_error(L, "arguments data needs to be a valid number array in second table");
@@ -364,7 +365,7 @@ namespace Connection {
 			{
 				data = new int[tam];
 
-				if (!Utils::Lua::GetTable(L, -1, "data", (int*)data, tam))
+				if (!LuaUtils::GetTable(L, -1, "data", (int*)data, tam))
 				{
 					delete[] data;
 					return luaL_error(L, "arguments data needs to be a valid number array in second table");
@@ -698,4 +699,4 @@ namespace Connection {
 
 		return luaL_error(L, message);
 	}
-}}}
+}}}}

@@ -2,6 +2,7 @@
 #include "GameObject.hpp"
 
 namespace BoxEngine {
+namespace Engine {
 namespace Project {
 
     int GameObject::Total = 0;
@@ -116,4 +117,4 @@ namespace Project {
     {
         return Total;
     }
-}}
+}}}

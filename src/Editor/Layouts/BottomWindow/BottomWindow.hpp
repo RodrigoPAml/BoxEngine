@@ -4,6 +4,8 @@
 namespace BoxEngine {
 namespace Editor {
 
+	using namespace Engine;
+
 	/// <summary>
 	/// Represents the bottom window of the engine.
 	/// </summary>

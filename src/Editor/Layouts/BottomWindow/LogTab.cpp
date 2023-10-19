@@ -4,6 +4,8 @@
 namespace BoxEngine {
 namespace Editor {
 
+	using namespace Modules;
+
 	void LogTab::Awake()
 	{
 		using namespace std::placeholders;
@@ -18,7 +20,7 @@ namespace Editor {
 
 	void LogTab::Start()
 	{
-		using GUI = BoxEngine::Window::GUI;
+		using GUI = Window::GUI;
 
 		this->errorTexture = GUI::GetIcon("error.png");
 		this->warningTexture = GUI::GetIcon("warning.png");
@@ -28,7 +30,7 @@ namespace Editor {
 
 	void LogTab::DrawTop()
 	{
-		using namespace BoxEngine::Window;
+		using namespace Window;
 
 		if (GUI::ImageButton(this->guid + "error_texture", this->errorTexture))
 		{
@@ -137,7 +139,7 @@ namespace Editor {
 
 	void LogTab::DrawFilterPopUp()
 	{
-		using namespace BoxEngine::Window;
+		using namespace Window;
 
 		if (this->isFilterMenuOpen)
 		{
@@ -183,7 +185,7 @@ namespace Editor {
 
 	void LogTab::Update()
 	{
-		using namespace BoxEngine::Window;
+		using namespace Window;
 			
 		this->DrawTop();
 
@@ -212,8 +214,8 @@ namespace Editor {
 
 	void LogTab::PopulateLog()
 	{
-		using namespace BoxEngine::Debug;
-		using namespace BoxEngine::Window;
+		using namespace Debug;
+		using namespace Window;
 
 		this->mutexCallback.lock();
 
@@ -271,8 +273,8 @@ namespace Editor {
 		const std::string& file
 	)
 	{
-		using namespace BoxEngine::Window;
-		using namespace BoxEngine::Debug;
+		using namespace Window;
+		using namespace Debug;
 
 		this->mutexCallback.lock();
 

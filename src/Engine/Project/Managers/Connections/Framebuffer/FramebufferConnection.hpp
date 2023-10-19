@@ -2,12 +2,15 @@
 #include <BoxEngine.hpp>
 
 namespace BoxEngine {
+namespace Engine {
 namespace Project {
 namespace Connection {
 
 	class FramebufferConnection;
 	typedef std::shared_ptr<FramebufferConnection> FramebufferConnectionPtr;
 	typedef std::weak_ptr<FramebufferConnection> FramebufferConnectionWeakPtr;
+
+	using namespace Modules;
 
 	/// <summary>
 	/// Functions C++/LUA to handle Framebuffers functions.
@@ -60,4 +63,4 @@ namespace Connection {
 		static int SetClearModes(lua_State* L);
 		static int SwitchViewPort(lua_State* L);
 	};
-}}}
+}}}}

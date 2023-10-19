@@ -2,6 +2,7 @@
 #include <BoxEngine.hpp>
 
 namespace BoxEngine {
+namespace Engine {
 namespace Project {
 
 	/// <summary>
@@ -11,11 +12,11 @@ namespace Project {
 	{
 		switch (type)
 		{
-		case BoxEngine::Project::ScriptDataType::boolean:
+		case ScriptDataType::boolean:
 			return "boolean";
-		case BoxEngine::Project::ScriptDataType::number:
+		case ScriptDataType::number:
 			return "number";
-		case BoxEngine::Project::ScriptDataType::string:
+		case ScriptDataType::string:
 			return "string";
 		default:
 			return "?";
@@ -29,18 +30,18 @@ namespace Project {
 	{
 		switch (state)
 		{
-			case BoxEngine::Project::ScriptState::ToLoad:
+			case ScriptState::ToLoad:
 				return "Waiting to load";
-			case BoxEngine::Project::ScriptState::ToStart:
+			case ScriptState::ToStart:
 				return "Waiting to start";
-			case BoxEngine::Project::ScriptState::Updating:
+			case ScriptState::Updating:
 				if (active)
 					return "Executing";
 				else
 					return "Executing (currently disabled)";
-			case BoxEngine::Project::ScriptState::ToDestroy:
+			case ScriptState::ToDestroy:
 				return "Waiting to be destroyed";
-			case BoxEngine::Project::ScriptState::Destroyed:
+			case ScriptState::Destroyed:
 				return "Destroyed";
 			default:
 				return "?";
@@ -54,18 +55,18 @@ namespace Project {
 	{
 		switch (state)
 		{
-			case BoxEngine::Project::ScriptState::ToLoad:
+			case ScriptState::ToLoad:
 				return "TO_LOAD";
-			case BoxEngine::Project::ScriptState::ToStart:
+			case ScriptState::ToStart:
 				return "TO_START";
-			case BoxEngine::Project::ScriptState::Updating:
+			case ScriptState::Updating:
 				return "UPDATING";
-			case BoxEngine::Project::ScriptState::ToDestroy:
+			case ScriptState::ToDestroy:
 				return "TO_DESTROY";
-			case BoxEngine::Project::ScriptState::Destroyed:
+			case ScriptState::Destroyed:
 				return "DESTROYED";
 			default:
 				return "?";
 		}
 	}
-}}
+}}}

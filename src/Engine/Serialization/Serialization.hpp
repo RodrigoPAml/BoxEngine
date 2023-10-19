@@ -2,7 +2,10 @@
 #include <BoxEngine.hpp>
 
 namespace BoxEngine {
+namespace Engine {
 namespace Serialization {
+
+    using namespace Modules;
 
     /// <summary>
     /// Serialize debug configuration.
@@ -10,7 +13,7 @@ namespace Serialization {
     static nlohmann::json Serialize(const Debug::DebugConfiguration& config)
 	{
         using json = nlohmann::json;
-        using namespace BoxEngine::Utils;
+        using namespace Utils;
 
         nlohmann::basic_json debugObj = json::object(
         {
@@ -30,7 +33,7 @@ namespace Serialization {
     static Debug::DebugConfiguration DeserializeDebugConfiguration(const nlohmann::json& data)
     {
         using json = nlohmann::json;
-        using namespace BoxEngine::Utils;
+        using namespace Utils;
 
         auto debugConfig = Debug::DebugConfiguration();
 
@@ -61,7 +64,7 @@ namespace Serialization {
     static nlohmann::json Serialize(const Debug::LoggingConfiguration& config)
     {
         using json = nlohmann::json;
-        using namespace BoxEngine::Utils;
+        using namespace Utils;
 
         nlohmann::basic_json loggingObj = json::object(
         {
@@ -79,7 +82,7 @@ namespace Serialization {
     static Debug::LoggingConfiguration DeserializeLoggingConfiguration(const nlohmann::json& data)
     {
         using json = nlohmann::json;
-        using namespace BoxEngine::Utils;
+        using namespace Utils;
 
         auto loggingConfig = Debug::LoggingConfiguration();
 
@@ -183,7 +186,7 @@ namespace Serialization {
     static nlohmann::json SerializeGo(const std::vector<Project::GameObjectPtr>& gos)
     {
         using json = nlohmann::json;
-        using namespace BoxEngine::Utils;
+        using namespace Utils;
 
         nlohmann::basic_json arr = json::array();
 
@@ -210,7 +213,7 @@ namespace Serialization {
     static void DeserializeGo(const nlohmann::json& data, const std::string& fatherId, Project::CreateGoFunction createGo)
     {
         using json = nlohmann::json;
-        using namespace BoxEngine::Utils;
+        using namespace Utils;
 
         for (auto item : data.items())
         {
@@ -222,4 +225,4 @@ namespace Serialization {
             DeserializeGo(obj["childrens"], obj["id"], createGo);
         }
     }
-}}
+}}}

@@ -6,7 +6,7 @@ namespace Editor {
 
 	void InfoTab::Awake()
 	{
-		this->guid = Utils::Directory::NewGuid();
+		this->guid = Modules::Utils::Directory::NewGuid();
 	}
 
 	void InfoTab::Start()
@@ -15,11 +15,11 @@ namespace Editor {
 
 	void InfoTab::Update()
 	{
-		using GUI = BoxEngine::Window::GUI;
+		using GUI = Modules::Window::GUI;
 
 		if (GUI::BeginInnerWindow(this->guid + "inner", { 0, 0 }))
 		{
-			auto project = Project::Project::GetCurrentProject();
+			auto project = Engine::Project::Project::GetCurrentProject();
 
 			auto fpsValue = project->GetCurrentFPS();
 			auto frametimeValue = project->GetCurrentFrameTime();
@@ -33,14 +33,14 @@ namespace Editor {
 			if (showTotalizers)
 			{
 				GUI::Ident(10);
-				GUI::Text("Go instance count: " + std::to_string(Project::GameObject::GetCurrentGosCount()));
-				GUI::Text("Script instance count: " + std::to_string(Project::Script::GetCurrentScriptsCount()));
-				GUI::Text("Texture instance count: " + std::to_string(GPU::Texture::GetInstanceCount()));
-				GUI::Text("Vertex instance count: " + std::to_string(GPU::Vertex::GetInstanceCount()));
-				GUI::Text("Shader instance count: " + std::to_string(GPU::Shader::GetInstanceCount()));
-				GUI::Text("Audio instance count: " + std::to_string(Audio::Audio::GetInstaceCount()));
-				GUI::Text("Font instance count: " + std::to_string(Font::Font::GetInstaceCount()));
-				GUI::Text("Framebuffer instance count: " + std::to_string(GPU::Framebuffer::GetInstanceCount()));
+				GUI::Text("Go instance count: " + std::to_string(Engine::Project::GameObject::GetCurrentGosCount()));
+				GUI::Text("Script instance count: " + std::to_string(Engine::Project::Script::GetCurrentScriptsCount()));
+				GUI::Text("Texture instance count: " + std::to_string(Modules::GPU::Texture::GetInstanceCount()));
+				GUI::Text("Vertex instance count: " + std::to_string(Modules::GPU::Vertex::GetInstanceCount()));
+				GUI::Text("Shader instance count: " + std::to_string(Modules::GPU::Shader::GetInstanceCount()));
+				GUI::Text("Audio instance count: " + std::to_string(Modules::Audio::Audio::GetInstaceCount()));
+				GUI::Text("Font instance count: " + std::to_string(Modules::Font::Font::GetInstaceCount()));
+				GUI::Text("Framebuffer instance count: " + std::to_string(Modules::GPU::Framebuffer::GetInstanceCount()));
 				GUI::Text("Stack size: " + std::to_string(project->GetStackSize()));
 				GUI::Unident(10);
 			}

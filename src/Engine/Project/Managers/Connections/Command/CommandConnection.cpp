@@ -2,6 +2,7 @@
 #include "CommandConnection.hpp"
 
 namespace BoxEngine {
+namespace Engine {
 namespace Project {
 namespace Connection {
 
@@ -16,24 +17,24 @@ namespace Connection {
 	{
 		lua_newtable(this->state);
 
-		Utils::Lua::RegTable(this->state, "enable_vsync", EnableVSync);
-		Utils::Lua::RegTable(this->state, "disable_vsync", DisableVSync);
+		LuaUtils::RegTable(this->state, "enable_vsync", EnableVSync);
+		LuaUtils::RegTable(this->state, "disable_vsync", DisableVSync);
 
-		Utils::Lua::RegTable(this->state, "enable_depth_testing", EnableDepthTesting);
-		Utils::Lua::RegTable(this->state, "disable_depth_testing", DisableDepthTesting);
-		Utils::Lua::RegTable(this->state, "set_depth_testing_mode", SetDepthTestingMode);
+		LuaUtils::RegTable(this->state, "enable_depth_testing", EnableDepthTesting);
+		LuaUtils::RegTable(this->state, "disable_depth_testing", DisableDepthTesting);
+		LuaUtils::RegTable(this->state, "set_depth_testing_mode", SetDepthTestingMode);
 
-		Utils::Lua::RegTable(this->state, "enable_culling_face", EnableCullingFace);
-		Utils::Lua::RegTable(this->state, "disable_culling_face", DisableCullingFace);
-		Utils::Lua::RegTable(this->state, "set_culling_face_mode", SetCullingFaceMode);
+		LuaUtils::RegTable(this->state, "enable_culling_face", EnableCullingFace);
+		LuaUtils::RegTable(this->state, "disable_culling_face", DisableCullingFace);
+		LuaUtils::RegTable(this->state, "set_culling_face_mode", SetCullingFaceMode);
 
-		Utils::Lua::RegTable(this->state, "set_primitive_point_size", SetPrimitivePointSize);
-		Utils::Lua::RegTable(this->state, "set_primitive_line_size", SetPrimitiveLineSize);
+		LuaUtils::RegTable(this->state, "set_primitive_point_size", SetPrimitivePointSize);
+		LuaUtils::RegTable(this->state, "set_primitive_line_size", SetPrimitiveLineSize);
 
-		Utils::Lua::RegTable(this->state, "set_polygon_draw_mode", SetPolygonDrawMode);
+		LuaUtils::RegTable(this->state, "set_polygon_draw_mode", SetPolygonDrawMode);
 
-		Utils::Lua::RegTable(this->state, "enable_blending", EnableBlending);
-		Utils::Lua::RegTable(this->state, "disable_blending", DisableBlending);
+		LuaUtils::RegTable(this->state, "enable_blending", EnableBlending);
+		LuaUtils::RegTable(this->state, "disable_blending", DisableBlending);
 
 		lua_setglobal(this->state, "_command_");
 	}
@@ -210,4 +211,4 @@ namespace Connection {
 
 		return 0;
 	}
-}}}
+}}}}

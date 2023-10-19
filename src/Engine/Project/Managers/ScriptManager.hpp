@@ -2,6 +2,7 @@
 #include <BoxEngine.hpp>
 
 namespace BoxEngine {
+namespace Engine {
 namespace Project {
 
 	class ScriptManager;
@@ -74,4 +75,4 @@ namespace Project {
 		// When te engine stops, release all scripts by calling destroy, if have error stop.
 		void RecursiveUnloadAllScripts(const std::vector<GameObjectPtr> gos, bool& error);
 	};
-}}
+}}}

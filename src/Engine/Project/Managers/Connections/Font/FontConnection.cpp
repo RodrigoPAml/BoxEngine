@@ -2,6 +2,7 @@
 #include "FontConnection.hpp"
 
 namespace BoxEngine {
+namespace Engine {
 namespace Project {
 namespace Connection {
 
@@ -16,22 +17,22 @@ namespace Connection {
 	{
 		lua_newtable(this->state);
 		
-		Utils::Lua::RegTable(this->state, "create", Create);
-		Utils::Lua::RegTable(this->state, "destroy", Destroy);
+		LuaUtils::RegTable(this->state, "create", Create);
+		LuaUtils::RegTable(this->state, "destroy", Destroy);
 
-		Utils::Lua::RegTable(this->state, "get_position", GetPosition);
-		Utils::Lua::RegTable(this->state, "set_position", SetPosition);
+		LuaUtils::RegTable(this->state, "get_position", GetPosition);
+		LuaUtils::RegTable(this->state, "set_position", SetPosition);
 
-		Utils::Lua::RegTable(this->state, "get_scale", GetScale);
-		Utils::Lua::RegTable(this->state, "set_scale", SetScale);
+		LuaUtils::RegTable(this->state, "get_scale", GetScale);
+		LuaUtils::RegTable(this->state, "set_scale", SetScale);
 
-		Utils::Lua::RegTable(this->state, "set_color", SetColor);
-		Utils::Lua::RegTable(this->state, "get_color", GetColor);
+		LuaUtils::RegTable(this->state, "set_color", SetColor);
+		LuaUtils::RegTable(this->state, "get_color", GetColor);
 
-		Utils::Lua::RegTable(this->state, "set_text", SetText);
-		Utils::Lua::RegTable(this->state, "get_text", GetText);
+		LuaUtils::RegTable(this->state, "set_text", SetText);
+		LuaUtils::RegTable(this->state, "get_text", GetText);
 
-		Utils::Lua::RegTable(this->state, "draw", Draw);
+		LuaUtils::RegTable(this->state, "draw", Draw);
 
 		lua_setglobal(this->state, "_font_");
 	}
@@ -119,10 +120,10 @@ namespace Connection {
 		glm::vec2 vec;
 		if (lua_istable(L, 2))
 		{
-			if (!Utils::Lua::GetTable(L, -1, "x", vec.x))
+			if (!LuaUtils::GetTable(L, -1, "x", vec.x))
 				return luaL_error(L, "argument x is expected to be a number");
 
-			if (!Utils::Lua::GetTable(L, -2, "y", vec.y))
+			if (!LuaUtils::GetTable(L, -2, "y", vec.y))
 				return luaL_error(L, "argument y is expected to be a number");
 		}
 		else return luaL_error(L, "argument 2 is expected to be a table with vec2 format");
@@ -189,10 +190,10 @@ namespace Connection {
 		glm::vec2 vec;
 		if (lua_istable(L, 2))
 		{
-			if (!Utils::Lua::GetTable(L, -1, "x", vec.x))
+			if (!LuaUtils::GetTable(L, -1, "x", vec.x))
 				return luaL_error(L, "argument x is expected to be a number");
 
-			if (!Utils::Lua::GetTable(L, -2, "y", vec.y))
+			if (!LuaUtils::GetTable(L, -2, "y", vec.y))
 				return luaL_error(L, "argument y is expected to be a number");
 		}
 		else return luaL_error(L, "argument 2 is expected to be a table with vec2 format");
@@ -259,13 +260,13 @@ namespace Connection {
 		glm::vec3 vec;
 		if (lua_istable(L, 2))
 		{
-			if (!Utils::Lua::GetTable(L, -1, "x", vec.x))
+			if (!LuaUtils::GetTable(L, -1, "x", vec.x))
 				return luaL_error(L, "argument x is expected to be a number");
 
-			if (!Utils::Lua::GetTable(L, -2, "y", vec.y))
+			if (!LuaUtils::GetTable(L, -2, "y", vec.y))
 				return luaL_error(L, "argument y is expected to be a number");
 
-			if (!Utils::Lua::GetTable(L, -3, "z", vec.z))
+			if (!LuaUtils::GetTable(L, -3, "z", vec.z))
 				return luaL_error(L, "argument z is expected to be a number");
 		}
 		else return luaL_error(L, "argument 3 is expected to be a table with vec3 format");
@@ -403,6 +404,6 @@ namespace Connection {
 
 	bool FontConnection::HaveFramebuffer()
 	{
-		return BoxEngine::GPU::Framebuffer::GetCurrendUsedId() != 0;
+		return GPU::Framebuffer::GetCurrendUsedId() != 0;
 	}
-}}}
+}}}}

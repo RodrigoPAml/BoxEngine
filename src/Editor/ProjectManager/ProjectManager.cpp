@@ -4,6 +4,8 @@
 namespace BoxEngine {
 namespace Editor {
 
+	using namespace Modules;
+
 	void ProjectManager::Awake()
 	{
 		auto logConfig = Debug::LoggingConfiguration();
@@ -26,7 +28,7 @@ namespace Editor {
 
 	void ProjectManager::Start()
 	{
-		using namespace BoxEngine::Utils;
+		using namespace Utils;
 
 		GPU::Command::EnableVSync();
 

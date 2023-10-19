@@ -2,6 +2,7 @@
 #include <BoxEngine.hpp>
 
 namespace BoxEngine {
+namespace Engine {
 namespace Project {
 namespace Connection {
 
@@ -43,4 +44,4 @@ namespace Connection {
 		static int GetMouseVar(lua_State* L);
 		static int GetMouseButton(lua_State* L);
 	};
-}}}
+}}}}

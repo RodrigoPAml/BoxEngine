@@ -2,6 +2,7 @@
 #include <BoxEngine.hpp>
 
 namespace BoxEngine {
+namespace Engine {
 namespace Project {
 
 	class GoManager;
@@ -68,4 +69,4 @@ namespace Project {
 		// Verify if any of the go children in destroyd
 		bool RecursiveCheckDestroyed(GameObjectPtr go);
 	};
-}}
+}}}

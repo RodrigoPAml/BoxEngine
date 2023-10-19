@@ -2,6 +2,7 @@
 #include <BoxEngine.hpp>
 
 namespace BoxEngine {
+namespace Engine {
 namespace Project {
 namespace Connection {
 
@@ -62,4 +63,4 @@ namespace Connection {
 
 		static int Exec(lua_State* L);
 	};
-}}}
+}}}}

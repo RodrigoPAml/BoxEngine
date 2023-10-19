@@ -2,6 +2,7 @@
 #include "ConnectionManager.hpp"
 
 namespace BoxEngine {
+namespace Engine {
 namespace Project {
 	
 	ConnectionManager::ConnectionManager(lua_State* state)
@@ -122,11 +123,11 @@ namespace Project {
 		for (auto item : script->GetScriptData())
 		{
 			if (item.GetType() == ScriptDataType::boolean)
-				Utils::Lua::RegTable(this->state, item.GetName().c_str(), item.GetValue() == "1");
+				LuaUtils::RegTable(this->state, item.GetName().c_str(), item.GetValue() == "1");
 			else if (item.GetType() == ScriptDataType::string)
-				Utils::Lua::RegTable(this->state, item.GetName().c_str(), item.GetValue());
+				LuaUtils::RegTable(this->state, item.GetName().c_str(), item.GetValue());
 			else if (item.GetType() == ScriptDataType::number)
-				Utils::Lua::RegTable(this->state, item.GetName().c_str(), atof(item.GetValue().c_str()));
+				LuaUtils::RegTable(this->state, item.GetName().c_str(), atof(item.GetValue().c_str()));
 		}
 
 		lua_pop(this->state, 3);
@@ -190,11 +191,11 @@ namespace Project {
 				item.SetModified(false);
 
 				if (item.GetType() == ScriptDataType::boolean)
-					Utils::Lua::RegTable(this->state, item.GetName().c_str(), false);
+					LuaUtils::RegTable(this->state, item.GetName().c_str(), false);
 				else if (item.GetType() == ScriptDataType::string)
-					Utils::Lua::RegTable(this->state, item.GetName().c_str(), item.GetValue());
+					LuaUtils::RegTable(this->state, item.GetName().c_str(), item.GetValue());
 				else if (item.GetType() == ScriptDataType::number)
-					Utils::Lua::RegTable(this->state, item.GetName().c_str(), atof(item.GetValue().c_str()));
+					LuaUtils::RegTable(this->state, item.GetName().c_str(), atof(item.GetValue().c_str()));
 
 				lua_pop(this->state, 2);
 				continue;
@@ -236,6 +237,6 @@ namespace Project {
 	void ConnectionManager::DeleteScriptData(GameObjectPtr go, ScriptPtr script)
 	{
 		lua_getglobal(this->state, script->GetName().c_str());
-		Utils::Lua::RegTable(this->state, go->GetId().c_str());
+		LuaUtils::RegTable(this->state, go->GetId().c_str());
 	}
-}}
+}}}

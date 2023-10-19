@@ -2,6 +2,7 @@
 #include "Script.hpp"
 
 namespace BoxEngine {
+namespace Engine {
 namespace Project {
 
 	int Script::Total = 0;
@@ -28,7 +29,7 @@ namespace Project {
 	void Script::SetPath(const std::string& path)
 	{
 		this->path = path;
-		this->name = Utils::Directory::GetLastPartFromPathNoExtension(path);
+		this->name = Modules::Utils::Directory::GetLastPartFromPathNoExtension(path);
 	}
 
 	std::string Script::GetPath() const
@@ -123,4 +124,4 @@ namespace Project {
 	{
 		return Total;
 	}
-}}
+}}}

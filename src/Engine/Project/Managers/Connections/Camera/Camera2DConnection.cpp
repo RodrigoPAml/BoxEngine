@@ -2,6 +2,7 @@
 #include "Camera2DConnection.hpp"
 
 namespace BoxEngine {
+namespace Engine {
 namespace Project {
 namespace Connection {
 
@@ -17,13 +18,13 @@ namespace Connection {
 		// Cam2D manager
 		lua_newtable(this->state);
 
-		Utils::Lua::RegTable(this->state, "create", CreateCamera);
-		Utils::Lua::RegTable(this->state, "destroy", DestroyCamera);
-		Utils::Lua::RegTable(this->state, "get", GetCamera);
-		Utils::Lua::RegTable(this->state, "update", UpdateCamera);
-		Utils::Lua::RegTable(this->state, "get_matrix", GetMatrix);
-		Utils::Lua::RegTable(this->state, "set_current", SetCurrentCamera);
-		Utils::Lua::RegTable(this->state, "get_current", GetCurrentCamera);
+		LuaUtils::RegTable(this->state, "create", CreateCamera);
+		LuaUtils::RegTable(this->state, "destroy", DestroyCamera);
+		LuaUtils::RegTable(this->state, "get", GetCamera);
+		LuaUtils::RegTable(this->state, "update", UpdateCamera);
+		LuaUtils::RegTable(this->state, "get_matrix", GetMatrix);
+		LuaUtils::RegTable(this->state, "set_current", SetCurrentCamera);
+		LuaUtils::RegTable(this->state, "get_current", GetCurrentCamera);
 
 		lua_setglobal(this->state, "_cam2d_");
 	}
@@ -53,16 +54,16 @@ namespace Connection {
 		float left = 0, right = 0, top = 0, bottom = 0;
 		if (lua_istable(L, 1))
 		{
-			if (!Utils::Lua::GetTable(L, 1, "left", left))
+			if (!LuaUtils::GetTable(L, 1, "left", left))
 				return luaL_error(L, "argument left needs to be a number");
 
-			if (!Utils::Lua::GetTable(L, 1, "right", right))
+			if (!LuaUtils::GetTable(L, 1, "right", right))
 				return luaL_error(L, "argument right needs to be a number");
 
-			if (!Utils::Lua::GetTable(L, 1, "top", top))
+			if (!LuaUtils::GetTable(L, 1, "top", top))
 				return luaL_error(L, "argument top needs to be a number");
 
-			if (!Utils::Lua::GetTable(L, 1, "bottom", bottom))
+			if (!LuaUtils::GetTable(L, 1, "bottom", bottom))
 				return luaL_error(L, "argument bottom needs to be a number");
 		}
 		else return luaL_error(L, "argument 1 is expected to be a table");
@@ -200,10 +201,10 @@ namespace Connection {
 		{
 			lua_newtable(L);
 
-			Utils::Lua::RegTable(L, "left", cam->GetLeft());
-			Utils::Lua::RegTable(L, "right", cam->GetRight());
-			Utils::Lua::RegTable(L, "top", cam->GetTop());
-			Utils::Lua::RegTable(L, "bottom", cam->GetBottom());
+			LuaUtils::RegTable(L, "left", cam->GetLeft());
+			LuaUtils::RegTable(L, "right", cam->GetRight());
+			LuaUtils::RegTable(L, "top", cam->GetTop());
+			LuaUtils::RegTable(L, "bottom", cam->GetBottom());
 		}
 
 		return 1;
@@ -233,10 +234,10 @@ namespace Connection {
 
 			// Register four tables direct in this table
 			lua_newtable(L);
-			Utils::Lua::RegTable(L, 1, mat[0]);
-			Utils::Lua::RegTable(L, 2, mat[1]);
-			Utils::Lua::RegTable(L, 3, mat[2]);
-			Utils::Lua::RegTable(L, 4, mat[3]);
+			LuaUtils::RegTable(L, 1, mat[0]);
+			LuaUtils::RegTable(L, 2, mat[1]);
+			LuaUtils::RegTable(L, 3, mat[2]);
+			LuaUtils::RegTable(L, 4, mat[3]);
 		}
 		else
 			lua_pushnil(L);
@@ -301,4 +302,4 @@ namespace Connection {
 		lua_pushnil(L);
 		return 1;
 	}
-}}}
+}}}}

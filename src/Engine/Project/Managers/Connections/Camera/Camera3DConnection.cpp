@@ -2,6 +2,7 @@
 #include "Camera3DConnection.hpp"
 
 namespace BoxEngine {
+namespace Engine {
 namespace Project {
 namespace Connection {
 
@@ -17,18 +18,18 @@ namespace Connection {
 		// Cam3D manager
 		lua_newtable(this->state);
 
-		Utils::Lua::RegTable(this->state, "create", CreateCamera);
-		Utils::Lua::RegTable(this->state, "destroy", DestroyCamera);
-		Utils::Lua::RegTable(this->state, "update", UpdateCamera);
-		Utils::Lua::RegTable(this->state, "get", GetCamera);
+		LuaUtils::RegTable(this->state, "create", CreateCamera);
+		LuaUtils::RegTable(this->state, "destroy", DestroyCamera);
+		LuaUtils::RegTable(this->state, "update", UpdateCamera);
+		LuaUtils::RegTable(this->state, "get", GetCamera);
 
-		Utils::Lua::RegTable(this->state, "translate", TranslateCameraRelative);
-		Utils::Lua::RegTable(this->state, "translate_abs", TranslateCameraAbsolute);
-		Utils::Lua::RegTable(this->state, "rotate", RotateCamera);
+		LuaUtils::RegTable(this->state, "translate", TranslateCameraRelative);
+		LuaUtils::RegTable(this->state, "translate_abs", TranslateCameraAbsolute);
+		LuaUtils::RegTable(this->state, "rotate", RotateCamera);
 
-		Utils::Lua::RegTable(this->state, "get_view", GetViewMatrix);
-		Utils::Lua::RegTable(this->state, "get_projection", GetProjectionMatrix);
-		Utils::Lua::RegTable(this->state, "set_current", SetCurrentCamera);
+		LuaUtils::RegTable(this->state, "get_view", GetViewMatrix);
+		LuaUtils::RegTable(this->state, "get_projection", GetProjectionMatrix);
+		LuaUtils::RegTable(this->state, "set_current", SetCurrentCamera);
 
 		lua_setglobal(this->state, "_cam3d_");
 	}
@@ -59,13 +60,13 @@ namespace Connection {
 		{
 			Camera::CameraConfiguration config;
 
-			Utils::Lua::GetTable(L, 1, "position", config.position);
-			Utils::Lua::GetTable(L, 1, "yaw", config.yaw);
-			Utils::Lua::GetTable(L, 1, "pitch", config.pitch);
-			Utils::Lua::GetTable(L, 1, "fov", config.fov);
-			Utils::Lua::GetTable(L, 1, "aspect_ratio", config.aspectRatio);
-			Utils::Lua::GetTable(L, 1, "zfar", config.zFar);
-			Utils::Lua::GetTable(L, 1, "znear", config.zNear);
+			LuaUtils::GetTable(L, 1, "position", config.position);
+			LuaUtils::GetTable(L, 1, "yaw", config.yaw);
+			LuaUtils::GetTable(L, 1, "pitch", config.pitch);
+			LuaUtils::GetTable(L, 1, "fov", config.fov);
+			LuaUtils::GetTable(L, 1, "aspect_ratio", config.aspectRatio);
+			LuaUtils::GetTable(L, 1, "zfar", config.zFar);
+			LuaUtils::GetTable(L, 1, "znear", config.zNear);
 
 			auto instance = Camera3DConnection::Get();
 
@@ -124,14 +125,14 @@ namespace Connection {
 				std::string str = "";
 				float velocity = 0;
 
-				if (Utils::Lua::GetTable(L, 1, "direction", str))
+				if (LuaUtils::GetTable(L, 1, "direction", str))
 				{
 					instance = nullptr;
 					lua_pushboolean(L, false);
 					return luaL_error(L, "expecting argument direction to be a string");
 				}
 
-				if (Utils::Lua::GetTable(L, 1, "velocity", velocity))
+				if (LuaUtils::GetTable(L, 1, "velocity", velocity))
 				{
 					instance = nullptr;
 					lua_pushboolean(L, false);
@@ -176,14 +177,14 @@ namespace Connection {
 				std::string str = "";
 				float velocity = 0;
 
-				if (Utils::Lua::GetTable(L, 1, "direction", str))
+				if (LuaUtils::GetTable(L, 1, "direction", str))
 				{
 					instance = nullptr;
 					lua_pushboolean(L, false);
 					return luaL_error(L, "expecting argument direction to be a string");
 				}
 
-				if (Utils::Lua::GetTable(L, 1, "velocity", velocity))
+				if (LuaUtils::GetTable(L, 1, "velocity", velocity))
 				{
 					instance = nullptr;
 					lua_pushboolean(L, false);
@@ -227,8 +228,8 @@ namespace Connection {
 
 				float yaw = cam->GetYaw(), pitch = cam->GetPitch();
 
-				Utils::Lua::GetTable(L, 1, "yaw", yaw);
-				Utils::Lua::GetTable(L, 1, "pitch", pitch);
+				LuaUtils::GetTable(L, 1, "yaw", yaw);
+				LuaUtils::GetTable(L, 1, "pitch", pitch);
 				
 				cam->Rotate(yaw, pitch);
 
@@ -269,7 +270,7 @@ namespace Connection {
 		if (lua_istable(L, 2))
 		{
 			glm::vec3 pos;
-			if (Utils::Lua::GetTable(L, 2, "position", pos))
+			if (LuaUtils::GetTable(L, 2, "position", pos))
 				cam->SetPosition(pos);
 			else if (!lua_isnil(L, 2))
 			{
@@ -278,7 +279,7 @@ namespace Connection {
 			}
 
 			glm::vec3 rot;
-			if (Utils::Lua::GetTable(L, 2, "rotation", rot))
+			if (LuaUtils::GetTable(L, 2, "rotation", rot))
 				cam->SetRotation(rot);
 			else if (!lua_isnil(L, 2))
 			{
@@ -287,7 +288,7 @@ namespace Connection {
 			}
 
 			float aspectRatio;
-			if (Utils::Lua::GetTable(L, 2, "aspect_ratio", aspectRatio))
+			if (LuaUtils::GetTable(L, 2, "aspect_ratio", aspectRatio))
 				cam->SetAspectRatio(aspectRatio);
 			else if (!lua_isnil(L, 2))
 			{
@@ -296,7 +297,7 @@ namespace Connection {
 			}
 
 			float fov;
-			if (Utils::Lua::GetTable(L, 2, "fov", fov))
+			if (LuaUtils::GetTable(L, 2, "fov", fov))
 				cam->SetFOV(fov);
 			else if (!lua_isnil(L, 2))
 			{
@@ -305,7 +306,7 @@ namespace Connection {
 			}
 
 			float pitch;
-			if (Utils::Lua::GetTable(L, 2, "pitch", pitch))
+			if (LuaUtils::GetTable(L, 2, "pitch", pitch))
 				cam->SetPitch(pitch);
 			else if (!lua_isnil(L, 2))
 			{
@@ -314,7 +315,7 @@ namespace Connection {
 			}
 
 			float yaw;
-			if (Utils::Lua::GetTable(L, 2, "yaw", yaw))
+			if (LuaUtils::GetTable(L, 2, "yaw", yaw))
 				cam->SetPitch(yaw);
 			else if (!lua_isnil(L, 2))
 			{
@@ -323,7 +324,7 @@ namespace Connection {
 			}
 			
 			float zfar;
-			if (Utils::Lua::GetTable(L, 2, "zfar", zfar))
+			if (LuaUtils::GetTable(L, 2, "zfar", zfar))
 				cam->SetZFar(zfar);
 			else if (!lua_isnil(L, 2))
 			{
@@ -332,7 +333,7 @@ namespace Connection {
 			}
 
 			float znear;
-			if (Utils::Lua::GetTable(L, 2, "znear", znear))
+			if (LuaUtils::GetTable(L, 2, "znear", znear))
 				cam->SetZNear(znear);
 			else if (!lua_isnil(L, 2))
 			{
@@ -377,16 +378,16 @@ namespace Connection {
 		{
 			lua_newtable(L);
 
-			Utils::Lua::RegTable(L, "position", cam->GetPosition());
-			Utils::Lua::RegTable(L, "right", cam->GetRight());
-			Utils::Lua::RegTable(L, "front", cam->GetFront());
-			Utils::Lua::RegTable(L, "up", cam->GetUp());
-			Utils::Lua::RegTable(L, "aspect_ratio", cam->GetAspectRatio());
-			Utils::Lua::RegTable(L, "fov", cam->GetFOV());
-			Utils::Lua::RegTable(L, "pitch", cam->GetPitch());
-			Utils::Lua::RegTable(L, "yaw", cam->GetYaw());
-			Utils::Lua::RegTable(L, "zfar", cam->GetZFar());
-			Utils::Lua::RegTable(L, "znear", cam->GetZNear());
+			LuaUtils::RegTable(L, "position", cam->GetPosition());
+			LuaUtils::RegTable(L, "right", cam->GetRight());
+			LuaUtils::RegTable(L, "front", cam->GetFront());
+			LuaUtils::RegTable(L, "up", cam->GetUp());
+			LuaUtils::RegTable(L, "aspect_ratio", cam->GetAspectRatio());
+			LuaUtils::RegTable(L, "fov", cam->GetFOV());
+			LuaUtils::RegTable(L, "pitch", cam->GetPitch());
+			LuaUtils::RegTable(L, "yaw", cam->GetYaw());
+			LuaUtils::RegTable(L, "zfar", cam->GetZFar());
+			LuaUtils::RegTable(L, "znear", cam->GetZNear());
 		}
 
 		return 1;
@@ -415,10 +416,10 @@ namespace Connection {
 			auto mat = cam->GetViewMatrix();
 
 			lua_newtable(L);
-			Utils::Lua::RegTable(L, 1, mat[0]);
-			Utils::Lua::RegTable(L, 2, mat[1]);
-			Utils::Lua::RegTable(L, 3, mat[2]);
-			Utils::Lua::RegTable(L, 4, mat[3]);
+			LuaUtils::RegTable(L, 1, mat[0]);
+			LuaUtils::RegTable(L, 2, mat[1]);
+			LuaUtils::RegTable(L, 3, mat[2]);
+			LuaUtils::RegTable(L, 4, mat[3]);
 		}
 		else
 			lua_pushnil(L);
@@ -449,10 +450,10 @@ namespace Connection {
 			auto mat = cam->GetProjectionMatrix();
 
 			lua_newtable(L);
-			Utils::Lua::RegTable(L, 1, mat[0]);
-			Utils::Lua::RegTable(L, 2, mat[1]);
-			Utils::Lua::RegTable(L, 3, mat[2]);
-			Utils::Lua::RegTable(L, 4, mat[3]);
+			LuaUtils::RegTable(L, 1, mat[0]);
+			LuaUtils::RegTable(L, 2, mat[1]);
+			LuaUtils::RegTable(L, 3, mat[2]);
+			LuaUtils::RegTable(L, 4, mat[3]);
 		}
 		else
 			lua_pushnil(L);
@@ -485,4 +486,4 @@ namespace Connection {
 
 		return 1;
 	}
- }}}
+ }}}}

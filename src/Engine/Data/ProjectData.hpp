@@ -2,6 +2,7 @@
 #include <BoxEngine.hpp>
 
 namespace BoxEngine {
+namespace Engine {
 namespace Project {
 
 	/// <summary>
@@ -52,6 +53,6 @@ namespace Project {
 		/// <summary>
 		/// The project current framebuffer
 		/// </summary>
-		GPU::FramebufferWeakPtr current;
+		Modules::GPU::FramebufferWeakPtr current;
 	};
-}}
+}}}
