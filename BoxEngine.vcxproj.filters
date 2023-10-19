@@ -72,52 +72,52 @@
     <ClCompile Include="src\Engine\Project\Entities\ScriptData.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Project\Managers\Connections\Camera\Camera2DConnection.cpp">
+    <ClCompile Include="src\Engine\Project\Connections\Camera\Camera2DConnection.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Project\Managers\Connections\Camera\Camera3DConnection.cpp">
+    <ClCompile Include="src\Engine\Project\Connections\Camera\Camera3DConnection.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Project\Managers\Connections\Command\CommandConnection.cpp">
+    <ClCompile Include="src\Engine\Project\Connections\Command\CommandConnection.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Project\Managers\Connections\Directory\DirectoryConnection.cpp">
+    <ClCompile Include="src\Engine\Project\Connections\Directory\DirectoryConnection.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Project\Managers\Connections\Drawing\DrawingConnection.cpp">
+    <ClCompile Include="src\Engine\Project\Connections\Drawing\DrawingConnection.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Project\Managers\Connections\Framebuffer\FramebufferConnection.cpp">
+    <ClCompile Include="src\Engine\Project\Connections\Framebuffer\FramebufferConnection.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Project\Managers\Connections\Image\ImageConnection.cpp">
+    <ClCompile Include="src\Engine\Project\Connections\Image\ImageConnection.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Project\Managers\Connections\Input\InputConnection.cpp">
+    <ClCompile Include="src\Engine\Project\Connections\Input\InputConnection.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Project\Managers\Connections\Log\LogConnection.cpp">
+    <ClCompile Include="src\Engine\Project\Connections\Log\LogConnection.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Project\Managers\Connections\Scene\GoScriptConnection.cpp">
+    <ClCompile Include="src\Engine\Project\Connections\Scene\GoScriptConnection.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Project\Managers\Connections\Shader\ShaderConnection.cpp">
+    <ClCompile Include="src\Engine\Project\Connections\Shader\ShaderConnection.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Project\Managers\Connections\Texture\TextureConnection.cpp">
+    <ClCompile Include="src\Engine\Project\Connections\Texture\TextureConnection.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Project\Managers\Connections\Time\TimeConnection.cpp">
+    <ClCompile Include="src\Engine\Project\Connections\Time\TimeConnection.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Project\Managers\Connections\Engine\EngineConnection.cpp">
+    <ClCompile Include="src\Engine\Project\Connections\Engine\EngineConnection.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Project\Managers\Connections\Vertex\VertexConnection.cpp">
+    <ClCompile Include="src\Engine\Project\Connections\Vertex\VertexConnection.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Project\Managers\Connections\Window\WindowConnection.cpp">
+    <ClCompile Include="src\Engine\Project\Connections\Window\WindowConnection.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Project\Managers\ConnectionManager.cpp">
@@ -213,16 +213,31 @@
     <ClCompile Include="src\Modules\Audio\Audio.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Project\Managers\Connections\Audio\AudioConnection.cpp">
+    <ClCompile Include="src\Engine\Project\Connections\Audio\AudioConnection.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
     <ClCompile Include="src\Modules\Font\Font.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Project\Managers\Connections\Font\FontConnection.cpp">
+    <ClCompile Include="src\Engine\Project\Connections\Font\FontConnection.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Project\Managers\Connections\Math\MathConnection.cpp">
+    <ClCompile Include="src\Engine\Project\Connections\Math\MathConnection.cpp">
+      <Filter>Arquivos de Origem</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Modules\Importer\Importer.cpp">
+      <Filter>Arquivos de Origem</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Modules\Importer\Material.cpp">
+      <Filter>Arquivos de Origem</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Modules\Importer\Mesh.cpp">
+      <Filter>Arquivos de Origem</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Modules\Importer\Object.cpp">
+      <Filter>Arquivos de Origem</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Project\Connections\Importer\ImporterConnection.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
   </ItemGroup>
@@ -350,52 +365,52 @@
     <ClInclude Include="src\Engine\Project\Entities\ScriptData.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Project\Managers\Connections\Camera\Camera2DConnection.hpp">
+    <ClInclude Include="src\Engine\Project\Connections\Camera\Camera2DConnection.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Project\Managers\Connections\Camera\Camera3DConnection.hpp">
+    <ClInclude Include="src\Engine\Project\Connections\Camera\Camera3DConnection.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Project\Managers\Connections\Command\CommandConnection.hpp">
+    <ClInclude Include="src\Engine\Project\Connections\Command\CommandConnection.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Project\Managers\Connections\Directory\DirectoryConnection.hpp">
+    <ClInclude Include="src\Engine\Project\Connections\Directory\DirectoryConnection.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Project\Managers\Connections\Drawing\DrawingConnection.hpp">
+    <ClInclude Include="src\Engine\Project\Connections\Drawing\DrawingConnection.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Project\Managers\Connections\Framebuffer\FramebufferConnection.hpp">
+    <ClInclude Include="src\Engine\Project\Connections\Framebuffer\FramebufferConnection.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Project\Managers\Connections\Image\ImageConnection.hpp">
+    <ClInclude Include="src\Engine\Project\Connections\Image\ImageConnection.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Project\Managers\Connections\Input\InputConnection.hpp">
+    <ClInclude Include="src\Engine\Project\Connections\Input\InputConnection.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Project\Managers\Connections\Log\LogConnection.hpp">
+    <ClInclude Include="src\Engine\Project\Connections\Log\LogConnection.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Project\Managers\Connections\Scene\GoScriptConnection.hpp">
+    <ClInclude Include="src\Engine\Project\Connections\Scene\GoScriptConnection.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Project\Managers\Connections\Shader\ShaderConnection.hpp">
+    <ClInclude Include="src\Engine\Project\Connections\Shader\ShaderConnection.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Project\Managers\Connections\Texture\TextureConnection.hpp">
+    <ClInclude Include="src\Engine\Project\Connections\Texture\TextureConnection.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Project\Managers\Connections\Time\TimeConnection.hpp">
+    <ClInclude Include="src\Engine\Project\Connections\Time\TimeConnection.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Project\Managers\Connections\Engine\EngineConnection.hpp">
+    <ClInclude Include="src\Engine\Project\Connections\Engine\EngineConnection.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Project\Managers\Connections\Vertex\VertexConnection.hpp">
+    <ClInclude Include="src\Engine\Project\Connections\Vertex\VertexConnection.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Project\Managers\Connections\Window\WindowConnection.hpp">
+    <ClInclude Include="src\Engine\Project\Connections\Window\WindowConnection.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Project\Managers\ConnectionManager.hpp">
@@ -512,16 +527,31 @@
     <ClInclude Include="src\Modules\Audio\Audio.hpp">
       <Filter>Arquivos de Origem</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Project\Managers\Connections\Audio\AudioConnection.hpp">
+    <ClInclude Include="src\Engine\Project\Connections\Audio\AudioConnection.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
     <ClInclude Include="src\Modules\Font\Font.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Project\Managers\Connections\Font\FontConnection.hpp">
+    <ClInclude Include="src\Engine\Project\Connections\Font\FontConnection.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Project\Managers\Connections\Math\MathConnection.hpp">
+    <ClInclude Include="src\Engine\Project\Connections\Math\MathConnection.hpp">
+      <Filter>Arquivos de Cabeçalho</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Modules\Importer\Object.hpp">
+      <Filter>Arquivos de Cabeçalho</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Modules\Importer\Importer.hpp">
+      <Filter>Arquivos de Cabeçalho</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Modules\Importer\Material.hpp">
+      <Filter>Arquivos de Cabeçalho</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Modules\Importer\Mesh.hpp">
+      <Filter>Arquivos de Cabeçalho</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Project\Connections\Importer\ImporterConnection.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
   </ItemGroup>

@@ -38,6 +38,11 @@ extern "C"
 // IrrKlang sound
 #include <irrKlang.h>
 
+// Assimp
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+
 // C++ Headers
 #include <iostream>
 #include <string>
@@ -118,6 +123,11 @@ extern "C"
 #include <Modules/Audio/Audio.hpp>
 #include <Modules/Font/Font.hpp>
 
+#include <Modules/Importer/Material.hpp>
+#include <Modules/Importer/Mesh.hpp>
+#include <Modules/Importer/Object.hpp>
+#include <Modules/Importer/Importer.hpp>
+
 // Engine main files
 #include <Engine/Data/ProjectEnums.hpp>
 #include <Engine/Data/ProjectUtils.hpp>
@@ -132,25 +142,26 @@ extern "C"
 
 #include <Engine/LuaUtils/Lua.hpp>
 
-#include <Engine/Project/Managers/Connections/Window/WindowConnection.hpp>
-#include <Engine/Project/Managers/Connections/Drawing/DrawingConnection.hpp>
-#include <Engine/Project/Managers/Connections/Framebuffer/FramebufferConnection.hpp>
-#include <Engine/Project/Managers/Connections/Vertex/VertexConnection.hpp>
-#include <Engine/Project/Managers/Connections/Texture/TextureConnection.hpp>
-#include <Engine/Project/Managers/Connections/Shader/ShaderConnection.hpp>
-#include <Engine/Project/Managers/Connections/Command/CommandConnection.hpp>
-#include <Engine/Project/Managers/Connections/Image/ImageConnection.hpp>
-#include <Engine/Project/Managers/Connections/Directory/DirectoryConnection.hpp>
-#include <Engine/Project/Managers/Connections/Time/TimeConnection.hpp>
-#include <Engine/Project/Managers/Connections/Camera/Camera3DConnection.hpp>
-#include <Engine/Project/Managers/Connections/Camera/Camera2DConnection.hpp>
-#include <Engine/Project/Managers/Connections/Input/InputConnection.hpp>
-#include <Engine/Project/Managers/Connections/Log/LogConnection.hpp>
-#include <Engine/Project/Managers/Connections/Engine/EngineConnection.hpp>
-#include <Engine/Project/Managers/Connections/Scene/GoScriptConnection.hpp>
-#include <Engine/Project/Managers/Connections/Audio/AudioConnection.hpp>
-#include <Engine/Project/Managers/Connections/Font/FontConnection.hpp>
-#include <Engine/Project/Managers/Connections/Math/MathConnection.hpp>
+#include <Engine/Project/Connections/Window/WindowConnection.hpp>
+#include <Engine/Project/Connections/Drawing/DrawingConnection.hpp>
+#include <Engine/Project/Connections/Framebuffer/FramebufferConnection.hpp>
+#include <Engine/Project/Connections/Vertex/VertexConnection.hpp>
+#include <Engine/Project/Connections/Texture/TextureConnection.hpp>
+#include <Engine/Project/Connections/Shader/ShaderConnection.hpp>
+#include <Engine/Project/Connections/Command/CommandConnection.hpp>
+#include <Engine/Project/Connections/Image/ImageConnection.hpp>
+#include <Engine/Project/Connections/Directory/DirectoryConnection.hpp>
+#include <Engine/Project/Connections/Time/TimeConnection.hpp>
+#include <Engine/Project/Connections/Camera/Camera3DConnection.hpp>
+#include <Engine/Project/Connections/Camera/Camera2DConnection.hpp>
+#include <Engine/Project/Connections/Input/InputConnection.hpp>
+#include <Engine/Project/Connections/Log/LogConnection.hpp>
+#include <Engine/Project/Connections/Engine/EngineConnection.hpp>
+#include <Engine/Project/Connections/Scene/GoScriptConnection.hpp>
+#include <Engine/Project/Connections/Audio/AudioConnection.hpp>
+#include <Engine/Project/Connections/Font/FontConnection.hpp>
+#include <Engine/Project/Connections/Math/MathConnection.hpp>
+#include <Engine/Project/Connections/Importer/ImporterConnection.hpp>
 
 #include <Engine/Project/Managers/ConnectionManager.hpp>
 #include <Engine/Project/Managers/ScriptManager.hpp>

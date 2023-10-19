@@ -1,9 +1,6 @@
 #pragma once
 #include <BoxEngine.hpp>
 
-// import 3d models
-// gui support 
-
 namespace BoxEngine {
 namespace Engine {
 namespace Project {

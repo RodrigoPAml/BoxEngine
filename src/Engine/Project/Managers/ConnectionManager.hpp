@@ -53,6 +53,8 @@ namespace Project {
 		Connection::FontConnectionPtr font;
 		// Functions for math
 		Connection::MathConnectionPtr math;
+		// Functions for 3d objects
+		Connection::ImporterConnectionPtr importer;
 
 		lua_State* state = nullptr;
 	public:

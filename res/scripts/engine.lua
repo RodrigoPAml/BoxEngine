@@ -102,6 +102,8 @@ engine = {}
 window = {}
 audio = {}
 font = {}
+math = {}
+importer = {}
 
 function go.current()
 	return _go_.current()
@@ -841,4 +843,8 @@ end
 
 function math.scale_mat4(mat4, vec3) 
 	return _math_.scale_mat4(mat4, vec3) 
+end
+
+function importer.open(path) 
+	return importer._open_(path) 
 end

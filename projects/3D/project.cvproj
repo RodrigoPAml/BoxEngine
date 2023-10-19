@@ -1,0 +1,34 @@
+{
+  "debug": {
+    "autoLogGLFWErrors": true,
+    "autoLogOpenGLErrors": false,
+    "enableGlfwDebugging": true,
+    "enableOpenGLDebugging": true,
+    "openglSeverities": [
+      33387,
+      37190,
+      37191,
+      37192
+    ]
+  },
+  "logging": {
+    "logCallback": true,
+    "logConsole": false,
+    "logFile": false
+  },
+  "project_name": "3D",
+  "scene": [
+    {
+      "active": true,
+      "childrens": [],
+      "id": "963c63a3-b",
+      "name": "teste",
+      "scripts": [
+        {
+          "data": [],
+          "name": "teste"
+        }
+      ]
+    }
+  ]
+}

@@ -1800,7 +1800,7 @@ function math.make_identity_mat4()
 Return a traslated mat4 matrix
 
 ```lua
-math.translate_mat4(mat4, vec3) 
+function math.translate_mat4(mat4, vec3) 
 ```
 
 ## Rotate mat4
@@ -1808,7 +1808,7 @@ math.translate_mat4(mat4, vec3)
 Return a rotated mat4 matrix
 
 ```lua
-math.rotate_mat4(mat4, vec3, angle) 
+function math.rotate_mat4(mat4, vec3, angle) 
 ```
 
 ## Scale Mat4
@@ -1816,7 +1816,17 @@ math.rotate_mat4(mat4, vec3, angle)
 Return a scaled mat4 matrix
 
 ```lua
-return _math_.scale_mat4(mat4, vec3) 
+function math.scale_mat4(mat4, vec3) 
+```
+
+# Importer Module
+
+## Open 3D Model
+
+Open any 3d model and return the id
+
+```lua
+function importer.open(path = string) 
 ```
 
 # Enums

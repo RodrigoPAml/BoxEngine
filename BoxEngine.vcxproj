@@ -118,7 +118,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)lib\glfw\include;$(SolutionDir)lib\glm;$(SolutionDir)lib\stb_image;$(SolutionDir)lib\glad\include;$(SolutionDir)src;$(SolutionDir)lib\implot;$(SolutionDir)lib\imgui;$(SolutionDir)lib\json_nlohmann;$(SolutionDir)lib\lua_jit\src;$(SolutionDir)lib\irrKlang-64bit-1.6.0\include;$(SolutionDir)lib\freetype-windows-binaries-2.13.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)lib\glfw\include;$(SolutionDir)lib\glm;$(SolutionDir)lib\stb_image;$(SolutionDir)lib\glad\include;$(SolutionDir)src;$(SolutionDir)lib\implot;$(SolutionDir)lib\imgui;$(SolutionDir)lib\json_nlohmann;$(SolutionDir)lib\lua_jit\src;$(SolutionDir)lib\irrKlang-64bit-1.6.0\include;$(SolutionDir)lib\freetype-windows-binaries-2.13.1\include;$(SolutionDir)lib\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <PrecompiledHeader>Create</PrecompiledHeader>
       <PrecompiledHeaderFile>BoxEngine.hpp</PrecompiledHeaderFile>
@@ -176,7 +176,9 @@
     <ClCompile Include="src\Editor\Layouts\Inspector\Inspector.cpp" />
     <ClCompile Include="src\Editor\Layouts\TopBar\TopBar.cpp" />
     <ClCompile Include="src\Editor\ProjectManager\ProjectManager.cpp" />
+    <ClCompile Include="src\Engine\Project\Connections\Importer\ImporterConnection.cpp" />
     <ClCompile Include="src\Modules\Audio\Audio.cpp" />
+    <ClInclude Include="src\Engine\Project\Connections\Importer\ImporterConnection.hpp" />
     <ClInclude Include="src\Modules\Audio\Audio.hpp" />
     <ClCompile Include="src\Modules\Camera\Camera2D.cpp" />
     <ClCompile Include="src\Modules\Camera\Camera3D.cpp" />
@@ -191,6 +193,10 @@
     <ClCompile Include="src\Modules\GPU\Shader.cpp" />
     <ClCompile Include="src\Modules\GPU\Texture.cpp" />
     <ClCompile Include="src\Modules\GPU\Vertex.cpp" />
+    <ClCompile Include="src\Modules\Importer\Importer.cpp" />
+    <ClCompile Include="src\Modules\Importer\Material.cpp" />
+    <ClCompile Include="src\Modules\Importer\Mesh.cpp" />
+    <ClCompile Include="src\Modules\Importer\Object.cpp" />
     <ClCompile Include="src\Modules\Input\Keyboard.cpp" />
     <ClCompile Include="src\Modules\Input\Mouse.cpp" />
     <ClCompile Include="src\Engine\Project\Entities\GameObject.cpp" />
@@ -198,25 +204,25 @@
     <ClCompile Include="src\Engine\Project\Entities\Script.cpp" />
     <ClCompile Include="src\Engine\Project\Entities\ScriptData.cpp" />
     <ClCompile Include="src\Engine\Project\Managers\ConnectionManager.cpp" />
-    <ClCompile Include="src\Engine\Project\Managers\Connections\Audio\AudioConnection.cpp" />
-    <ClCompile Include="src\Engine\Project\Managers\Connections\Camera\Camera2DConnection.cpp" />
-    <ClCompile Include="src\Engine\Project\Managers\Connections\Camera\Camera3DConnection.cpp" />
-    <ClCompile Include="src\Engine\Project\Managers\Connections\Command\CommandConnection.cpp" />
-    <ClCompile Include="src\Engine\Project\Managers\Connections\Directory\DirectoryConnection.cpp" />
-    <ClCompile Include="src\Engine\Project\Managers\Connections\Drawing\DrawingConnection.cpp" />
-    <ClCompile Include="src\Engine\Project\Managers\Connections\Font\FontConnection.cpp" />
-    <ClCompile Include="src\Engine\Project\Managers\Connections\Framebuffer\FramebufferConnection.cpp" />
-    <ClCompile Include="src\Engine\Project\Managers\Connections\Image\ImageConnection.cpp" />
-    <ClCompile Include="src\Engine\Project\Managers\Connections\Input\InputConnection.cpp" />
-    <ClCompile Include="src\Engine\Project\Managers\Connections\Log\LogConnection.cpp" />
-    <ClCompile Include="src\Engine\Project\Managers\Connections\Math\MathConnection.cpp" />
-    <ClCompile Include="src\Engine\Project\Managers\Connections\Scene\GoScriptConnection.cpp" />
-    <ClCompile Include="src\Engine\Project\Managers\Connections\Shader\ShaderConnection.cpp" />
-    <ClCompile Include="src\Engine\Project\Managers\Connections\Texture\TextureConnection.cpp" />
-    <ClCompile Include="src\Engine\Project\Managers\Connections\Time\TimeConnection.cpp" />
-    <ClCompile Include="src\Engine\Project\Managers\Connections\Engine\EngineConnection.cpp" />
-    <ClCompile Include="src\Engine\Project\Managers\Connections\Vertex\VertexConnection.cpp" />
-    <ClCompile Include="src\Engine\Project\Managers\Connections\Window\WindowConnection.cpp" />
+    <ClCompile Include="src\Engine\Project\Connections\Audio\AudioConnection.cpp" />
+    <ClCompile Include="src\Engine\Project\Connections\Camera\Camera2DConnection.cpp" />
+    <ClCompile Include="src\Engine\Project\Connections\Camera\Camera3DConnection.cpp" />
+    <ClCompile Include="src\Engine\Project\Connections\Command\CommandConnection.cpp" />
+    <ClCompile Include="src\Engine\Project\Connections\Directory\DirectoryConnection.cpp" />
+    <ClCompile Include="src\Engine\Project\Connections\Drawing\DrawingConnection.cpp" />
+    <ClCompile Include="src\Engine\Project\Connections\Font\FontConnection.cpp" />
+    <ClCompile Include="src\Engine\Project\Connections\Framebuffer\FramebufferConnection.cpp" />
+    <ClCompile Include="src\Engine\Project\Connections\Image\ImageConnection.cpp" />
+    <ClCompile Include="src\Engine\Project\Connections\Input\InputConnection.cpp" />
+    <ClCompile Include="src\Engine\Project\Connections\Log\LogConnection.cpp" />
+    <ClCompile Include="src\Engine\Project\Connections\Math\MathConnection.cpp" />
+    <ClCompile Include="src\Engine\Project\Connections\Scene\GoScriptConnection.cpp" />
+    <ClCompile Include="src\Engine\Project\Connections\Shader\ShaderConnection.cpp" />
+    <ClCompile Include="src\Engine\Project\Connections\Texture\TextureConnection.cpp" />
+    <ClCompile Include="src\Engine\Project\Connections\Time\TimeConnection.cpp" />
+    <ClCompile Include="src\Engine\Project\Connections\Engine\EngineConnection.cpp" />
+    <ClCompile Include="src\Engine\Project\Connections\Vertex\VertexConnection.cpp" />
+    <ClCompile Include="src\Engine\Project\Connections\Window\WindowConnection.cpp" />
     <ClCompile Include="src\Engine\Project\Managers\GoManager.cpp" />
     <ClCompile Include="src\Engine\Project\Managers\ScriptManager.cpp" />
     <ClCompile Include="src\Engine\Project\Project.cpp" />
@@ -290,6 +296,10 @@
     <ClInclude Include="src\Modules\GPU\Shader.hpp" />
     <ClInclude Include="src\Modules\GPU\Texture.hpp" />
     <ClInclude Include="src\Modules\GPU\Vertex.hpp" />
+    <ClInclude Include="src\Modules\Importer\Importer.hpp" />
+    <ClInclude Include="src\Modules\Importer\Material.hpp" />
+    <ClInclude Include="src\Modules\Importer\Mesh.hpp" />
+    <ClInclude Include="src\Modules\Importer\Object.hpp" />
     <ClInclude Include="src\Modules\Input\Keyboard.hpp" />
     <ClInclude Include="src\Modules\Input\Mouse.hpp" />
     <ClInclude Include="src\Engine\Project\Entities\GameObject.hpp" />
@@ -297,25 +307,25 @@
     <ClInclude Include="src\Engine\Project\Entities\Script.hpp" />
     <ClInclude Include="src\Engine\Project\Entities\ScriptData.hpp" />
     <ClInclude Include="src\Engine\Project\Managers\ConnectionManager.hpp" />
-    <ClInclude Include="src\Engine\Project\Managers\Connections\Audio\AudioConnection.hpp" />
-    <ClInclude Include="src\Engine\Project\Managers\Connections\Camera\Camera2DConnection.hpp" />
-    <ClInclude Include="src\Engine\Project\Managers\Connections\Camera\Camera3DConnection.hpp" />
-    <ClInclude Include="src\Engine\Project\Managers\Connections\Command\CommandConnection.hpp" />
-    <ClInclude Include="src\Engine\Project\Managers\Connections\Directory\DirectoryConnection.hpp" />
-    <ClInclude Include="src\Engine\Project\Managers\Connections\Drawing\DrawingConnection.hpp" />
-    <ClInclude Include="src\Engine\Project\Managers\Connections\Font\FontConnection.hpp" />
-    <ClInclude Include="src\Engine\Project\Managers\Connections\Framebuffer\FramebufferConnection.hpp" />
-    <ClInclude Include="src\Engine\Project\Managers\Connections\Image\ImageConnection.hpp" />
-    <ClInclude Include="src\Engine\Project\Managers\Connections\Input\InputConnection.hpp" />
-    <ClInclude Include="src\Engine\Project\Managers\Connections\Log\LogConnection.hpp" />
-    <ClInclude Include="src\Engine\Project\Managers\Connections\Math\MathConnection.hpp" />
-    <ClInclude Include="src\Engine\Project\Managers\Connections\Scene\GoScriptConnection.hpp" />
-    <ClInclude Include="src\Engine\Project\Managers\Connections\Shader\ShaderConnection.hpp" />
-    <ClInclude Include="src\Engine\Project\Managers\Connections\Texture\TextureConnection.hpp" />
-    <ClInclude Include="src\Engine\Project\Managers\Connections\Time\TimeConnection.hpp" />
-    <ClInclude Include="src\Engine\Project\Managers\Connections\Engine\EngineConnection.hpp" />
-    <ClInclude Include="src\Engine\Project\Managers\Connections\Vertex\VertexConnection.hpp" />
-    <ClInclude Include="src\Engine\Project\Managers\Connections\Window\WindowConnection.hpp" />
+    <ClInclude Include="src\Engine\Project\Connections\Audio\AudioConnection.hpp" />
+    <ClInclude Include="src\Engine\Project\Connections\Camera\Camera2DConnection.hpp" />
+    <ClInclude Include="src\Engine\Project\Connections\Camera\Camera3DConnection.hpp" />
+    <ClInclude Include="src\Engine\Project\Connections\Command\CommandConnection.hpp" />
+    <ClInclude Include="src\Engine\Project\Connections\Directory\DirectoryConnection.hpp" />
+    <ClInclude Include="src\Engine\Project\Connections\Drawing\DrawingConnection.hpp" />
+    <ClInclude Include="src\Engine\Project\Connections\Font\FontConnection.hpp" />
+    <ClInclude Include="src\Engine\Project\Connections\Framebuffer\FramebufferConnection.hpp" />
+    <ClInclude Include="src\Engine\Project\Connections\Image\ImageConnection.hpp" />
+    <ClInclude Include="src\Engine\Project\Connections\Input\InputConnection.hpp" />
+    <ClInclude Include="src\Engine\Project\Connections\Log\LogConnection.hpp" />
+    <ClInclude Include="src\Engine\Project\Connections\Math\MathConnection.hpp" />
+    <ClInclude Include="src\Engine\Project\Connections\Scene\GoScriptConnection.hpp" />
+    <ClInclude Include="src\Engine\Project\Connections\Shader\ShaderConnection.hpp" />
+    <ClInclude Include="src\Engine\Project\Connections\Texture\TextureConnection.hpp" />
+    <ClInclude Include="src\Engine\Project\Connections\Time\TimeConnection.hpp" />
+    <ClInclude Include="src\Engine\Project\Connections\Engine\EngineConnection.hpp" />
+    <ClInclude Include="src\Engine\Project\Connections\Vertex\VertexConnection.hpp" />
+    <ClInclude Include="src\Engine\Project\Connections\Window\WindowConnection.hpp" />
     <ClInclude Include="src\Engine\Project\Managers\GoManager.hpp" />
     <ClInclude Include="src\Engine\Project\Managers\ScriptManager.hpp" />
     <ClInclude Include="src\Engine\Project\Project.hpp" />
