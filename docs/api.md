@@ -101,7 +101,10 @@ Argument table format
 ```
 
 ## Create Copy Go
+
 Create a copy from gameobject
+
+If you don't need to assign a father just leave empty
 
 Returns the id of new go in case of success
 ```lua
