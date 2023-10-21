@@ -184,7 +184,7 @@ The displacement argument changes the index based on the current index
 function go.change_index(goId = string, displacement = number) end
 ```
 
-## Change Go Index
+## Load scripts immediately
 Load scripts into memory in case you need to access it immediately
 
 Normally the script of a go is loaded only in the next frame and
