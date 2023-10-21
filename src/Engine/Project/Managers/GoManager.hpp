@@ -40,6 +40,7 @@ namespace Project {
 		void ChangeGoFather(const std::string& id, const std::string& fatherId);
 		void ChangeGoPosition(const std::string& id, int displacement);
 		void ChangeScriptPosition(const std::string& id, const std::string& scriptName, int displacement);
+		void ChangeScriptPositionByIndex(const std::string& id, const std::string& scriptName, int index);
 
 		// Remove go references in every thing
 		void RemoveGameObjectReferences(GameObjectPtr go);

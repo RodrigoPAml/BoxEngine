@@ -109,6 +109,7 @@ namespace Project {
 		bool AddScript(const std::string& goId, const std::string& scriptName);
 		bool DestroyScript(const std::string& goId, const std::string& scriptName);
 		void ChangeScriptPosition(const std::string& goId, const std::string& scriptName, int displacement);
+		void ChangeScriptPositionByIndex(const std::string& goId, const std::string& scriptName, int index);
 		bool PreLoadScripts(const std::string& goId);
 
 		// Get gos root

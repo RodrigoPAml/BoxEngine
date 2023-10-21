@@ -102,6 +102,7 @@ engine = {}
 window = {}
 audio = {}
 font = {}
+importer = {}
 
 function go.current()
 	return _go_.current()
@@ -155,8 +156,12 @@ function script.remove(goId, scriptName)
 	return _script_.remove(goId, scriptName)
 end
 
-function script.change_index(goId, scriptName, displacement)
-	return _script_.change_index(goId, scriptName, displacement)
+function script.change_index(goId, scriptName, index)
+	return _script_.change_index(goId, scriptName, index)
+end
+
+function script.displace_index(goId, scriptName, displacement)
+	return _script_.displace_index(goId, scriptName, displacement)
 end
 
 function cam2d.create(object)
@@ -841,4 +846,8 @@ end
 
 function math.scale_mat4(mat4, vec3) 
 	return _math_.scale_mat4(mat4, vec3) 
+end
+
+function importer.open(path) 
+	return importer._open_(path) 
 end

@@ -53,5 +53,6 @@ namespace Connection {
 		static int AddScript(lua_State* L); 
 		static int RemoveScript(lua_State* L);
 		static int ChangeScriptIndex(lua_State* L);
+		static int DisplaceScript(lua_State* L);
 	};
 }}}}

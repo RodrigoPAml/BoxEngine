@@ -431,6 +431,14 @@ namespace Project {
         this->goManager->ChangeScriptPosition(goId, scriptName, displacement);
     }
 
+    void Project::ChangeScriptPositionByIndex(const std::string& goId, const std::string& scriptName, int index)
+    {
+        if (this->state == ProjectState::Idle)
+            this->isModified = true;
+
+        this->goManager->ChangeScriptPositionByIndex(goId, scriptName, index);
+    }
+
     bool Project::PreLoadScripts(const std::string& goId)
     {
         auto go = this->goManager->GetGameObject(goId);

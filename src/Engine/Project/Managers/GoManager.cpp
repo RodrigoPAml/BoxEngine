@@ -242,6 +242,44 @@ namespace Project {
         }
     }
 
+    void GoManager::ChangeScriptPositionByIndex(const std::string& id, const std::string& scriptName, int index)
+    {
+        if (this->gosMap.contains(id))
+        {
+            GameObjectPtr go = this->gosMap[id];
+
+            if (go->IsToDestroy())
+            {
+                Debug::Logging::Log("[Project]: Can't change go script position with id " + id + " because it's destroyed.", Debug::LogSeverity::Warning, Debug::LogOrigin::Engine, { {"go_id", id} });
+                return;
+            }
+
+            int scriptIndex = 0;
+            bool finded = false;
+            for (auto item : go->GetScripts())
+            {
+                if (item->GetName() == scriptName)
+                {
+                    finded = true;
+                    break;
+                }
+                scriptIndex++;
+            }
+
+            auto& arr = go->GetScripts();
+
+            if (arr.size() <= 1 || !finded)
+                return;
+
+            if (index < 0 || index > arr.size() - 1)
+                return;
+
+            auto old = arr[index]; // save the script in the target position
+            arr[index] = arr[scriptIndex]; // set my script
+            arr[scriptIndex] = old; // set the older one back
+        }
+    }
+
     void GoManager::RemoveGameObjectReferences(GameObjectPtr go)
     {
         RemoveGameObjectReferences(go->GetId());

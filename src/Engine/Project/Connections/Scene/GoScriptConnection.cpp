@@ -38,7 +38,8 @@ namespace Connection {
 		LuaUtils::RegTable(this->state, "get", GetScript);
 		LuaUtils::RegTable(this->state, "add", AddScript);
 		LuaUtils::RegTable(this->state, "remove", RemoveScript);
-		LuaUtils::RegTable(this->state, "change_index", RemoveScript);
+		LuaUtils::RegTable(this->state, "change_index", ChangeScriptIndex);
+		LuaUtils::RegTable(this->state, "displace_index", DisplaceScript);
 
 		lua_setglobal(this->state, "_script_");
 	}
@@ -475,6 +476,34 @@ namespace Connection {
 	}
 
 	int GoScriptConnection::ChangeScriptIndex(lua_State* L)
+	{
+		auto top = lua_gettop(L);
+
+		if (top != 3)
+			return luaL_error(L, "expecting 2 arguments in function call");
+
+		std::string goId = "";
+		std::string scriptName = "";
+		int newIndex = 0;
+
+		if (lua_isstring(L, 1))
+			scriptName = lua_tostring(L, 1);
+		else return luaL_error(L, "argument 1 is expected to be a string");
+
+		if (lua_isstring(L, 2))
+			scriptName = lua_tostring(L, 2);
+		else return luaL_error(L, "argument 2 is expected to be a string");
+
+		if (lua_isnumber(L, 3))
+			newIndex = lua_tonumber(L, 3);
+		else return luaL_error(L, "argument 3 is expected to be a number");
+
+		Project::GetCurrentProject()->ChangeScriptPositionByIndex(goId, scriptName, newIndex);
+
+		return 0;
+	}
+
+	int GoScriptConnection::DisplaceScript(lua_State* L)
 	{
 		auto top = lua_gettop(L);
 
