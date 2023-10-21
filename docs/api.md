@@ -346,7 +346,6 @@ Get the current 2D camera id
 
 Return the camera id or nil
 
-Return a bool indicating success
 ```lua
 function cam2d.get_current() end
 ```
