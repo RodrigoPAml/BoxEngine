@@ -233,12 +233,19 @@ function script.remove(goId = number, scriptName = string) end
 ```
 
 ## Change Script Index
+Change the script index 
+
+```lua
+function script.change_index(goId = string, scriptName = string, index = number) end
+```
+
+## Displace script index
 Change the script index in relation to his brothers
 
 The displacement argument changes the index based on the current index
 
 ```lua
-function script.change_index(goId = string, scriptName = string, displacement = number) end
+function script.displace_index(goId = string, scriptName = string, displacement = number) end
 ```
 
 # Camera 2D Module
