@@ -187,8 +187,8 @@ function go.change_index(goId = string, displacement = number) end
 ## Load scripts immediately
 Load scripts into memory in case you need to access it immediately
 
-Normally the script of a go is loaded/start only in the next frame, if needed this behaviour 
-can be changed with this. With this the script will be loaded and started in the next frame.
+Normally the script of a go is loaded in the next frame and then started only in the next frame, if needed this behavior 
+can be changed with this. With this the script will be loaded now and started in the next frame.
 
 If fail this will trigger an internal error
 
