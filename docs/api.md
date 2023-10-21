@@ -404,9 +404,8 @@ The argument table format
 ## Get 3D Camera
 Get a 3D camera and return a table, if not find it return nil
 
-Recieve the camera id and a table with update info
 ```lua
-function cam3d.get(id = number, object = table) end
+function cam3d.get(id = number) end
 ```
 
 The returned table format
