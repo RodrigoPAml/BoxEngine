@@ -1343,6 +1343,23 @@ The argument table format
 }
 ```
 
+## Get Texture Info
+Receive the id and return info or nil if not finded
+
+```lua
+function texture.get_info(id = number) end
+```
+
+The returned table format
+```lua
+{
+    gl_id = number, -- opengl id
+    multisampled = bool, -- if the texture is multisampled
+    samples = number, -- number of samples if texture is multisampled
+    size = vec2, -- texture size in pixels
+}
+```
+
 ## Destroy Texture
 Destroy a texture, receive the id
 
@@ -1540,6 +1557,20 @@ Destroy a vertex data, receive the id
 Return bool indicating success
 ```lua
 function vertex.destroy(id = number) end
+```
+
+## Get Vertex Info
+Receive the id and return info or nil if not finded
+
+```lua
+function vertex.get_info(id = number) end
+```
+
+The returned table format
+```lua
+{
+    gl_id = number, -- open gl id (vao)
+}
 ```
 
 ## Activate Vertex Data
@@ -1834,6 +1865,14 @@ Open any 3d model and return the id
 
 ```lua
 function importer.open(path = string) 
+```
+
+## Destroy 3D Model
+
+Destroy 3d model by recieving it's id
+
+```lua
+function importer.destroy(id = number) 
 ```
 
 # Enums
