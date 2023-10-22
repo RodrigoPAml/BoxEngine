@@ -47,5 +47,10 @@ namespace Connection {
 		static void Set(ImporterConnectionPtr instance);
 	private:
 		static int Open(lua_State* L);
+		static int Close(lua_State* L);
+
+		static int GetObject(lua_State* L);
+		static int GetMeshes(lua_State* L);
+		static int GetMaterials(lua_State* L);
 	};
 }}}}

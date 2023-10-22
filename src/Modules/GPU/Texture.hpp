@@ -61,10 +61,10 @@ namespace GPU {
 		bool IsMultiSampled() const;
 
 		/// <summary>
-		/// If the texture is multi sampled
+		/// If the texture is multi sampled this is the number of samples
 		/// </summary>
 		/// <returns></returns>
-		bool GetNumberOfSamples() const;
+		int GetNumberOfSamples() const;
 
 		/// <summary>
 		/// Returnt texture size

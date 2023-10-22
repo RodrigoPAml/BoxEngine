@@ -53,6 +53,8 @@ namespace Connection {
 		static int CreateEmptyTexture(lua_State* L);
 		static int CreateMultiSampledTexture(lua_State* L);
 		static int CreateTexture(lua_State* L);
+	
+		static int GetInfo(lua_State* L);
 
 		static int DestroyTexture(lua_State* L);
 

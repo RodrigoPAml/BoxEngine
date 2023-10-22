@@ -20,6 +20,8 @@ namespace Connection {
 		LuaUtils::RegTable(this->state, "create", CreateVertex);
 		LuaUtils::RegTable(this->state, "destroy", DestroyVertex);
 
+		LuaUtils::RegTable(this->state, "get_info", GetInfo);
+
 		LuaUtils::RegTable(this->state, "activate", Active);
 		LuaUtils::RegTable(this->state, "modify", Modify);
 		LuaUtils::RegTable(this->state, "draw", Draw);
@@ -58,7 +60,7 @@ namespace Connection {
 	{
 		current = instance;
 	}
-	
+
 	int VertexConnection::CreateVertex(lua_State* L)
 	{
 		auto top = lua_gettop(L);
@@ -244,6 +246,33 @@ namespace Connection {
 			lua_pushboolean(L, instance->vertices.erase(lua_tonumber(L, 1)) > 0);
 		}
 		else return luaL_error(L, "argument 1 is expected to be a number");
+
+		return 1;
+	}
+
+	int VertexConnection::GetInfo(lua_State* L)
+	{
+		auto top = lua_gettop(L);
+
+		if (top != 1)
+			return luaL_error(L, "expecting 1 argument in function call");
+
+		long id = 0;
+		if (lua_isnumber(L, 1))
+			id = lua_tonumber(L, 1);
+		else return luaL_error(L, "argument 1 is expected to be number");
+
+		auto instance = VertexConnection::Get();
+		GPU::VertexPtr vertex = instance->vertices.contains(id) ? instance->vertices[id] : nullptr;
+
+		if (vertex == nullptr)
+			lua_pushnil(L);
+		else
+		{
+			// Table for the info
+			lua_newtable(L);
+			LuaUtils::RegTable(L, "gl_id", (int)vertex->GetId());
+		}
 
 		return 1;
 	}

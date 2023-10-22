@@ -22,8 +22,7 @@ namespace Importer {
         );
 
         ObjectPtr object = ObjectPtr(new Object());
-
-        object->basePath = Utils::Directory::RemovePartsFromPath(path, 1);
+        object->basePath = path;
 
         if(scene == nullptr || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
             return nullptr;
@@ -114,7 +113,7 @@ namespace Importer {
         m->materialIndex = mesh->mMaterialIndex;
         m->name = mesh->mName.C_Str();
         m->mesh = vertex;
-
+        
         object->meshes.push_back(m);
     }
 

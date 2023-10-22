@@ -11,6 +11,10 @@ namespace Importer {
     public:
         std::string basePath;
 
+        glm::vec3 position;
+        glm::vec3 scale;
+        glm::vec3 rotation;
+
         std::vector<MeshPtr> meshes;
         std::vector<MaterialPtr> materials;
     };

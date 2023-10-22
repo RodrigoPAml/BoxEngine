@@ -160,6 +160,11 @@ namespace GPU {
 		glBindVertexArray(this->vao);
 	}
 
+	int Vertex::GetId() const
+	{
+		return this->vao;
+	}
+
 	void Vertex::Draw(const DrawingType& drawingType) const
 	{
 		if (this->vao == 0)

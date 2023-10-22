@@ -53,6 +53,12 @@ namespace GPU {
 		void Use() const;
 
 		/// <summary>
+		/// Return vao id
+		/// </summary>
+		/// <returns></returns>
+		int GetId() const;
+
+		/// <summary>
 		/// Draw current Vao.
 		/// </summary>
 		void Draw(const DrawingType& drawingType) const;

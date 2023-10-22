@@ -21,6 +21,8 @@ namespace Connection {
 		LuaUtils::RegTable(this->state, "create_empty", CreateEmptyTexture);
 		LuaUtils::RegTable(this->state, "create_multi_sampled", CreateMultiSampledTexture);
 
+		LuaUtils::RegTable(this->state, "get_info", GetInfo);
+
 		LuaUtils::RegTable(this->state, "destroy", DestroyTexture);
 
 		LuaUtils::RegTable(this->state, "active", Active);
@@ -249,6 +251,35 @@ namespace Connection {
 		else return luaL_error(L, "argument 1 is expected to be a table");
 		
 		lua_pushnil(L);
+		return 1;
+	}
+
+	int TextureConnection::GetInfo(lua_State* L)
+	{
+		auto top = lua_gettop(L);
+
+		if (top != 1)
+			return luaL_error(L, "expecting 1 argument in function call");
+
+		long id = 0;
+		if (lua_isnumber(L, 1))
+			id = lua_tonumber(L, 1);
+		else return luaL_error(L, "argument 1 is expected to be number");
+
+		auto instance = TextureConnection::Get();
+		GPU::TexturePtr texture = instance->textures.contains(id) ? instance->textures[id] : nullptr;
+
+		if (texture == nullptr)
+			lua_pushnil(L);
+		else
+		{
+			// Table for the info
+			lua_newtable(L);
+			LuaUtils::RegTable(L, "gl_id", (int)texture->GetId());
+			LuaUtils::RegTable(L, "mesh_count", texture->GetNumberOfSamples());
+			LuaUtils::RegTable(L, "material_count", texture->GetSize());
+		} 
+
 		return 1;
 	}
 

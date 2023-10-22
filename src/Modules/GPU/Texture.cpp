@@ -199,7 +199,7 @@ namespace GPU {
 		return this->internalType == GL_TEXTURE_2D_MULTISAMPLE;
 	}
 
-	bool Texture::GetNumberOfSamples() const
+	int Texture::GetNumberOfSamples() const
 	{
 		return this->samples;
 	}

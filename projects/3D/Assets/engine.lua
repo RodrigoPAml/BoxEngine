@@ -204,8 +204,8 @@ function cam3d.update(id, object)
 	return _cam3d_.update(id, object)
 end
 
-function cam3d.get(id, object)
-	return _cam3d_.get(id, object)
+function cam3d.get(id)
+	return _cam3d_.get(id)
 end
 
 function cam3d.translate(id, object)
@@ -520,6 +520,10 @@ function texture.create(table)
 	return _texture_.create(table)
 end
 
+function texture.get_info(id)
+	return _texture_.get_info(id)
+end
+
 function texture.destroy(id)
 	return _texture_.destroy(id)
 end
@@ -578,6 +582,10 @@ end
 
 function vertex.create(vertexData, indexData)
 	return _vertex_.create(vertexData, indexData)
+end
+
+function vertex.get_info(id)
+	return _vertex_.get_info(id)
 end
 
 function vertex.destroy(id)
@@ -849,5 +857,21 @@ function math.scale_mat4(mat4, vec3)
 end
 
 function importer.open(path) 
-	return importer._open_(path) 
+	return _importer_.open(path) 
+end
+
+function importer.destroy(id) 
+	return _importer_.destroy(id) 
+end
+
+function importer.get_obj_info(id) 
+	return _importer_.get_obj_info(id) 
+end
+
+function importer.get_meshes(id) 
+	return _importer_.get_meshes(id) 
+end
+
+function importer.get_materials(id) 
+	return _importer_.get_materials(id) 
 end

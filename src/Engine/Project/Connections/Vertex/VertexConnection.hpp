@@ -51,6 +51,8 @@ namespace Connection {
 		static int CreateVertex(lua_State* L);
 		static int DestroyVertex(lua_State* L);
 	
+		static int GetInfo(lua_State* L);
+
 		static int Active(lua_State* L);
 		static int Draw(lua_State* L);
 		static int Modify(lua_State* L);

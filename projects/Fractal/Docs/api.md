@@ -101,7 +101,10 @@ Argument table format
 ```
 
 ## Create Copy Go
+
 Create a copy from gameobject
+
+If you don't need to assign a father just leave empty
 
 Returns the id of new go in case of success
 ```lua
@@ -181,12 +184,11 @@ The displacement argument changes the index based on the current index
 function go.change_index(goId = string, displacement = number) end
 ```
 
-## Change Go Index
+## Load scripts immediately
 Load scripts into memory in case you need to access it immediately
 
-Normally the script of a go is loaded only in the next frame and
-started in the next frame after being loaded, if needed this behaviour 
-can be changed with this
+Normally the script of a go is loaded in the next frame and then started only in the next frame, if needed this behavior 
+can be changed with this. With this the script will be loaded now and started in the next frame.
 
 If fail this will trigger an internal error
 
@@ -231,12 +233,19 @@ function script.remove(goId = number, scriptName = string) end
 ```
 
 ## Change Script Index
+Change the script index 
+
+```lua
+function script.change_index(goId = string, scriptName = string, index = number) end
+```
+
+## Displace script index
 Change the script index in relation to his brothers
 
 The displacement argument changes the index based on the current index
 
 ```lua
-function script.change_index(goId = string, scriptName = string, displacement = number) end
+function script.displace_index(goId = string, scriptName = string, displacement = number) end
 ```
 
 # Camera 2D Module
@@ -337,7 +346,6 @@ Get the current 2D camera id
 
 Return the camera id or nil
 
-Return a bool indicating success
 ```lua
 function cam2d.get_current() end
 ```
@@ -396,9 +404,8 @@ The argument table format
 ## Get 3D Camera
 Get a 3D camera and return a table, if not find it return nil
 
-Recieve the camera id and a table with update info
 ```lua
-function cam3d.get(id = number, object = table) end
+function cam3d.get(id = number) end
 ```
 
 The returned table format
@@ -1800,7 +1807,7 @@ function math.make_identity_mat4()
 Return a traslated mat4 matrix
 
 ```lua
-math.translate_mat4(mat4, vec3) 
+function math.translate_mat4(mat4, vec3) 
 ```
 
 ## Rotate mat4
@@ -1808,7 +1815,7 @@ math.translate_mat4(mat4, vec3)
 Return a rotated mat4 matrix
 
 ```lua
-math.rotate_mat4(mat4, vec3, angle) 
+function math.rotate_mat4(mat4, vec3, angle) 
 ```
 
 ## Scale Mat4
@@ -1816,7 +1823,17 @@ math.rotate_mat4(mat4, vec3, angle)
 Return a scaled mat4 matrix
 
 ```lua
-return _math_.scale_mat4(mat4, vec3) 
+function math.scale_mat4(mat4, vec3) 
+```
+
+# Importer Module
+
+## Open 3D Model
+
+Open any 3d model and return the id
+
+```lua
+function importer.open(path = string) 
 ```
 
 # Enums
