@@ -69,6 +69,9 @@ namespace Project {
 		this->importer = ImporterConnectionPtr(new ImporterConnection(state));
 		ImporterConnection::Set(this->importer);
 
+		this->render = RendererConnectionPtr(new RendererConnection(state));
+		RendererConnection::Set(this->render);
+
 		auto engineContent = Utils::Directory::ReadFile(Utils::Directory::GetResourcePath() + "/scripts/engine.lua");
 		luaL_dostring(state, engineContent.c_str());
 
@@ -105,6 +108,11 @@ namespace Project {
 		this->logs->SetCurrentGo(go);
 	}
 
+	void ConnectionManager::SetCurrentScript(ScriptPtr script)
+	{
+		this->goScript->SetCurrentScript(script);
+	}
+
 	int ConnectionManager::GetStackSize()
 	{
 		if (this->state == nullptr)
@@ -116,7 +124,7 @@ namespace Project {
 	void ConnectionManager::CreateScriptData(GameObjectPtr go, ScriptPtr script)
 	{
 		lua_getglobal(this->state, script->GetName().c_str());
-		
+
 		lua_pushstring(this->state, go->GetId().c_str());
 		lua_newtable(this->state);
 		lua_settable(this->state, -3);

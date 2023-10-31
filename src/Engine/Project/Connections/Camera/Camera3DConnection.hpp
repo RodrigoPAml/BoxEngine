@@ -62,5 +62,6 @@ namespace Connection {
 		static int GetProjectionMatrix(lua_State* L);
 	
 		static int SetCurrentCamera(lua_State* L);
+		static int GetCurrentCamera(lua_State* L);
 	};
 }}}}

@@ -116,17 +116,18 @@ extern "C"
 
 #include <Modules/Utils/Generator.hpp>
 
-#include <Modules/Drawing/TextureRenderer.hpp>
-#include <Modules/Drawing/Primitives2D.hpp>
-#include <Modules/Drawing/Primitives3D.hpp>
-
-#include <Modules/Audio/Audio.hpp>
-#include <Modules/Font/Font.hpp>
-
 #include <Modules/Importer/Material.hpp>
 #include <Modules/Importer/Mesh.hpp>
 #include <Modules/Importer/Object.hpp>
 #include <Modules/Importer/Importer.hpp>
+
+#include <Modules/Drawing/TextureRenderer.hpp>
+#include <Modules/Drawing/Primitives2D.hpp>
+#include <Modules/Drawing/Primitives3D.hpp>
+#include <Modules/Drawing/Renderer.hpp>
+
+#include <Modules/Audio/Audio.hpp>
+#include <Modules/Font/Font.hpp>
 
 // Engine main files
 #include <Engine/Data/ProjectEnums.hpp>
@@ -162,6 +163,7 @@ extern "C"
 #include <Engine/Project/Connections/Font/FontConnection.hpp>
 #include <Engine/Project/Connections/Math/MathConnection.hpp>
 #include <Engine/Project/Connections/Importer/ImporterConnection.hpp>
+#include <Engine/Project/Connections/Renderer/RendererConnection.hpp>
 
 #include <Engine/Project/Managers/ConnectionManager.hpp>
 #include <Engine/Project/Managers/ScriptManager.hpp>

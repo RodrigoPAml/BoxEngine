@@ -24,6 +24,11 @@ namespace Connection {
 		GameObjectWeakPtr currentGo;
 
 		/// <summary>
+		/// The current visited go by the engine
+		/// </summary>
+		ScriptWeakPtr currentScript;
+
+		/// <summary>
 		/// Global reference.
 		/// </summary>
 		static std::weak_ptr<GoScriptConnection> current;
@@ -32,6 +37,7 @@ namespace Connection {
 
 		void Bind();
 		void SetCurrentGo(GameObjectPtr go);
+		void SetCurrentScript(ScriptPtr script);
 
 		static GoScriptConnectionPtr Get();
 		static void Set(GoScriptConnectionPtr instance);
@@ -49,6 +55,7 @@ namespace Connection {
 		static int LoadScripts(lua_State* L);
 
 		// Scripts
+		static int GetCurrent(lua_State* L);
 		static int GetScript(lua_State* L);
 		static int AddScript(lua_State* L); 
 		static int RemoveScript(lua_State* L);

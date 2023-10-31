@@ -1,5 +1,7 @@
 {
     "Lua.diagnostics.disable": [
-        "lowercase-global"
+        "lowercase-global",
+        "undefined-global",
+        "need-check-nil"
     ]
 }

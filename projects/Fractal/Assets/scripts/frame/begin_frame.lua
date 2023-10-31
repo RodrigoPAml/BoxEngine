@@ -1,7 +1,5 @@
-begin_frame = {}
-
 function begin_frame.start()
-   local this = begin_frame[go.current()]
+   local this = current()
 
    -- coordinates for framebuffer
    this.camera_fb_id = cam2d.create({ left = 0, right = 1920, top = 1080, bottom = 0 })
@@ -35,7 +33,7 @@ function begin_frame.update()
 end
 
 function begin_frame.destroy()
-   local this = begin_frame[go.current()]
+   local this = current()
 
    cam2d.destroy(this.camera_fb_id)
    texture.destroy(this.texture_id)

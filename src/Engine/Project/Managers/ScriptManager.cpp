@@ -97,8 +97,11 @@ namespace Project {
 		auto go = execution.GetGameObject();
 		auto state = script->GetState();
 
-		if(setAsCurrent)
+		if (setAsCurrent)
+		{
 			this->connectionManager->SetCurrentGo(go);
+			this->connectionManager->SetCurrentScript(script);
+		}
 
 		// Check if needs to be loaded
 		if (state == ScriptState::ToLoad)
@@ -134,6 +137,13 @@ namespace Project {
 				}
 				else
 				{
+					// init table with empty functions
+					lua_newtable(this->state);
+					lua_setglobal(this->state, script->GetName().c_str());
+					luaL_dostring(this->state, ("function " + script->GetName() + ".start() end").c_str());
+					luaL_dostring(this->state, ("function " + script->GetName() + ".update() end").c_str());
+					luaL_dostring(this->state, ("function " + script->GetName() + ".destroy() end").c_str());
+
 					// Read content and execute.
 					std::string file = Utils::Directory::ReadFile(this->paths[scriptName]);
 
@@ -328,6 +338,9 @@ namespace Project {
 
 			for (ScriptPtr script : scripts)
 			{
+				if (this->connectionManager != nullptr)
+					this->connectionManager->SetCurrentScript(script);
+
 				// Only call destroy if has been initilizated
 				if (script->IsStarted() && script->GetState() != ScriptState::Destroyed)
 				{

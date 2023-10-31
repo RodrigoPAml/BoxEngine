@@ -76,7 +76,7 @@ namespace Input {
 
 	glm::vec<2, int> Mouse::GetMouseVariation()
 	{
-		return Instance().lastPosition -  GetMousePosition();
+		return GetMousePosition() - Instance().lastPosition;
 	}
 
 	void Mouse::SetMouseMode(const MouseMode mode)

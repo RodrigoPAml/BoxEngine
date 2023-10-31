@@ -151,7 +151,7 @@ namespace Drawing {
 			"uniform vec4 color;\n"
 			"void main()\n"
 			"{\n"
-			"	colorOut = vec4(color);\n"
+			"	colorOut = color;\n"
 			"}"
 		};
 
@@ -231,7 +231,7 @@ namespace Drawing {
 		shader->SetMat4("model", model);
 		shader->SetMat4("projection", cam->GetProjectionMatrix());
 		shader->SetMat4("view", cam->GetViewMatrix());
-		shader->SetVec3("color", color);
+		shader->SetVec4("color", color);
 
 		return true;
 	}

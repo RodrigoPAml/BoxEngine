@@ -22,7 +22,7 @@ namespace Connection {
 
 		LuaUtils::RegTable(this->state, "get_mouse_pos", GetMousePos);
 		LuaUtils::RegTable(this->state, "get_cam_mouse_pos", GetCamMousePos);
-		LuaUtils::RegTable(this->state, "get_mouse_var", GetMouseVar);
+		LuaUtils::RegTable(this->state, "get_mouse_variation", GetMouseVar);
 		LuaUtils::RegTable(this->state, "get_mouse_button", GetMouseButton);
 
 		lua_setglobal(this->state, "_input_");

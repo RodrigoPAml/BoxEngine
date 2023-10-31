@@ -75,4 +75,34 @@ namespace GPU {
 
 		return RenderBufferFormat::DEPTH32F_STENCIL8;
 	}
+
+	/// <summary>
+	/// Framebuffer error to string
+	/// </summary>
+	/// <param name="status"></param>
+	/// <returns></returns>
+	static std::string GetFramebufferErrorMessage(int status)
+	{
+		switch (status) 
+		{
+			case GL_FRAMEBUFFER_UNDEFINED:
+				return "FRAMEBUFFER_UNDEFINED";
+			case GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT:
+				return "FRAMEBUFFER_INCOMPLETE_ATTACHMENT";
+			case GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT:
+				return "FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT";
+			case GL_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER:
+				return "FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER";
+			case GL_FRAMEBUFFER_INCOMPLETE_READ_BUFFER:
+				return "FRAMEBUFFER_INCOMPLETE_READ_BUFFER";
+			case GL_FRAMEBUFFER_UNSUPPORTED:
+				return "FRAMEBUFFER_UNSUPPORTED";
+			case GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE:
+				return "FRAMEBUFFER_INCOMPLETE_MULTISAMPLE";
+			case GL_FRAMEBUFFER_INCOMPLETE_LAYER_TARGETS:
+				return "FRAMEBUFFER_INCOMPLETE_LAYER_TARGETS";
+			default:
+				return "UNKNOW";
+		}
+	}
 }}}

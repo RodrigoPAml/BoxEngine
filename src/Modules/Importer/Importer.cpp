@@ -134,6 +134,8 @@ namespace Importer {
             if (AI_SUCCESS == material->Get(AI_MATKEY_COLOR_DIFFUSE, diffuseColor)) 
                 mtl->color = glm::vec3(diffuseColor.r, diffuseColor.g, diffuseColor.b);
 
+            mtl->name = material->GetName().C_Str();
+
             if (material->GetTexture(aiTextureType_DIFFUSE, 0, path) == AI_SUCCESS)
             {
                 std::string texturePath = path->C_Str();

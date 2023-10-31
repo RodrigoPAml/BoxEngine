@@ -1,7 +1,5 @@
-menu = {}
-
 function menu.start()
-    local this = menu[go.current()]
+    local this = current()
 
     -- load image and font
     local menu_img = dir.get_assets_path() .. '/images/menu.jpg'
@@ -34,7 +32,7 @@ function menu.start()
 end
 
 function menu.update()
-    local this = menu[go.current()]
+    local this = current()
 
     draw2d.texture({
         ["position"] = { x = this.max_x / 2, y = this.max_y / 2 },
@@ -49,7 +47,7 @@ function menu.update()
 end
 
 function menu.draw_current_option()
-    local this = menu[go.current()]
+    local this = current()
 
     local button_size = 300;
     local mouse_pos = input.get_cam_mouse_pos()
@@ -120,7 +118,7 @@ function menu.draw_current_option()
 end
 
 function menu.draw_buttons()
-    local this = menu[go.current()]
+    local this = current()
 
     local button_size = 300;
 
@@ -147,7 +145,7 @@ function menu.draw_buttons()
 end
 
 function menu.draw_texts()
-    local this = menu[go.current()]
+    local this = current()
 
     local font_id = this.font
 
@@ -177,7 +175,7 @@ function menu.draw_texts()
 end
 
 function menu.destroy()
-    local this = menu[go.current()]
+    local this = current()
     
     font.destroy(this.font)
     texture.destroy(this.texture)

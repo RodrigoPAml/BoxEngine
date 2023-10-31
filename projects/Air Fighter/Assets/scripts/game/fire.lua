@@ -1,7 +1,5 @@
-fire = {}
-
 function fire.start()
-    local this = fire[go.current()]
+    local this = current()
     local path = dir.get_assets_path() .. '/images/bullet.png'
     local audio_path = dir.get_assets_path() .. '/sounds/laser.mp3'
 
@@ -25,7 +23,7 @@ function fire.start()
 end
 
 function fire.update()
-    local this = fire[go.current()]
+    local this = current()
 
     if(this.sound_started == false) then
         this.sound_started = true
@@ -57,7 +55,7 @@ function fire.destroy_enemies()
         return
     end
 
-    local this = fire[go.current()]
+    local this = current()
 
     -- find all enemies go id
     local childrens = go.get(this.enemy_father_id).childrens
@@ -72,7 +70,7 @@ function fire.destroy_enemies()
             goto continue
         end
 
-        local enemy_go = enemy[enemy_go_id]
+        local enemy_go = data(enemy_go_id, 'enemy')
 
         -- calculate enemy bouding box on x axis
         local max_x = enemy_go.x + enemy_go.size_x / 2
@@ -97,7 +95,7 @@ function fire.destroy_enemies()
 end
 
 function fire.destroy()
-    local this = fire[go.current()]
+    local this = current()
     texture.destroy(this.texture)
     audio.destroy(this.sound)
 end

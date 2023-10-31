@@ -103,6 +103,7 @@ window = {}
 audio = {}
 font = {}
 importer = {}
+renderer = {}
 
 function go.current()
 	return _go_.current()
@@ -142,6 +143,10 @@ end
 
 function go.load_scripts(goId)
 	return _go_.load_scripts(goId)
+end
+
+function script.current()
+	return _script_.current()
 end
 
 function script.get(goId, scriptName)
@@ -230,6 +235,10 @@ end
 
 function cam3d.set_current(id)
 	return _cam3d_.set_current(id)
+end
+
+function cam3d.get_current()
+	return _cam3d_.get_current()
 end
 
 function draw2d.rect(object)
@@ -874,4 +883,24 @@ end
 
 function importer.get_materials(id) 
 	return _importer_.get_materials(id) 
+end
+
+function renderer.render_obj(id) 
+	return _renderer_.render_obj(id) 
+end
+
+function data(go, script)
+	if(go == nil or script == nil) then
+		return nil
+	end
+
+	if(_G[script] ~= nil) then
+		return _G[script][go]	
+	end
+
+	return nil
+end
+
+function current()
+	return data(_go_.current(), _script_.current())
 end

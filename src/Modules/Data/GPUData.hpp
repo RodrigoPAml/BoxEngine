@@ -33,6 +33,7 @@ namespace GPU {
 		unsigned int samples = 0;
 		TextureInternalFormat internalFormat = TextureInternalFormat::RGB;
 		glm::vec2 size = { 0,0 };
+		bool fixedSamples = false;
 	};
 
 	/// <summary>

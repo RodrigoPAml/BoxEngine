@@ -148,6 +148,8 @@ namespace Connection {
 			if (LuaUtils::GetTable(L, 1, "texture_internal_format", str))
 				config.internalFormat = GPU::TextureInternalFormatToString(str);
 
+			LuaUtils::GetTable(L, 1, "fixed_samples", config.fixedSamples);
+
 			if (!LuaUtils::GetTable(L, 1, "texture_size", config.size))
 				return luaL_error(L, "argument texture_size needs to be a vec2");
 

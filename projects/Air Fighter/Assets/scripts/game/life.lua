@@ -1,7 +1,5 @@
-life = {}
-
 function life.start()
-    local this = life[go.current()]
+    local this = current()
     local path = dir.get_assets_path() .. '/images/life.png'
 
     this.texture = texture.create({
@@ -27,7 +25,7 @@ function life.start()
 end
 
 function life.update()
-    local this = life[go.current()]
+    local this = current()
 
     this.y = this.y - (engine.get_frametime() * 0.2)
 
@@ -46,10 +44,10 @@ function life.update()
 end
 
 function life.collide()
-    local this = life[go.current()]
+    local this = current()
 
     -- collision of life and fighter
-    local fighter_go = fighter[this.fighter_id]
+    local fighter_go = data(this.fighter_id, 'fighter')
 
     if (fighter_go == nil) then
         return
@@ -72,6 +70,6 @@ function life.collide()
 end
 
 function life.destroy()
-    local this = life[go.current()]
+    local this = current()
     texture.destroy(this.texture)
 end

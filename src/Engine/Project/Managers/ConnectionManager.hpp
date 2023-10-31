@@ -55,13 +55,18 @@ namespace Project {
 		Connection::MathConnectionPtr math;
 		// Functions for 3d objects
 		Connection::ImporterConnectionPtr importer;
+		// Functions for render 3d objects
+		Connection::RendererConnectionPtr render;
 
 		lua_State* state = nullptr;
 	public:
 		ConnectionManager(lua_State* state);
 
 		void Bind();
+		
 		void SetCurrentGo(GameObjectPtr go);
+		void SetCurrentScript(ScriptPtr script);
+
 		int GetStackSize();
 
 		void CreateScriptData(GameObjectPtr go, ScriptPtr script);

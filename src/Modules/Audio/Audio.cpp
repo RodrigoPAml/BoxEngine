@@ -34,6 +34,12 @@ namespace Audio {
 			this->sound = nullptr;
 		}
 
+		if (TotalInstances == 0 && engine != nullptr)
+		{
+			engine->drop();
+			engine = nullptr;
+		}
+
 		Debug::Logging::Log("[Audio]: Destroyed audio from " + this->path, Debug::LogSeverity::Notify, Debug::LogOrigin::EngineInternal);
 	}
 

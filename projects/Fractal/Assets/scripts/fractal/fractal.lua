@@ -1,7 +1,5 @@
-fractal = {}
-
 function fractal.start()
-    local this = fractal[go.current()]
+    local this = current()
     local cam = cam2d.get(cam2d.get_current())
 
     -- get screen limitations from camera
@@ -46,7 +44,7 @@ function fractal.update()
 end
 
 function  fractal.control()
-    local this = fractal[go.current()]
+    local this = current()
 
     local right_key = input.get_key('RIGHT')
     local left_key = input.get_key('LEFT')
@@ -85,7 +83,7 @@ function  fractal.control()
 end
 
 function fractal.draw_fractal()
-    local this = fractal[go.current()]
+    local this = current()
 
     shader.activate(this.shader)
     shader.set_mat4(cam2d.get_current(), "projection", cam2d.get_matrix(cam2d.get_current()))
@@ -108,7 +106,7 @@ function fractal.draw_fractal()
 end
 
 function fractal.destroy()
-    local this = fractal[go.current()]
+    local this = current()
     shader.destroy(this.shader)
     vertex.destroy(this.quad_id)
 end

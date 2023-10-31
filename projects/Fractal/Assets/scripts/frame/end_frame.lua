@@ -1,7 +1,5 @@
-end_frame = {}
-
 function end_frame.start()
-   local this = end_frame[go.current()]
+   local this = current()
    local size_editor = window.get_editor_window_size();
 
    -- coordinates to draw in editor
@@ -9,8 +7,8 @@ function end_frame.start()
 end
 
 function end_frame.update()
-   local this = end_frame[go.current()]
-   local begin_frame_go = begin_frame[this.begin_id]
+   local this = current()
+   local begin_frame_go = data(this.begin_id, 'begin_frame')
 
    local size_editor = window.get_editor_window_size();
   
@@ -24,6 +22,6 @@ function end_frame.update()
 end
 
 function end_frame.destroy()
-   local this = end_frame[go.current()]
+   local this = current()
    cam2d.destroy(this.camera_editor_id)
 end

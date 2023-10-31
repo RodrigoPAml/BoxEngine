@@ -518,7 +518,9 @@ Return a bool indicating success
 function cam3d.set_current(id = number) end
 ```
 
-# Drawing Module
+# Drawing Module 
+
+To draw primitives
 
 ## Draw 2D Rect
 Draw a 2D rectangle
@@ -532,7 +534,7 @@ The argument table format
 {
     position = {x = number, y = number}, -- position, vec2 format
     size = {x = number, y = number}, -- size, vec2 format
-    color = {x = number, y = number, z = number}, -- color, vec3 format, optional
+    color = {x = number, y = number, z = number, w = number}, -- color, vec3 format, optional
     rotation = number, -- rotation in degrees, optional
     filled = boolean, -- fill or not the shape, optional
 }
@@ -550,7 +552,7 @@ The argument table format
 {
     position = {x = number, y = number}, -- position, vec2 format
     size = {x = number, y = number}, -- size, vec2 format
-    color = {x = number, y = number, z = number}, -- color, vec3 format, optional
+    color = {x = number, y = number, z = number, w = number}}, -- color, vec3 format, optional
     rotation = number, -- rotation in degrees, optional
     filled = boolean, -- fill or not the shape, optional
 }
@@ -568,7 +570,7 @@ The argument table format
 {
     position = {x = number, y = number}, -- position, vec2 format
     size = {x = number, y = number}, -- size, vec2 format
-    color = {x = number, y = number, z = number}, -- color, vec3 format, optional
+    color = {x = number, y = number, z = number, w = number}}, -- color, vec3 format, optional
     rotation = number, -- rotation in degrees, optional
     filled = boolean, -- fill or not the shape, optional
 }
@@ -586,7 +588,7 @@ The argument table format
 {
     position_start = {x = number, y = number}, -- start position, vec2 format
     position_end = {x = number, y = number}, -- end position, vec2 format
-    color = {x = number, y = number, z = number}, -- color, vec3 format, optional
+    color = {x = number, y = number, z = number, w = number}}, -- color, vec3 format, optional
 }
 ```
 
@@ -601,7 +603,7 @@ The argument table format
 ```lua
 {
     position = {x = number, y = number}, -- position, vec2 format
-    color = {x = number, y = number, z = number}, -- color, vec3 format, optional
+    color = {x = number, y = number, z = number, w = number}}, -- color, vec3 format, optional
 }
 ```
 
@@ -642,7 +644,7 @@ The argument table format
 {
     position = {x = number, y = number = z = number}, -- position, vec3 format
     size = {x = number, y = number = z = number}, -- size, vec3 format
-    color = {x = number, y = number, z = number}, -- color, vec3 format, optional
+    color = {x = number, y = number, z = number, w = number}}, -- color, vec3 format, optional
     rotation = {x = number, y = number, z = number}, -- rotation in degrees in vec3 format, optional
     filled = boolean, -- fill or not the shape, optional
 }
@@ -659,7 +661,7 @@ The argument table format
 ```lua
 {
     position = {x = number, y = number = z = number}, -- position, vec3 format
-    size = {x = number, y = number = z = number}, -- size, vec3 format
+    size = {x = number, y = number = z = number, w = number}}, -- size, vec3 format
     color = {x = number, y = number, z = number}, -- color, vec3 format, optional
     rotation = {x = number, y = number, z = number}, -- rotation in degrees in vec3 format, optional
     filled = boolean, -- fill or not the shape, optional
@@ -677,7 +679,7 @@ The argument table format
 ```lua
 {
     position = {x = number, y = number = z = number}, -- position, vec3 format
-    color = {x = number, y = number, z = number}, -- color, vec3 format, optional
+    color = {x = number, y = number, z = number, w = number}}, -- color, vec3 format, optional
 }
 ```
 
@@ -693,7 +695,7 @@ The argument table format
 {
     position_start = {x = number, y = number = z = number}, -- position start, vec3 format
     position_end = {x = number, y = number = z = number}, -- position end, vec3 format
-    color = {x = number, y = number, z = number}, -- color, vec3 format, optional
+    color = {x = number, y = number, z = number, w = number}}, -- color, vec3 format, optional
 }
 ```
 
@@ -709,7 +711,7 @@ The argument table format
 {
     position = {x = number, y = number = z = number}, -- position, vec3 format
     size = {x = number, y = number = z = number}, -- size, vec3 format
-    color = {x = number, y = number, z = number}, -- color, vec3 format, optional
+    color = {x = number, y = number, z = number, w = number}}, -- color, vec3 format, optional
     rotation = {x = number, y = number, z = number}, -- rotation in degrees in vec3 format, optional
     filled = boolean, -- fill or not the shape, optional
 }
@@ -727,7 +729,7 @@ The argument table format
 {
     position = {x = number, y = number = z = number}, -- position, vec3 format
     size = {x = number, y = number = z = number}, -- size, vec3 format
-    color = {x = number, y = number, z = number}, -- color, vec3 format, optional
+    color = {x = number, y = number, z = number, w = number}}, -- color, vec3 format, optional
     rotation = {x = number, y = number, z = number}, -- rotation in degrees in vec3 format, optional
     filled = boolean, -- fill or not the shape, optional
 }
@@ -745,7 +747,7 @@ The argument table format
 {
     position = {x = number, y = number = z = number}, -- position, vec3 format
     size = {x = number, y = number = z = number}, -- size, vec3 format
-    color = {x = number, y = number, z = number}, -- color, vec3 format, optional
+    color = {x = number, y = number, z = number, w = number}}, -- color, vec3 format, optional
     rotation = {x = number, y = number, z = number}, -- rotation in degrees in vec3 format, optional
     filled = boolean, -- fill or not the shape, optional
 }
@@ -1343,6 +1345,23 @@ The argument table format
 }
 ```
 
+## Get Texture Info
+Receive the id and return info or nil if not finded
+
+```lua
+function texture.get_info(id = number) end
+```
+
+The returned table format
+```lua
+{
+    gl_id = number, -- opengl id
+    multisampled = bool, -- if the texture is multisampled
+    samples = number, -- number of samples if texture is multisampled
+    size = vec2, -- texture size in pixels
+}
+```
+
 ## Destroy Texture
 Destroy a texture, receive the id
 
@@ -1540,6 +1559,20 @@ Destroy a vertex data, receive the id
 Return bool indicating success
 ```lua
 function vertex.destroy(id = number) end
+```
+
+## Get Vertex Info
+Receive the id and return info or nil if not finded
+
+```lua
+function vertex.get_info(id = number) end
+```
+
+The returned table format
+```lua
+{
+    gl_id = number, -- open gl id (vao)
+}
 ```
 
 ## Activate Vertex Data
@@ -1834,6 +1867,14 @@ Open any 3d model and return the id
 
 ```lua
 function importer.open(path = string) 
+```
+
+## Destroy 3D Model
+
+Destroy 3d model by recieving it's id
+
+```lua
+function importer.destroy(id = number) 
 ```
 
 # Enums

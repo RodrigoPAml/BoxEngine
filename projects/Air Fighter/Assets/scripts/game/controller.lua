@@ -1,7 +1,5 @@
-controller = {}
-
 function controller.start()
-    local this = controller[go.current()]
+    local this = current()
     local font_path = dir.get_assets_path() .. '/fonts/points.ttf'
 
     this.font = font.create(font_path)
@@ -32,9 +30,10 @@ function controller.start()
 end
 
 function controller.update()
-    local this = controller[go.current()]
+    local this = current()
 
-    local fighter_go = fighter[this.fighter_id]
+    local fighter_go = data(this.fighter_id, 'fighter')
+    
     if (fighter_go == nil) then
         local font_id = this.font
         local points_str = to_string(math.ceil(this.points))
@@ -96,6 +95,6 @@ function controller.update()
 end
 
 function controller.destroy()
-    local this = controller[go.current()]
+    local this = current()
     font.destroy(this.font)
 end

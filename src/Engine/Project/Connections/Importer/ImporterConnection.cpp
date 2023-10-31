@@ -19,6 +19,7 @@ namespace Connection {
 
 		LuaUtils::RegTable(this->state, "open", Open);
 		LuaUtils::RegTable(this->state, "destroy", Close);
+
 		LuaUtils::RegTable(this->state, "get_obj_info", GetObject);
 		LuaUtils::RegTable(this->state, "get_meshes", GetMeshes);
 		LuaUtils::RegTable(this->state, "get_materials", GetMaterials);
@@ -39,6 +40,13 @@ namespace Connection {
 	void ImporterConnection::Set(ImporterConnectionPtr instance)
 	{
 		current = instance;
+	}
+
+	Importer::ObjectPtr ImporterConnection::FindObj(long id)
+	{
+		auto instance = ImporterConnection::Get();
+
+		return instance->objs.contains(id) ? instance->objs[id] : nullptr;
 	}
 
 	int ImporterConnection::Open(lua_State* L)
@@ -219,9 +227,14 @@ namespace Connection {
 					lua_pushstring(L, materials[i]->GetName().c_str());
 					lua_settable(L, -3);
 
-					lua_pushstring(L, "albedo_texture_id");
-					lua_pushnumber(L, materials[i]->GetAlbedoTexture()->GetId());
-					lua_settable(L, -3);
+					auto texAlbedo = materials[i]->GetAlbedoTexture();
+
+					if (texAlbedo != nullptr)
+					{
+						lua_pushstring(L, "albedo_texture_id");
+						lua_pushnumber(L, texAlbedo->GetId());
+						lua_settable(L, -3);
+					}
 
 					lua_pushstring(L, "index");
 					lua_pushnumber(L, i);

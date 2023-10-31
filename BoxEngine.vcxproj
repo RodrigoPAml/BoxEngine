@@ -177,8 +177,10 @@
     <ClCompile Include="src\Editor\Layouts\TopBar\TopBar.cpp" />
     <ClCompile Include="src\Editor\ProjectManager\ProjectManager.cpp" />
     <ClCompile Include="src\Engine\Project\Connections\Importer\ImporterConnection.cpp" />
+    <ClCompile Include="src\Engine\Project\Connections\Renderer\RendererConnection.cpp" />
     <ClCompile Include="src\Modules\Audio\Audio.cpp" />
     <ClInclude Include="src\Engine\Project\Connections\Importer\ImporterConnection.hpp" />
+    <ClInclude Include="src\Engine\Project\Connections\Renderer\RendererConnection.hpp" />
     <ClInclude Include="src\Modules\Audio\Audio.hpp" />
     <ClCompile Include="src\Modules\Camera\Camera2D.cpp" />
     <ClCompile Include="src\Modules\Camera\Camera3D.cpp" />
@@ -186,6 +188,7 @@
     <ClCompile Include="src\Modules\Debug\Logging.cpp" />
     <ClCompile Include="src\Modules\Drawing\Primitives2D.cpp" />
     <ClCompile Include="src\Modules\Drawing\Primitives3D.cpp" />
+    <ClCompile Include="src\Modules\Drawing\Renderer.cpp" />
     <ClCompile Include="src\Modules\Drawing\TextureRenderer.cpp" />
     <ClCompile Include="src\Modules\Font\Font.cpp" />
     <ClCompile Include="src\Modules\GPU\Command.cpp" />
@@ -289,6 +292,7 @@
     <ClInclude Include="src\Modules\Debug\Logging.hpp" />
     <ClInclude Include="src\Modules\Drawing\Primitives2D.hpp" />
     <ClInclude Include="src\Modules\Drawing\Primitives3D.hpp" />
+    <ClInclude Include="src\Modules\Drawing\Renderer.hpp" />
     <ClInclude Include="src\Modules\Drawing\TextureRenderer.hpp" />
     <ClInclude Include="src\Modules\Font\Font.hpp" />
     <ClInclude Include="src\Modules\GPU\Command.hpp" />

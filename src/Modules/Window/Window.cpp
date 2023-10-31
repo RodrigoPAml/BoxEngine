@@ -98,6 +98,7 @@ namespace Window {
 		Drawing::Primitives3D::Instance().Init();
 		Drawing::Primitives2D::Instance().Init();
 		Drawing::TextureRenderer::Instance().Init();
+		Drawing::Renderer::Instance().Init();
 		GUI::Init(instance.windowPtr);
 
 		instance.config = windowConfig;
@@ -131,6 +132,7 @@ namespace Window {
 		Drawing::Primitives3D::Instance().Release();
 		Drawing::Primitives2D::Instance().Release();
 		Drawing::TextureRenderer::Instance().Release();
+		Drawing::Renderer::Instance().Release();
 		Audio::Audio::ReleaseEngine();
 		Font::Font::Release();
 		GUI::Release();

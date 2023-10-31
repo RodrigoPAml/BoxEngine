@@ -45,6 +45,8 @@ namespace Connection {
 
 		static ImporterConnectionPtr Get();
 		static void Set(ImporterConnectionPtr instance);
+
+		static Importer::ObjectPtr FindObj(long id);
 	private:
 		static int Open(lua_State* L);
 		static int Close(lua_State* L);

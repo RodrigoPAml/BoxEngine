@@ -137,10 +137,10 @@ namespace Connection {
 				
 				config.renderBufferAttachment.format = GPU::GetRenderBufferFormatFromString(str);
 
-				if (!LuaUtils::GetTable(L, -3, "size", config.renderBufferAttachment.size))
-					return luaL_error(L, "argument size needs to be a vec2");
+				LuaUtils::GetTable(L, -3, "aliasing", config.renderBufferAttachment.aliasing);
 
-				LuaUtils::GetTable(L, -4, "aliasing", config.renderBufferAttachment.aliasing);
+				if (!LuaUtils::GetTable(L, -4, "size", config.renderBufferAttachment.size))
+					return luaL_error(L, "argument size needs to be a vec2");
 			}
 			else if(!lua_isnoneornil(L, -1)) 
 				return luaL_error(L, "argument renderbuffer_attachment needs to be a table");

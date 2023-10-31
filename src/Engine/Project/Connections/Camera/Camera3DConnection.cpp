@@ -30,6 +30,7 @@ namespace Connection {
 		LuaUtils::RegTable(this->state, "get_view", GetViewMatrix);
 		LuaUtils::RegTable(this->state, "get_projection", GetProjectionMatrix);
 		LuaUtils::RegTable(this->state, "set_current", SetCurrentCamera);
+		LuaUtils::RegTable(this->state, "get_current", GetCurrentCamera);
 
 		lua_setglobal(this->state, "_cam3d_");
 	}
@@ -53,20 +54,23 @@ namespace Connection {
 	{
 		auto top_stack = lua_gettop(L);
 
-		if (top_stack != 1)
-			return luaL_error(L, "expecting 1 argument in function call");
+		if (top_stack > 1)
+			return luaL_error(L, "expecting 1 or 0 arguments in function call");
 			
-		if (lua_istable(L, 1))
+		if (lua_istable(L, 1) || lua_isnoneornil(L, 1))
 		{
 			Camera::CameraConfiguration config;
 
-			LuaUtils::GetTable(L, 1, "position", config.position);
-			LuaUtils::GetTable(L, 1, "yaw", config.yaw);
-			LuaUtils::GetTable(L, 1, "pitch", config.pitch);
-			LuaUtils::GetTable(L, 1, "fov", config.fov);
-			LuaUtils::GetTable(L, 1, "aspect_ratio", config.aspectRatio);
-			LuaUtils::GetTable(L, 1, "zfar", config.zFar);
-			LuaUtils::GetTable(L, 1, "znear", config.zNear);
+			if (!lua_isnoneornil(L, 1))
+			{
+				LuaUtils::GetTable(L, 1, "position", config.position);
+				LuaUtils::GetTable(L, 1, "yaw", config.yaw);
+				LuaUtils::GetTable(L, 1, "pitch", config.pitch);
+				LuaUtils::GetTable(L, 1, "fov", config.fov);
+				LuaUtils::GetTable(L, 1, "aspect_ratio", config.aspectRatio);
+				LuaUtils::GetTable(L, 1, "zfar", config.zFar);
+				LuaUtils::GetTable(L, 1, "znear", config.zNear);
+			}
 
 			auto instance = Camera3DConnection::Get();
 
@@ -110,7 +114,7 @@ namespace Connection {
 		{
 			auto id = lua_tonumber(L, 1);
 
-			if (lua_istable(L, 1))
+			if (lua_istable(L, 2))
 			{
 				auto instance = Camera3DConnection::Get();
 				Camera::Camera3DPtr cam = instance->cameras[id];
@@ -125,14 +129,14 @@ namespace Connection {
 				std::string str = "";
 				float velocity = 0;
 
-				if (LuaUtils::GetTable(L, 1, "direction", str))
+				if (!LuaUtils::GetTable(L, 2, "direction", str))
 				{
 					instance = nullptr;
 					lua_pushboolean(L, false);
 					return luaL_error(L, "expecting argument direction to be a string");
 				}
 
-				if (LuaUtils::GetTable(L, 1, "velocity", velocity))
+				if (!LuaUtils::GetTable(L, 2, "velocity", velocity))
 				{
 					instance = nullptr;
 					lua_pushboolean(L, false);
@@ -140,11 +144,13 @@ namespace Connection {
 				}
 				
 				cam->TranslateRelative(Camera::GetCameraMovementFromString(str), velocity);
+				cam->UpdateProjectionMatrix();
+				cam->UpdateViewMatrix();
 
 				lua_pushboolean(L, true);
 				return 1;
 			}
-			else return luaL_error(L, "argument 1 is expected to be a table");
+			else return luaL_error(L, "argument 2 is expected to be a table");
 		}
 		else return luaL_error(L, "argument 1 is expected to be a number");
 
@@ -162,7 +168,7 @@ namespace Connection {
 		{
 			auto id = lua_tonumber(L, 1);
 
-			if (lua_istable(L, 1))
+			if (lua_istable(L, 2))
 			{
 				auto instance = Camera3DConnection::Get();
 				Camera::Camera3DPtr cam = instance->cameras[id];
@@ -177,14 +183,14 @@ namespace Connection {
 				std::string str = "";
 				float velocity = 0;
 
-				if (LuaUtils::GetTable(L, 1, "direction", str))
+				if (!LuaUtils::GetTable(L, 2, "direction", str))
 				{
 					instance = nullptr;
 					lua_pushboolean(L, false);
 					return luaL_error(L, "expecting argument direction to be a string");
 				}
 
-				if (LuaUtils::GetTable(L, 1, "velocity", velocity))
+				if (!LuaUtils::GetTable(L, 2, "velocity", velocity))
 				{
 					instance = nullptr;
 					lua_pushboolean(L, false);
@@ -192,11 +198,13 @@ namespace Connection {
 				}
 
 				cam->TranslateAbsolute(Camera::GetCameraMovementFromString(str), velocity);
+				cam->UpdateProjectionMatrix();
+				cam->UpdateViewMatrix();
 
 				lua_pushboolean(L, true);
 				return 1;
 			}
-			else return luaL_error(L, "argument 1 is expected to be a table");
+			else return luaL_error(L, "argument 2 is expected to be a table");
 		}
 		else return luaL_error(L, "argument 1 is expected to be a number");
 
@@ -214,7 +222,7 @@ namespace Connection {
 		{
 			auto id = lua_tonumber(L, 1);
 
-			if (lua_istable(L, 1))
+			if (lua_istable(L, 2))
 			{
 				auto instance = Camera3DConnection::Get();
 				Camera::Camera3DPtr cam = instance->cameras[id];
@@ -228,15 +236,17 @@ namespace Connection {
 
 				float yaw = cam->GetYaw(), pitch = cam->GetPitch();
 
-				LuaUtils::GetTable(L, 1, "yaw", yaw);
-				LuaUtils::GetTable(L, 1, "pitch", pitch);
+				LuaUtils::GetTable(L, 2, "yaw", yaw);
+				LuaUtils::GetTable(L, 2, "pitch", pitch);
 				
 				cam->Rotate(yaw, pitch);
+				cam->UpdateProjectionMatrix();
+				cam->UpdateViewMatrix();
 
 				lua_pushboolean(L, true);
 				return 1;
 			}
-			else return luaL_error(L, "argument 1 is expected to be a table");
+			else return luaL_error(L, "argument 2 is expected to be a table");
 		}
 		else return luaL_error(L, "argument 1 is expected to be a number");
 
@@ -484,6 +494,38 @@ namespace Connection {
 
 		lua_pushboolean(L, cam != nullptr);
 
+		return 1;
+	}
+
+	int Camera3DConnection::GetCurrentCamera(lua_State* L)
+	{
+		auto top = lua_gettop(L);
+
+		if (top != 0)
+			return luaL_error(L, "expecting no argument in function call");
+
+		auto camera = Camera::Camera3D::GetCurrentCamera();
+
+		if (camera == nullptr)
+		{
+			lua_pushnil(L);
+			return 1;
+		}
+		else
+		{
+			auto instance = Camera3DConnection::Get();
+
+			for (const auto& pair : instance->cameras)
+			{
+				if (pair.second == camera)
+				{
+					lua_pushnumber(L, pair.first);
+					return 1;
+				}
+			}
+		}
+
+		lua_pushnil(L);
 		return 1;
 	}
  }}}}

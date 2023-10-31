@@ -1,7 +1,5 @@
-explosion = {}
-
 function explosion.start()
-    local this = explosion[go.current()]
+    local this = current()
 
     local path1 = dir.get_assets_path() .. '/images/boom1.png'
     local path2 = dir.get_assets_path() .. '/images/boom2.png'
@@ -36,7 +34,7 @@ function explosion.start()
 end
 
 function explosion.update()
-    local this = explosion[go.current()]
+    local this = current()
 
     if (this.time + 0.32 < time.get_timestamp()) then
         if (audio.is_finished(this.sound_id)) then
@@ -77,7 +75,7 @@ function explosion.update()
 end
 
 function explosion.destroy()
-    local this = explosion[go.current()]
+    local this = current()
 
     texture.destroy(this.texture_1)
     texture.destroy(this.texture_2)

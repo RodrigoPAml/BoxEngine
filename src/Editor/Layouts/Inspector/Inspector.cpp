@@ -508,21 +508,21 @@ namespace Editor {
 		// Script data of script
 		if (GUI::BeginTable(this->guid + "table" + scriptName, 3))
 		{
-			std::vector<std::string> dataToRemove;
+			std::string dataToRemove = "";
+			bool moveUp = false;
+			int indexToMove = -1;
 
 			// Script data
 			GUI::SetFontScale(0.65);
 			GUI::Ident(16);
-
+			
 			for (ScriptData& data : script->GetScriptData())
 			{
-				id++;
-
 				GUI::NextRow();
 				GUI::NextColumn();
-
+				
 				std::string innerId = std::to_string(id);
-
+				
 				// script data name
 				GUI::Text(data.GetName());
 
@@ -578,10 +578,11 @@ namespace Editor {
 
 				GUI::NextColumn();
 
+				
 				if (GUI::ImageButton(this->guid + "remove_script_data" + innerId, GUI::GetIcon("remove_data.png")))
 				{
 					project->SetDirty();
-					dataToRemove.push_back(data.GetName());
+					dataToRemove = data.GetName();
 				}
 
 				if (GUI::IsCurrentItemHovered())
@@ -591,11 +592,54 @@ namespace Editor {
 					GUI::EndHintWindow();
 				}
 
+				GUI::ContinueSameLine();
+
+				if (GUI::ImageButton(this->guid + "up_script_data" + innerId, GUI::GetIcon("up.png")))
+				{
+					moveUp = false;
+					indexToMove = id;
+				}
+
+				if (GUI::IsCurrentItemHovered())
+				{
+					GUI::BeginHintWindow();
+					GUI::Text("Move up script variable");
+					GUI::EndHintWindow();
+				}
+
+				GUI::ContinueSameLine();
+
+				if (GUI::ImageButton(this->guid + "down_script_data" + innerId, GUI::GetIcon("down.png")))
+				{
+					moveUp = true;
+					indexToMove = id;
+				}
+
+				if (GUI::IsCurrentItemHovered())
+				{
+					GUI::BeginHintWindow();
+					GUI::Text("Move down script variable");
+					GUI::EndHintWindow();
+				}
+
 				id++;
 			}
 
-			for (const auto& item : dataToRemove)
-				script->RemoveScriptData(item);
+			if(dataToRemove != "")
+				script->RemoveScriptData(dataToRemove);
+
+			if (indexToMove != -1)
+			{
+				auto& data = script->GetScriptData();
+				auto diff = moveUp ? indexToMove + 1 : indexToMove - 1;
+
+				if (indexToMove >= 0 && indexToMove < data.size() && diff >= 0 && diff < data.size())
+				{
+					auto current = data[diff];
+					data[diff] = data[indexToMove];
+					data[indexToMove] = current;
+				}
+			}
 
 			GUI::Unident(16);
 			GUI::EndTable();
@@ -612,11 +656,12 @@ namespace Editor {
 			GUI::Input(this->guid + "script_data_name", this->scriptDataName);
 			GUI::Text("Type: ");
 			GUI::ContinueSameLine();
-			GUI::ComboBox(this->guid + "script_data_type", { "boolean", "number", "string" }, this->scriptDataType);
+			GUI::ComboBox(this->guid + "script_data_type", { "boolean", "number", "string"}, this->scriptDataType);
 
 			if (GUI::Button("Add"))
 			{
 				script->AddScriptData(ScriptData(scriptDataName, "0", (ScriptDataType)this->scriptDataType));
+
 				project->SetDirty();
 				GUI::CloseCurrentPopUp();
 			}

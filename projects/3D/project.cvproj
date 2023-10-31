@@ -1,11 +1,10 @@
 {
   "debug": {
     "autoLogGLFWErrors": true,
-    "autoLogOpenGLErrors": false,
+    "autoLogOpenGLErrors": true,
     "enableGlfwDebugging": true,
     "enableOpenGLDebugging": true,
     "openglSeverities": [
-      33387,
       37190,
       37191,
       37192
@@ -13,20 +12,62 @@
   },
   "logging": {
     "logCallback": true,
-    "logConsole": false,
-    "logFile": false
+    "logConsole": true,
+    "logFile": true
   },
   "project_name": "3D",
   "scene": [
     {
       "active": true,
       "childrens": [],
-      "id": "963c63a3-b",
-      "name": "teste",
+      "id": "c1ca1551-6",
+      "name": "BeginFrame",
       "scripts": [
         {
           "data": [],
-          "name": "teste"
+          "name": "begin_frame"
+        }
+      ]
+    },
+    {
+      "active": true,
+      "childrens": [],
+      "id": "422aa9c7-8",
+      "name": "CameraController",
+      "scripts": [
+        {
+          "data": [],
+          "name": "camera_controller"
+        }
+      ]
+    },
+    {
+      "active": true,
+      "childrens": [],
+      "id": "963c63a3-b",
+      "name": "Draw",
+      "scripts": [
+        {
+          "data": [],
+          "name": "draw"
+        }
+      ]
+    },
+    {
+      "active": true,
+      "childrens": [],
+      "id": "d3a9d0f2-3",
+      "name": "EndFrame",
+      "scripts": [
+        {
+          "data": [
+            {
+              "name": "begin_id",
+              "type": 2,
+              "value": "c1ca1551-6"
+            }
+          ],
+          "name": "end_frame"
         }
       ]
     }

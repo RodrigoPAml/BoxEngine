@@ -561,11 +561,6 @@
                 {
                   "data": [
                     {
-                      "name": "frame_id",
-                      "type": 2,
-                      "value": "12f9b466-6"
-                    },
-                    {
                       "name": "enemy_id",
                       "type": 2,
                       "value": "9900d1ea-b"

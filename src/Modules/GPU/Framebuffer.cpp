@@ -74,10 +74,10 @@ namespace GPU {
 			glFramebufferRenderbuffer(GL_FRAMEBUFFER, (GLenum)configuration.renderBufferAttachment.type, GL_RENDERBUFFER, this->renderBufferId);
 		}
 
-		if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+		if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
 		{
-			if (configuration.textureAttachments.empty())
-				Debug::Logging::LogException("[Framebuffer]: Failed to complete framebuffer creation", Debug::LogOrigin::Engine);
+			std::string status = GetFramebufferErrorMessage(glCheckFramebufferStatus(GL_FRAMEBUFFER));
+			Debug::Logging::LogException("[Framebuffer]: Failed to complete framebuffer creation: " + status, Debug::LogOrigin::Engine);
 		}
 
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);

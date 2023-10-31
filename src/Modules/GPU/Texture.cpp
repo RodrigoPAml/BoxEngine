@@ -154,9 +154,8 @@ namespace GPU {
 			(GLint)configuration.internalFormat,
 			configuration.size.x,
 			configuration.size.y,
-			GL_TRUE
+			(GLint)configuration.fixedSamples
 		);
-
 
 		if (this->id == 0)
 			Debug::Logging::LogException("[Texture]: Failed to create texture", Debug::LogOrigin::Engine);

@@ -1,7 +1,5 @@
-fighter = {}
-
 function fighter.start()
-    local this = fighter[go.current()]
+    local this = current()
 
     -- load textures for fighter
     local path = dir.get_assets_path() .. '/images/airplane.png'
@@ -59,14 +57,14 @@ function fighter.update()
 end
 
 function fighter.take_damage()
-    local this = fighter[go.current()]
+    local this = current()
 
     if (this.is_hit and this.is_immune == false) then
         -- spawn explosion where it died
         local explosion_id = go.create_copy(this.explosion_id, this.explosion_father_id)
         go.load_scripts(explosion_id)
 
-        local explosion_go = explosion[explosion_id]
+        local explosion_go = data(explosion_id, 'explosion')
         explosion_go.x = this.x
         explosion_go.y = this.y
         explosion_go.time = time.get_timestamp()
@@ -97,7 +95,7 @@ function fighter.take_damage()
         local explosion_id = go.create_copy(this.explosion_id, this.explosion_father_id)
         go.load_scripts(explosion_id)
 
-        local explosion_go = explosion[explosion_id]
+        local explosion_go = data(explosion_id, 'explosion')
         explosion_go.x = this.x
         explosion_go.y = this.y
         explosion_go.time = time.get_timestamp()
@@ -130,7 +128,7 @@ function fighter.take_damage()
 end
 
 function fighter.fire()
-    local this = fighter[go.current()]
+    local this = current()
 
     local has_time_passed = time.get_timestamp() - this.time > 0.1
     local space_input = input.get_key('SPACE')
@@ -143,14 +141,14 @@ function fighter.fire()
         local new_go_id = go.create_copy(this.fire_prefab_id, this.fire_father_id)
         go.load_scripts(new_go_id)
 
-        local new_go = fire[new_go_id]
+        local new_go = data(new_go_id, 'fire')
         new_go.x = this.x - 5;
         new_go.y = this.y + 100;
     end
 end
 
 function fighter.control()
-    local this = fighter[go.current()]
+    local this = current()
 
     -- store if the figther is outside screen limits
     local limited_xmin = this.x > this.max_x
@@ -204,7 +202,7 @@ function fighter.control()
 end
 
 function fighter.destroy()
-    local this = fighter[go.current()]
+    local this = current()
 
     texture.destroy(this.texture)
     texture.destroy(this.texture_left)

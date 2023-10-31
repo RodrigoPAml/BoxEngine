@@ -41,7 +41,7 @@ namespace Project {
 	};
 
 	/// <summary>
-	/// With type is the script data
+	/// Witch type is the script data
 	/// </summary>
 	enum class ScriptDataType
 	{

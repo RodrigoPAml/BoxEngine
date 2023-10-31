@@ -1,11 +1,9 @@
-clouds = {}
-
 function clouds.start()
-    local this = clouds[go.current()]
+    local this = current()
 
     -- load cloud image
     local cloud = dir.get_assets_path() .. '/images/' .. this.path
-    this.texture = _texture_.create({
+    this.texture = texture.create({
         ["minifying_filter"] = "LINEAR_MIPMAP_LINEAR",
         ["magnification_filter"] = "LINEAR",
         ["texture_wrap_t"] = "CLAMP_TO_EDGE",
@@ -28,7 +26,7 @@ function clouds.start()
 end
 
 function clouds.update()
-    local this = clouds[go.current()]
+    local this = current()
 
     -- move the cloud
     this.y = this.y - ((engine.get_frametime() / 3) * this.vel)
@@ -50,7 +48,6 @@ function clouds.update()
 end
 
 function clouds.destroy()
-    local this = clouds[go.current()]
-
+    local this = current()
     texture.destroy(this.texture)
 end

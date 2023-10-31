@@ -35,6 +35,7 @@ namespace Connection {
 		// Script manager
 		lua_newtable(this->state);
 
+		LuaUtils::RegTable(this->state, "current", GetCurrent);
 		LuaUtils::RegTable(this->state, "get", GetScript);
 		LuaUtils::RegTable(this->state, "add", AddScript);
 		LuaUtils::RegTable(this->state, "remove", RemoveScript);
@@ -47,6 +48,11 @@ namespace Connection {
 	void GoScriptConnection::SetCurrentGo(GameObjectPtr go)
 	{
 		this->currentGo = go;
+	}
+
+	void GoScriptConnection::SetCurrentScript(ScriptPtr script)
+	{
+		this->currentScript = script;
 	}
 
 	GoScriptConnectionPtr GoScriptConnection::Get()
@@ -377,6 +383,22 @@ namespace Connection {
 			}
 			lua_settable(L, index);
 		}
+
+		return 1;
+	}
+
+	int GoScriptConnection::GetCurrent(lua_State* L)
+	{
+		// Get current script name
+		if (lua_gettop(L) != 0)
+			return luaL_error(L, "expecting no arguments in function");
+
+		auto script = GoScriptConnection::current.lock()->currentScript.lock();
+
+		if (script != nullptr)
+			lua_pushstring(L, script->GetName().c_str());
+		else
+			lua_pushnil(L);
 
 		return 1;
 	}

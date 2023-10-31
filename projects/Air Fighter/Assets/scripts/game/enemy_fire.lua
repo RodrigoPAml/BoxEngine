@@ -1,7 +1,5 @@
-enemy_fire = {}
-
 function enemy_fire.start()
-    local this = enemy_fire[go.current()]
+    local this = current()
     local path = dir.get_assets_path() .. '/images/bullet.png'
     local audio_path = dir.get_assets_path() .. '/sounds/laser.mp3'
 
@@ -27,14 +25,14 @@ function enemy_fire.start()
 end
 
 function enemy_fire.start_attributes()
-    local this = enemy_fire[go.current()]
-    local controller_go = controller[this.controller_id]
+    local this = current()
+    local controller_go = data(this.controller_id, 'controller') 
 
     this.vel = controller_go.fire_vel
 end
 
 function enemy_fire.update()
-    local this = enemy_fire[go.current()]
+    local this = current()
 
     if (this.sound_started == false) then
         this.sound_started = true
@@ -60,15 +58,15 @@ function enemy_fire.update()
 end
 
 function enemy_fire.move()
-    local this = enemy_fire[go.current()]
+    local this = current()
 
     -- move the enemy
     this.y = this.y - (engine.get_frametime() * this.vel)
 end
 
 function enemy_fire.deal_damage()
-    local this = enemy_fire[go.current()]
-    local fighter_go = fighter[this.fighter_id]
+    local this = current()
+    local fighter_go = data(this.fighter_id, 'fighter')
 
     if (fighter_go == nil) then
         return
@@ -89,7 +87,7 @@ function enemy_fire.deal_damage()
 end
 
 function enemy_fire.destroy()
-    local this = enemy_fire[go.current()]
+    local this = current()
     texture.destroy(this.texture)
     audio.destroy(this.sound)
 end

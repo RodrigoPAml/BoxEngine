@@ -1,7 +1,5 @@
-enemy = {}
-
 function enemy.start()
-    local this = enemy[go.current()]
+    local this = current()
     local path = dir.get_assets_path() .. '/images/enemy.png'
 
     -- load enemy texture
@@ -29,8 +27,8 @@ function enemy.start()
 end
 
 function enemy.start_attributes()
-    local this = enemy[go.current()]
-    local controller_go = controller[this.controller_id]
+    local this = current()
+    local controller_go = data(this.controller_id, 'controller')
 
     -- velocity
     this.vel_y = controller_go.enemy_vel_y
@@ -60,7 +58,7 @@ function enemy.start_attributes()
 end
 
 function enemy.update()
-    local this = enemy[go.current()]
+    local this = current()
 
     enemy.control()
     enemy.deal_damage()
@@ -87,8 +85,8 @@ function enemy.update()
 end
 
 function enemy.control()
-    local this = enemy[go.current()]
-    local fighter_go = fighter[this.fighter_id]
+    local this = current()
+    local fighter_go = data(this.fighter_id, 'fighter')
 
     if (fighter_go == nil) then
         return
@@ -130,8 +128,8 @@ function enemy.control()
 end
 
 function enemy.collide_fighter()
-    local this = enemy[go.current()]
-    local fighter_go = fighter[this.fighter_id]
+    local this = current()
+    local fighter_go = data(this.fighter_id, 'fighter')
 
     if (fighter_go == nil) then
         return
@@ -168,7 +166,7 @@ function enemy.collide_fighter()
 end
 
 function enemy.deal_damage()
-    local this = enemy[go.current()]
+    local this = current()
 
     -- if not firing calculate the time to next fire
     if (time.get_timestamp() > this.fire_time + this.interval_of_fire) then
@@ -183,7 +181,7 @@ function enemy.deal_damage()
             local new_go_id = go.create_copy(this.fire_prefab_id, this.fire_father_id)
             go.load_scripts(new_go_id)
 
-            local new_go = enemy_fire[new_go_id]
+            local new_go = data(new_go_id, 'enemy_fire')
             new_go.x = this.x + 16;
             new_go.y = this.y - 30;
 
@@ -193,12 +191,12 @@ function enemy.deal_damage()
 end
 
 function enemy.take_damage()
-    local this = enemy[go.current()]
+    local this = current()
 
     -- if its killed then destroy it
     if (this.life <= 0) then
         -- increase user points
-        local controller_go = controller[this.controller_id]
+        local controller_go = data(this.controller_id, 'controller') 
         controller_go.points = controller_go.points + 100
 
         -- destroy go
@@ -208,7 +206,7 @@ function enemy.take_damage()
         local explosion_id = go.create_copy(this.explosion_prefab_id, this.explosion_father_id)
         go.load_scripts(explosion_id)
 
-        local explosion_go = explosion[explosion_id]
+        local explosion_go = data(explosion_id, 'explosion') 
         explosion_go.x = this.x
         explosion_go.y = this.y
         explosion_go.time = time.get_timestamp()
@@ -216,6 +214,6 @@ function enemy.take_damage()
 end
 
 function enemy.destroy()
-    local this = enemy[go.current()]
+    local this = current()
     texture.destroy(this.texture)
 end

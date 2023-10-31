@@ -1,7 +1,5 @@
-ocean = {}
-
 function ocean.start()
-    local this = ocean[go.current()]
+    local this = current()
 
     -- load ocean texture
     local assetsPath = dir.get_assets_path() .. '/images/ocean.png'
@@ -29,7 +27,7 @@ function ocean.start()
 end
 
 function ocean.update()
-    local this = ocean[go.current()]
+    local this = current()
 
     -- draw first texture
     _draw2d_.texture({
@@ -60,7 +58,7 @@ function ocean.update()
 end
 
 function ocean.destroy()
-    local this = ocean[go.current()]
+    local this = current()
 
     texture.destroy(this.texture)
 end
