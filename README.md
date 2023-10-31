@@ -24,8 +24,9 @@ Projects can be run in production mode (pass folder via argument) or editor mode
 * framebuffer module (manipulate framebuffer via GPU)
 * primitives module (allows to draw basic shapes in 2d and 3d, including to draw textures)
 * scene module (allows to instantiate GO and scripts and manipulate the game scene)
+* import module (allows to import 3d object files)
+* renderer module (allows to draw 3d models, currently have a basic version)
 * GUI module (to do)
-* import module (to do, allows to import 3d object files)
 * physics module (to do)
 
 ## Editor features
@@ -43,13 +44,12 @@ Projects can be run in production mode (pass folder via argument) or editor mode
 Basic script behaviour when attached to game object
 
 ```lua
-teste = {}
-
 function teste.start()
-    local this = teste[go.current()]
+    local this = current()
    
     log('starting')
-    log('My id is' .. go.current())
+    log('My go id is' .. go.current())
+    log('My script name is' .. script.current())
 
     this.var = 'abc'
 end
