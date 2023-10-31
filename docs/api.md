@@ -37,7 +37,7 @@ Get data from other go and respective script
 
 If not finded return nil
 
-``lua
+```lua
 function data(goId = string, scriptName = string) end
 ```
 
