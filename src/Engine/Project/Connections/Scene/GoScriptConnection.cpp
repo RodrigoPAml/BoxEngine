@@ -49,11 +49,12 @@ namespace Connection {
 
 		// Persistance
 		LuaUtils::RegTable(this->state, "set_persist_script", SetPersistCurrentScript);
-		LuaUtils::RegTable(this->state, "set_persist_script_data", SetPersistCurrentScriptData);
-		LuaUtils::RegTable(this->state, "set_show_script_data", SetShowCurrentScriptData);
-
 		LuaUtils::RegTable(this->state, "set_persist_ext_script", SetPersistExternalScript);
+
+		LuaUtils::RegTable(this->state, "set_persist_script_data", SetPersistCurrentScriptData);
 		LuaUtils::RegTable(this->state, "set_persist_ext_script_data", SetPersistExternalScriptData);
+		
+		LuaUtils::RegTable(this->state, "set_show_script_data", SetShowCurrentScriptData);
 		LuaUtils::RegTable(this->state, "set_show_ext_script_data", SetShowExternalScriptData);
 
 		lua_setglobal(this->state, "_script_");
