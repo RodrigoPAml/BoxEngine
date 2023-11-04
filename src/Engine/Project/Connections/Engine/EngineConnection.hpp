@@ -36,6 +36,7 @@ namespace Connection {
 		static EngineConnectionPtr Get();
 		static void Set(EngineConnectionPtr instance);
 	private:
+		static int GetMode(lua_State* L);
 		static int GetFPS(lua_State* L);
 		static int GetFrametime(lua_State* L);
 		static int StopEngine(lua_State* L);

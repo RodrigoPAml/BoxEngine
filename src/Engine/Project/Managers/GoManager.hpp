@@ -47,7 +47,7 @@ namespace Project {
 		void RemoveGameObjectReferences(const std::string& id);
 
 		// Duplicate go (editor)
-		std::string DuplicateGo(const std::string& id, const std::string fatherId = "", bool isFirst = true);
+		std::string DuplicateGo(const std::string& id, const std::string fatherId = "", bool isFirst = true);	
 	private:
 		// Add go when reading from file.
 		void AddGameObjectFromFile(
@@ -55,6 +55,7 @@ namespace Project {
 			const std::string& name, 
 			bool active, 
 			const std::vector<ScriptPtr>& scripts,
+			const RunMode mode,
 			const std::string fatherId = ""
 		);
 

@@ -164,9 +164,17 @@ end
 function script.change_index(goId, scriptName, index)
 	return _script_.change_index(goId, scriptName, index)
 end
-
+ 
 function script.displace_index(goId, scriptName, displacement)
 	return _script_.displace_index(goId, scriptName, displacement)
+end
+
+function script.set_data_persistent(dataname, value)
+	return _script_.set_data_persistent(dataname, value)
+end
+
+function script.set_data_show_editor(dataname, value)
+	return _script_.set_data_show_editor(dataname, value)
 end
 
 function cam2d.create(object)

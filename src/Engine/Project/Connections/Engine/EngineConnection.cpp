@@ -17,6 +17,7 @@ namespace Connection {
 	{
 		lua_newtable(this->state);
 
+		LuaUtils::RegTable(this->state, "get_mode", GetMode);
 		LuaUtils::RegTable(this->state, "get_fps", GetFPS);
 		LuaUtils::RegTable(this->state, "get_frametime", GetFrametime);
 		LuaUtils::RegTable(this->state, "stop", StopEngine);
@@ -38,6 +39,17 @@ namespace Connection {
 	void EngineConnection::Set(EngineConnectionPtr instance)
 	{
 		current = instance;
+	}
+
+	int EngineConnection::GetMode(lua_State* L)
+	{
+		auto top = lua_gettop(L);
+
+		if (top != 0)
+			return luaL_error(L, "expecting no argument in function call");
+
+		lua_pushstring(L, ProjectModeToString(Project::GetCurrentProject()->GetMode()).c_str());
+		return 1;
 	}
 
 	int EngineConnection::GetFPS(lua_State* L)

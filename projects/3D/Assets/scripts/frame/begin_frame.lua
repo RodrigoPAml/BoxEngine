@@ -38,6 +38,12 @@ function begin_frame.start()
    command.enable_vsync()
    command.enable_blending()
    command.enable_depth_testing()
+
+   -- do not persist when project saved
+   script.set_persist_script_data('framebuffer_id', false)
+   script.set_persist_script_data('camera_fb_id', false)
+   script.set_persist_script_data('camera3d_id', false)
+   script.set_persist_script_data('texture_id', false)
 end
 
 function begin_frame.update()

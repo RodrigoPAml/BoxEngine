@@ -29,6 +29,15 @@ namespace Project {
 	};
 
 	/// <summary>
+	/// Represents the project running mode.
+	/// </summary>
+	enum class ProjectMode
+	{
+		PlayMode,
+		EditorMode
+	};
+
+	/// <summary>
 	/// Represents the script state.
 	/// </summary>
 	enum class ScriptState
@@ -48,5 +57,16 @@ namespace Project {
 		boolean = 0,
 		number = 1,
 		string = 2
+	};
+
+	/// <summary>
+	/// Run mode for gos
+	/// </summary>
+	enum class RunMode
+	{
+		Normal,
+		PlayModeDestroyed,
+		EditorModeDestroyed,
+		PlayModeRemoved,
 	};
 }}}

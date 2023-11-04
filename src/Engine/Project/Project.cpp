@@ -215,6 +215,16 @@ namespace Project {
         return this->state;
     }
 
+    ProjectMode Project::GetMode() const
+    {
+        return this->mode;
+    }
+
+    void Project::SetMode(ProjectMode mode)
+    {
+        this->mode = mode;
+    }
+
     void Project::Start()
     {
         if(state == ProjectState::Idle)
@@ -415,12 +425,12 @@ namespace Project {
         return this->scriptManager->AddScript(this->goManager->GetGameObject(goId), scriptName);
     }
 
-    bool Project::DestroyScript(const std::string& goId, const std::string& scriptName)
+    bool Project::DestroyScript(const std::string& goId, const std::string& scriptName, bool remove)
     {
         if (this->state == ProjectState::Idle)
             this->isModified = true;
 
-        return this->scriptManager->DestroyScript(this->goManager->GetGameObject(goId), scriptName);
+        return this->scriptManager->DestroyScript(this->goManager->GetGameObject(goId), scriptName, remove);
     }
 
     void Project::ChangeScriptPosition(const std::string& goId, const std::string& scriptName, int displacement)
@@ -505,6 +515,12 @@ namespace Project {
             if (!go->GetActive() && !go->IsToVisit())
                 continue;
 
+            if (go->GetRunMode() == RunMode::PlayModeDestroyed && this->mode == ProjectMode::PlayMode)
+                continue;
+
+            if (go->GetRunMode() == RunMode::EditorModeDestroyed && this->mode == ProjectMode::EditorMode)
+                continue;
+
             go->SetToVisit(false);
 
             // If destroy if marked, execution is diferent
@@ -513,7 +529,7 @@ namespace Project {
             else
             {
                 // Get execution for scripts
-                this->scriptManager->GetScriptsExecution(go, executions);
+                this->scriptManager->GetScriptsExecution(go, executions, this->mode);
                 PlanExecution(go->GetChildrens(), executions);
             }
         }

@@ -233,7 +233,7 @@ namespace Editor {
 			return;
 		
 		// Header info, only gos information
-		if (GUI::BeginInnerWindow(this->guid + "window_header", {0, 105}))
+		if (GUI::BeginInnerWindow(this->guid + "window_header", {0, 135}))
 		{
 			this->ShowGoEditorHeader(go);
 			GUI::EndInnerWindow();
@@ -347,6 +347,32 @@ namespace Editor {
 			GUI::EndHintWindow();
 		}
 
+		GUI::ContinueSameLine();
+		
+		std::string imgName = std::to_string((int)go->GetRunMode()+1) + ".png";
+		auto mode = (int)go->GetRunMode();
+
+		// Move Down go
+		if (GUI::ImageButton(this->guid + "mode", GUI::GetIcon(imgName)) && project->GetState() == ProjectState::Idle)
+		{
+			mode = mode + 1;
+			go->SetRunMode((RunMode)(mode > 2 ? 0 : mode));
+			project->SetDirty();
+		}
+
+		if (GUI::IsCurrentItemHovered())
+		{
+			GUI::BeginHintWindow();
+			GUI::Text("Current mode: " + RunModeToString(go->GetRunMode()));
+			GUI::EndHintWindow();
+		}
+
+		GUI::SetFontScale(0.6);
+		if(project->GetState() == ProjectState::Idle)
+			GUI::Text("State: Normal");
+		else
+			GUI::Text("State: " + GoStateToStringForEditor(go->GetActive(), go->GetRunMode(), project->GetMode()));
+
 		GUI::SetFontScale(1);
 
 		// Pop up to add scripts
@@ -407,7 +433,26 @@ namespace Editor {
 			GUI::Text(scriptName);
 
 			auto size = GUI::GetWindowSize().x - (GUI::CalculateTextSize(scriptName).x);
-			GUI::ContinueSameLine(size - 85);
+			GUI::ContinueSameLine(size - 130);
+			
+			// Script activation
+			bool active = script->GetActive();
+			if (project->GetState() == ProjectState::Idle && GUI::CheckBox(this->guid + "script_active" + scriptName, active))
+			{
+				script->SetActive(active);
+				project->SetDirty();
+			}
+			else if (project->GetState() == ProjectState::Running && GUI::CheckBox(this->guid + "script_active" + scriptName, active))
+				script->SetActive(active);
+
+			if (GUI::IsCurrentItemHovered())
+			{
+				GUI::BeginHintWindow();
+				GUI::Text("Activated or not the script");
+				GUI::EndHintWindow();
+			}
+
+			GUI::ContinueSameLine();
 
 			if (GUI::ImageButton(this->guid + "remove_script" + scriptName, GUI::GetIcon("remove_file.png")))
 			{
@@ -417,9 +462,14 @@ namespace Editor {
 					toRemoves.push_back(script);
 				}
 				else
-					project->DestroyScript(go->GetId(), scriptName);
+				{
+					if(script->GetState() == ScriptState::Destroyed)
+						toRemoves.push_back(script);
+					else
+						project->DestroyScript(go->GetId(), scriptName, false);
+				}
 			}
-		
+
 			if (GUI::IsCurrentItemHovered())
 			{
 				GUI::BeginHintWindow();
@@ -444,7 +494,30 @@ namespace Editor {
 			}
 
 			GUI::SetFontScale(0.6);
-			GUI::Text("State: " + ScriptStateToStringForEditor(script->GetState(), go->GetActive()));
+			if (project->GetState() == ProjectState::Idle)
+				GUI::Text("Idle");
+			else 
+				GUI::Text("State: " + ScriptStateToStringForEditor(script->GetState(), go->GetActive() && script->GetActive(), script->GetRunMode(), project->GetMode()));
+
+			GUI::ContinueSameLine();
+
+			std::string imgName = std::to_string((int)script->GetRunMode() + 1) + ".png";
+			auto mode = (int)script->GetRunMode();
+
+			// Move Down go
+			if (GUI::ImageButton(this->guid + "mode" + scriptName, GUI::GetIcon(imgName)) && project->GetState() == ProjectState::Idle)
+			{
+				mode = mode + 1;
+				script->SetRunMode((RunMode)(mode > 3 ? 0 : mode));
+				project->SetDirty();
+			}
+
+			if (GUI::IsCurrentItemHovered())
+			{
+				GUI::BeginHintWindow();
+				GUI::Text("Current mode: " + RunModeToString(script->GetRunMode()));
+				GUI::EndHintWindow();
+			}
 
 			GUI::Separator();
 			this->ShowGoEditorScriptsData(go, script);
@@ -518,6 +591,9 @@ namespace Editor {
 			
 			for (ScriptData& data : script->GetScriptData())
 			{
+				if (!data.IsShowEditor())
+					continue;
+
 				GUI::NextRow();
 				GUI::NextColumn();
 				
@@ -577,8 +653,7 @@ namespace Editor {
 				}
 
 				GUI::NextColumn();
-
-				
+		
 				if (GUI::ImageButton(this->guid + "remove_script_data" + innerId, GUI::GetIcon("remove_data.png")))
 				{
 					project->SetDirty();

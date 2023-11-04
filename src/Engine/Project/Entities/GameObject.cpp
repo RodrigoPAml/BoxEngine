@@ -44,6 +44,16 @@ namespace Project {
         return this->active;
     }
 
+    void GameObject::SetRunMode(RunMode mode)
+    {
+        this->mode = mode;
+    }
+
+    RunMode GameObject::GetRunMode() const
+    {
+        return this->mode;
+    }
+
     void GameObject::SetFather(const GameObjectPtr& father)
     {
         this->father = father;
@@ -111,6 +121,16 @@ namespace Project {
             this->father->SetToVisit(true);
 
         this->toVisit = value;
+    }
+
+    bool GameObject::IsPersisted() const
+    {
+        return this->persisted;
+    }
+
+    void GameObject::SetPersisted(bool value)
+    {
+        this->persisted = value;
     }
 
     int GameObject::GetCurrentGosCount()

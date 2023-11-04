@@ -27,6 +27,11 @@ namespace Project {
 		std::string name;
 
 		/// <summary>
+		/// The go run mode
+		/// </summary>
+		RunMode mode = RunMode::Normal;
+
+		/// <summary>
 		/// Father go.
 		/// </summary>
 		GameObjectPtr father;
@@ -57,6 +62,11 @@ namespace Project {
 		bool toVisit = false;
 
 		/// <summary>
+		/// If this go can be saved an runtime
+		/// </summary>
+		bool persisted = true;
+
+		/// <summary>
 		/// Total current existent gos
 		/// </summary>
 		static int Total;
@@ -71,6 +81,9 @@ namespace Project {
 
 		void SetActive(const bool active);
 		bool GetActive() const;
+
+		void SetRunMode(RunMode mode);
+		RunMode GetRunMode() const;
 
 		void SetFather(const GameObjectPtr& father);
 		GameObjectPtr GetFather() const;
@@ -88,6 +101,9 @@ namespace Project {
 
 		bool IsToVisit() const;
 		void SetToVisit(bool value);
+
+		bool IsPersisted() const;
+		void SetPersisted(bool value);
 
 		static int GetCurrentGosCount();
 	};

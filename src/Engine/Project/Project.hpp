@@ -47,6 +47,11 @@ namespace Project {
 		ProjectState state = ProjectState::Idle;
 
 		/// <summary>
+		/// Project Mode
+		/// </summary>
+		ProjectMode mode = ProjectMode::PlayMode;
+
+		/// <summary>
 		/// Global reference to this project.
 		/// </summary>
 		static std::weak_ptr<Project> current;
@@ -83,6 +88,9 @@ namespace Project {
 
 		// Execution control
 		ProjectState GetState() const;
+		ProjectMode GetMode() const;
+		void SetMode(ProjectMode mode);
+
 		void Start();
 		void Stop();
 		void Reload();
@@ -107,7 +115,7 @@ namespace Project {
 
 		// Crud for scripts
 		bool AddScript(const std::string& goId, const std::string& scriptName);
-		bool DestroyScript(const std::string& goId, const std::string& scriptName);
+		bool DestroyScript(const std::string& goId, const std::string& scriptName, bool remove);
 		void ChangeScriptPosition(const std::string& goId, const std::string& scriptName, int displacement);
 		void ChangeScriptPositionByIndex(const std::string& goId, const std::string& scriptName, int index);
 		bool PreLoadScripts(const std::string& goId);

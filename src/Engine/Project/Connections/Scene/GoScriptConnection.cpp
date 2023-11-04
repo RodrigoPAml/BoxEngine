@@ -30,6 +30,10 @@ namespace Connection {
 		LuaUtils::RegTable(this->state, "load_scripts", LoadScripts);
 		LuaUtils::RegTable(this->state, "change_index", ChangeGoIndex);
 
+		// Persistance
+		LuaUtils::RegTable(this->state, "set_persist_go", SetPersistCurrentGo);
+		LuaUtils::RegTable(this->state, "set_persist_external_go", SetPersistExternalGo);
+
 		lua_setglobal(this->state, "_go_");
 
 		// Script manager
@@ -38,9 +42,19 @@ namespace Connection {
 		LuaUtils::RegTable(this->state, "current", GetCurrent);
 		LuaUtils::RegTable(this->state, "get", GetScript);
 		LuaUtils::RegTable(this->state, "add", AddScript);
-		LuaUtils::RegTable(this->state, "remove", RemoveScript);
+		LuaUtils::RegTable(this->state, "set_active", SetScriptActive);
+		LuaUtils::RegTable(this->state, "destroy", RemoveScript);
 		LuaUtils::RegTable(this->state, "change_index", ChangeScriptIndex);
 		LuaUtils::RegTable(this->state, "displace_index", DisplaceScript);
+
+		// Persistance
+		LuaUtils::RegTable(this->state, "set_persist_script", SetPersistCurrentScript);
+		LuaUtils::RegTable(this->state, "set_persist_script_data", SetPersistCurrentScriptData);
+		LuaUtils::RegTable(this->state, "set_show_script_data", SetShowCurrentScriptData);
+
+		LuaUtils::RegTable(this->state, "set_persist_ext_script", SetPersistExternalScript);
+		LuaUtils::RegTable(this->state, "set_persist_ext_script_data", SetPersistExternalScriptData);
+		LuaUtils::RegTable(this->state, "set_show_ext_script_data", SetShowExternalScriptData);
 
 		lua_setglobal(this->state, "_script_");
 	}
@@ -444,6 +458,7 @@ namespace Connection {
 		lua_newtable(L);
 
 		LuaUtils::RegTable(L, "name", script->GetName());
+		LuaUtils::RegTable(L, "active", script->GetActive());
 		LuaUtils::RegTable(L, "path", script->GetPath());
 		LuaUtils::RegTable(L, "state", ScriptStateToString(script->GetState()));
 		LuaUtils::RegTable(L, "is_started", script->IsStarted());
@@ -474,6 +489,46 @@ namespace Connection {
 		return 1;
 	}
 
+	int GoScriptConnection::SetScriptActive(lua_State* L)
+	{
+		auto top = lua_gettop(L);
+
+		if (top != 3)
+			return luaL_error(L, "expecting 2 arguments in function call");
+
+		std::string goId = "";
+		std::string scriptName = "";
+		bool val;
+
+		if (lua_isstring(L, 1))
+			goId = lua_tostring(L, 1);
+		else return luaL_error(L, "argument 1 is expected to be string");
+
+		if (lua_isstring(L, 2))
+			scriptName = lua_tostring(L, 2);
+		else return luaL_error(L, "argument 2 is expected to be string");
+
+		if (lua_isboolean(L, 3))
+			val = lua_toboolean(L, 3);
+		else return luaL_error(L, "argument 3 is expected to be bool");
+
+		auto go = Project::GetCurrentProject()->GetGameObject(goId);
+
+		if (go == nullptr)
+			return 0;
+
+		for (ScriptPtr script : go->GetScripts())
+		{
+			if (script->GetName() == scriptName)
+			{
+				script->SetActive(val);
+				break;
+			}
+		}
+
+		return 0;
+	}
+
 	int GoScriptConnection::RemoveScript(lua_State* L)
 	{
 		auto top = lua_gettop(L);
@@ -492,7 +547,12 @@ namespace Connection {
 			scriptName = lua_tostring(L, 2);
 		else return luaL_error(L, "argument 2 is expected to be string");
 
-		lua_pushboolean(L, Project::GetCurrentProject()->DestroyScript(goId, scriptName));
+		bool val = false;
+		if (lua_isboolean(L, 3))
+			val = lua_toboolean(L, 3);
+		else if (lua_isnoneornil(L, 3)) luaL_error(L, "argument 3 is expected to be boolean");
+
+		lua_pushboolean(L, Project::GetCurrentProject()->DestroyScript(goId, scriptName, val));
 
 		return 1;
 	}
@@ -549,6 +609,299 @@ namespace Connection {
 		else return luaL_error(L, "argument 3 is expected to be a number");
 
 		Project::GetCurrentProject()->ChangeScriptPosition(goId, scriptName, newIndex);
+
+		return 0;
+	}
+
+	int GoScriptConnection::SetPersistCurrentGo(lua_State* L)
+	{
+		auto top = lua_gettop(L);
+
+		if (top != 1)
+			return luaL_error(L, "expecting 1 argument in function call");
+
+		bool val;
+		if (lua_isboolean(L, 1))
+			val = lua_toboolean(L, 1);
+		else return luaL_error(L, "argument 1 is expected to be a bool");
+
+		auto go = GoScriptConnection::Get()->currentGo.lock();
+
+		if (go == nullptr)
+			return luaL_error(L, "no current script");
+
+		go->SetPersisted(val);
+		return 0;
+	}
+
+	int GoScriptConnection::SetPersistExternalGo(lua_State* L)
+	{
+		auto top = lua_gettop(L);
+
+		if (top != 2)
+			return luaL_error(L, "expecting 2 arguments in function call");
+
+		std::string goId;
+		if (lua_isstring(L, 1))
+			goId = lua_tostring(L, 1);
+		else return luaL_error(L, "argument 1 is expected to be a string");
+
+		bool val;
+		if (lua_isboolean(L, 2))
+			val = lua_toboolean(L, 2);
+		else return luaL_error(L, "argument 2 is expected to be a bool");
+
+		auto go = Project::GetCurrentProject()->GetGameObject(goId);
+		go->SetPersisted(val);
+
+		return 0;
+	}
+
+	int GoScriptConnection::SetPersistCurrentScript(lua_State* L)
+	{
+		auto top = lua_gettop(L);
+
+		if (top != 1)
+			return luaL_error(L, "expecting 1 argument in function call");
+
+		bool val;
+		if (lua_isboolean(L, 1))
+			val = lua_toboolean(L, 1);
+		else return luaL_error(L, "argument 1 is expected to be a bool");
+
+		auto script = GoScriptConnection::Get()->currentScript.lock();
+
+		if (script == nullptr)
+			return luaL_error(L, "no current script");
+
+		script->SetPersisted(val);
+		return 0;
+	}
+
+	int GoScriptConnection::SetPersistCurrentScriptData(lua_State* L)
+	{
+		auto top = lua_gettop(L);
+
+		if (top != 2)
+			return luaL_error(L, "expecting 2 arguments in function call");
+
+		std::string dataName;
+		bool val = false;
+
+		if (lua_isstring(L, 1))
+			dataName = lua_tostring(L, 1);
+		else return luaL_error(L, "argument 1 is expected to be a string");
+
+		if (lua_isboolean(L, 2))
+			val = lua_toboolean(L, 2);
+		else return luaL_error(L, "argument 2 is expected to be a bool");
+
+		auto script = GoScriptConnection::Get()->currentScript.lock();
+
+		if (script == nullptr)
+			return luaL_error(L, "no current script");
+
+		auto& data = script->GetScriptData();
+
+		for(ScriptData& var : data)
+		{
+			if (var.GetName() == dataName)
+			{
+				var.SetPersist(val);
+				break;
+			}
+		}
+
+		if (!val)
+			script->AddDataNotPersisted(dataName);
+		else 
+			script->RemoveDataNotPersisted(dataName);
+
+		return 0;
+	}
+
+	int GoScriptConnection::SetShowCurrentScriptData(lua_State* L)
+	{
+		auto top = lua_gettop(L);
+
+		if (top != 2)
+			return luaL_error(L, "expecting 2 arguments in function call");
+
+		std::string dataName;
+		bool val = false;
+
+		if (lua_isstring(L, 1))
+			dataName = lua_tostring(L, 1);
+		else return luaL_error(L, "argument 1 is expected to be a string");
+
+		if (lua_isboolean(L, 2))
+			val = lua_toboolean(L, 2);
+		else return luaL_error(L, "argument 2 is expected to be a bool");
+
+		auto script = GoScriptConnection::Get()->currentScript.lock();
+
+		if (script == nullptr)
+			return luaL_error(L, "no current script");
+
+		auto& data = script->GetScriptData();
+
+		for (ScriptData& var : data)
+		{
+			if (var.GetName() == dataName)
+			{
+				var.SetShowEditor(val);
+				break;
+			}
+		}
+
+		if (!val)
+			script->AddDataNotShowed(dataName);
+		else
+			script->RemoveDataNotShowed(dataName);
+
+		return 0;
+	}
+
+	int GoScriptConnection::SetPersistExternalScript(lua_State* L)
+	{
+		auto top = lua_gettop(L);
+
+		if (top != 3)
+			return luaL_error(L, "expecting 3 arguments in function call");
+
+		std::string goId;
+		if (lua_isstring(L, 1))
+			goId = lua_tostring(L, 1);
+		else return luaL_error(L, "argument 1 is expected to be a string");
+
+		std::string scriptName;
+		if (lua_isstring(L, 2))
+			scriptName = lua_tostring(L, 2);
+		else return luaL_error(L, "argument 2 is expected to be a string");
+
+		bool val;
+		if (lua_isboolean(L, 3))
+			val = lua_toboolean(L, 3);
+		else return luaL_error(L, "argument 3 is expected to be a bool");
+
+		auto go = Project::GetCurrentProject()->GetGameObject(goId);
+
+		for (ScriptPtr script : go->GetScripts())
+		{
+			if (script->GetName() == scriptName)
+			{
+				script->SetPersisted(val);
+				break;
+			}
+		}
+
+		return 0;
+	}
+
+	int GoScriptConnection::SetPersistExternalScriptData(lua_State* L)
+	{
+		auto top = lua_gettop(L);
+
+		if (top != 4)
+			return luaL_error(L, "expecting 4 arguments in function call");
+
+		std::string goId;
+		if (lua_isstring(L, 1))
+			goId = lua_tostring(L, 1);
+		else return luaL_error(L, "argument 1 is expected to be a string");
+
+		std::string scriptName;
+		if (lua_isstring(L, 2))
+			scriptName = lua_tostring(L, 2);
+		else return luaL_error(L, "argument 2 is expected to be a string");
+
+		std::string dataName;
+		if (lua_isstring(L, 3))
+			dataName = lua_tostring(L, 3);
+		else return luaL_error(L, "argument 3 is expected to be a string");
+
+		bool val;
+		if (lua_isboolean(L, 4))
+			val = lua_toboolean(L, 4);
+		else return luaL_error(L, "argument 4 is expected to be a bool");
+
+		auto go = Project::GetCurrentProject()->GetGameObject(goId);
+
+		for (ScriptPtr script : go->GetScripts())
+		{
+			if (script->GetName() == scriptName)
+			{
+				for(ScriptData& data : script->GetScriptData())
+				{
+					if (data.GetName() == dataName)
+					{
+						data.SetPersist(val);
+						break;
+					}
+				}
+
+				if (!val)
+					script->AddDataNotPersisted(dataName);
+				else
+					script->RemoveDataNotPersisted(dataName);
+
+				break;
+			}
+		}
+
+		return 0;
+	}
+
+	int GoScriptConnection::SetShowExternalScriptData(lua_State* L)
+	{
+		auto top = lua_gettop(L);
+
+		if (top != 4)
+			return luaL_error(L, "expecting 4 arguments in function call");
+
+		std::string goId;
+		if (lua_isstring(L, 1))
+			goId = lua_tostring(L, 1);
+		else return luaL_error(L, "argument 1 is expected to be a string");
+
+		std::string scriptName;
+		if (lua_isstring(L, 2))
+			scriptName = lua_tostring(L, 2);
+		else return luaL_error(L, "argument 2 is expected to be a string");
+
+		std::string dataName;
+		if (lua_isstring(L, 3))
+			dataName = lua_tostring(L, 3);
+		else return luaL_error(L, "argument 3 is expected to be a string");
+
+		bool val;
+		if (lua_isboolean(L, 4))
+			val = lua_toboolean(L, 4);
+		else return luaL_error(L, "argument 4 is expected to be a bool");
+
+		auto go = Project::GetCurrentProject()->GetGameObject(goId);
+
+		for (ScriptPtr script : go->GetScripts())
+		{
+			if (script->GetName() == scriptName)
+			{
+				for (ScriptData& data : script->GetScriptData())
+				{
+					if (data.GetName() == dataName)
+					{
+						data.SetPersist(val);
+						break;
+					}
+				}
+
+				if (!val)
+					script->AddDataNotShowed(dataName);
+				else
+					script->RemoveDataNotShowed(dataName);
+
+				break;
+			}
+		}
 
 		return 0;
 	}

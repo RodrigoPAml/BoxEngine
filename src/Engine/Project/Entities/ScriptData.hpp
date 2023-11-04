@@ -22,6 +22,12 @@ namespace Project {
 
 		// If data is modified in editor   
 		bool isModified;
+
+		// If this data must be showed in editor to edit
+		bool showInEditor;
+
+		// If this data should persist when saved
+		bool persist;
 	public:
 		ScriptData(std::string name, std::string value, ScriptDataType type);
 
@@ -36,5 +42,11 @@ namespace Project {
 
 		void SetModified(const bool value);
 		bool IsModified();
+
+		void SetPersist(const bool value);
+		bool IsPersist();
+
+		void SetShowEditor(const bool value);
+		bool IsShowEditor();
 	};
 }}}

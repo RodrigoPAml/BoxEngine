@@ -4,6 +4,7 @@ function end_frame.start()
 
    -- coordinates to draw in editor
    this.camera_editor_id = cam2d.create({ left = 0, right = size_editor.x, top = size_editor.y, bottom = 0})
+   script.set_persist_script_data('camera_editor_id', false)
 end
 
 function end_frame.update()

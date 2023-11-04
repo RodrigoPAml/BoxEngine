@@ -58,8 +58,21 @@ namespace Connection {
 		static int GetCurrent(lua_State* L);
 		static int GetScript(lua_State* L);
 		static int AddScript(lua_State* L); 
+		static int SetScriptActive(lua_State* L);
 		static int RemoveScript(lua_State* L);
 		static int ChangeScriptIndex(lua_State* L);
 		static int DisplaceScript(lua_State* L);
+
+		// Persistance
+		static int SetPersistCurrentGo(lua_State* L);
+		static int SetPersistExternalGo(lua_State* L);
+
+		static int SetPersistCurrentScript(lua_State* L);
+		static int SetPersistCurrentScriptData(lua_State* L);
+		static int SetShowCurrentScriptData(lua_State* L);
+
+		static int SetPersistExternalScript(lua_State* L);
+		static int SetPersistExternalScriptData(lua_State* L);
+		static int SetShowExternalScriptData(lua_State* L);
 	};
 }}}}

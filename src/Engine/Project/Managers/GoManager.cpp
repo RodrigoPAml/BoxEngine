@@ -11,7 +11,7 @@ namespace Project {
         using namespace std::placeholders;
 
         Debug::Logging::Log("[Project]: Loading gos", Debug::LogSeverity::Warning, Debug::LogOrigin::Engine);
-        Serialization::DeserializeGo(data["scene"], "", std::bind(&GoManager::AddGameObjectFromFile, this, _1, _2, _3, _4, _5));
+        Serialization::DeserializeGo(data["scene"], "", std::bind(&GoManager::AddGameObjectFromFile, this, _1, _2, _3, _4, _5, _6));
     }
 
     void GoManager::Unload()
@@ -352,6 +352,7 @@ namespace Project {
         const std::string& name, 
         bool active, 
         const std::vector<ScriptPtr>& scripts,
+        const RunMode mode,
         const std::string fatherId
     )
     {
@@ -362,6 +363,7 @@ namespace Project {
         newGo->id = id;
         newGo->active = active;
         newGo->scripts = scripts;
+        newGo->mode = mode;
 
         auto scriptsList = Project::GetCurrentProject()->GetScriptNamesForEditor();
         for (const auto& script : scripts)
@@ -463,6 +465,6 @@ namespace Project {
 
         return false;
     }
-    
+
     #pragma endregion
 }}}

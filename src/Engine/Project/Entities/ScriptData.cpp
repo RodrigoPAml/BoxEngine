@@ -11,6 +11,8 @@ namespace Project {
 		this->value = value;
 		this->type = type;
 		this->isModified = false;
+		this->showInEditor = true;
+		this->persist = true;
 	}
 
 	void ScriptData::SetName(const std::string& name)
@@ -51,5 +53,25 @@ namespace Project {
 	bool ScriptData::IsModified()
 	{
 		return this->isModified;
+	}
+
+	void ScriptData::SetPersist(const bool value)
+	{
+		this->persist = value;
+	}
+
+	bool ScriptData::IsPersist()
+	{
+		return this->persist;
+	}
+
+	void ScriptData::SetShowEditor(const bool value)
+	{
+		this->showInEditor = value;
+	}
+
+	bool ScriptData::IsShowEditor()
+	{
+		return this->showInEditor;
 	}
 }}}

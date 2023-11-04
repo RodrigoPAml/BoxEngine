@@ -169,16 +169,37 @@ namespace Project {
 						if (lua_type(this->state, -1) == LUA_TNUMBER)
 						{
 							ScriptData data = ScriptData(key, std::to_string(lua_tonumber(this->state, -1)), ScriptDataType::number);
+
+							if (script->HaveDataNotPersisted(data.GetName()))
+								data.SetPersist(false);
+
+							if (script->HaveDataNotShowed(data.GetName()))
+								data.SetShowEditor(false);
+
 							datas.push_back(data);
 						}
 						else if (lua_type(this->state, -1) == LUA_TSTRING)
 						{
 							ScriptData data = ScriptData(key, lua_tostring(this->state, -1), ScriptDataType::number);
+
+							if (script->HaveDataNotPersisted(data.GetName()))
+								data.SetPersist(false);
+
+							if (script->HaveDataNotShowed(data.GetName()))
+								data.SetShowEditor(false);
+
 							datas.push_back(data);
 						}
 						else if (lua_type(this->state, -2) == LUA_TBOOLEAN)
 						{
 							ScriptData data = ScriptData(key, lua_toboolean(this->state, -1) == true ? "1" : "0", ScriptDataType::boolean);
+
+							if (script->HaveDataNotPersisted(data.GetName()))
+								data.SetPersist(false);
+
+							if (script->HaveDataNotShowed(data.GetName()))
+								data.SetShowEditor(false);
+
 							datas.push_back(data);
 						}
 					}

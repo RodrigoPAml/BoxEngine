@@ -113,6 +113,9 @@ namespace Serialization {
 
         for (ScriptData& data : scriptData)
         {
+            if (!data.IsPersist())
+                continue;
+
             nlohmann::basic_json obj = json::object(
             {
                 {"name", data.GetName()},
@@ -141,6 +144,12 @@ namespace Serialization {
 
             ScriptPtr script = ScriptPtr(new Script(scriptObj["name"]));
 
+            if (scriptObj.contains("active"))
+                script->SetActive(scriptObj["active"]);
+
+            if (scriptObj.contains("mode"))
+                script->SetRunMode(scriptObj["mode"]);
+
             std::vector<ScriptData> data;
             for (auto dataItem : scriptObj["data"].items())
             {
@@ -168,9 +177,14 @@ namespace Serialization {
         
         for (const ScriptPtr& script : scripts)
         {
+            if (!script->IsPersisted())
+                continue;
+
             nlohmann::basic_json obj = json::object(
             {
                 {"name", script->GetName()},
+                {"active", script->GetActive()},
+                {"mode", script->GetRunMode()},
                 {"data", SerializeScriptsData(script->GetScriptData())}
             });
 
@@ -192,10 +206,14 @@ namespace Serialization {
 
         for (const Project::GameObjectPtr& go : gos)
         {
+            if (!go->IsPersisted())
+                continue;      
+
             nlohmann::basic_json obj = json::object(
             {
                 {"id", go->GetId()},
                 {"name", go->GetName()},
+                {"mode", (int)go->GetRunMode()},
                 {"active", go->GetActive()},
                 {"childrens", SerializeGo(go->GetChildrens())},
                 {"scripts", SerializeScripts(go->GetScripts())}
@@ -219,9 +237,9 @@ namespace Serialization {
         {
             auto obj = item.value();
             auto scripts = DeserializeScript(obj["scripts"]);
+            unsigned int mode = obj.contains("mode") ? (unsigned int)obj["mode"] : 0;
 
-            createGo(obj["id"], obj["name"], obj["active"], scripts, fatherId);
-
+            createGo(obj["id"], obj["name"], obj["active"], scripts, (Project::RunMode)mode, fatherId);
             DeserializeGo(obj["childrens"], obj["id"], createGo);
         }
     }

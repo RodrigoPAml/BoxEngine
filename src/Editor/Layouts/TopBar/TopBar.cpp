@@ -30,19 +30,7 @@ namespace Editor {
 
 			if (GUI::BeginMenu("File"))
 			{
-				if (GUI::MenuItem("Save", currentProject->GetState() == ProjectState::Idle))
-				{
-					try
-					{
-						currentProject->Save();
-					}
-					catch (const std::runtime_error& error)
-					{
-						Debug::Logging::Log(error.what(), Debug::LogSeverity::Error, Debug::LogOrigin::Engine);
-					}
-				}
-
-				if (currentProject->GetState() != ProjectState::Idle && GUI::MenuItem("Force Save"))
+				if (GUI::MenuItem("Save", currentProject->GetState() == ProjectState::Idle || currentProject->GetMode() == ProjectMode::EditorMode))
 				{
 					try
 					{
@@ -107,6 +95,19 @@ namespace Editor {
 
 				if (GUI::MenuItem("Open VS Code Project"))
 					Utils::Directory::Execute("code \"" + project->GetBasePath() + "\"");
+
+				GUI::EndMenu();
+			}
+
+			if (GUI::BeginMenu("Mode"))
+			{
+				auto mode = currentProject->GetMode();
+
+				if (GUI::MenuItem("Set Play Mode", mode == ProjectMode::EditorMode && currentProject->GetState() == ProjectState::Idle))
+					currentProject->SetMode(ProjectMode::PlayMode);
+
+				if (GUI::MenuItem("Set Editor Mode", mode == ProjectMode::PlayMode && currentProject->GetState() == ProjectState::Idle))
+					currentProject->SetMode(ProjectMode::EditorMode);
 
 				GUI::EndMenu();
 			}

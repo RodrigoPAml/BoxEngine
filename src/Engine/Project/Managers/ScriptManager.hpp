@@ -54,14 +54,14 @@ namespace Project {
 		void DestroyAllScripts(bool hasError, std::vector<GameObjectPtr>& root);
 
 		// Get the plan of execution of the scripts of a go.
-		void GetScriptsExecution(const GameObjectPtr go, std::vector<GoExecution>& executions);
+		void GetScriptsExecution(const GameObjectPtr go, std::vector<GoExecution>& executions, ProjectMode mode);
 
 		// Execute script of a go
 		bool ExecuteScript(const GoExecution& execution, bool setAsCurrent = true);
 
 		// Add and remove script at runtime
 		bool AddScript(GameObjectPtr go, const std::string& scriptName);
-		bool DestroyScript(GameObjectPtr go, const std::string& scriptName);
+		bool DestroyScript(GameObjectPtr go, const std::string& scriptName, bool remove);
 		
 		// In case you just created a go and want it scripts to load imediatly
 		// Otherwise will be in the next frame

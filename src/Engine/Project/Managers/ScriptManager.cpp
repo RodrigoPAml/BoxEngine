@@ -63,21 +63,35 @@ namespace Project {
 		this->state = nullptr;
 	}
 
-	void ScriptManager::GetScriptsExecution(const GameObjectPtr go, std::vector<GoExecution>& executions)
+	void ScriptManager::GetScriptsExecution(const GameObjectPtr go, std::vector<GoExecution>& executions , ProjectMode mode)
 	{
 		auto& scripts = go->GetScripts();
-
+		
 		// Plan execution for scripts of this go
 		for (ScriptPtr script : scripts)
 		{
-			if (script->GetState() == ScriptState::ToLoad)
+			bool isActive = go->GetActive() && script->GetActive();
+
+			if (script->GetRunMode() == RunMode::PlayModeDestroyed && mode == ProjectMode::PlayMode)
+				isActive = false;
+
+			if (script->GetRunMode() == RunMode::EditorModeDestroyed && mode == ProjectMode::EditorMode)
+				isActive = false;
+
+			if (script->GetRunMode() == RunMode::PlayModeRemoved && mode == ProjectMode::PlayMode)
+			{
+				script->SetState(ScriptState::ToDestroy);
+				script->SetRemovedAfterDestroyed(true);
+			}
+
+			if (script->GetState() == ScriptState::ToLoad && isActive)
 				executions.push_back(GoExecution(go, script, ""));
-			else if (script->GetState() == ScriptState::ToStart && go->GetActive())
+			else if (script->GetState() == ScriptState::ToStart && isActive)
 			{
 				std::string command = script->GetName() + ".start()";
 				executions.push_back(GoExecution(go, script, command));
 			}
-			else if (script->GetState() == ScriptState::Updating && go->GetActive())
+			else if (script->GetState() == ScriptState::Updating && isActive)
 			{
 				std::string command = script->GetName() + ".update()";
 				executions.push_back(GoExecution(go, script, command));
@@ -175,23 +189,28 @@ namespace Project {
 			// Execute script plan
 			auto command = execution.GetCommand();
 
-			if (script->GetUpdateScriptData())
-			{
-				this->connectionManager->UpdateScriptData(go, script);
-				script->SetUpdateScriptData(false);
-			}
+			// Loaded mean that everything is ready to start executing any commands
+			// This is made mainly becausa a script can be destroyed before it even started/loaded
+			if (script->IsLoaded())
+			{	
+				if (script->GetUpdateScriptData())
+				{
+					this->connectionManager->UpdateScriptData(go, script);
+					script->SetUpdateScriptData(false);
+				}
 
-			if (luaL_dostring(this->state, command.c_str()))
-			{
-				Debug::Logging::Log("[Project]: Error in Script " + 
-					script->GetName() + ": " + command + " = " +
-					lua_tostring(this->state, -1) + " in go " + go->GetId(),
-					Debug::LogSeverity::Error,
-					Debug::LogOrigin::Engine,
-					{ {"go_id", go->GetId()}, {"script_name", script->GetName()}}
-				);
+				if (luaL_dostring(this->state, command.c_str()))
+				{
+					Debug::Logging::Log("[Project]: Error in Script " +
+						script->GetName() + ": " + command + " = " +
+						lua_tostring(this->state, -1) + " in go " + go->GetId(),
+						Debug::LogSeverity::Error,
+						Debug::LogOrigin::Engine,
+						{ {"go_id", go->GetId()}, {"script_name", script->GetName()} }
+					);
 
-				return false;
+					return false;
+				}
 			}
 
 			// Change states
@@ -200,7 +219,12 @@ namespace Project {
 			else if (state == ScriptState::ToDestroy)
 			{
 				script->SetState(ScriptState::Destroyed);
-				this->connectionManager->DeleteScriptData(go, script);
+				
+				if(script->IsLoaded())
+					this->connectionManager->DeleteScriptData(go, script);
+
+				if (script->IsRemovedAfterDestroyed())
+					go->RemoveScript(script);
 			}
 		}
 		
@@ -238,7 +262,7 @@ namespace Project {
 		}
 	}
 
-	bool ScriptManager::DestroyScript(GameObjectPtr go, const std::string& scriptName)
+	bool ScriptManager::DestroyScript(GameObjectPtr go, const std::string& scriptName, bool remove)
 	{
 		// Set script to be destroyed
 		if (go != nullptr)
@@ -247,7 +271,16 @@ namespace Project {
 			{
 				if (script->GetName() == scriptName)
 				{
-					script->SetState(ScriptState::ToDestroy);
+					if (script->GetState() == ScriptState::Destroyed && remove)
+					{
+						go->RemoveScript(script);
+					}
+					else
+					{
+						script->SetRemovedAfterDestroyed(remove);
+						script->SetState(ScriptState::ToDestroy);
+					}
+					
 					return true;
 				}
 			}
@@ -270,7 +303,7 @@ namespace Project {
 			for (auto script : go->GetScripts())
 			{
 				GoExecution exec = GoExecution(go, script, "");
-				if (script->GetState() == ScriptState::ToLoad && !this->ExecuteScript(exec, false))
+				if (script->GetState() == ScriptState::ToLoad && script->GetActive() && !this->ExecuteScript(exec, false))
 					return false;
 			}
 
