@@ -1,4 +1,4 @@
-# Basic Module
+# Free functions
 
 ## Log
 Log into the console
@@ -22,6 +22,23 @@ function error(message = string) end
 Transform any data type into a string and return it
 ```lua
 function to_string(object = any) end
+```
+
+## Current data
+
+Get the current script data (like 'this' when using a class)
+
+```lua
+function current() end
+```
+
+## External data
+Get data from other go and respective script
+
+If not finded return nil
+
+```lua
+function data(goId = string, scriptName = string) end
 ```
 
 # Engine Module
@@ -516,6 +533,13 @@ Recieve the camera id and set as current camera
 Return a bool indicating success
 ```lua
 function cam3d.set_current(id = number) end
+```
+
+## Get Current Camera
+Return the current camera or nil if not finded
+
+```lua
+function cam3d.get_current() end
 ```
 
 # Drawing Module 
