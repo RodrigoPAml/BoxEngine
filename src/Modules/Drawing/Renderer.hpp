@@ -13,13 +13,14 @@ namespace Drawing {
 		friend class Window::Window;
 	private:
 		GPU::ShaderPtr shader;
+		GPU::ShaderPtr shaderMtl;
 	public:
 		static void Draw(const Importer::ObjectPtr obj);
 	private:
 		Renderer() {};
 
 		/// <summary>
-		/// Returns current instance.
+		/// Returns current instance.wa
 		/// </summary>
 		static Renderer& Instance();
 

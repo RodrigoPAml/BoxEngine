@@ -22,10 +22,13 @@
       "active": true,
       "childrens": [],
       "id": "12f9b466-6",
+      "mode": 0,
       "name": "begin_frame",
       "scripts": [
         {
+          "active": true,
           "data": [],
+          "mode": 0,
           "name": "begin_frame"
         }
       ]
@@ -37,9 +40,11 @@
           "active": true,
           "childrens": [],
           "id": "b6539016-c",
+          "mode": 0,
           "name": "menu",
           "scripts": [
             {
+              "active": true,
               "data": [
                 {
                   "name": "game_id",
@@ -47,6 +52,7 @@
                   "value": "b155cc44-d"
                 }
               ],
+              "mode": 0,
               "name": "menu"
             }
           ]
@@ -58,10 +64,13 @@
               "active": true,
               "childrens": [],
               "id": "7f9b5b24-4",
+              "mode": 0,
               "name": "ocean",
               "scripts": [
                 {
+                  "active": true,
                   "data": [],
+                  "mode": 0,
                   "name": "ocean"
                 }
               ]
@@ -73,9 +82,11 @@
                   "active": true,
                   "childrens": [],
                   "id": "674c7263-5",
+                  "mode": 0,
                   "name": "cloud",
                   "scripts": [
                     {
+                      "active": true,
                       "data": [
                         {
                           "name": "path",
@@ -93,6 +104,7 @@
                           "value": "17000.000000"
                         }
                       ],
+                      "mode": 0,
                       "name": "clouds"
                     }
                   ]
@@ -101,9 +113,11 @@
                   "active": true,
                   "childrens": [],
                   "id": "9ee4739f-2",
+                  "mode": 0,
                   "name": "cloud",
                   "scripts": [
                     {
+                      "active": true,
                       "data": [
                         {
                           "name": "path",
@@ -121,6 +135,7 @@
                           "value": "23000.000000"
                         }
                       ],
+                      "mode": 0,
                       "name": "clouds"
                     }
                   ]
@@ -129,9 +144,11 @@
                   "active": true,
                   "childrens": [],
                   "id": "340b79b9-2",
+                  "mode": 0,
                   "name": "cloud",
                   "scripts": [
                     {
+                      "active": true,
                       "data": [
                         {
                           "name": "path",
@@ -149,6 +166,7 @@
                           "value": "5000.000000"
                         }
                       ],
+                      "mode": 0,
                       "name": "clouds"
                     }
                   ]
@@ -157,9 +175,11 @@
                   "active": true,
                   "childrens": [],
                   "id": "bdef6088-0",
+                  "mode": 0,
                   "name": "cloud",
                   "scripts": [
                     {
+                      "active": true,
                       "data": [
                         {
                           "name": "path",
@@ -177,6 +197,7 @@
                           "value": "3000.000000"
                         }
                       ],
+                      "mode": 0,
                       "name": "clouds"
                     }
                   ]
@@ -185,9 +206,11 @@
                   "active": true,
                   "childrens": [],
                   "id": "0a855391-4",
+                  "mode": 0,
                   "name": "cloud",
                   "scripts": [
                     {
+                      "active": true,
                       "data": [
                         {
                           "name": "path",
@@ -205,6 +228,7 @@
                           "value": "8000.000000"
                         }
                       ],
+                      "mode": 0,
                       "name": "clouds"
                     }
                   ]
@@ -213,9 +237,11 @@
                   "active": true,
                   "childrens": [],
                   "id": "8ef7d7f3-3",
+                  "mode": 0,
                   "name": "cloud",
                   "scripts": [
                     {
+                      "active": true,
                       "data": [
                         {
                           "name": "path",
@@ -233,6 +259,7 @@
                           "value": "21000.000000"
                         }
                       ],
+                      "mode": 0,
                       "name": "clouds"
                     }
                   ]
@@ -241,9 +268,11 @@
                   "active": true,
                   "childrens": [],
                   "id": "e1b887ae-a",
+                  "mode": 0,
                   "name": "cloud",
                   "scripts": [
                     {
+                      "active": true,
                       "data": [
                         {
                           "name": "path",
@@ -261,6 +290,7 @@
                           "value": "20000.000000"
                         }
                       ],
+                      "mode": 0,
                       "name": "clouds"
                     }
                   ]
@@ -269,9 +299,11 @@
                   "active": true,
                   "childrens": [],
                   "id": "97209073-3",
+                  "mode": 0,
                   "name": "cloud",
                   "scripts": [
                     {
+                      "active": true,
                       "data": [
                         {
                           "name": "path",
@@ -289,12 +321,14 @@
                           "value": "25000.000000"
                         }
                       ],
+                      "mode": 0,
                       "name": "clouds"
                     }
                   ]
                 }
               ],
               "id": "f329c13f-2",
+              "mode": 0,
               "name": "clouds",
               "scripts": []
             },
@@ -302,9 +336,11 @@
               "active": true,
               "childrens": [],
               "id": "5ba84dea-b",
+              "mode": 0,
               "name": "fighter",
               "scripts": [
                 {
+                  "active": true,
                   "data": [
                     {
                       "name": "size_x",
@@ -337,6 +373,7 @@
                       "value": "e24537a6-9"
                     }
                   ],
+                  "mode": 0,
                   "name": "fighter"
                 }
               ]
@@ -348,6 +385,7 @@
                   "active": true,
                   "childrens": [],
                   "id": "e24537a6-9",
+                  "mode": 0,
                   "name": "explosions",
                   "scripts": []
                 },
@@ -355,6 +393,7 @@
                   "active": true,
                   "childrens": [],
                   "id": "d3de6706-0",
+                  "mode": 0,
                   "name": "fighter_fires",
                   "scripts": []
                 },
@@ -362,6 +401,7 @@
                   "active": true,
                   "childrens": [],
                   "id": "5fee7316-8",
+                  "mode": 0,
                   "name": "enemy_fires",
                   "scripts": []
                 },
@@ -369,6 +409,7 @@
                   "active": true,
                   "childrens": [],
                   "id": "f9cd1b94-6",
+                  "mode": 0,
                   "name": "enemies",
                   "scripts": []
                 },
@@ -376,11 +417,13 @@
                   "active": true,
                   "childrens": [],
                   "id": "f69aaed9-3",
+                  "mode": 0,
                   "name": "lifes",
                   "scripts": []
                 }
               ],
               "id": "ee9e9258-5",
+              "mode": 0,
               "name": "instances",
               "scripts": []
             },
@@ -391,9 +434,11 @@
                   "active": true,
                   "childrens": [],
                   "id": "bf1f3c15-a",
+                  "mode": 0,
                   "name": "fire",
                   "scripts": [
                     {
+                      "active": true,
                       "data": [
                         {
                           "name": "size_x",
@@ -416,6 +461,7 @@
                           "value": "1.800000"
                         }
                       ],
+                      "mode": 0,
                       "name": "fire"
                     }
                   ]
@@ -424,9 +470,11 @@
                   "active": true,
                   "childrens": [],
                   "id": "de0fdaf7-d",
+                  "mode": 0,
                   "name": "enemy_fire",
                   "scripts": [
                     {
+                      "active": true,
                       "data": [
                         {
                           "name": "size_x",
@@ -449,6 +497,7 @@
                           "value": "694a1a79-d"
                         }
                       ],
+                      "mode": 0,
                       "name": "enemy_fire"
                     }
                   ]
@@ -457,9 +506,11 @@
                   "active": true,
                   "childrens": [],
                   "id": "9900d1ea-b",
+                  "mode": 0,
                   "name": "enemy",
                   "scripts": [
                     {
+                      "active": true,
                       "data": [
                         {
                           "name": "size_x",
@@ -502,6 +553,7 @@
                           "value": "694a1a79-d"
                         }
                       ],
+                      "mode": 0,
                       "name": "enemy"
                     }
                   ]
@@ -510,9 +562,11 @@
                   "active": true,
                   "childrens": [],
                   "id": "77450af0-e",
+                  "mode": 0,
                   "name": "explosion",
                   "scripts": [
                     {
+                      "active": true,
                       "data": [
                         {
                           "name": "size_x",
@@ -525,6 +579,7 @@
                           "value": "200.000000"
                         }
                       ],
+                      "mode": 0,
                       "name": "explosion"
                     }
                   ]
@@ -533,9 +588,11 @@
                   "active": true,
                   "childrens": [],
                   "id": "7181ace4-9",
+                  "mode": 0,
                   "name": "life",
                   "scripts": [
                     {
+                      "active": true,
                       "data": [
                         {
                           "name": "fighter_id",
@@ -543,12 +600,14 @@
                           "value": "5ba84dea-b"
                         }
                       ],
+                      "mode": 0,
                       "name": "life"
                     }
                   ]
                 }
               ],
               "id": "0336077f-6",
+              "mode": 0,
               "name": "prefabs",
               "scripts": []
             },
@@ -556,9 +615,11 @@
               "active": true,
               "childrens": [],
               "id": "694a1a79-d",
+              "mode": 0,
               "name": "controller",
               "scripts": [
                 {
+                  "active": true,
                   "data": [
                     {
                       "name": "enemy_id",
@@ -591,17 +652,20 @@
                       "value": "f69aaed9-3"
                     }
                   ],
+                  "mode": 0,
                   "name": "controller"
                 }
               ]
             }
           ],
           "id": "b155cc44-d",
+          "mode": 0,
           "name": "game",
           "scripts": []
         }
       ],
       "id": "0f2489b2-0",
+      "mode": 0,
       "name": "scene",
       "scripts": []
     },
@@ -609,9 +673,11 @@
       "active": true,
       "childrens": [],
       "id": "4951cfa6-1",
+      "mode": 0,
       "name": "end_frame",
       "scripts": [
         {
+          "active": true,
           "data": [
             {
               "name": "begin_id",
@@ -619,6 +685,7 @@
               "value": "12f9b466-6"
             }
           ],
+          "mode": 0,
           "name": "end_frame"
         }
       ]

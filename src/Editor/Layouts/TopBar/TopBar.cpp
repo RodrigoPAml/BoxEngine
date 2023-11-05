@@ -112,6 +112,17 @@ namespace Editor {
 				GUI::EndMenu();
 			}
 
+			if (GUI::BeginMenu("About"))
+			{
+				if (GUI::MenuItem("GitHub"))
+					Utils::Directory::Execute("explorer https://github.com/RodrigoPAml/BoxEngine/blob/main/docs/api.md");
+
+				if (GUI::MenuItem("Documentation"))
+					Utils::Directory::Execute("explorer https://github.com/RodrigoPAml/BoxEngine");
+
+				GUI::EndMenu();
+			}
+
 			GUI::EndMainMenuBar();
 		}
 	}

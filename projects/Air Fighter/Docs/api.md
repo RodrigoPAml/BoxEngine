@@ -1,4 +1,4 @@
-# Basic Module
+# Free functions
 
 ## Log
 Log into the console
@@ -24,7 +24,30 @@ Transform any data type into a string and return it
 function to_string(object = any) end
 ```
 
+## Current data
+
+Get the current script data (like 'this' when using a class)
+
+```lua
+function current() end
+```
+
+## External data
+Get data from other go and respective script
+
+If not finded return nil
+
+```lua
+function data(goId = string, scriptName = string) end
+```
+
 # Engine Module
+
+## Get Mode
+Return the engine running mode in Project Mode Enum
+```lua
+function engine.get_mode() end
+```
 
 ## Get FPS
 Return a number with current fps
@@ -196,6 +219,20 @@ If fail this will trigger an internal error
 function go.load_scripts(goId = string) end
 ```
 
+## Persist Go
+Set the current go to persist not
+
+```lua
+function go.set_persist_go(val = bool) end
+```
+
+## Persist External Go
+Set any go to persist or not
+
+```lua
+function go.set_persist_external_go(goId = string, val = bool) end
+```
+
 # Script Module
 
 ## Get Script
@@ -224,12 +261,14 @@ Return a boolean indicating success
 function script.add(goId = number, scriptName = string) end
 ```
 
-## Remove Script
-Remove the script of a gameobject
+## Destroy Script
+Destroy the script of a gameobject
+
+The remove argument indicates if the script should be also removed when destroyed, its an optional argument
 
 Return a boolean indicating success
 ```lua
-function script.remove(goId = number, scriptName = string) end
+function script.destroy(goId = number, scriptName = string, remove = bool) end
 ```
 
 ## Change Script Index
@@ -246,6 +285,48 @@ The displacement argument changes the index based on the current index
 
 ```lua
 function script.displace_index(goId = string, scriptName = string, displacement = number) end
+```
+
+## Persist Script
+Set current script to persist or not
+
+```lua
+function script.set_persist_script(val = bool) end
+```
+
+## Persist External Script
+Set any script to persist or not
+
+```lua
+function script.set_persist_ext_script(goId = string, scriptName = string, val = bool) end
+```
+
+## Persist Script Data
+Set data from current script to persist or not
+
+```lua
+function script.set_persist_script_data(dataName = string, val = bool) end
+```
+
+## Persist External Script Data
+Set any script data to persist or not
+
+```lua
+function script.set_persist_ext_script_data(goId = string, scriptName = string, val = bool) end
+```
+
+## Show Script Data
+Set data from current script to show or not
+
+```lua
+function script.set_show_script_data(dataName = string, val = bool) end
+```
+
+## Show External Script Data
+Set any script data to show or not
+
+```lua
+function script.set_persist_ext_show_data(goId = string, scriptName = string, val = bool) end
 ```
 
 # Camera 2D Module
@@ -516,6 +597,13 @@ Recieve the camera id and set as current camera
 Return a bool indicating success
 ```lua
 function cam3d.set_current(id = number) end
+```
+
+## Get Current Camera
+Return the current camera or nil if not finded
+
+```lua
+function cam3d.get_current() end
 ```
 
 # Drawing Module 
@@ -2332,5 +2420,25 @@ function importer.destroy(id = number)
 	DEPTH24_STENCIL8,
 	DEPTH32F_STENCIL8,
 	STENCIL_INDEX8,
+};
+```
+
+## Render Buffer Format
+```C++
+{
+	DEPTH_COMPONENT16,
+	DEPTH_COMPONENT24,
+	DEPTH_COMPONENT32F,
+	DEPTH24_STENCIL8,
+	DEPTH32F_STENCIL8,
+	STENCIL_INDEX8,
+};
+```
+
+## Project Mode Enum
+```C++
+{
+	PLAY,
+	EDITOR
 };
 ```

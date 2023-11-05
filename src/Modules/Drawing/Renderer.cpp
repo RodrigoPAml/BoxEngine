@@ -92,13 +92,34 @@ namespace Drawing {
 			"}"
 		};
 
+		const std::string fragShaderMtl = {
+			"#version 330 core\n"
+
+			"layout(location = 0) out vec4 outColor;\n"
+
+			"in vec3 interpNormal;\n"
+			"in vec2 interpUV;\n"
+
+			"uniform vec3 color;\n"
+
+			"void main()\n"
+			"{\n"
+			"  outColor = vec4(color, 1.0f);\n"
+			"}"
+		};
+
 		this->shader = GPU::ShaderPtr(new GPU::Shader(vertShader, fragShader, ""));
+		this->shaderMtl = GPU::ShaderPtr(new GPU::Shader(vertShader, fragShaderMtl, ""));
 
 		Debug::Logging::Log("[Renderer]: Initialized", Debug::LogSeverity::Notify, Debug::LogOrigin::Engine);
 	}
 
 	void Renderer::Release()
 	{
+
+		this->shader = nullptr;
+		this->shaderMtl = nullptr;
+
 		Debug::Logging::Log("[Renderer]: Released", Debug::LogSeverity::Notify, Debug::LogOrigin::Engine);
 	}
 }}}

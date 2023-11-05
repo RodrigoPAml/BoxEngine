@@ -145,6 +145,14 @@ function go.load_scripts(goId)
 	return _go_.load_scripts(goId)
 end
 
+function go.set_persist_go(val)
+	return _go_.set_persist_go(val)
+end
+
+function go.set_persist_external_go(goId, val)
+	return _go_.set_persist_external_go(goId, val)
+end
+
 function script.current()
 	return _script_.current()
 end
@@ -157,8 +165,12 @@ function script.add(goId, scriptName)
 	return _script_.add(goId, scriptName)
 end
 
-function script.remove(goId, scriptName)
-	return _script_.remove(goId, scriptName)
+function script.set_active(goId, scriptName, val)
+	return _script_.set_active(goId, scriptName, val)
+end
+
+function script.destroy(goId, scriptName, remove)
+	return _script_.destroy(goId, scriptName, remove)
 end
 
 function script.change_index(goId, scriptName, index)
@@ -169,12 +181,28 @@ function script.displace_index(goId, scriptName, displacement)
 	return _script_.displace_index(goId, scriptName, displacement)
 end
 
-function script.set_data_persistent(dataname, value)
-	return _script_.set_data_persistent(dataname, value)
+function script.set_persist_script(val)
+	_script_.set_persist_script(val)
 end
 
-function script.set_data_show_editor(dataname, value)
-	return _script_.set_data_show_editor(dataname, value)
+function script.set_persist_script_data(dataname, val)
+	_script_.set_persist_script_data(dataname, val)
+end
+
+function script.set_show_script_data(dataname, val)
+	_script_.set_show_script_data(dataname, val)
+end
+
+function script.set_persist_ext_script(goId, scriptName, val)
+	_script_.set_persist_ext_script(goId, scriptName, val)
+end
+
+function script.set_persist_ext_script_data(goId, scriptName, dataName, val)
+	_script_.set_persist_ext_script_data(goId, scriptName, dataName, val)
+end
+
+function script.set_show_ext_script_data(goId, scriptName, dataName, val)
+	_script_.set_show_ext_script_data(goId, scriptName, dataName, val)
 end
 
 function cam2d.create(object)
@@ -671,6 +699,10 @@ end
 
 function time.get_datetime() 
 	return _time_.get_datetime()
+end
+
+function engine.get_mode() 
+	return _engine_.get_mode()
 end
 
 function engine.get_fps() 
