@@ -9,6 +9,7 @@ namespace Importer {
     {
         friend class Importer;
     public:
+        std::string path;
         std::string basePath;
 
         glm::vec3 position;

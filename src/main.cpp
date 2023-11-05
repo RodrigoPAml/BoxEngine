@@ -79,6 +79,8 @@ int main(int argc, char* argv[])
 		Framebuffer::SetClearModes({ ClearMode::COLOR, ClearMode::DEPTH });
 		Framebuffer::Clear({0.0f, 0.0f, 0.0f, 0.0f});
 		
+		project->Execute();
+
 		if (!external)
 		{
 			editor->Update();
@@ -86,8 +88,6 @@ int main(int argc, char* argv[])
 		}
 		else 
 			project->SetScreenLimits({0, 0}, Window::GetSize());
-
-		project->Execute();
 
 		Window::SwapAndPollEvents();
 	}

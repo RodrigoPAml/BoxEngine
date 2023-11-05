@@ -35,11 +35,30 @@ namespace Drawing {
 
 			if (materialIndex > 0)
 			{
-				// TODO
-			}
-			else
-			{
-				// TODO
+				Importer::MaterialPtr mtl = obj->materials[materialIndex];
+				GPU::TexturePtr albedoTexture = mtl->GetAlbedoTexture();
+
+				if (albedoTexture == nullptr)
+				{
+					instance.shaderMtl->Use();
+					instance.shaderMtl->SetMat4("model", glm::mat4(1.0f));
+					instance.shaderMtl->SetMat4("projection", cam->GetProjectionMatrix());
+					instance.shaderMtl->SetMat4("view", cam->GetViewMatrix());
+					instance.shaderMtl->SetVec3("color", mtl->GetColor());
+				}
+				else
+				{
+					instance.shader->Use();
+					instance.shader->SetMat4("model", glm::mat4(1.0f));
+					instance.shader->SetMat4("projection", cam->GetProjectionMatrix());
+					instance.shader->SetMat4("view", cam->GetViewMatrix());
+
+					albedoTexture->Use(1);
+					instance.shader->SetInt("tex", 1);
+				}
+
+				mesh->GetMesh()->Use();
+				mesh->GetMesh()->Draw(GPU::DrawingType::TRIANGLES);
 			}
 		}
 	}

@@ -29,6 +29,7 @@ namespace Utils {
 		glm::vec<2, int> GetSize() const;
 		unsigned char* GetData() const;
 		GPU::TextureFormat GetFormat() const;
+		GPU::TextureInternalFormat GetInternalFormat();
 		std::string GetLoadedPath() const;
 	};
 

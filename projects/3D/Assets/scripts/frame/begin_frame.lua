@@ -55,7 +55,7 @@ function begin_frame.update()
 
    framebuffer.active(framebuffer.get_current())
    framebuffer.set_viewport({ x = 0, y = 0, z = 1920, w = 1080 })
-   framebuffer.clear({ x = 0, y = 0, z = 0, w = 1 })
+   framebuffer.clear({ x = 153/255, y = 204/255, z = 1, w = 1 })
 end
 
 function begin_frame.destroy()

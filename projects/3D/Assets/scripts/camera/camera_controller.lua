@@ -22,22 +22,22 @@ function camera_controller.update()
     if ((up == 'PRESS' or up == 'REPEAT')) then
         cam3d.translate(camera_id, {
             direction = 'FORWARD',
-            velocity = 1
+            velocity = 0.1
         })
     elseif ((down == 'PRESS' or down == 'REPEAT')) then
         cam3d.translate(camera_id, {
             direction = 'BACKWARD',
-            velocity = 1
+            velocity = 0.1
         })
     elseif ((left == 'PRESS' or left == 'REPEAT')) then
         cam3d.translate(camera_id, {
             direction = 'LEFT',
-            velocity = 1
+            velocity = 0.1
         })
     elseif ((right == 'PRESS' or right == 'REPEAT')) then
         cam3d.translate(camera_id, {
             direction = 'RIGHT',
-            velocity = 1
+            velocity = 0.1
         })
     end
 end

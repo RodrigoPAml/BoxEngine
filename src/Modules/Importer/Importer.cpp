@@ -22,10 +22,20 @@ namespace Importer {
         );
 
         ObjectPtr object = ObjectPtr(new Object());
-        object->basePath = path;
+        object->basePath = Utils::Directory::RemovePartsFromPath(path, 1);
+        object->path = path;
 
-        if(scene == nullptr || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
+        if (scene == nullptr || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) 
+        {
+            if (scene == nullptr) 
+                throw std::runtime_error("[Importer]: Failed to load the model " + path + ". Null returned!");
+            else if (scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE)
+                throw std::runtime_error("[Importer]: Failed to load the model " + path + ". Scene Incomplete!");
+            else if (!scene->mRootNode) 
+                throw std::runtime_error("[Importer]: Failed to load the model " + path + ". Root null!");
+
             return nullptr;
+        }
         else
         {
             ProcessNode(scene->mRootNode, scene, object);
@@ -142,7 +152,7 @@ namespace Importer {
 
                 if (!textures.contains(texturePath))
                 {
-                    auto image = ImagePtr(new Image(object->basePath + "//" + texturePath));
+                    auto image = ImagePtr(new Image(object->basePath + "/" + texturePath, true));
                     auto texture = GPU::TexturePtr(new GPU::Texture(GPU::TextureDataConfiguration(), image));
 
                     textures[texturePath] = texture;

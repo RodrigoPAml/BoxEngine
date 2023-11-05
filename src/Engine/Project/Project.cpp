@@ -196,7 +196,7 @@ namespace Project {
 
     std::string Project::GetProjectSettingsPath() const
     {
-        return this->GetBasePath() + '/' + "project.cvproj";
+        return this->GetBasePath() + '/' + "project.boxproj";
     }
 
     void Project::SetScreenLimits(glm::vec2 start, glm::vec2 end)

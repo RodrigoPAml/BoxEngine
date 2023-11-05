@@ -46,12 +46,12 @@ namespace GPU {
 		glTexImage2D(
 			GL_TEXTURE_2D, 
 			0, 
-			(GLint)configuration.internalFormat,
+			(GLint)(image->GetInternalFormat()),
 			image->GetSize().x,
 			image->GetSize().y,
 			0, 
 			(GLint)image->GetFormat(),
-			(GLenum)configuration.pixelFormat,
+			(GLenum)(TexturePixelFormat::UNSIGNED_BYTE),
 			image->GetData()
 		);
 

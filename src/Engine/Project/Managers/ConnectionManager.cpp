@@ -100,6 +100,7 @@ namespace Project {
 		this->font->Bind();
 		this->math->Bind();
 		this->importer->Bind();
+		this->render->Bind();
 	}
 
 	void ConnectionManager::SetCurrentGo(GameObjectPtr go)

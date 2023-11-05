@@ -104,7 +104,7 @@ namespace Editor {
 
 				if (GUI::BeginWindow(this->isCreateMode ? "Create Project" : "Load Project", &this->isDialogOpen, config))
 				{
-					std::string selected = GUI::FileDialog(this->currentPath, this->currentFilter, this->isCreateMode, std::vector<std::string>({ ".cvproj" }));
+					std::string selected = GUI::FileDialog(this->currentPath, this->currentFilter, this->isCreateMode, std::vector<std::string>({ ".boxproj" }));
 					
 					GUI::Separator();
 						
@@ -231,7 +231,7 @@ namespace Editor {
 		GUI::SetFontScale(0.8);
 		GUI::BulletText("Select the ");
 		GUI::ContinueSameLine();
-		GUI::ColoredText(".cvproj", { 0.3, 0.9, 0.3, 1 });
+		GUI::ColoredText(".boxproj", { 0.3, 0.9, 0.3, 1 });
 		GUI::ContinueSameLine();
 		GUI::Text(" file to load project");
 		GUI::SetFontScale(1);

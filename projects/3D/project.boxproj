@@ -48,33 +48,59 @@
       ]
     },
     {
-      "active": true,
+      "active": false,
       "childrens": [],
       "id": "963c63a3-b",
       "mode": 0,
-      "name": "Draw",
+      "name": "DrawCube",
+      "scripts": [
+        {
+          "active": true,
+          "data": [],
+          "mode": 0,
+          "name": "draw_cube"
+        }
+      ]
+    },
+    {
+      "active": true,
+      "childrens": [],
+      "id": "4e6e396f-1",
+      "mode": 0,
+      "name": "DrawSponza",
       "scripts": [
         {
           "active": true,
           "data": [
             {
-              "name": "x",
-              "type": 1,
-              "value": "10.000000"
-            },
-            {
-              "name": "y",
-              "type": 1,
-              "value": "0.000000"
-            },
-            {
-              "name": "z",
-              "type": 1,
-              "value": "0.000000"
+              "name": "path",
+              "type": 2,
+              "value": "/models/sponza/sponza.obj"
             }
           ],
           "mode": 0,
-          "name": "draw"
+          "name": "draw_obj"
+        }
+      ]
+    },
+    {
+      "active": false,
+      "childrens": [],
+      "id": "075c5dfc-5",
+      "mode": 0,
+      "name": "DrawVilinha",
+      "scripts": [
+        {
+          "active": true,
+          "data": [
+            {
+              "name": "path",
+              "type": 2,
+              "value": "/models/vilinha/VILINHAa.obj"
+            }
+          ],
+          "mode": 0,
+          "name": "draw_obj"
         }
       ]
     },

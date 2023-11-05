@@ -15,8 +15,8 @@ namespace GPU {
 		MinifyingFilter minifyingFilter = MinifyingFilter::LINEAR_MIPMAP_LINEAR;
 		MagnificationFilter magnificationFilter = MagnificationFilter::LINEAR;
 
-		TextureWrap textureWrapT = TextureWrap::CLAMP_TO_EDGE;
-		TextureWrap textureWrapS = TextureWrap::CLAMP_TO_EDGE;
+		TextureWrap textureWrapT = TextureWrap::MIRRORED_REPEAT;
+		TextureWrap textureWrapS = TextureWrap::MIRRORED_REPEAT;
 
 		TextureInternalFormat internalFormat = TextureInternalFormat::RGB;
 		TexturePixelFormat pixelFormat = TexturePixelFormat::FLOAT;

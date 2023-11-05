@@ -495,7 +495,7 @@ namespace Editor {
 
 			GUI::SetFontScale(0.6);
 			if (project->GetState() == ProjectState::Idle)
-				GUI::Text("Idle");
+				GUI::Text("State: Idle");
 			else 
 				GUI::Text("State: " + ScriptStateToStringForEditor(script->GetState(), go->GetActive() && script->GetActive(), script->GetRunMode(), project->GetMode()));
 

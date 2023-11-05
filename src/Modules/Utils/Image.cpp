@@ -16,18 +16,18 @@ namespace Utils {
 		this->data = stbi_load(path.c_str(), &this->size.x, &this->size.y, &numComponents, 0);
 		this->path = path;
 
-		if (!this->data)
-		{
-			Debug::Logging::LogException("[Image]: Failed to open texture: " + path, Debug::LogOrigin::EngineInternal);
-			return;
-		}
+		if (!this->data && stbi_failure_reason())
+			Debug::Logging::LogException("[Image]: Failed to open texture: " + std::string(stbi_failure_reason()), Debug::LogOrigin::Engine);
 
+		if (!this->data)
+			Debug::Logging::LogException("[Image]: Failed to open texture: " + path, Debug::LogOrigin::Engine);
+		
 		if (this->size.x <= 0 || this->size.y <= 0)
 		{
 			if (this->data != nullptr)
 				delete[] this->data;
 
-			Debug::Logging::LogException("[Image]: Failed to open texture " + path + " because size can't be zero or negative", Debug::LogOrigin::EngineInternal);
+			Debug::Logging::LogException("[Image]: Failed to open texture " + path + " because size can't be zero or negative", Debug::LogOrigin::Engine);
 		}
 
 		switch (numComponents)
@@ -87,6 +87,25 @@ namespace Utils {
 	GPU::TextureFormat Image::GetFormat() const
 	{
 		return this->format;
+	}
+
+	GPU::TextureInternalFormat Image::GetInternalFormat()
+	{
+		switch (this->format)		
+		{	
+		case GPU::TextureFormat::RGB:
+			return GPU::TextureInternalFormat::RGB;
+		case GPU::TextureFormat::RG:
+			return GPU::TextureInternalFormat::RG;
+		case GPU::TextureFormat::R:
+			return GPU::TextureInternalFormat::R;
+		case GPU::TextureFormat::RGBA:
+			return GPU::TextureInternalFormat::RGBA;
+		default:
+			break;
+		}
+
+		return GPU::TextureInternalFormat::RGB;
 	}
 
 	std::string Image::GetLoadedPath() const
