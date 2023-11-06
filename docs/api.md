@@ -1,4 +1,4 @@
-# Free functions
+# Main functions
 
 ## Log
 Log into the console
