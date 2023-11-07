@@ -90,7 +90,11 @@ end
 
 Read the scripting api documentation [here](https://github.com/RodrigoPAml/BoxEngine/blob/main/docs/api.md)
 
-# First game
+# Projects
+
+The code is in the Projects folder
+
+## First game
 
 The first game is called "Air Fither and game be found in games folder
 
@@ -102,7 +106,7 @@ This game was made to validade the engine release
 
 ![2](https://github.com/RodrigoPAml/BoxEngine/assets/41243039/051d48c1-22e7-407a-9e16-b421f5f43b9c)
 
-# Fractal project
+## Fractal project
 
 One implemented fractal and one retrieved from shader toy (link in shader file)
 
@@ -112,7 +116,7 @@ My fractal
 
 ![image](https://github.com/RodrigoPAml/BoxEngine/assets/41243039/8baca372-0148-4342-9be8-33c5525ec58a)
 
-# 3D Scene
+## 3D Scene
 
 Open an 3d object an draw it with renderer
 
