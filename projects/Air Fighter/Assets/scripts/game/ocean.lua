@@ -1,20 +1,20 @@
 function ocean.start()
-    local this = current()
+    local this = engine.current()
 
     -- load ocean texture
-    local assetsPath = dir.get_assets_path() .. '/images/ocean.png'
-    this.texture = texture.create({
-        ["minifying_filter"] = "LINEAR_MIPMAP_LINEAR",
-        ["magnification_filter"] = "LINEAR",
-        ["texture_wrap_t"] = "CLAMP_TO_EDGE",
-        ["texture_wrap_s"] = "CLAMP_TO_EDGE",
-        ["ansiotropic_filter"] = 8,
-        ["border_color"] = { x = 0, y = 0, z = 0 },
-        ["image_path"] = assetsPath
+    local assetsPath = engine.dir.get_assets_path() .. '/images/ocean.png'
+    this.texture = engine.texture.create({
+        minifying_filter = enums.minifying_filter.linear_mipmap_linear,
+        magnification_filter = enums.magnification_filter.linear,
+        texture_wrap_t = enums.texture_wrap.clamp_to_edge,
+        texture_wrap_s = enums.texture_wrap.clamp_to_edge,
+        ansiotropic_filter = 8,
+        border_color = { x = 0, y = 0, z = 0 },
+        image_path = assetsPath
     })
 
     -- get camera
-    local cam2d = cam2d.get(cam2d.get_current())
+    local cam2d = engine.cam2d.get(engine.cam2d.get_current())
 
     -- save camera size for image size
     this.size_x = cam2d.right;
@@ -27,20 +27,20 @@ function ocean.start()
 end
 
 function ocean.update()
-    local this = current()
+    local this = engine.current()
 
     -- draw first texture
     _draw2d_.texture({
-        ["position"] = { x = this.x + this.size_x / 2, y = this.y },
-        ["size"] = { x = this.size_x, y = this.size_y * 2 },
-        ["texture_id"] = this.texture,
+        position = { x = this.x + this.size_x / 2, y = this.y },
+        size = { x = this.size_x, y = this.size_y * 2 },
+        texture_id = this.texture,
     })
 
     -- draw second texture
     _draw2d_.texture({
-        ["position"] = { x = this.x + this.size_x / 2, y = this.y2 },
-        ["size"] = { x = this.size_x, y = this.size_y * 2 },
-        ["texture_id"] = this.texture,
+        position = { x = this.x + this.size_x / 2, y = this.y2 },
+        size = { x = this.size_x, y = this.size_y * 2 },
+        texture_id = this.texture,
     })
 
     -- increse image position
@@ -58,7 +58,7 @@ function ocean.update()
 end
 
 function ocean.destroy()
-    local this = current()
+    local this = engine.current()
 
-    texture.destroy(this.texture)
+    engine.texture.destroy(this.texture)
 end

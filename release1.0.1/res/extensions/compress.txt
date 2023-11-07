@@ -1,0 +1,11 @@
+zip
+rar
+arj
+tar
+iso
+7z
+z
+rpm
+deb
+tar.gz
+pkg 

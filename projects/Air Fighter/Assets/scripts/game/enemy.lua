@@ -1,19 +1,19 @@
 function enemy.start()
-    local this = current()
-    local path = dir.get_assets_path() .. '/images/enemy.png'
+    local this = engine.current()
+    local path = engine.dir.get_assets_path() .. '/images/enemy.png'
 
     -- load enemy texture
-    this.texture = texture.create({
-        ["minifying_filter"] = "LINEAR_MIPMAP_LINEAR",
-        ["magnification_filter"] = "LINEAR",
-        ["texture_wrap_t"] = "CLAMP_TO_EDGE",
-        ["texture_wrap_s"] = "CLAMP_TO_EDGE",
-        ["ansiotropic_filter"] = 8,
-        ["border_color"] = { x = 0, y = 0, z = 0 },
-        ["image_path"] = path
+    this.texture = engine.texture.create({
+        minifying_filter = enums.minifying_filter.linear_mipmap_linear,
+        magnification_filter = enums.magnification_filter.linear,
+        texture_wrap_t = enums.texture_wrap.clamp_to_edge,
+        texture_wrap_s = enums.texture_wrap.clamp_to_edge,
+        ansiotropic_filter = 8,
+        border_color = { x = 0, y = 0, z = 0 },
+        image_path = path
     })
 
-    local cam2d = cam2d.get(cam2d.get_current())
+    local cam2d = engine.cam2d.get(engine.cam2d.get_current())
 
     -- limits of movement
     this.max_x = cam2d.right;
@@ -27,8 +27,8 @@ function enemy.start()
 end
 
 function enemy.start_attributes()
-    local this = current()
-    local controller_go = data(this.controller_id, 'controller')
+    local this = engine.current()
+    local controller_go = engine.data(this.controller_id, 'controller')
 
     -- velocity
     this.vel_y = controller_go.enemy_vel_y
@@ -46,8 +46,8 @@ function enemy.start_attributes()
     -- when firing, is the time between firings
     this.fire_rate = controller_go.enemy_fire_rate
 
-    this.last_fire_time = time.get_timestamp()
-    this.fire_time = time.get_timestamp()
+    this.last_fire_time = engine.time.get_timestamp()
+    this.fire_time = engine.time.get_timestamp()
     this.should_fire = true
 
     -- initial enemy life
@@ -58,7 +58,7 @@ function enemy.start_attributes()
 end
 
 function enemy.update()
-    local this = current()
+    local this = engine.current()
 
     enemy.control()
     enemy.deal_damage()
@@ -66,27 +66,27 @@ function enemy.update()
     enemy.collide_fighter()
 
     if (this.is_hit) then
-        draw2d.texture({
-            ["position"] = { x = this.x, y = this.y },
-            ["size"] = { x = this.size_x, y = this.size_y },
-            ["texture_id"] = this.texture,
-            ["color"] = { x = 0.5, y = 0, z = 0, w = 0 }
+        engine.draw2d.texture({
+            position = { x = this.x, y = this.y },
+            size = { x = this.size_x, y = this.size_y },
+            texture_id = this.texture,
+            color = { x = 0.5, y = 0, z = 0, w = 0 }
         })
 
         this.is_hit = false
     else
         -- draw enemy
-        draw2d.texture({
-            ["position"] = { x = this.x, y = this.y },
-            ["size"] = { x = this.size_x, y = this.size_y },
-            ["texture_id"] = this.texture,
+        engine.draw2d.texture({
+            position = { x = this.x, y = this.y },
+            size = { x = this.size_x, y = this.size_y },
+            texture_id = this.texture,
         })
     end
 end
 
 function enemy.control()
-    local this = current()
-    local fighter_go = data(this.fighter_id, 'fighter')
+    local this = engine.current()
+    local fighter_go = engine.data(this.fighter_id, 'fighter')
 
     if (fighter_go == nil) then
         return
@@ -123,13 +123,13 @@ function enemy.control()
 
     -- if cross all the screen on Y exis then destroy it
     if (this.y < -100) then
-        go.destroy(go.current())
+        engine.go.destroy(engine.go.current())
     end
 end
 
 function enemy.collide_fighter()
-    local this = current()
-    local fighter_go = data(this.fighter_id, 'fighter')
+    local this = engine.current()
+    local fighter_go = engine.data(this.fighter_id, 'fighter')
 
     if (fighter_go == nil) then
         return
@@ -166,54 +166,54 @@ function enemy.collide_fighter()
 end
 
 function enemy.deal_damage()
-    local this = current()
+    local this = engine.current()
 
     -- if not firing calculate the time to next fire
-    if (time.get_timestamp() > this.fire_time + this.interval_of_fire) then
-        this.fire_time = time.get_timestamp()
-        this.last_fire_time = time.get_timestamp()
+    if (engine.time.get_timestamp() > this.fire_time + this.interval_of_fire) then
+        this.fire_time = engine.time.get_timestamp()
+        this.last_fire_time = engine.time.get_timestamp()
         this.should_fire = not this.should_fire
     end
 
     if (this.should_fire == true) then
-        if (time.get_timestamp() > this.last_fire_time + this.fire_rate) then
+        if (engine.time.get_timestamp() > this.last_fire_time + this.fire_rate) then
             -- create copy of prefab
-            local new_go_id = go.create_copy(this.fire_prefab_id, this.fire_father_id)
-            go.load_scripts(new_go_id)
+            local new_go_id = engine.go.create_copy(this.fire_prefab_id, this.fire_father_id)
+            engine.go.load_scripts(new_go_id)
 
-            local new_go = data(new_go_id, 'enemy_fire')
+            local new_go = engine.data(new_go_id, 'enemy_fire')
             new_go.x = this.x + 16;
             new_go.y = this.y - 30;
 
-            this.last_fire_time = time.get_timestamp()
+            this.last_fire_time = engine.time.get_timestamp()
         end
     end
 end
 
 function enemy.take_damage()
-    local this = current()
+    local this = engine.current()
 
     -- if its killed then destroy it
     if (this.life <= 0) then
         -- increase user points
-        local controller_go = data(this.controller_id, 'controller') 
+        local controller_go = engine.data(this.controller_id, 'controller')
         controller_go.points = controller_go.points + 100
 
         -- destroy go
-        go.destroy(go.current())
+        engine.go.destroy(engine.go.current())
 
         -- spawn explosion where it died
-        local explosion_id = go.create_copy(this.explosion_prefab_id, this.explosion_father_id)
-        go.load_scripts(explosion_id)
+        local explosion_id = engine.go.create_copy(this.explosion_prefab_id, this.explosion_father_id)
+        engine.go.load_scripts(explosion_id)
 
-        local explosion_go = data(explosion_id, 'explosion') 
+        local explosion_go = engine.data(explosion_id, 'explosion')
         explosion_go.x = this.x
         explosion_go.y = this.y
-        explosion_go.time = time.get_timestamp()
+        explosion_go.time = engine.time.get_timestamp()
     end
 end
 
 function enemy.destroy()
-    local this = current()
-    texture.destroy(this.texture)
+    local this = engine.current()
+    engine.texture.destroy(this.texture)
 end

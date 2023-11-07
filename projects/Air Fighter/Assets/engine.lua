@@ -1,6 +1,8 @@
 -- Do not change this script, api is declared here for vscode information be available
 
-function to_string(table, tab)
+engine = {}
+
+function engine.to_string(table, tab)
 	if tab == nil then 
 		tab = ""
 	end
@@ -46,7 +48,7 @@ function to_string(table, tab)
 				value = "false"
 			end
 		elseif t == "table" then 
-			value = to_string(v, tab .. "  ")
+			value = engine.to_string(v, tab .. "  ")
 		end
 
 		content = content .. "  " .. tab .. k .. " : " .. value .. ",\n"
@@ -55,649 +57,665 @@ function to_string(table, tab)
     return content .. tab .. "}"
 end
 
-function log(value)
+function engine.log(value)
     if(value == nil) then
 		__log__("nil")
 		return
 	end
 
-	__log__(to_string(value))
+	__log__(engine.to_string(value))
 end
 
-function warning(value)
+function engine.warning(value)
 	if(value == nil) then
 		__log__("nil")
 		return
 	end
 
-	__warning__(to_string(value))
+	__warning__(engine.to_string(value))
 end
 
-function error(value)
+function engine.error(value)
 	if(value == nil) then
 		__log__("nil")
 		return
 	end
 
-	__error__(to_string(value))
+	__error__(engine.to_string(value))
 end
 
-go = {}
-script = {}
-cam2d = {}
-cam3d = {}
-command = {}
-dir = {}
-draw2d = {}
-draw3d = {}
-framebuffer = {}
-generator = {}
-img = {}
-input = {}
-shader = {}
-texture = {}
-time = {}
-vertex = {}
-engine = {}
-window = {}
-audio = {}
-font = {}
-importer = {}
-renderer = {}
+function engine.data(go, script)
+	if(go == nil or script == nil) then
+		return nil
+	end
 
-function go.current()
+	if(_G[script] ~= nil) then
+		return _G[script][go]	
+	end
+
+	return nil
+end
+
+function engine.current()
+	return engine.data(_go_.current(), _script_.current())
+end
+
+engine.go = {}
+engine.script = {}
+engine.cam2d = {}
+engine.cam3d = {}
+engine.math = {}
+engine.command = {}
+engine.dir = {}
+engine.draw2d = {}
+engine.draw3d = {}
+engine.framebuffer = {}
+engine.generator = {}
+engine.img = {}
+engine.input = {}
+engine.shader = {}
+engine.texture = {}
+engine.time = {}
+engine.vertex = {}
+engine.window = {}
+engine.audio = {}
+engine.font = {}
+engine.importer = {}
+engine.renderer = {}
+
+function engine.go.current()
 	return _go_.current()
 end
 
-function go.create(table)
+function engine.go.create(table)
 	return _go_.create(table)
 end
 
-function go.destroy(id)
+function engine.go.destroy(id)
 	return _go_.destroy(id)	
 end
 
-function go.create_copy(goId, newFatherId)
+function engine.go.create_copy(goId, newFatherId)
 	return _go_.create_copy(goId, newFatherId)
 end
 
-function go.get(id)
+function engine.go.get(id)
 	return _go_.get(id)
 end
 
-function go.set_name(goId, name)
+function engine.go.set_name(goId, name)
 	return _go_.set_name(goId, name)
 end
 
-function go.set_active(goId, active)
+function engine.go.set_active(goId, active)
 	return _go_.set_active(goId, active)
 end
 
-function go.change_father(goId, fatherId)
+function engine.go.change_father(goId, fatherId)
 	return _go_.change_father(goId, fatherId)
 end
 
-function go.change_index(goId, displacement)
+function engine.go.change_index(goId, displacement)
 	return _go_.change_index(goId, displacement)
 end
 
-function go.load_scripts(goId)
+function engine.go.load_scripts(goId)
 	return _go_.load_scripts(goId)
 end
 
-function go.set_persist_go(val)
+function engine.go.set_persist_go(val)
 	return _go_.set_persist_go(val)
 end
 
-function go.set_persist_external_go(goId, val)
+function engine.go.set_persist_external_go(goId, val)
 	return _go_.set_persist_external_go(goId, val)
 end
 
-function script.current()
+function engine.script.current()
 	return _script_.current()
 end
 
-function script.get(goId, scriptName)
+function engine.script.get(goId, scriptName)
 	return _script_.get(goId, scriptName)
 end
 
-function script.add(goId, scriptName)
+function engine.script.add(goId, scriptName)
 	return _script_.add(goId, scriptName)
 end
 
-function script.set_active(goId, scriptName, val)
+function engine.script.set_active(goId, scriptName, val)
 	return _script_.set_active(goId, scriptName, val)
 end
 
-function script.destroy(goId, scriptName, remove)
+function engine.script.destroy(goId, scriptName, remove)
 	return _script_.destroy(goId, scriptName, remove)
 end
 
-function script.change_index(goId, scriptName, index)
+function engine.script.change_index(goId, scriptName, index)
 	return _script_.change_index(goId, scriptName, index)
 end
  
-function script.displace_index(goId, scriptName, displacement)
+function engine.script.displace_index(goId, scriptName, displacement)
 	return _script_.displace_index(goId, scriptName, displacement)
 end
 
-function script.set_persist_script(val)
+function engine.script.set_persist_script(val)
 	_script_.set_persist_script(val)
 end
 
-function script.set_persist_script_data(dataname, val)
+function engine.script.set_persist_script_data(dataname, val)
 	_script_.set_persist_script_data(dataname, val)
 end
 
-function script.set_show_script_data(dataname, val)
+function engine.script.set_show_script_data(dataname, val)
 	_script_.set_show_script_data(dataname, val)
 end
 
-function script.set_persist_ext_script(goId, scriptName, val)
+function engine.script.set_persist_ext_script(goId, scriptName, val)
 	_script_.set_persist_ext_script(goId, scriptName, val)
 end
 
-function script.set_persist_ext_script_data(goId, scriptName, dataName, val)
+function engine.script.set_persist_ext_script_data(goId, scriptName, dataName, val)
 	_script_.set_persist_ext_script_data(goId, scriptName, dataName, val)
 end
 
-function script.set_show_ext_script_data(goId, scriptName, dataName, val)
+function engine.script.set_show_ext_script_data(goId, scriptName, dataName, val)
 	_script_.set_show_ext_script_data(goId, scriptName, dataName, val)
 end
 
-function cam2d.create(object)
+function engine.cam2d.create(object)
 	return _cam2d_.create(object)
 end
 
-function cam2d.destroy(id)
+function engine.cam2d.destroy(id)
 	return _cam2d_.destroy(id)
 end
 
-function cam2d.get(id)
+function engine.cam2d.get(id)
 	return _cam2d_.get(id)
 end
 
-function cam2d.get_matrix(id)
+function engine.cam2d.get_matrix(id)
 	return _cam2d_.get_matrix(id)
 end
 
-function cam2d.update(id, info)
+function engine.cam2d.update(id, info)
 	return _cam2d_.update(id, info)
 end
 
-function cam2d.set_current(id)
+function engine.cam2d.set_current(id)
 	return _cam2d_.set_current(id)
 end
 
-function cam2d.get_current()
+function engine.cam2d.get_current()
 	return _cam2d_.get_current()
 end
 
-function cam3d.create(object)
+function engine.cam3d.create(object)
 	return _cam3d_.create(object)
 end
 
-function cam3d.destroy(id)
+function engine.cam3d.destroy(id)
 	return _cam3d_.destroy(id)
 end
 
-function cam3d.update(id, object)
+function engine.cam3d.update(id, object)
 	return _cam3d_.update(id, object)
 end
 
-function cam3d.get(id)
+function engine.cam3d.get(id)
 	return _cam3d_.get(id)
 end
 
-function cam3d.translate(id, object)
+function engine.cam3d.translate(id, object)
 	return _cam3d_.translate(id, object)
 end
 
-function cam3d.translate_abs(id, object)
+function engine.cam3d.translate_abs(id, object)
 	return _cam3d_.translate_abs(id, object)
 end
 
-function cam3d.rotate(id, object)
+function engine.cam3d.rotate(id, object)
 	return _cam3d_.rotate(id, object)
 end
 
-function cam3d.get_view_matrix(id)
+function engine.cam3d.get_view_matrix(id)
 	return _cam3d_.get_view_matrix(id)
 end
 
-function cam3d.get_projection_matrix(id)
+function engine.cam3d.get_projection_matrix(id)
 	return _cam3d_.get_projection_matrix(id)
 end
 
-function cam3d.set_current(id)
+function engine.cam3d.set_current(id)
 	return _cam3d_.set_current(id)
 end
 
-function cam3d.get_current()
+function engine.cam3d.get_current()
 	return _cam3d_.get_current()
 end
 
-function draw2d.rect(object)
+function engine.draw2d.rect(object)
 	return _draw2d_.rect(object)
 end
 
-function draw2d.circle(object)
+function engine.draw2d.circle(object)
 	return _draw2d_.circle(object)
 end
 
-function draw2d.triangle(object)
+function engine.draw2d.triangle(object)
 	return _draw2d_.triangle(object)
 end
 
-function draw2d.line(object)
+function engine.draw2d.line(object)
 	return _draw2d_.line(object)
 end
 
-function draw2d.point(object)
+function engine.draw2d.point(object)
 	return _draw2d_.point(object)
 end
 
-function draw2d.texture(object)
+function engine.draw2d.texture(object)
 	return _draw2d_.texture(object)
 end
 
-function draw2d.frame(id)
+function engine.draw2d.frame(id)
 	return _draw2d_.frame(id)
 end
 
-function draw3d.cube(object)
+function engine.draw3d.cube(object)
 	return _draw3d_.cube(object)
 end
 
-function draw3d.sphere(object)
+function engine.draw3d.sphere(object)
 	return _draw3d_.sphere(object)
 end
 
-function draw3d.point(object)
+function engine.draw3d.point(object)
 	return _draw3d_.point(object)
 end
 
-function draw3d.line(object)
+function engine.draw3d.line(object)
 	return _draw3d_.line(object)
 end
 
-function draw3d.rect(object)
+function engine.draw3d.rect(object)
 	return _draw3d_.rect(object)
 end
 
-function draw3d.triangle(object)
+function engine.draw3d.triangle(object)
 	return _draw3d_.triangle(object)
 end
 
-function draw3d.circle(object)
+function engine.draw3d.circle(object)
 	return _draw3d_.circle(object)
 end
 
-function dir.read_file(file_name) 
+function engine.dir.read_file(file_name) 
 	return _dir_.read_file(file_name) 
 end
 
-function dir.create_file(file_name, content) 
+function engine.dir.create_file(file_name, content) 
 	return _dir_.create_file(file_name, content) 
 end
 
-function dir.create_folder(folder_name) 
+function engine.dir.create_folder(folder_name) 
 	return _dir_.create_folder(folder_name) 
 end
 
-function dir.move(from, to) 
+function engine.dir.move(from, to) 
 	return _dir_.move(from, to) 
 end
 
-function dir.copy(from, to) 
+function engine.dir.copy(from, to) 
 	return _dir_.copy(from, to) 
 end
 
-function dir.delete(path) 
+function engine.dir.delete(path) 
 	return _dir_.delete(path) 
 end
 
-function dir.is_file(path) 
+function engine.dir.is_file(path) 
 	return _dir_.is_file(path) 
 end
 
-function dir.is_dir(path) 
+function engine.dir.is_dir(path) 
 	return _dir_.is_dir(path) 
 end
 
-function dir.exists(path) 
+function engine.dir.exists(path) 
 	return _dir_.exists(path) 
 end
 
-function dir.get_current_path() 
+function engine.dir.get_current_path() 
 	return _dir_.get_current_path() 
 end
 
-function dir.get_base_path() 
+function engine.dir.get_base_path() 
 	return _dir_.get_base_path() 
 end
 
-function dir.get_assets_path() 
+function engine.dir.get_assets_path() 
 	return _dir_.get_assets_path() 
 end
 
-function dir.get_logs_path() 
+function engine.dir.get_logs_path() 
 	return _dir_.get_logs_path() 
 end
 
-function dir.list_dir(path) 
+function engine.dir.list_dir(path) 
 	return _dir_.list_dir(path) 
 end
 
-function dir.reduce_path_by(path) 
+function engine.dir.reduce_path_by(path) 
 	return _dir_.reduce_path_by(path) 
 end
 
-function dir.get_file_name_ext(path) 
+function engine.dir.get_file_name_ext(path) 
 	return _dir_.get_file_name_ext(path) 
 end
 
-function dir.get_path_or_file_name(path) 
+function engine.dir.get_path_or_file_name(path) 
 	return _dir_.get_path_or_file_name(path) 
 end
 
-function dir.get_file_name_no_ext(path) 
+function engine.dir.get_file_name_no_ext(path) 
 	return _dir_.get_file_name_no_ext(path) 
 end
 
-function dir.exec(command) 
+function engine.dir.exec(command) 
 	return _dir_.exec(command) 
 end
 
-function input.get_key(key) 
+function engine.input.get_key(key) 
 	return _input_.get_key(key) 
 end
 
-function input.get_mod(key) 
+function engine.input.get_mod(key) 
 	return _input_.get_mod(key) 
 end
 
-function input.get_mouse_pos() 
+function engine.input.get_mouse_pos() 
 	return _input_.get_mouse_pos() 
 end
 
-function input.get_cam_mouse_pos() 
+function engine.input.get_cam_mouse_pos() 
 	return _input_.get_cam_mouse_pos() 
 end
 
-function input.get_mouse_variation() 
+function engine.input.get_mouse_variation() 
 	return _input_.get_mouse_variation() 
 end
 
-function input.get_mouse_button(key) 
+function engine.input.get_mouse_button(key) 
 	return _input_.get_mouse_button(key) 
 end
 
-function img.open(path)
+function engine.img.open(path)
 	return _img_.open(path)
 end
 
-function command.enable_vsync() 
+function engine.command.enable_vsync() 
 	return _command_.enable_vsync() 
 end
 
-function command.disable_vsync() 
+function engine.command.disable_vsync() 
 	return _command_.disable_vsync() 
 end
 
-function command.enable_depth_testing() 
+function engine.command.enable_depth_testing() 
 	return _command_.enable_depth_testing() 
 end
 
-function command.disable_depth_testing() 
+function engine.command.disable_depth_testing() 
 	return _command_.disable_depth_testing() 
 end
 
-function command.set_depth_testing_mode(mode) 
+function engine.command.set_depth_testing_mode(mode) 
 	return _command_.set_depth_testing_mode(mode) 
 end
 
-function command.enable_culling_face() 
+function engine.command.enable_culling_face() 
 	return _command_.enable_culling_face() 
 end
 
-function command.disable_culling_face() 
+function engine.command.disable_culling_face() 
 	return _command_.disable_culling_face() 
 end
 
-function command.set_culling_face_mode(mode) 
+function engine.command.set_culling_face_mode(mode) 
 	return _command_.set_culling_face_mode(mode) 
 end
 
-function command.set_primitive_line_size(size) 
+function engine.command.set_primitive_line_size(size) 
 	return _command_.set_primitive_line_size(size) 
 end
 
-function command.set_primitive_point_size(size) 
+function engine.command.set_primitive_point_size(size) 
 	return _command_.set_primitive_point_size(size) 
 end
 
-function command.set_polygon_draw_mode(mode) 
+function engine.command.set_polygon_draw_mode(mode) 
 	return _command_.set_polygon_draw_mode(mode) 
 end
 
-function command.enable_blending() 
+function engine.command.enable_blending() 
 	return _command_.enable_blending() 
 end
 
-function command.disable_blending() 
+function engine.command.disable_blending() 
 	return _command_.disable_blending() 
 end
 
-function shader.create(table)
+function engine.shader.create(table)
 	return _shader_.create(table)
 end
 
-function shader.destroy(id)
+function engine.shader.destroy(id)
 	return _shader_.destroy(id)
 end
 
-function shader.activate(id)
+function engine.shader.activate(id)
 	return _shader_.activate(id)
 end
 
-function shader.set_bool(id, name, value)
+function engine.shader.set_bool(id, name, value)
 	return _shader_.set_bool(id, name, value)
 end
 
-function shader.set_int(id, name, value)
+function engine.shader.set_int(id, name, value)
 	return _shader_.set_int(id, name, value)
 end
 
-function shader.set_float(id, name, value)
+function engine.shader.set_float(id, name, value)
 	return _shader_.set_float(id, name, value)
 end
 
-function shader.set_xy(id, name, x, y)
+function engine.shader.set_xy(id, name, x, y)
 	return _shader_.set_xy(id, name, x, y)
 end
 
-function shader.set_xyz(id, name, x, y, z)
+function engine.shader.set_xyz(id, name, x, y, z)
 	return _shader_.set_xyz(id, name, x, y, z)
 end
 
-function shader.set_xyzw(id, name, x, y, z, w)
+function engine.shader.set_xyzw(id, name, x, y, z, w)
 	return _shader_.set_xyzw(id, name, x, y, z, w)
 end
 
-function shader.set_vec2(id, name, value)
+function engine.shader.set_vec2(id, name, value)
 	return _shader_.set_vec2(id, name, value)
 end
 
-function shader.set_vec3(id, name, value)
+function engine.shader.set_vec3(id, name, value)
 	return _shader_.set_vec3(id, name, value)
 end
 
-function shader.set_vec4(id, name, value)
+function engine.shader.set_vec4(id, name, value)
 	return _shader_.set_vec4(id, name, value)
 end
 
-function shader.set_mat2(id, name, mat2)
+function engine.shader.set_mat2(id, name, mat2)
 	return _shader_.set_mat2(id, name, mat2)
 end
 
-function shader.set_mat3(id, name, mat3)
+function engine.shader.set_mat3(id, name, mat3)
 	return _shader_.set_mat3(id, name, mat3)
 end
 
-function shader.set_mat4(id, name, mat4)
+function engine.shader.set_mat4(id, name, mat4)
 	return _shader_.set_mat4(id, name, mat4)
 end
 
-function shader.unactive_all() 
+function engine.shader.unactive_all() 
 	return _shader_.unactive_all()
 end
 
-function texture.create_empty(table)
+function engine.texture.create_empty(table)
 	return _texture_.create_empty(table)
 end
 
-function texture.create_multi_sampled(table)
+function engine.texture.create_multi_sampled(table)
 	return _texture_.create_multi_sampled(table)
 end
 
-function texture.create(table)
+function engine.texture.create(table)
 	return _texture_.create(table)
 end
 
-function texture.get_info(id)
+function engine.texture.get_info(id)
 	return _texture_.get_info(id)
 end
 
-function texture.destroy(id)
+function engine.texture.destroy(id)
 	return _texture_.destroy(id)
 end
 
-function texture.active(id, slot)
+function engine.texture.active(id, slot)
 	return _texture_.active(id, slot)
 end
 
-function texture.disabletextureunit(slot)
+function engine.texture.disabletextureunit(slot)
 	return _texture_.disabletextureunit(slot)
 end
 
-function framebuffer.create(table)
+function engine.framebuffer.create(table)
 	return _framebuffer_.create(table)
 end
 
-function framebuffer.destroy(id)
+function engine.framebuffer.destroy(id)
 	return _framebuffer_.destroy(id)
 end
 
-function framebuffer.active(id)
+function engine.framebuffer.active(id)
 	return _framebuffer_.active(id)
 end
 
-function framebuffer.get_attachments_size(id)
+function engine.framebuffer.get_attachments_size(id)
 	return _framebuffer_.get_attachments_size(id)
 end
 
-function framebuffer.get_attachment(id, index)
+function engine.framebuffer.get_attachment(id, index)
 	return _framebuffer_.get_attachment(id, index)
 end
 
-function framebuffer.set_current(id)
+function engine.framebuffer.set_current(id)
 	return _framebuffer_.set_current(id)
 end
 
-function framebuffer.get_current()
+function engine.framebuffer.get_current()
 	return _framebuffer_.get_current()
 end
 
-function framebuffer.clear(color)
+function engine.framebuffer.clear(color)
 	return _framebuffer_.clear(color)
 end
 
-function framebuffer.set_clear_modes(modes)
+function engine.framebuffer.set_clear_modes(modes)
 	return _framebuffer_.set_clear_modes(modes)
 end
 
-function framebuffer.set_viewport(viewport)
+function engine.framebuffer.set_viewport(viewport)
 	return _framebuffer_.set_viewport(viewport)
 end
 
-function framebuffer.active_none()
+function engine.framebuffer.active_none()
 	return _framebuffer_.active_none() 
 end
 
-function vertex.create(vertexData, indexData)
+function engine.vertex.create(vertexData, indexData)
 	return _vertex_.create(vertexData, indexData)
 end
 
-function vertex.get_info(id)
+function engine.vertex.get_info(id)
 	return _vertex_.get_info(id)
 end
 
-function vertex.destroy(id)
+function engine.vertex.destroy(id)
 	return _vertex_.destroy(id)
 end
 
-function vertex.activate(id)
+function engine.vertex.activate(id)
 	return _vertex_.activate(id)
 end
 
-function vertex.draw(id, drawMode)
+function engine.vertex.draw(id, drawMode)
 	return _vertex_.draw(id, drawMode)
 end
 
-function vertex.modify(id, modifyData)
+function engine.vertex.modify(id, modifyData)
 	return _vertex_.modify(id, modifyData)
 end
 
-function generator.gen_2d_point(dataUse)
+function engine.generator.gen_2d_point(dataUse)
 	return _generator_.gen_2d_point(dataUse)
 end
 
-function generator.gen_2d_line(dataUse, filled)
+function engine.generator.gen_2d_line(dataUse, filled)
 	return _generator_.gen_2d_line(dataUse, filled)
 end
 
-function generator.gen_2d_circle(dataUse, filled, segments)
+function engine.generator.gen_2d_circle(dataUse, filled, segments)
 	return _generator_.gen_2d_circle(dataUse, filled, segments)
 end
 
-function generator.gen_2d_triangle(dataUse, filled)
+function engine.generator.gen_2d_triangle(dataUse, filled)
 	return _generator_.gen_2d_triangle(dataUse, filled)
 end
 
-function generator.gen_3d_circle(dataUse, filled, segments)
+function engine.generator.gen_3d_circle(dataUse, filled, segments)
 	return _generator_.gen_3d_circle(dataUse, filled, segments)
 end
 
-function generator.gen_3d_cube(dataUse, filled)
+function engine.generator.gen_3d_cube(dataUse, filled)
 	return _generator_.gen_3d_cube(dataUse, filled)
 end
 
-function generator.gen_3d_line(dataUse)
+function engine.generator.gen_3d_line(dataUse)
 	return _generator_.gen_3d_line(dataUse)
 end
 
-function generator.gen_3d_point(dataUse)
+function engine.generator.gen_3d_point(dataUse)
 	return _generator_.gen_3d_point(dataUse)
 end
 
-function generator.gen_3d_rect(dataUse, filled)
+function engine.generator.gen_3d_rect(dataUse, filled)
 	return _generator_.gen_3d_rect(dataUse, filled)
 end
 
-function generator.gen_3d_sphere(dataUse, filled, segments)
+function engine.generator.gen_3d_sphere(dataUse, filled, segments)
 	return _generator_.gen_3d_sphere(dataUse, filled, segments)
 end
 
-function generator.gen_3d_triangle(dataUse, filled)
+function engine.generator.gen_3d_triangle(dataUse, filled)
 	return _generator_.gen_3d_triangle(dataUse, filled)
 end
 
-function time.get_timestamp()
+function engine.time.get_timestamp()
 	return _time_.get_timestamp()
 end
 
-function time.get_datetime() 
+function engine.time.get_datetime() 
 	return _time_.get_datetime()
 end
 
@@ -721,226 +739,629 @@ function engine.restart()
 	return _engine_.restart()
 end
 
-function window.get_window_size() 
+function engine.window.get_window_size() 
 	return _window_.get_window_size() 
 end
 
-function window.get_editor_window_size()
+function engine.window.get_editor_window_size()
 	return _window_.get_editor_window_size()
 end
 
-function window.get_window_limits() 
+function engine.window.get_window_limits() 
 	return _window_.get_window_limits() 
 end
 
-function audio.create_2d(path) 
+function engine.audio.create_2d(path) 
 	return _audio_.create_2d(path) 
 end
 
-function audio.create_3d(path) 
+function engine.audio.create_3d(path) 
 	return _audio_.create_3d(path) 
 end
 
-function audio.destroy(id) 
+function engine.audio.destroy(id) 
 	return _audio_.destroy(id) 
 end
 
-function audio.pause(id) 
+function engine.audio.pause(id) 
 	return _audio_.pause(id) 
 end
 
-function audio.resume(id) 
+function engine.audio.resume(id) 
 	return _audio_.resume(id) 
 end
 
-function audio.is_finished(id) 
+function engine.audio.is_finished(id) 
 	return _audio_.is_finished(id) 
 end
 
-function audio.get_position(id) 
+function engine.audio.get_position(id) 
 	return _audio_.get_position(id) 
 end
 
-function audio.set_position(id, vec3) 
+function engine.audio.set_position(id, vec3) 
 	return _audio_.set_position(id, vec3) 
 end
 
-function audio.set_velocity(id, vec3) 
+function engine.audio.set_velocity(id, vec3) 
 	return _audio_.set_velocity(id, vec3) 
 end
 
-function audio.get_velocity(id) 
+function engine.audio.get_velocity(id) 
 	return _audio_.get_velocity(id) 
 end
 
-function audio.set_loop(id, bool) 
+function engine.audio.set_loop(id, bool) 
 	return _audio_.set_loop(id, bool) 
 end
 
-function audio.get_loop(id) 
+function engine.audio.get_loop(id) 
 	return _audio_.get_loop(id) 
 end
 
-function audio.set_min_distance(id, number) 
+function engine.audio.set_min_distance(id, number) 
 	return _audio_.set_min_distance(id, number) 
 end
 
-function audio.get_min_distance(id) 
+function engine.audio.get_min_distance(id) 
 	return _audio_.get_min_distance(id) 
 end
 
-function audio.set_max_distance(id, number) 
+function engine.audio.set_max_distance(id, number) 
 	return _audio_.set_max_distance(id, number) 
 end
 
-function audio.get_max_distance(id) 
+function engine.audio.get_max_distance(id) 
 	return _audio_.get_max_distance(id) 
 end
 
-function audio.set_pan(id, number) 
+function engine.audio.set_pan(id, number) 
 	return _audio_.set_pan(id, number) 
 end
 
-function audio.get_pan(id) 
+function engine.audio.get_pan(id) 
 	return _audio_.get_pan(id) 
 end
 
-function audio.set_speed(id, number) 
+function engine.audio.set_speed(id, number) 
 	return _audio_.set_speed(id, number) 
 end
 
-function audio.get_speed(id) 
+function engine.audio.get_speed(id) 
 	return _audio_.get_speed(id) 
 end
 
-function audio.get_length(id) 
+function engine.audio.get_length(id) 
 	return _audio_.get_length(id) 
 end
 
-function audio.set_play_position(id, number) 
+function engine.audio.set_play_position(id, number) 
 	return _audio_.set_play_position(id, number) 
 end
 
-function audio.get_play_position(id) 
+function engine.audio.get_play_position(id) 
 	return _audio_.get_play_position(id) 
 end
 
-function audio.set_volume(id, number) 
+function engine.audio.set_volume(id, number) 
 	return _audio_.set_volume(id, number) 
 end
 
-function audio.get_volume(id) 
+function engine.audio.get_volume(id) 
 	return _audio_.get_volume(id) 
 end
 
-function audio.stop_all_audios(id) 
+function engine.audio.stop_all_audios(id) 
 	return _audio_.stop_all_audios(id) 
 end
 
-function audio.set_listener_position(vec3) 
+function engine.audio.set_listener_position(vec3) 
 	return _audio_.set_listener_position(vec3) 
 end
 
-function font.create(path) 
+function engine.font.create(path) 
 	return _font_.create(path) 
 end
 
-function font.destroy(id) 
+function engine.font.destroy(id) 
 	return _font_.destroy(id) 
 end
 
-function font.get_position(id)
+function engine.font.get_position(id)
 	return _font.get_position(id)
 end
 
-function font.set_position(id, pos)
+function engine.font.set_position(id, pos)
 	return _font_.set_position(id, pos)
 end
 
-function font.get_scale(id) 
+function engine.font.get_scale(id) 
 	return _font_.get_scale(id) 
 end
 
-function font.set_scale(id, scale)
+function engine.font.set_scale(id, scale)
 	return _font_.set_scale(id, scale)
 end
 
-function font.get_color(id) 
+function engine.font.get_color(id) 
 	return _font_.get_color(id) 
 end
 
-function font.set_color(id, color) 
+function engine.font.set_color(id, color) 
 	return _font_.set_color(id, color) 
 end
 
-function font.get_text(id) 
+function engine.font.get_text(id) 
 	return _font_.get_text(id) 
 end
 
-function font.set_text(id, text) 
+function engine.font.set_text(id, text) 
 	return _font_.set_text(id, text) 
 end
 
-function font.draw(id) 
+function engine.font.draw(id) 
 	return _font_.draw(id) 	
 end
 
-function math.make_mat4() 
+function engine.math.make_mat4() 
 	return _math_.make_mat4() 
 end
 
-function math.make_identity_mat4() 
+function engine.math.make_identity_mat4() 
 	return _math_.make_identity_mat4() 
 end
 
-function math.translate_mat4(mat4, vec3) 
+function engine.math.translate_mat4(mat4, vec3) 
 	return _math_.translate_mat4(mat4, vec3) 
 end
 
-function math.rotate_mat4(mat4, vec3, angle) 
+function engine.math.rotate_mat4(mat4, vec3, angle) 
 	return _math_.rotate_mat4(mat4, vec3, angle) 
 end
 
-function math.scale_mat4(mat4, vec3) 
+function engine.math.scale_mat4(mat4, vec3) 
 	return _math_.scale_mat4(mat4, vec3) 
 end
 
-function importer.open(path) 
+function engine.importer.open(path) 
 	return _importer_.open(path) 
 end
 
-function importer.destroy(id) 
+function engine.importer.destroy(id) 
 	return _importer_.destroy(id) 
 end
 
-function importer.get_obj_info(id) 
+function engine.importer.get_obj_info(id) 
 	return _importer_.get_obj_info(id) 
 end
 
-function importer.get_meshes(id) 
+function engine.importer.get_meshes(id) 
 	return _importer_.get_meshes(id) 
 end
 
-function importer.get_materials(id) 
+function engine.importer.get_materials(id) 
 	return _importer_.get_materials(id) 
 end
 
-function renderer.render_obj(id) 
+function engine.renderer.render_obj(id) 
 	return _renderer_.render_obj(id) 
 end
 
-function data(go, script)
-	if(go == nil or script == nil) then
-		return nil
-	end
+-- Enums Table
+enums = {
+   camera_movement = 
+   {
+        forward = "FORWARD",
+        backward = "BACKWARD",
+        left = "LEFT",
+        right = "RIGHT",
+        up = "UP",
+        down = "DOWN",
+    },
 
-	if(_G[script] ~= nil) then
-		return _G[script][go]	
-	end
+    keyboard_key = 
+    {
+        unknown = "UNKNOWN",
+        space = "SPACE",
+        apostrophe = "APOSTROPHE",
+        comma = "COMMA",
+        minus = "MINUS",
+        period = "PERIOD",
+        slash = "SLASH",
+        semicolon = "SEMICOLON",
+        equal = "EQUAL",
+        ["0"] = "0",
+        ["1"] = "1",
+        ["2"] = "2",
+        ["3"] = "3",
+        ["4"] = "4",
+        ["5"] = "5",
+        ["6"] = "6",
+        ["7"] = "7",
+        ["8"] = "8",
+        ["9"] = "9",
+        a = "A",
+        b = "B",
+        c = "C",
+        d = "D",
+        e = "E",
+        f = "F",
+        g = "G",
+        h = "H",
+        i = "I",
+        j = "J",
+        k = "K",
+        l = "L",
+        m = "M",
+        n = "N",
+        o = "O",
+        p = "P",
+        q = "Q",
+        r = "R",
+        s = "S",
+        t = "T",
+        u = "U",
+        v = "V",
+        w = "W",
+        x = "X",
+        y = "Y",
+        z = "Z",
+        left_bracket = "LEFT_BRACKET",
+        backslash = "BACKSLASH",
+        right_bracket = "RIGHT_BRACKET",
+        grave_accent = "GRAVE_ACCENT",
+        world_1 = "WORLD_1",
+        world_2 = "WORLD_2",
+        escape = "ESCAPE",
+        enter = "ENTER",
+        tab = "TAB",
+        backspace = "BACKSPACE",
+        insert = "INSERT",
+        delete = "DELETE",
+        right = "RIGHT",
+        left = "LEFT",
+        down = "DOWN",
+        up = "UP",
+        page_up = "PAGE_UP",
+        page_down = "PAGE_DOWN",
+        home = "HOME",
+        ["end"] = "END",
+        caps_lock = "CAPS_LOCK",
+        scroll_lock = "SCROLL_LOCK",
+        num_lock = "NUM_LOCK",
+        print_screen = "PRINT_SCREEN",
+        pause = "PAUSE",
+        f1 = "F1",
+        f2 = "F2",
+        f3 = "F3",
+        f4 = "F4",
+        f5 = "F5",
+        f6 = "F6",
+        f7 = "F7",
+        f8 = "F8",
+        f9 = "F9",
+        f10 = "F10",
+        f11 = "F11",
+        f12 = "F12",
+        f13 = "F13",
+        f14 = "F14",
+        f15 = "F15",
+        f16 = "F16",
+        f17 = "F17",
+        f18 = "F18",
+        f19 = "F19",
+        f20 = "F20",
+        f21 = "F21",
+        f22 = "F22",
+        f23 = "F23",
+        f24 = "F24",
+        f25 = "F25",
+        kp_0 = "KP_0",
+        kp_1 = "KP_1",
+        kp_2 = "KP_2",
+        kp_3 = "KP_3",
+        kp_4 = "KP_4",
+        kp_5 = "KP_5",
+        kp_6 = "KP_6",
+        kp_7 = "KP_7",
+        kp_8 = "KP_8",
+        kp_9 = "KP_9",
+        kp_decimal = "KP_DECIMAL",
+        kp_divide = "KP_DIVIDE",
+        kp_multiply = "KP_MULTIPLY",
+        kp_subtract = "KP_SUBTRACT",
+        kp_add = "KP_ADD",
+        kp_enter = "KP_ENTER",
+        kp_equal = "KP_EQUAL",
+        left_shift = "LEFT_SHIFT",
+        left_control = "LEFT_CONTROL",
+        left_alt = "LEFT_ALT",
+        left_super = "LEFT_SUPER",
+        right_shift = "RIGHT_SHIFT",
+        right_control = "RIGHT_CONTROL",
+        right_alt = "RIGHT_ALT",
+        right_super = "RIGHT_SUPER",
+        menu = "MENU",
+    },
 
-	return nil
-end
+    input_action = 
+    {
+        release = "RELEASE",
+        press = "PRESS",
+        repeating = "REPEAT",
+        none = "NONE",
+    },
 
-function current()
-	return data(_go_.current(), _script_.current())
-end
+    key_modifier = 
+    {
+        shift = "SHIFT",
+        control = "CONTROL",
+        alt = "ALT",
+        super = "SUPER",
+        caps_lock = "CAPS_LOCK",
+        num_lock = "NUM_LOCK",
+        unknown = "UNKNOWN",
+    },
+
+   mouse_button = 
+   {
+        left = "LEFT",
+        right = "RIGHT",
+        middle = "MIDDLE",
+        ["1"] = "1",
+        ["2"] = "2",
+        ["3"] = "3",
+        ["4"] = "4",
+        ["5"] = "5",
+        ["6"] = "6",
+        ["7"] = "7",
+        ["8"] = "8",
+    },
+
+    data_use_key =
+    {
+        stream_draw = "STREAM_DRAW",
+        stream_read = "STREAM_READ",
+        stream_copy = "STREAM_COPY",
+        static_draw = "STATIC_DRAW",
+        static_read = "STATIC_READ",
+        static_copy = "STATIC_COPY",
+        dynamic_read = "DYNAMIC_READ",
+        dynamic_copy = "DYNAMIC_COPY",
+    },
+
+    polygon_mode = 
+    {
+        point = "POINT",
+        line = "LINE",
+        fill = "FILL",
+    },
+
+    depth_testing_mode =
+    {
+        always = "ALWAYS",
+        never = "NEVER",
+        less = "LESS",
+        lequal = "LEQUAL",
+        greater = "GREATER",
+        notequal = "NOTEQUAL",
+        gequal = "GEQUAL",
+    },
+
+    culling_face_mode =
+    {
+        back = "BACK",
+        front = "FRONT",
+        both = "BOTH",
+    },
+
+    texture_internal_format = 
+    {
+        depth_component = "DEPTH_COMPONENT",
+        depth_stencil = "DEPTH_STENCIL",
+        r = "R",
+        rg = "RG",
+        rgb = "RGB",
+        rgba = "RGBA",
+        r8 = "R8",
+        r8_snorm = "R8_SNORM",
+        r16 = "R16",
+        r16_snorm = "R16_SNORM",
+        rg8 = "RG8",
+        rg8_snorm = "RG8_SNORM",
+        rg16 = "RG16",
+        rg16_snorm = "RG16_SNORM",
+        r3_g3_b2 = "R3_G3_B2",
+        rgb4 = "RGB4",
+        rgb5 = "RGB5",
+        rgb8_snorm = "RGB8_SNORM",
+        rgb10 = "RGB10",
+        rgb12 = "RGB12",
+        rgba2 = "RGBA2",
+        rgba4 = "RGBA4",
+        rgb5_a1 = "RGB5_A1",
+        rgba8 = "RGBA8",
+        rgba8_snorm = "RGBA8_SNORM",
+        rgb10_a2 = "RGB10_A2",
+        rgb10_a2ui = "RGB10_A2UI",
+        rgba12 = "RGBA12",
+        rgba16 = "RGBA16",
+        srgb8 = "SRGB8",
+        srgb8_alpha8 = "SRGB8_ALPHA8",
+        r16f = "R16F",
+        rg16f = "RG16F",
+        rgb16f = "RGB16F",
+        rgba16f = "RGBA16F",
+        r32f = "R32F",
+        rg32f = "RG32F",
+        rgb32f = "RGB32F",
+        rgba32f = "RGBA32F",
+        r11f_g11f_b10f = "R11F_G11F_B10F",
+        rgb9_e5 = "RGB9_E5",
+        r8i = "R8I",
+        r8ui = "R8UI",
+        r16i = "R16I",
+        r16ui = "R16UI",
+        r32i = "R32I",
+        r32ui = "R32UI",
+        rg8i = "RG8I",
+        rg8ui = "RG8UI",
+        rg16i = "RG16I",
+        rg16ui = "RG16UI",
+        rg32i = "RG32I",
+        rg32ui = "RG32UI",
+        rgb8i = "RGB8I",
+        rgb8ui = "RGB8UI",
+        rgb16i = "RGB16I",
+        rgb16ui = "RGB16UI",
+        rgb32i = "RGB32I",
+        rgb32ui = "RGB32UI",
+        rgba8i = "RGBA8I",
+        rgba8ui = "RGBA8UI",
+        rgba16i = "RGBA16I",
+        rgba16ui = "RGBA16UI",
+        rgba32i = "RGBA32I",
+        rgba32ui = "RGBA32UI",
+        compressed_red = "COMPRESSED_RED",
+        compressed_rg = "COMPRESSED_RG",
+        compressed_rgb = "COMPRESSED_RGB",
+        compressed_rgba = "COMPRESSED_RGBA",
+        compressed_srgb = "COMPRESSED_SRGB",
+        compressed_srgb_alpha = "COMPRESSED_SRGB_ALPHA",
+        compressed_red_rgtc1 = "COMPRESSED_RED_RGTC1",
+        compressed_signed_red_rgtc1 = "COMPRESSED_SIGNED_RED_RGTC1",
+        compressed_rg_rgtc2 = "COMPRESSED_RG_RGTC2",
+        compressed_signed_rg_rgtc2 = "COMPRESSED_SIGNED_RG_RGTC2",
+    },
+
+    texture_format =
+    {
+        r = "R",
+        rg = "RG",
+        rgb = "RGB",
+        bgr = "BGR",
+        rgba = "RGBA",
+        bgra = "BGRA",
+        red_integer = "RED_INTEGER",
+        rg_integer = "RG_INTEGER",
+        rgb_integer = "RGB_INTEGER",
+        bgr_integer = "BGR_INTEGER",
+        rgba_integer = "RGBA_INTEGER",
+        bgra_integer = "BGRA_INTEGER",
+        stencil_index = "STENCIL_INDEX",
+        depth_component = "DEPTH_COMPONENT",
+        depth_stencil = "DEPTH_STENCIL",
+    },
+
+    texture_pixel_format =
+    {
+        unsigned_byte = "UNSIGNED_BYTE",
+        byte = "BYTE",
+        unsigned_short = "UNSIGNED_SHORT",
+        short = "SHORT",
+        unsigned_int = "UNSIGNED_INT",
+        int = "INT",
+        half_float = "HALF_FLOAT",
+        float = "FLOAT",
+        unsigned_byte_3_3_2 = "UNSIGNED_BYTE_3_3_2",
+        unsigned_byte_2_3_3_rev = "UNSIGNED_BYTE_2_3_3_REV",
+        unsigned_short_5_6_5 = "UNSIGNED_SHORT_5_6_5",
+        unsigned_short_5_6_5_rev = "UNSIGNED_SHORT_5_6_5_REV",
+        unsigned_short_4_4_4_4 = "UNSIGNED_SHORT_4_4_4_4",
+        unsigned_short_4_4_4_4_rev = "UNSIGNED_SHORT_4_4_4_4_REV",
+        unsigned_short_5_5_5_1 = "UNSIGNED_SHORT_5_5_5_1",
+        unsigned_short_1_5_5_5_rev = "UNSIGNED_SHORT_1_5_5_5_REV",
+        unsigned_int_8_8_8_8 = "UNSIGNED_INT_8_8_8_8",
+        unsigned_int_8_8_8_8_rev = "UNSIGNED_INT_8_8_8_8_REV",
+        unsigned_int_10_10_10_2 = "UNSIGNED_INT_10_10_10_2",
+        unsigned_int_2_10_10_10_rev = "UNSIGNED_INT_2_10_10_10_REV",
+    },
+
+    minifying_filter = 
+    {
+        only_nearest = "ONLY_NEAREST",
+        only_linear = "ONLY_LINEAR",
+        nearest_mipmap_nearest = "NEAREST_MIPMAP_NEAREST",
+        linear_mipmap_nearest = "LINEAR_MIPMAP_NEAREST",
+        nearest_mipmap_linear = "NEAREST_MIPMAP_LINEAR",
+        linear_mipmap_linear = "LINEAR_MIPMAP_LINEAR",
+    },
+
+    magnification_filter = 
+    {
+        nearest = "NEAREST",
+        linear = "LINEAR",
+    },
+
+    texture_wrap = 
+    {
+        clamp_to_edge = "CLAMP_TO_EDGE",
+        clamp_to_border = "CLAMP_TO_BORDER",
+        mirrored_repeat = "MIRRORED_REPEAT",
+        repeated = "REPEATED",
+        mirror_clamp_to_edge = "MIRROR_CLAMP_TO_EDGE",
+    },
+
+    vertex_buffer_type =
+    {
+        byte = "BYTE",
+        ubyte = "UBYTE",
+        short = "SHORT",
+        ushort = "USHORT",
+        int = "INT",
+        uint = "UINT",
+        half_float = "HALF_FLOAT",
+        float = "FLOAT",
+        double = "DOUBLE",
+        int_2_10_10_10_rev = "INT_2_10_10_10_REV",
+        uint_2_10_10_10_rev = "UINT_2_10_10_10_REV",
+    },
+
+    drawing_type =
+    {
+        points = "POINTS",
+        lines = "LINES",
+        line_loop = "LINE_LOOP",
+        line_strip = "LINE_STRIP",
+        triangles = "TRIANGLES",
+        triangle_strip = "TRIANGLE_STRIP",
+        triangle_fan = "TRIANGLE_FAN",
+        line_adjacency = "LINE_ADJACENCY",
+        line_strip_adjacency = "LINE_STRIP_ADJACENCY",
+        triangles_adjacency = "TRIANGLES_ADJACENCY",
+        triangle_strip_adjacency = "TRIANGLE_STRIP_ADJACENCY",
+    },
+
+    render_buffer_attachment_type =
+    {
+        dont_use = "DONT_USE",
+        depth_attachment = "DEPTH_ATTACHMENT",
+        stencil_attachment = "STENCIL_ATTACHMENT",
+        depth_stencil_attachment = "DEPTH_STENCIL_ATTACHMENT",
+    },
+
+    render_buffer_format =
+    {
+        depth_component16 = "DEPTH_COMPONENT16",
+        depth_component24 = "DEPTH_COMPONENT24",
+        depth_component32f = "DEPTH_COMPONENT32F",
+        depth24_stencil8 = "DEPTH24_STENCIL8",
+        depth32f_stencil8 = "DEPTH32F_STENCIL8",
+        stencil_index8 = "STENCIL_INDEX8",
+    },
+
+    project_mode =
+    {
+        play = "PLAY",
+        editor = "EDITOR",
+    },
+
+    script_state_enum =
+    {
+       	to_load = "TO_LOAD", 
+		to_start = "TO_START", 
+		updating = "UPDATING", 
+		to_destroy = "TO_DESTROY",
+		destroyed = "DESTROYED"
+    },
+}

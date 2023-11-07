@@ -1,19 +1,19 @@
 function clouds.start()
-    local this = current()
+    local this = engine.current()
 
     -- load cloud image
-    local cloud = dir.get_assets_path() .. '/images/' .. this.path
-    this.texture = texture.create({
-        ["minifying_filter"] = "LINEAR_MIPMAP_LINEAR",
-        ["magnification_filter"] = "LINEAR",
-        ["texture_wrap_t"] = "CLAMP_TO_EDGE",
-        ["texture_wrap_s"] = "CLAMP_TO_EDGE",
-        ["ansiotropic_filter"] = 8,
-        ["border_color"] = { x = 0, y = 0, z = 0 },
-        ["image_path"] = cloud
+    local cloud = engine.dir.get_assets_path() .. '/images/' .. this.path
+    this.texture = engine.texture.create({
+        minifying_filter = enums.minifying_filter.linear_mipmap_linear,
+        magnification_filter = enums.magnification_filter.linear,
+        texture_wrap_t = enums.texture_wrap.clamp_to_edge,
+        texture_wrap_s = enums.texture_wrap.clamp_to_edge,
+        ansiotropic_filter = 8,
+        border_color = { x = 0, y = 0, z = 0 },
+        image_path = cloud
     })
 
-    local cam2d = cam2d.get(cam2d.get_current())
+    local cam2d = engine.cam2d.get(engine.cam2d.get_current())
 
     -- get screen limitations from camera
     this.max_x = cam2d.right;
@@ -26,15 +26,15 @@ function clouds.start()
 end
 
 function clouds.update()
-    local this = current()
+    local this = engine.current()
 
     -- move the cloud
     this.y = this.y - ((engine.get_frametime() / 3) * this.vel)
 
-    draw2d.texture({
-        ["position"] = { x = this.x, y = this.y },
-        ["size"] = { x = this.size, y = this.size },
-        ["texture_id"] = this.texture,
+    engine.draw2d.texture({
+        position = { x = this.x, y = this.y },
+        size = { x = this.size, y = this.size },
+        texture_id = this.texture,
     })
 
     -- restart cloud position
@@ -48,6 +48,6 @@ function clouds.update()
 end
 
 function clouds.destroy()
-    local this = current()
-    texture.destroy(this.texture)
+    local this = engine.current()
+    engine.texture.destroy(this.texture)
 end

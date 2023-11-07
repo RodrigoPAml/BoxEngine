@@ -463,6 +463,7 @@ namespace Connection {
 		LuaUtils::RegTable(L, "path", script->GetPath());
 		LuaUtils::RegTable(L, "state", ScriptStateToString(script->GetState()));
 		LuaUtils::RegTable(L, "is_started", script->IsStarted());
+		LuaUtils::RegTable(L, "is_loaded", script->IsLoaded());
 
 		return 1;
 	}

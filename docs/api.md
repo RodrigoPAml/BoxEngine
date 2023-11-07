@@ -42,7 +42,7 @@ function engine.data(goId = string, scriptName = string) end
 ```
 
 ## Get Mode
-Return the engine running mode in Project Mode Enum
+Return the engine running mode in enums.ProjectModeEnum format
 ```lua
 function engine.get_mode() end
 ```
@@ -246,8 +246,9 @@ The returned table format
 {
     name = string,  -- script name
     path = string, -- loaded path
-    state = string, -- state of the script, see ScriptStateEnum ins Enums section below
-    is_started = boolean, -- if the Start() function engine.of the script was called
+    state = string, -- state of the script, in enums.ScriptStateEnum format 
+    is_started = boolean, -- if the Start() function of the script was called
+    is_loaded = boolean, -- if the script has been loaded, including script data
 }
 ```
 
@@ -514,7 +515,7 @@ function engine.cam3d.translate(id = number, object = table) end
 The argument table format
 ```lua
 {
-    direction = string, -- direction in the format CameraMovement (see the last module below)
+    direction = string, -- direction in the format enums.CameraMovementEnum
     velocity = number, -- the velocity of translation
 }
 ```
@@ -530,7 +531,7 @@ function engine.cam3d.translate_abs(id = number, object = table) end
 The argument table format
 ```lua
 {
-    direction = string, -- direction in the format CameraMovement (see the last module below)
+    direction = string, -- direction in the format enums.CameraMovementEnum
     velocity = number, -- the velocity of translation
 }
 ```
@@ -1037,9 +1038,9 @@ function engine.dir.exec(command = string) end
 ## Get Keyboard Key
 Get the key status
 
-Argument is a string in KeyboardKey format (see last chapter below)
+Argument is a string in enums.KeyboardKeyEnum format 
 
-Return the result as a string in InputAction format (see last chapter below)
+Return the result as a string in enums.InputActionEnum format 
 
 ```lua
 function engine.input.get_key(key = string) end
@@ -1048,9 +1049,9 @@ function engine.input.get_key(key = string) end
 ## Get Modifier Key
 Get the modifier key status
 
-Argument is a string in KeyModifier format (see last chapter below)
+Argument is a string in enums.KeyModifierEnum format
 
-Return the result as a string in InputAction format (see last chapter below)
+Return the result as a string in enuns.InputActionEnum format 
 
 ```lua
 function engine.input.get_mod(key = string) end
@@ -1080,9 +1081,9 @@ function engine.input.get_mouse_variation() end
 ## Get Mouse Button
 Get the mouse button status
 
-Argument is a string in MouseButton format (see last chapter below)
+Argument is a string in enums.MouseButtonEnum format 
 
-Return the result as a string in InputAction format (see last chapter below)
+Return the result as a string in enums.InputActionEnum format
 
 ```lua
 function engine.input.get_mouse_button(key = string) end
@@ -1145,7 +1146,7 @@ function engine.command.disable_depth_testing() end
 ```
 
 ## Set Depth Testing Mode
-Set the depth testing mode, receive a string in Depth Testing Mode format (see below enums)
+Set the depth testing mode, receive a string in enums.DepthTestingModeEnum 
 
 ```lua
 function engine.command.set_depth_testing_mode(mode = string) end
@@ -1165,7 +1166,7 @@ Disable the face culling
 function engine.command.disable_culling_face() end
 ```
 ## Set Culling Face Mode
-Set the face culling mode with Culling Face Mode format (see enums below)
+Set the face culling mode with enums.CullingFaceModeEnum format
 
 ```lua
 function engine.command.set_culling_face_mode(mode = string) end
@@ -1186,7 +1187,7 @@ function engine.command.set_primitive_point_size(size = number) end
 ```
 
 ## Set Polygon Draw Mode
-Set the polygons draw mode in Polygon Mode string format (see enums below)
+Set the polygons draw mode in enums.PolygonModeEnum format
 
 ```lua
 function engine.command.set_polygon_draw_mode(mode = string) end
@@ -1383,13 +1384,13 @@ The argument table format
 ```lua
 {
     texture_size = {x = number, y = number}, -- texture size, vec2 format
-    minifying_filter = string, -- in Minifying Filter format (see enums below) optional
-    magnification_filter = string, -- in Magnification Filter format (see enums below) optional
-    texture_wrap_t = string, -- in Texture Wrap format (see enums below) optional
-    texture_wrap_s = string, -- in Texture Wrap format (see enums below) optional
-    texture_pixel_format = string, -- in Texture Pixel Format (see enums below) optional
-    texture_internal_format = string, -- in Texture Internal Format (see enums below) optional
-    texture_format = string, -- in Texture Format (see enums below) optional
+    minifying_filter = string, -- in enums.MinifyingFilterEnum format, optional
+    magnification_filter = string, -- in enums.MagnificationFilterEnum format, optional
+    texture_wrap_t = string, -- in  enums.TextureWrapEnum format, optional
+    texture_wrap_s = string, -- in  enums.TextureWrapEnum format, optional
+    texture_pixel_format = string, -- in enums.TexturePixelEnum format, optional
+    texture_internal_format = string, -- in enums.TextureInternalFormatEnum format, optional
+    texture_format = string, -- in enums.TextureFormatEnum format, optional
     ansiotropic_filter = number, -- a number for ansiotropic filter, optional
     border_color = {x = number, y = number, z = number} -- texture border_color in vec3 format, optional
 }
@@ -1407,7 +1408,7 @@ The argument table format
 {
     texture_samples = number -- number of samples
     texture_size = {x = number, y = number}, -- texture size, vec2 format
-    texture_internal_format = string, -- in Texture Internal Format
+    texture_internal_format = string, -- in enums.TextureInternalEnum format
 }
 ```
 
@@ -1422,10 +1423,10 @@ The argument table format
 ```lua
 {
     image_path = string, -- image path
-    minifying_filter = string, -- in Minifying Filter format (see enums below) optional
-    magnification_filter = string, -- in Magnification Filter format (see enums below) optional
-    texture_wrap_t = string, -- in Texture Wrap format (see enums below) optional
-    texture_wrap_s = string, -- in Texture Wrap format (see enums below) optional
+    minifying_filter = string, -- in enums.MinifyingFilterEnum format, optional
+    magnification_filter = string, -- in enums.MagnificationFilterEnum format, optional
+    texture_wrap_t = string, -- in enums.TextureWrapEnum format, optional
+    texture_wrap_s = string, -- in enums.TextureWrapEnum format, optional
     ansiotropic_filter = number, -- a number for ansiotropic filter, optional
     border_color = {x = number, y = number, z = number} -- texture border_color in vec3 format, optional
 }
@@ -1487,8 +1488,8 @@ The argument table format
     texture_attachments = = {1 = number, ..., texture_count = number} -- table with the ids of the texture attachments,
     depth_attachment = number, -- texture id for depth attachment, optional
     renderbuffer_attachment = { -- optional
-        type = string -- in Render Buffer Attachment Type format (see enums below),
-        format = string -- in Render Buffer Format (see enums below),
+        type = string -- in enums.RenderBufferAttachmentType format,
+        format = string -- in enums.RenderBufferFormat format,
         size = {x = number, y = number} -- render buffer size
         aliasing = number -- multisample in render buffer
     }
@@ -1605,8 +1606,8 @@ The first argument table format
     buffers_count = number, -- the number of buffers that will be used to separate the vertices attributes
     buffers = { -- the buffers that holds the vertices data
         1 = { -- buffer item format
-            use = string, -- (optional) use internally by opengl in Data Use format (see enums below)
-            type = string, -- type of the data, use Vertex Buffer Type
+            use = string, -- (optional) use internally by opengl in enums.DataUseEnum format
+            type = string, -- type of the data, use enums.VertexBufferTypeEnum format
             data = { -- data, array of number
                 1 = number,
                 ...
@@ -1672,7 +1673,7 @@ function engine.vertex.activate(id = number) end
 ## Call to Draw Vertex Data
 Draw a vertex data, receive the id and draw mode
 
-drawMode is in Drawing Type format (see enums below)
+drawMode is in enums.DrawingTypeEnum format
 
 Return bool indicating success
 ```lua
@@ -1693,7 +1694,7 @@ The argument table format
     start = number, -- the start position to be modified
     size = number, -- the size of modification
     buffer = number, -- with buffer to modified
-    type = string,  -- type of the data, format Vertex Buffer Type
+    type = string,  -- type of the data, format enums.VertexBufferTypeEnum format
     data = { -- data to replace the buffer
         1 = number,
         ...,
@@ -1969,482 +1970,4 @@ Render 3d model
 
 ```lua
 function engine.renderer.render_obj(id = number) 
-```
-
-# Enums
-
-## Script State
-
-```C++
-{
-    TO_LOAD, // Script needs to be loaded
-    TO_START, // Script needs to start (and its loaded)
-    UPDATING, // Script is running (and its started)
-    TO_DESTROY, // Script needs to be destroy (and its started or updating)
-    DESTROYED // Script is destroyed (destroyed)
-};
-```
-
-## Camera Movement
-
-```C++
-{
-    FORWARD,
-    BACKWARD,
-    LEFT,
-    RIGHT,
-    UP,
-    DOWN,
-};
-```
-
-## Keyboard Key
-
-```C++
-{
-    UNKNOWN,
-    SPACE,
-    APOSTROPHE,
-    COMMA,
-    MINUS,
-    PERIOD,
-    SLASH,
-    0,
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9,
-    SEMICOLON,
-    EQUAL,
-    A,
-    B,
-    C,
-    D,
-    E,
-    F,
-    G,
-    H,
-    I,
-    J,
-    K,
-    L,
-    M,
-    N,
-    O,
-    P,
-    Q,
-    R,
-    S,
-    T,
-    U,
-    V,
-    W,
-    X,
-    Y,
-    Z,
-    LEFT_BRACKET,
-    BACKSLASH,
-    RIGHT_BRACKET,
-    GRAVE_ACCENT,
-    WORLD_1,
-    WORLD_2,
-    ESCAPE,
-    ENTER,
-    TAB,
-    BACKSPACE,
-    INSERT,
-    DELETE,
-    RIGHT,
-    LEFT,
-    DOWN,
-    UP,
-    PAGE_UP,
-    PAGE_DOWN,
-    HOME,
-    END,
-    CAPS_LOCK,
-    SCROLL_LOCK,
-    NUM_LOCK,
-    PRINT_SCREEN,
-    PAUSE,
-    F1,
-    F2,
-    F3,
-    F4,
-    F5,
-    F6,
-    F7,
-    F8,
-    F9,
-    F10,
-    F11,
-    F12,
-    F13,
-    F14,
-    F15,
-    F16,
-    F17,
-    F18,
-    F19,
-    F20,
-    F21,
-    F22,
-    F23,
-    F24,
-    F25,
-    KP_0,
-    KP_1,
-    KP_2,
-    KP_3,
-    KP_4,
-    KP_5,
-    KP_6,
-    KP_7,
-    KP_8,
-    KP_9,
-    KP_DECIMAL,
-    KP_DIVIDE,
-    KP_MULTIPLY,
-    KP_SUBTRACT,
-    KP_ADD,
-    KP_ENTER,
-    KP_EQUAL,
-    LEFT_SHIFT,
-    LEFT_CONTROL,
-    LEFT_ALT,
-    LEFT_SUPER,
-    RIGHT_SHIFT,
-    RIGHT_CONTROL,
-    RIGHT_ALT,
-    RIGHT_SUPER,
-    MENU,
-};
-```
-
-## Input Action
-
-```C++
-{
-    RELEASE,
-    PRESS,
-    REPEAT,
-    NONE
-};
-```
-
-## Key Modifier
-
-```C++
-{
-    SHIFT,
-    CONTROL,
-    ALT,
-    SUPER,
-    CAPS_LOCK,
-    NUM_LOCK,
-    UNKNOWN
-};
-```
-
-## Mouse Button
-```C++
-{
-    LEFT,
-    RIGHT,
-    MIDDLE,
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8
-};
-```
-
-## Data Use Key
-```C++
-{
-	STREAM_DRAW,
-	STREAM_READ,
-	STREAM_COPY,
-	STATIC_DRAW,
-	STATIC_READ,
-	STATIC_COPY,
-	DYNAMIC_READ,
-	DYNAMIC_COPY
-};
-```
-
-## Polygon Mode
-```C++
-{
-	POINT,
-	LINE,
-	FILL,
-};
-```
-
-## Depth Testing Mode
-```C++
-{
-	ALWAYS,
-	NEVER,
-	LESS,
-	LEQUAL,
-	GREATER,
-	NOTEQUAL,
-	GEQUAL
-};
-```
-
-## Culling Face Mode
-```C++
-{
-	BACK,
-	FRONT,
-	BOTH,
-};
-```
-
-## Texture Internal Format
-```C++
-{
-	DEPTH_COMPONENT,
-	DEPTH_STENCIL,
-	R,
-	RG,
-	RGB,
-	RGBA,
-	R8,
-	R8_SNORM,
-	R16,
-	R16_SNORM,
-	RG8,
-	RG8_SNORM,
-	RG16,
-	RG16_SNORM,
-	R3_G3_B2,
-	RGB4,
-	RGB5,
-	RGB8_SNORM,
-	RGB10,
-	RGB12,
-	RGB16_SNORM,
-	RGBA2,
-	RGBA4,
-	RGB5_A1,
-	RGBA8,
-	RGBA8_SNORM,
-	RGB10_A2,
-	RGB10_A2UI,
-	RGBA12,
-	RGBA16,
-	SRGB8,
-	SRGB8_ALPHA8,
-	R16F,
-	RG16F,
-	RGB16F,
-	RGBA16F,
-	R32F,
-	RG32F,
-	RGB32F,
-	RGBA32F,
-	R11F_G11F_B10F,
-	RGB9_E5,
-	R8I,
-	R8UI,
-	R16I,
-	R16UI,
-	R32I,
-	R32UI,
-	RG8I,
-	RG8UI,
-	RG16I,
-	RG16UI,
-	RG32I,
-	RG32UI,
-	RGB8I,
-	RGB8UI,
-	RGB16I,
-	RGB16UI,
-	RGB32I,
-	RGB32UI,
-	RGBA8I,
-	RGBA8UI,
-	RGBA16I,
-	RGBA16UI,
-	RGBA32I,
-	RGBA32UI,
-	COMPRESSED_RED,
-	COMPRESSED_RG,
-	COMPRESSED_RGB,
-	COMPRESSED_RGBA,
-	COMPRESSED_SRGB,
-	COMPRESSED_SRGB_ALPHA,
-	COMPRESSED_RED_RGTC1,
-	COMPRESSED_SIGNED_RED_RGTC1,
-	COMPRESSED_RG_RGTC2,
-	COMPRESSED_SIGNED_RG_RGTC2,
-};
-```
-
-## Texture Format
-```C++
-{
-	R,
-	RG,
-	RGB,
-	BGR,
-	RGBA,
-	BGRA,
-	RED_INTEGER,
-	RG_INTEGER,
-	RGB_INTEGER,
-	BGR_INTEGER,
-	RGBA_INTEGER,
-	BGRA_INTEGER,
-	STENCIL_INDEX,
-	DEPTH_COMPONENT,
-	DEPTH_STENCIL,
-};
-```
-	
-## Texture Pixel Format
-```C++
-{
-	UNSIGNED_BYTE,
-	BYTE,
-	UNSIGNED_SHORT,
-	SHORT,
-	UNSIGNED_INT,
-	INT,
-	HALF_FLOAT,
-	FLOAT,
-	UNSIGNED_BYTE_3_3_2,
-	UNSIGNED_BYTE_2_3_3_REV,
-	UNSIGNED_SHORT_5_6_5,
-	UNSIGNED_SHORT_5_6_5_REV,
-	UNSIGNED_SHORT_4_4_4_4,
-	UNSIGNED_SHORT_4_4_4_4_REV,
-	UNSIGNED_SHORT_5_5_5_1,
-	UNSIGNED_SHORT_1_5_5_5_REV,
-	UNSIGNED_INT_8_8_8_8,
-	UNSIGNED_INT_8_8_8_8_REV,
-	UNSIGNED_INT_10_10_10_2,
-	UNSIGNED_INT_2_10_10_10_REV
-};
-```
-
-## Minifying Filter
-```C++
-{
-	ONLY_NEAREST,
-	ONLY_LINEAR,
-	NEAREST_MIPMAP_NEAREST,
-	LINEAR_MIPMAP_NEAREST,
-	NEAREST_MIPMAP_LINEAR,
-	LINEAR_MIPMAP_LINEAR
-};
-```
-
-## Magnification Filter
-```C++
-{
-	NEAREST,
-	LINEAR
-};
-```
-
-## Texture Wrap
-```C++
-{
-	CLAMP_TO_EDGE,
-	CLAMP_TO_BORDER,
-	MIRRORED_REPEAT,
-	REPEATED,
-	MIRROR_CLAMP_TO_EDGE
-};	
-```
-
-## Vertex Buffer Type
-```C++
-{
-	BYTE,
-	UBYTE,
-	SHORT,
-	USHORT,
-	INT,
-	UINT,
-	HALF_FLOAT,
-	FLOAT,
-	DOUBLE,
-	INT_2_10_10_10_REV,
-	UINT_2_10_10_10_REV
-};
-```
-
-## Drawing Type
-```C++
-{
-	POINTS,
-	LINES,
-	LINE_LOOP,
-	LINE_STRIP,
-	TRIANGLES,
-	TRIANGLE_STRIP,
-	TRIANGLE_FAN,
-	LINE_ADJACENCY,
-	LINE_STRIP_ADJACENCY,
-	TRIANGLES_ADJACENCY,
-	TRIANGLE_STRIP_ADJACENCY,
-};
-```
-	
-## Render Buffer Attachment Type
-```C++
-{
-	DONT_USE,
-	DEPTH_ATTACHMENT,
-	STENCIL_ATTACHEMT,
-	DEPTH_STENCIL_ATTACHMENT
-};
-```
-
-## Render Buffer Format
-```C++
-{
-	DEPTH_COMPONENT16,
-	DEPTH_COMPONENT24,
-	DEPTH_COMPONENT32F,
-	DEPTH24_STENCIL8,
-	DEPTH32F_STENCIL8,
-	STENCIL_INDEX8,
-};
-```
-
-## Render Buffer Format
-```C++
-{
-	DEPTH_COMPONENT16,
-	DEPTH_COMPONENT24,
-	DEPTH_COMPONENT32F,
-	DEPTH24_STENCIL8,
-	DEPTH32F_STENCIL8,
-	STENCIL_INDEX8,
-};
-```
-
-## Project Mode Enum
-```C++
-{
-	PLAY,
-	EDITOR
-};
 ```

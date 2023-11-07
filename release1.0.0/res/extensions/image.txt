@@ -1,8 +1,0 @@
-jpeg
-jfif
-tiff
-jpg
-bmp
-png
-gif
-svg

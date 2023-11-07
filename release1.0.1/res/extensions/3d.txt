@@ -1,0 +1,16 @@
+obj
+fbx
+dae
+stl
+3ds
+blend
+ply
+gltf
+glb
+max
+x3d
+step
+stp
+igs
+iges
+dxf

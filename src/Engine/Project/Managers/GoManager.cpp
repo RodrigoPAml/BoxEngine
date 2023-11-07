@@ -328,6 +328,9 @@ namespace Project {
             
             GameObjectPtr newGo = this->AddGameObject(go->GetName(), go->GetActive(), fatherId);
 
+            if (newGo == nullptr)
+                return "";
+
             for (const ScriptPtr script : go->GetScripts())
             {
                 ScriptPtr newScript = ScriptPtr(new Script(script->GetName()));

@@ -10,7 +10,7 @@ namespace Window {
 	/// </summary>
 	struct WindowConfiguration
 	{
-		std::string windowName = "Box Engine 1.0.0";
+		std::string windowName = "Box Engine 1.0.1";
 
 		glm::vec2 windowPosition = { 40, 40 }, windowSize = { 800, 600 };
 
