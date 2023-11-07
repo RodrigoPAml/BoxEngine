@@ -248,6 +248,7 @@ The returned table format
     path = string, -- loaded path
     state = string, -- state of the script, in enums.ScriptStateEnum format 
     is_started = boolean, -- if the Start() function of the script was called
+    is_loaded = boolean, -- if the script has been loaded, including script data
 }
 ```
 

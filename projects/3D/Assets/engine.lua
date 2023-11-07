@@ -1354,5 +1354,14 @@ enums = {
     {
         play = "PLAY",
         editor = "EDITOR",
-    }
+    },
+
+    script_state_enum =
+    {
+       	to_load = "TO_LOAD", 
+		to_start = "TO_START", 
+		updating = "UPDATING", 
+		to_destroy = "TO_DESTROY",
+		destroyed = "DESTROYED"
+    },
 }
