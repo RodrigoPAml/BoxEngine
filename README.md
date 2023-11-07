@@ -32,6 +32,7 @@ Projects can be run in production mode (pass folder via argument) or editor mode
 ## Editor features
 
 * Open an Create projects
+* Play and Editor mode wich can be detected via script/go to manipulate the scene
 * Manipulate game scene via Game Tree (create go, duplicate, delete)
 * Logs tab to help debug the editor and the application
 * Files tab to help manipulate project files (game assets)
@@ -45,11 +46,11 @@ Basic script behaviour when attached to game object
 
 ```lua
 function teste.start()
-    local this = current()
+    local this = engine.current()
    
-    log('starting')
-    log('My go id is' .. go.current())
-    log('My script name is' .. script.current())
+    engine.log('starting')
+    engine.log('My go id is' .. engine.go.current())
+    engine.log('My script name is' .. engine.script.current())
 
     this.var = 'abc'
 end
