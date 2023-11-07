@@ -56,11 +56,11 @@ function teste.start()
 end
 
 function teste.update()
-   log('updating')
+   engine.log('updating')
 end
 
 function teste.destroy()
-    log('destroy')
+    engine.log('destroyed')
 end
 ```
 
