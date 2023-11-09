@@ -124,6 +124,7 @@ Open an 3d object an draw it with renderer
 
 ![image](https://github.com/RodrigoPAml/BoxEngine/assets/41243039/7432d2b5-7668-4091-81fb-5f6ddd405722)
 
-![Uploading image.png…]()
+![image](https://github.com/RodrigoPAml/BoxEngine/assets/41243039/c7d1a849-4961-4036-87f7-e98db5d4b2dc)
+
 
 
