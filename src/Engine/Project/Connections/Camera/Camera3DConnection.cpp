@@ -27,8 +27,8 @@ namespace Connection {
 		LuaUtils::RegTable(this->state, "translate_abs", TranslateCameraAbsolute);
 		LuaUtils::RegTable(this->state, "rotate", RotateCamera);
 
-		LuaUtils::RegTable(this->state, "get_view", GetViewMatrix);
-		LuaUtils::RegTable(this->state, "get_projection", GetProjectionMatrix);
+		LuaUtils::RegTable(this->state, "get_view_matrix", GetViewMatrix);
+		LuaUtils::RegTable(this->state, "get_projection_matrix", GetProjectionMatrix);
 		LuaUtils::RegTable(this->state, "set_current", SetCurrentCamera);
 		LuaUtils::RegTable(this->state, "get_current", GetCurrentCamera);
 
