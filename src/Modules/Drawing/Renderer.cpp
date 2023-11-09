@@ -106,10 +106,8 @@ namespace Drawing {
 
 			"void main()\n"
 			"{\n"
-			"  float diff = max(dot(interpNormal, vec3(0.5, 1, 0.5)), 0.0);\n"
 			"  vec4 texFrag = texture(tex, interpUV);\n"
-			"  vec3 color = texFrag.xyz + vec3(0.2f);\n"
-			"  outColor = vec4(color * diff, texFrag.w);\n"
+			"  outColor = texFrag;\n"
 			"}"
 		};
 
