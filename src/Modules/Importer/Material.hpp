@@ -11,7 +11,7 @@ namespace Importer {
     private:
         glm::vec3 color;
 
-        GPU::TexturePtr albedoTexture;
+        GPU::TextureRef albedoTexture;
 
         std::string name;
     public:

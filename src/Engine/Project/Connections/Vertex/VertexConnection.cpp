@@ -61,6 +61,39 @@ namespace Connection {
 		current = instance;
 	}
 
+	bool VertexConnection::Exists(long id)
+	{
+		return this->vertices.contains(id);
+	}
+
+	GPU::VertexPtr VertexConnection::Get(long id)
+	{
+		return this->vertices[id];
+	}
+
+	void VertexConnection::Delete(GPU::VertexPtr vertex)
+	{
+		auto id = this->FindId(vertex);
+		this->vertices.erase(id);
+	}
+
+	long VertexConnection::FindId(GPU::VertexPtr vertex)
+	{
+		for (auto item : vertices)
+		{
+			if (item.second == vertex)
+				return item.first;
+		}
+
+		return 0;
+	}
+
+	long VertexConnection::Register(GPU::VertexPtr vertex)
+	{
+		this->vertices[++this->currentId] = vertex;
+		return this->currentId;
+	}
+
 	int VertexConnection::CreateVertex(lua_State* L)
 	{
 		auto top = lua_gettop(L);

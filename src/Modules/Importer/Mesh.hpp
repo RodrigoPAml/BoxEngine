@@ -12,7 +12,7 @@ namespace Importer {
         glm::vec3 minBox;
         glm::vec3 maxBox;
 
-        GPU::VertexPtr mesh;
+        GPU::VertexRef mesh;
 
         int materialIndex = -1;
 

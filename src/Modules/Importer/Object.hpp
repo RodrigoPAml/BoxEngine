@@ -12,9 +12,8 @@ namespace Importer {
         std::string path;
         std::string basePath;
 
-        glm::vec3 position;
-        glm::vec3 scale;
-        glm::vec3 rotation;
+        std::vector<GPU::VertexPtr> vertexRefs;
+        std::vector<GPU::TexturePtr> textureRefs;
 
         std::vector<MeshPtr> meshes;
         std::vector<MaterialPtr> materials;

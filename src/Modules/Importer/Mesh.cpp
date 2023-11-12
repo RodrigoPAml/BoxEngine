@@ -32,7 +32,7 @@ namespace Importer {
 
 	GPU::VertexPtr Mesh::GetMesh() const
 	{
-		return this->mesh;
+		return this->mesh.lock();
 	}
 	
 	void Mesh::SetMaterialIndex(int index)

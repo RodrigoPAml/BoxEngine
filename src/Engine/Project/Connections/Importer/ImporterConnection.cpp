@@ -71,6 +71,12 @@ namespace Connection {
 		{
 			obj = Importer::Importer::Load(path);
 
+			for (auto& mesh : obj->meshes)
+				vertexConnection->Register(mesh->GetMesh());
+
+			for (auto& mtl : obj->materials)
+				textureConnection->Register(mtl->GetAlbedoTexture());
+
 			instance->objs[++instance->currentId] = obj;
 			lua_pushnumber(L, instance->currentId);
 			return 1;
@@ -90,15 +96,41 @@ namespace Connection {
 	{
 		auto top = lua_gettop(L);
 
-		if (top != 1)
-			return luaL_error(L, "expecting 1 argument in function call");
+		if (top != 1 && top != 2)
+			return luaL_error(L, "expecting 1 or 2 arguments in function call");
+
+		bool deleteRefs = true;
+
+		if (lua_isboolean(L, 2) && !lua_isnoneornil(L, 2))
+			deleteRefs = lua_toboolean(L, 2);
 
 		if (lua_isnumber(L, 1))
 		{
 			auto instance = ImporterConnection::Get();
-			lua_pushboolean(L, instance->objs.erase(lua_tonumber(L, 1)));
+			auto id = lua_tonumber(L, 1);
+
+			if (deleteRefs)
+			{
+				Importer::ObjectPtr obj = instance->objs.contains(id) ? instance->objs[id] : nullptr;
+
+				if (obj == nullptr)
+					return 0;
+
+				auto textureConnection = TextureConnection::Get();
+				auto vertexConnection = VertexConnection::Get();
+
+				for (auto& mesh : obj->meshes)
+					vertexConnection->Delete(mesh->GetMesh());
+
+				for (auto& mtl : obj->materials)
+					textureConnection->Delete(mtl->GetAlbedoTexture());
+			}
+
+			instance->objs.erase(id);
 		}
 		else return luaL_error(L, "argument 1 is expected to be a number");
+
+		return 0;
 	}
 	
 	int ImporterConnection::GetObject(lua_State* L)
@@ -127,9 +159,6 @@ namespace Connection {
 			LuaUtils::RegTable(L, "name", Utils::Directory::GetLastPartFromPath(obj->basePath));
 			LuaUtils::RegTable(L, "mesh_count", (int)obj->meshes.size());
 			LuaUtils::RegTable(L, "material_count", (int)obj->materials.size());
-			LuaUtils::RegTable(L, "position", obj->position);
-			LuaUtils::RegTable(L, "scale", obj->scale);
-			LuaUtils::RegTable(L, "rotation", obj->rotation);
 		}
 
 		return 1;
@@ -156,6 +185,7 @@ namespace Connection {
 		else
 		{
 			auto meshes = obj->meshes;
+			auto vertexConnection = VertexConnection::Get();
 
 			// Table for the go info
 			lua_newtable(L); 
@@ -170,9 +200,14 @@ namespace Connection {
 					lua_pushstring(L, meshes[i]->GetName().c_str());
 					lua_settable(L, -3);
 
-					lua_pushstring(L, "mesh_id");
-					lua_pushnumber(L, meshes[i]->GetMesh()->GetId());
-					lua_settable(L, -3);
+					auto mesh = meshes[i]->GetMesh();
+
+					if (mesh != nullptr)
+					{
+						lua_pushstring(L, "vertex_id");
+						lua_pushnumber(L, vertexConnection->FindId(mesh));
+						lua_settable(L, -3);
+					}
 
 					lua_pushstring(L, "material_index");
 					lua_pushnumber(L, meshes[i]->GetMaterialIndex());
@@ -213,6 +248,7 @@ namespace Connection {
 		else
 		{
 			auto materials = obj->materials;
+			auto textureConnection = TextureConnection::Get();
 
 			// Table for the go info
 			lua_newtable(L);
@@ -232,7 +268,7 @@ namespace Connection {
 					if (texAlbedo != nullptr)
 					{
 						lua_pushstring(L, "albedo_texture_id");
-						lua_pushnumber(L, texAlbedo->GetId());
+						lua_pushnumber(L, textureConnection->FindId(texAlbedo));
 						lua_settable(L, -3);
 					}
 

@@ -47,6 +47,12 @@ namespace Connection {
 
 		static VertexConnectionPtr Get();
 		static void Set(VertexConnectionPtr instance);
+
+		bool Exists(long id);
+		GPU::VertexPtr Get(long id);
+		void Delete(GPU::VertexPtr vertex);
+		long FindId(GPU::VertexPtr vertex);
+		long Register(GPU::VertexPtr vertex);
 	private:
 		static int CreateVertex(lua_State* L);
 		static int DestroyVertex(lua_State* L);

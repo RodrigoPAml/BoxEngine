@@ -90,4 +90,5 @@ namespace GPU {
 	};
 
 	typedef std::shared_ptr<Texture> TexturePtr;
+	typedef std::weak_ptr<Texture> TextureRef;
 }}}

@@ -48,7 +48,9 @@ namespace Connection {
 
 		bool Exists(long id);
 		GPU::TexturePtr Get(long id);
+		void Delete(GPU::TexturePtr texture);
 		long FindId(GPU::TexturePtr texture);
+		long Register(GPU::TexturePtr texture);
 	private:
 		static int CreateEmptyTexture(lua_State* L);
 		static int CreateMultiSampledTexture(lua_State* L);

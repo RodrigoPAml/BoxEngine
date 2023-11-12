@@ -927,8 +927,8 @@ function engine.importer.open(path)
 	return _importer_.open(path) 
 end
 
-function engine.importer.destroy(id) 
-	return _importer_.destroy(id) 
+function engine.importer.destroy(id, remove) 
+	return _importer_.destroy(id, remove) 
 end
 
 function engine.importer.get_obj_info(id) 

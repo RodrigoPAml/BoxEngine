@@ -124,6 +124,7 @@ namespace Importer {
         m->name = mesh->mName.C_Str();
         m->mesh = vertex;
         
+        object->vertexRefs.push_back(vertex);
         object->meshes.push_back(m);
     }
 
@@ -156,6 +157,8 @@ namespace Importer {
                     auto texture = GPU::TexturePtr(new GPU::Texture(GPU::TextureDataConfiguration(), image));
 
                     textures[texturePath] = texture;
+
+                    object->textureRefs.push_back(texture);
                 }
 
                 mtl->albedoTexture = textures[texturePath];

@@ -36,7 +36,7 @@ function begin_frame.start()
 
    -- enable bleding and vsync
    engine.command.enable_vsync()
-   engine.command.enable_blending()
+   --engine.command.enable_blending()
    engine.command.enable_depth_testing()
 
    -- do not persist when project saved
@@ -55,7 +55,7 @@ function begin_frame.update()
 
    engine.framebuffer.active(engine.framebuffer.get_current())
    engine.framebuffer.set_viewport({ x = 0, y = 0, z = 1920, w = 1080 })
-   engine.framebuffer.clear({ x = 153/255, y = 204/255, z = 1, w = 1 })
+   engine.framebuffer.clear({ x = 153/255, y = 204/255, z = 1, w = 0 })
 end
 
 function begin_frame.destroy()

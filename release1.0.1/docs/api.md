@@ -1960,8 +1960,11 @@ function engine.importer.open(path = string)
 
 Destroy 3d model by recieving it's id
 
+The bool indicates if the vertex and textures should be deleted. 
+This arguments its optional and by default true.
+
 ```lua
-function engine.importer.destroy(id = number) 
+function engine.importer.destroy(id = number, remove = bool) 
 ```
 
 # Renderer module

@@ -8,7 +8,6 @@ namespace Importer {
 	Material::Material()
 	{
 		this->color = { 1, 1, 1 };
-		this->albedoTexture = nullptr;
 	}
 
 	Material::~Material()
@@ -22,7 +21,7 @@ namespace Importer {
 
 	GPU::TexturePtr Material::GetAlbedoTexture() const
 	{
-		return this->albedoTexture;
+		return this->albedoTexture.lock();
 	}
 
 	void Material::SetColor(const glm::vec3& color)

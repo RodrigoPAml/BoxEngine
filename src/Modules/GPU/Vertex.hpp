@@ -77,4 +77,5 @@ namespace GPU {
 	};
 
 	typedef std::shared_ptr<Vertex> VertexPtr;
+	typedef std::weak_ptr<Vertex> VertexRef;
 }}}

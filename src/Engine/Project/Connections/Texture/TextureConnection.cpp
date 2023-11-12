@@ -56,6 +56,12 @@ namespace Connection {
 		return this->textures[id];
 	}
 
+	void TextureConnection::Delete(GPU::TexturePtr texture)
+	{
+		auto id = this->FindId(texture);
+		this->textures.erase(id);
+	}
+
 	long TextureConnection::FindId(GPU::TexturePtr texture)
 	{
 		for (auto item : textures)
@@ -65,6 +71,12 @@ namespace Connection {
 		}
 
 		return 0;
+	}
+
+	long TextureConnection::Register(GPU::TexturePtr texture)
+	{
+		this->textures[++this->currentId] = texture;
+		return this->currentId;
 	}
 	
 	int TextureConnection::CreateEmptyTexture(lua_State* L)
