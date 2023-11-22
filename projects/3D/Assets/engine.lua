@@ -511,6 +511,10 @@ function engine.shader.create(table)
 	return _shader_.create(table)
 end
 
+function engine.shader.create_raw(table)
+	return _shader_.create_raw(table)
+end
+
 function engine.shader.destroy(id)
 	return _shader_.destroy(id)
 end

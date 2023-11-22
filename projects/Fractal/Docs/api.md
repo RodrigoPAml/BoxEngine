@@ -1225,6 +1225,22 @@ The argument table format
 }
 ```
 
+## Create Raw Shader
+Create a shader, receive a table with data information
+
+Return id if success else return nil
+```lua
+function engine.shader.create_raw(arg = table) end
+```
+The argument table format
+```lua
+{
+    vertex_content = string -- content of vertex shader
+    fragment_content = string, -- content of fragment shader (optional)
+    geometry_content = string  -- content of geometry shader (optional)
+}
+```
+
 ## Delete Shader
 Delete a shader, receive the id
 
