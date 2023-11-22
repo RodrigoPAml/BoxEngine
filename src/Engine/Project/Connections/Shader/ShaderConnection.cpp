@@ -18,6 +18,8 @@ namespace Connection {
 		lua_newtable(this->state);
 		
 		LuaUtils::RegTable(this->state, "create", CreateShader);
+		LuaUtils::RegTable(this->state, "create_raw", CreateRawShader);
+
 		LuaUtils::RegTable(this->state, "destroy", DestroyShader);
 
 		LuaUtils::RegTable(this->state, "activate", Active);
@@ -107,6 +109,56 @@ namespace Connection {
 			try
 			{
 				shader = GPU::ShaderPtr(new GPU::Shader(vertexContent, fragmentContent, geometryContent));
+
+				instance->shaders[++instance->currentId] = shader;
+				lua_pushnumber(L, instance->currentId);
+				return 1;
+			}
+			catch (std::exception)
+			{
+				lua_pushnil(L);
+				shader = nullptr;
+				instance = nullptr;
+				return 1;
+			}
+		}
+		else return luaL_error(L, "argument 1 is expected to be a table");
+
+		lua_pushnil(L);
+		return 1;
+	}
+
+	int ShaderConnection::CreateRawShader(lua_State* L)
+	{
+		auto top = lua_gettop(L);
+
+		if (top != 1)
+			return luaL_error(L, "expecting 1 argument in function call");
+
+		if (lua_istable(L, 1))
+		{
+			std::string vertex = "";
+			std::string fragment = "";
+			std::string geometry = "";
+
+			if (!LuaUtils::GetTable(L, 1, "vertex_content", vertex))
+				return luaL_error(L, "argument vertex needs to exists and be a string");
+			lua_pop(L, 1);
+
+			LuaUtils::GetTable(L, 1, "fragment_content", fragment);
+			lua_pop(L, 1);
+
+			LuaUtils::GetTable(L, 1, "geometry_content", geometry);
+			lua_pop(L, 1);
+
+			bool success = false;
+
+			GPU::ShaderPtr shader = nullptr;
+			auto instance = ShaderConnection::Get();
+
+			try
+			{
+				shader = GPU::ShaderPtr(new GPU::Shader(vertex, fragment, geometry));
 
 				instance->shaders[++instance->currentId] = shader;
 				lua_pushnumber(L, instance->currentId);

@@ -47,6 +47,8 @@ namespace Connection {
 		static void Set(ShaderConnectionPtr instance);
 	private:
 		static int CreateShader(lua_State* L);
+		static int CreateRawShader(lua_State* L);
+
 		static int DestroyShader(lua_State* L);
 		
 		static int Active(lua_State* L);
