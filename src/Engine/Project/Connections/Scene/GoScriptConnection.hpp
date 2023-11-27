@@ -53,6 +53,9 @@ namespace Connection {
 		static int ChangeGoFather(lua_State* L);
 		static int ChangeGoIndex(lua_State* L);
 		static int LoadScripts(lua_State* L);
+		static int GetGosOfScript(lua_State* L);
+		static int InspectGo(lua_State* L);
+		static int GetInspectedGo(lua_State* L);
 
 		// Scripts
 		static int GetCurrent(lua_State* L);

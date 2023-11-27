@@ -112,6 +112,7 @@ namespace Project {
 		std::string DuplicateGo(const std::string& goId, const std::string& fatherId = "");
 		void ChangeGoFather(const std::string& goId, const std::string& fatherId = "");
 		void ChangeGoPosition(const std::string& goId, int displacement);
+		std::vector<std::string> GetGosOfScripts(const std::string& scriptName);
 
 		// Crud for scripts
 		bool AddScript(const std::string& goId, const std::string& scriptName);

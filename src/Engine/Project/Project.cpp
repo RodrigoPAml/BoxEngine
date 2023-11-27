@@ -417,6 +417,11 @@ namespace Project {
         this->goManager->ChangeGoPosition(goId, displacement);
     }
 
+    std::vector<std::string> Project::GetGosOfScripts(const std::string& scriptName)
+    {
+        return this->goManager->GetGosOfScript(scriptName);
+    }
+
     bool Project::AddScript(const std::string& goId, const std::string& scriptName)
     {
         if (this->state == ProjectState::Idle)

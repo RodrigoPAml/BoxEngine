@@ -30,6 +30,9 @@ namespace Connection {
 		LuaUtils::RegTable(this->state, "load_scripts", LoadScripts);
 		LuaUtils::RegTable(this->state, "change_index", ChangeGoIndex);
 
+		LuaUtils::RegTable(this->state, "inspect_go", InspectGo);
+		LuaUtils::RegTable(this->state, "get_inspected_go", GetInspectedGo);
+
 		// Persistance
 		LuaUtils::RegTable(this->state, "set_persist_go", SetPersistCurrentGo);
 		LuaUtils::RegTable(this->state, "set_persist_external_go", SetPersistExternalGo);
@@ -46,6 +49,7 @@ namespace Connection {
 		LuaUtils::RegTable(this->state, "destroy", RemoveScript);
 		LuaUtils::RegTable(this->state, "change_index", ChangeScriptIndex);
 		LuaUtils::RegTable(this->state, "displace_index", DisplaceScript);
+		LuaUtils::RegTable(this->state, "find_all", GetGosOfScript);
 
 		// Persistance
 		LuaUtils::RegTable(this->state, "set_persist_script", SetPersistCurrentScript);
@@ -337,6 +341,77 @@ namespace Connection {
 			return luaL_error(L, "internal error when loading scripts at runtime");
 
 		return 0;
+	}
+
+	int GoScriptConnection::GetGosOfScript(lua_State* L)
+	{
+		auto top = lua_gettop(L);
+
+		if (top != 1)
+			return luaL_error(L, "expecting 1 argument in function call");
+
+		std::string scriptName = "";
+
+		if (lua_isstring(L, 1))
+			scriptName = lua_tostring(L, 1);
+		else return luaL_error(L, "argument 1 is expected to be string");
+
+		auto result = Project::GetCurrentProject()->GetGosOfScripts(scriptName);
+
+		lua_newtable(L);
+		for (int i = 0; i < result.size(); i++)
+		{
+			lua_pushstring(L, result[i].c_str());
+			lua_rawseti(L, -2, i + 1); 
+		}
+
+		return 1;
+	}
+
+	int GoScriptConnection::InspectGo(lua_State* L)
+	{
+		auto top = lua_gettop(L);
+
+		if (top != 1)
+			return luaL_error(L, "expecting 1 argument in function call");
+
+		std::string goId = "";
+
+		if (lua_isstring(L, 1))
+			goId = lua_tostring(L, 1);
+		else return luaL_error(L, "argument 1 is expected to be string");
+
+		auto editor = Editor::Editor::GetCurrentEditor();
+		
+		if(editor != nullptr)
+			editor->InspectGo(goId);
+
+		return 0;
+	}
+
+	int GoScriptConnection::GetInspectedGo(lua_State* L)
+	{
+		auto top = lua_gettop(L);
+
+		if (top != 0)
+			return luaL_error(L, "expecting no argument in function call");
+
+		auto editor = Editor::Editor::GetCurrentEditor();
+
+		if (editor != nullptr)
+		{ 
+			auto go = editor->GetInspectedGo();
+
+			if (go == "")
+				lua_pushnil(L);
+			else
+				lua_pushstring(L, go.c_str());
+
+			return 1;
+		}
+
+		lua_pushnil(L);
+		return 1;
 	}
 
 	int GoScriptConnection::GetGo(lua_State* L)

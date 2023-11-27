@@ -77,6 +77,11 @@ namespace Editor {
 		this->inspector.InspectGo(goId);
 	}
 
+	std::string Editor::GetInspectedGo()
+	{
+		return this->inspector.GetInspectedGo();
+	}
+
 	glm::vec2 Editor::GetTopStartPoint(bool correctY) const
 	{
 		// Min x, Min y

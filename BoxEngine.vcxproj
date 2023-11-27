@@ -178,9 +178,11 @@
     <ClCompile Include="src\Editor\ProjectManager\ProjectManager.cpp" />
     <ClCompile Include="src\Engine\Project\Connections\Importer\ImporterConnection.cpp" />
     <ClCompile Include="src\Engine\Project\Connections\Renderer\RendererConnection.cpp" />
+    <ClCompile Include="src\Engine\Project\Connections\Shader\ShaderConnection.cpp" />
     <ClCompile Include="src\Modules\Audio\Audio.cpp" />
     <ClInclude Include="src\Engine\Project\Connections\Importer\ImporterConnection.hpp" />
     <ClInclude Include="src\Engine\Project\Connections\Renderer\RendererConnection.hpp" />
+    <ClInclude Include="src\Engine\Project\Connections\Shader\ShaderConnection.hpp" />
     <ClInclude Include="src\Modules\Audio\Audio.hpp" />
     <ClCompile Include="src\Modules\Camera\Camera2D.cpp" />
     <ClCompile Include="src\Modules\Camera\Camera3D.cpp" />
@@ -220,7 +222,6 @@
     <ClCompile Include="src\Engine\Project\Connections\Log\LogConnection.cpp" />
     <ClCompile Include="src\Engine\Project\Connections\Math\MathConnection.cpp" />
     <ClCompile Include="src\Engine\Project\Connections\Scene\GoScriptConnection.cpp" />
-    <ClCompile Include="src\Engine\Project\Connections\Shader\ShaderConnection.cpp" />
     <ClCompile Include="src\Engine\Project\Connections\Texture\TextureConnection.cpp" />
     <ClCompile Include="src\Engine\Project\Connections\Time\TimeConnection.cpp" />
     <ClCompile Include="src\Engine\Project\Connections\Engine\EngineConnection.cpp" />
@@ -324,7 +325,6 @@
     <ClInclude Include="src\Engine\Project\Connections\Log\LogConnection.hpp" />
     <ClInclude Include="src\Engine\Project\Connections\Math\MathConnection.hpp" />
     <ClInclude Include="src\Engine\Project\Connections\Scene\GoScriptConnection.hpp" />
-    <ClInclude Include="src\Engine\Project\Connections\Shader\ShaderConnection.hpp" />
     <ClInclude Include="src\Engine\Project\Connections\Texture\TextureConnection.hpp" />
     <ClInclude Include="src\Engine\Project\Connections\Time\TimeConnection.hpp" />
     <ClInclude Include="src\Engine\Project\Connections\Engine\EngineConnection.hpp" />

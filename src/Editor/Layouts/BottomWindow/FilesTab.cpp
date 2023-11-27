@@ -314,7 +314,7 @@ namespace Editor {
 
 	std::string FilesTab::GetScriptFile(const std::string& name)
 	{
-		return  name + " = {}\n\nfunction " + name + ".start()\nend\n\nfunction " + name + ".update()\nend\n\nfunction " + name + ".destroy()\nend";
+		return  "function " + name + ".start()\nend\n\nfunction " + name + ".update()\nend\n\nfunction " + name + ".destroy()\nend";
 	}
 }}
 

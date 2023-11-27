@@ -231,6 +231,20 @@ Set any go to persist or not
 function engine.go.set_persist_external_go(goId = string, val = bool) end
 ```
 
+## Inspect go
+Force the editor to inspect a go
+
+```lua
+function engine.go.inspect_go(goId = string) end
+```
+
+## Get inspected go
+Get the inspected go by the editor, else nil
+
+```lua
+function engine.go.get_inspected_go() end
+```
+
 # Script Module
 
 ## Get Script
@@ -268,6 +282,13 @@ The remove argument indicates if the script should be also removed when destroye
 Return a boolean indicating success
 ```lua
 function engine.script.destroy(goId = number, scriptName = string, remove = bool) end
+```
+
+## Find all scripts
+Return the gos id that contains the script given by name
+
+```lua
+function engine.script.find_all(scriptName = string) end
 ```
 
 ## Change Script Index

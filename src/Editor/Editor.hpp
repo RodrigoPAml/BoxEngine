@@ -28,6 +28,7 @@ namespace Editor {
 		void InspectProjectSettings();
 		void ClearLogs();
 		void InspectGo(std::string goId);
+		std::string GetInspectedGo();
 		
 		glm::vec2 GetTopStartPoint(bool correctY = true) const;
 		glm::vec2 GetBottomEndPoint(bool correctY = true) const;

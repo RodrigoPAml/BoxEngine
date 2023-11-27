@@ -171,6 +171,14 @@ function engine.go.set_persist_external_go(goId, val)
 	return _go_.set_persist_external_go(goId, val)
 end
 
+function engine.go.inspect_go(goId)
+	return _go_.inspect_go(goId)
+end
+
+function engine.go.get_inspected_go()
+	return _go_.get_inspected_go()
+end
+
 function engine.script.current()
 	return _script_.current()
 end
@@ -181,6 +189,10 @@ end
 
 function engine.script.add(goId, scriptName)
 	return _script_.add(goId, scriptName)
+end
+
+function engine.script.find_all(scriptName)
+	return _script_.find_all(scriptName)
 end
 
 function engine.script.set_active(goId, scriptName, val)

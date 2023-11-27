@@ -102,9 +102,6 @@
     <ClCompile Include="src\Engine\Project\Connections\Scene\GoScriptConnection.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Project\Connections\Shader\ShaderConnection.cpp">
-      <Filter>Arquivos de Origem</Filter>
-    </ClCompile>
     <ClCompile Include="src\Engine\Project\Connections\Texture\TextureConnection.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
@@ -244,6 +241,9 @@
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Project\Connections\Renderer\RendererConnection.cpp">
+      <Filter>Arquivos de Origem</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Project\Connections\Shader\ShaderConnection.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
   </ItemGroup>
@@ -399,9 +399,6 @@
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Project\Connections\Scene\GoScriptConnection.hpp">
-      <Filter>Arquivos de Cabeçalho</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Engine\Project\Connections\Shader\ShaderConnection.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Project\Connections\Texture\TextureConnection.hpp">
@@ -564,6 +561,9 @@
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Project\Connections\Renderer\RendererConnection.hpp">
+      <Filter>Arquivos de Cabeçalho</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Project\Connections\Shader\ShaderConnection.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
   </ItemGroup>

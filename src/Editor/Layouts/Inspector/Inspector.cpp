@@ -90,6 +90,14 @@ namespace Editor {
 		this->goId = goId;
 	}
 
+	std::string Inspector::GetInspectedGo()
+	{
+		if (this->isInspectingGo)
+			return this->goId;
+
+		return "";
+	}
+
 	void Inspector::SetMinY(float value)
 	{
 		this->minY = value;
@@ -230,7 +238,10 @@ namespace Editor {
 		GameObjectPtr go = project->GetGameObject(goId);
 
 		if (go == nullptr)
+		{
+			this->goId = "";
 			return;
+		}
 		
 		// Header info, only gos information
 		if (GUI::BeginInnerWindow(this->guid + "window_header", {0, 135}))

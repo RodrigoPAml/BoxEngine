@@ -92,7 +92,7 @@ namespace GPU {
 			glShaderSource(geometry, 1, &GS, NULL);
 			glCompileShader(geometry);
 
-			error = Shader::GetError(fragment, "GEOMETRY");
+			error = Shader::GetError(geometry, "GEOMETRY");
 
 			if(!error.empty())
 			{
@@ -120,7 +120,7 @@ namespace GPU {
 
 		glLinkProgram(this->id);
 
-		error = Shader::GetError(fragment, "FRAGMENT");
+		error = Shader::GetError(this->id, "PROGRAM");
 
 		glDeleteShader(vertex);
 
@@ -140,7 +140,7 @@ namespace GPU {
 
 			this->id = 0;
 
-			Debug::Logging::LogException("[Shader]: Error compiling shader: " + error, Debug::LogOrigin::Engine);
+			Debug::Logging::LogException("[Shader]: Error linking shader: " + error, Debug::LogOrigin::Engine);
 		}
 
 		if (this->id == 0)

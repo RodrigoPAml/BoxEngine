@@ -75,6 +75,7 @@ namespace Project {
                     Debug::LogOrigin::Engine,
                     { {"father_id", fatherId} }
                 );
+
                 return nullptr;
             }
         }
@@ -346,6 +347,26 @@ namespace Project {
         }
 
         return "";
+    }
+
+    std::vector<std::string> GoManager::GetGosOfScript(const std::string scriptName)
+    {
+        std::vector<std::string> result;
+
+        for (auto it = this->gosMap.begin(); it != this->gosMap.end(); ++it)
+        {
+            auto go = it->second;
+
+            for (const ScriptPtr script : go->GetScripts())
+            {
+                if (script->GetName() == scriptName)
+                {
+                    result.push_back(go->GetId());
+                }
+            }
+        }
+
+        return result;
     }
 
     #pragma region InternalFunctions

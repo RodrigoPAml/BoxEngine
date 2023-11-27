@@ -44,7 +44,9 @@ namespace Editor {
 		void Start();
 		void Update();
 		void InspectProjectSettings();
+
 		void InspectGo(std::string goId);
+		std::string GetInspectedGo();
 
 		void SetMinY(float value);
 		float GetMinX() const;

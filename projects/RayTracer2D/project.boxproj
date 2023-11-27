@@ -1,0 +1,503 @@
+{
+  "debug": {
+    "autoLogGLFWErrors": true,
+    "autoLogOpenGLErrors": false,
+    "enableGlfwDebugging": true,
+    "enableOpenGLDebugging": true,
+    "openglSeverities": [
+      37190,
+      37191,
+      37192
+    ]
+  },
+  "logging": {
+    "logCallback": true,
+    "logConsole": false,
+    "logFile": false
+  },
+  "project_name": "RayTracer2D",
+  "scene": [
+    {
+      "active": true,
+      "childrens": [],
+      "id": "12f9b466-6",
+      "mode": 0,
+      "name": "begin_frame",
+      "scripts": [
+        {
+          "active": true,
+          "data": [
+            {
+              "name": "res_x",
+              "type": 1,
+              "value": "800.000000"
+            },
+            {
+              "name": "res_y",
+              "type": 1,
+              "value": "600.000000"
+            }
+          ],
+          "mode": 0,
+          "name": "begin_frame"
+        }
+      ]
+    },
+    {
+      "active": true,
+      "childrens": [
+        {
+          "active": true,
+          "childrens": [],
+          "id": "b6539016-c",
+          "mode": 0,
+          "name": "ray_tracer",
+          "scripts": [
+            {
+              "active": true,
+              "data": [
+                {
+                  "name": "quad_prefab",
+                  "type": 2,
+                  "value": "f221569f-8"
+                },
+                {
+                  "name": "quad_father",
+                  "type": 2,
+                  "value": "8cf73f89-6"
+                },
+                {
+                  "name": "close_light_str",
+                  "type": 1,
+                  "value": "0.003000"
+                },
+                {
+                  "name": "dist_light_str",
+                  "type": 1,
+                  "value": "0.000010"
+                },
+                {
+                  "name": "ambient_factor",
+                  "type": 1,
+                  "value": "1.200000"
+                },
+                {
+                  "name": "size_x",
+                  "type": 1,
+                  "value": "800.000000"
+                },
+                {
+                  "name": "size_y",
+                  "type": 1,
+                  "value": "600.000000"
+                }
+              ],
+              "mode": 0,
+              "name": "ray_tracer"
+            }
+          ]
+        },
+        {
+          "active": true,
+          "childrens": [
+            {
+              "active": true,
+              "childrens": [],
+              "id": "1622f280-9",
+              "mode": 0,
+              "name": "quad",
+              "scripts": [
+                {
+                  "active": true,
+                  "data": [
+                    {
+                      "name": "x",
+                      "type": 1,
+                      "value": "418.797821"
+                    },
+                    {
+                      "name": "y",
+                      "type": 1,
+                      "value": "100.295860"
+                    },
+                    {
+                      "name": "sx",
+                      "type": 1,
+                      "value": "610.000000"
+                    },
+                    {
+                      "name": "sy",
+                      "type": 1,
+                      "value": "50.000000"
+                    },
+                    {
+                      "name": "cx",
+                      "type": 1,
+                      "value": "0.794206"
+                    },
+                    {
+                      "name": "cy",
+                      "type": 1,
+                      "value": "0.698852"
+                    },
+                    {
+                      "name": "cz",
+                      "type": 1,
+                      "value": "0.590104"
+                    }
+                  ],
+                  "mode": 0,
+                  "name": "quad"
+                }
+              ]
+            },
+            {
+              "active": true,
+              "childrens": [],
+              "id": "4abec1cb-2",
+              "mode": 0,
+              "name": "quad",
+              "scripts": [
+                {
+                  "active": true,
+                  "data": [
+                    {
+                      "name": "x",
+                      "type": 1,
+                      "value": "391.694000"
+                    },
+                    {
+                      "name": "y",
+                      "type": 1,
+                      "value": "497.041412"
+                    },
+                    {
+                      "name": "sx",
+                      "type": 1,
+                      "value": "520.000000"
+                    },
+                    {
+                      "name": "sy",
+                      "type": 1,
+                      "value": "50.000000"
+                    },
+                    {
+                      "name": "cx",
+                      "type": 1,
+                      "value": "0.753229"
+                    },
+                    {
+                      "name": "cy",
+                      "type": 1,
+                      "value": "0.080971"
+                    },
+                    {
+                      "name": "cz",
+                      "type": 1,
+                      "value": "0.661107"
+                    }
+                  ],
+                  "mode": 0,
+                  "name": "quad"
+                }
+              ]
+            },
+            {
+              "active": true,
+              "childrens": [],
+              "id": "3e18e775-4",
+              "mode": 0,
+              "name": "quad",
+              "scripts": [
+                {
+                  "active": true,
+                  "data": [
+                    {
+                      "name": "x",
+                      "type": 1,
+                      "value": "69.945351"
+                    },
+                    {
+                      "name": "y",
+                      "type": 1,
+                      "value": "295.562134"
+                    },
+                    {
+                      "name": "sx",
+                      "type": 1,
+                      "value": "50.000000"
+                    },
+                    {
+                      "name": "sy",
+                      "type": 1,
+                      "value": "440.000000"
+                    },
+                    {
+                      "name": "cx",
+                      "type": 1,
+                      "value": "0.339333"
+                    },
+                    {
+                      "name": "cy",
+                      "type": 1,
+                      "value": "0.735739"
+                    },
+                    {
+                      "name": "cz",
+                      "type": 1,
+                      "value": "0.426687"
+                    }
+                  ],
+                  "mode": 0,
+                  "name": "quad"
+                }
+              ]
+            },
+            {
+              "active": true,
+              "childrens": [],
+              "id": "147a67c2-7",
+              "mode": 0,
+              "name": "quad",
+              "scripts": [
+                {
+                  "active": true,
+                  "data": [
+                    {
+                      "name": "x",
+                      "type": 1,
+                      "value": "746.666687"
+                    },
+                    {
+                      "name": "y",
+                      "type": 1,
+                      "value": "323.076935"
+                    },
+                    {
+                      "name": "sx",
+                      "type": 1,
+                      "value": "50.000000"
+                    },
+                    {
+                      "name": "sy",
+                      "type": 1,
+                      "value": "370.000000"
+                    },
+                    {
+                      "name": "cx",
+                      "type": 1,
+                      "value": "0.568592"
+                    },
+                    {
+                      "name": "cy",
+                      "type": 1,
+                      "value": "0.114462"
+                    },
+                    {
+                      "name": "cz",
+                      "type": 1,
+                      "value": "0.054893"
+                    }
+                  ],
+                  "mode": 0,
+                  "name": "quad"
+                }
+              ]
+            },
+            {
+              "active": true,
+              "childrens": [],
+              "id": "c6147699-f",
+              "mode": 0,
+              "name": "quad",
+              "scripts": [
+                {
+                  "active": true,
+                  "data": [
+                    {
+                      "name": "x",
+                      "type": 1,
+                      "value": "698.579224"
+                    },
+                    {
+                      "name": "y",
+                      "type": 1,
+                      "value": "552.958618"
+                    },
+                    {
+                      "name": "sx",
+                      "type": 1,
+                      "value": "50.000000"
+                    },
+                    {
+                      "name": "sy",
+                      "type": 1,
+                      "value": "50.000000"
+                    },
+                    {
+                      "name": "cx",
+                      "type": 1,
+                      "value": "0.974163"
+                    },
+                    {
+                      "name": "cy",
+                      "type": 1,
+                      "value": "0.705398"
+                    },
+                    {
+                      "name": "cz",
+                      "type": 1,
+                      "value": "0.175958"
+                    }
+                  ],
+                  "mode": 0,
+                  "name": "quad"
+                }
+              ]
+            },
+            {
+              "active": true,
+              "childrens": [],
+              "id": "46f11f4e-b",
+              "mode": 0,
+              "name": "quad",
+              "scripts": [
+                {
+                  "active": true,
+                  "data": [
+                    {
+                      "name": "x",
+                      "type": 1,
+                      "value": "363.715851"
+                    },
+                    {
+                      "name": "y",
+                      "type": 1,
+                      "value": "310.650879"
+                    },
+                    {
+                      "name": "sx",
+                      "type": 1,
+                      "value": "170.000000"
+                    },
+                    {
+                      "name": "sy",
+                      "type": 1,
+                      "value": "50.000000"
+                    },
+                    {
+                      "name": "cx",
+                      "type": 1,
+                      "value": "0.974799"
+                    },
+                    {
+                      "name": "cy",
+                      "type": 1,
+                      "value": "0.276939"
+                    },
+                    {
+                      "name": "cz",
+                      "type": 1,
+                      "value": "0.354098"
+                    }
+                  ],
+                  "mode": 0,
+                  "name": "quad"
+                }
+              ]
+            }
+          ],
+          "id": "8cf73f89-6",
+          "mode": 0,
+          "name": "entities",
+          "scripts": []
+        }
+      ],
+      "id": "0f2489b2-0",
+      "mode": 0,
+      "name": "scene",
+      "scripts": []
+    },
+    {
+      "active": true,
+      "childrens": [],
+      "id": "4951cfa6-1",
+      "mode": 0,
+      "name": "end_frame",
+      "scripts": [
+        {
+          "active": true,
+          "data": [
+            {
+              "name": "begin_id",
+              "type": 2,
+              "value": "12f9b466-6"
+            }
+          ],
+          "mode": 0,
+          "name": "end_frame"
+        }
+      ]
+    },
+    {
+      "active": false,
+      "childrens": [
+        {
+          "active": true,
+          "childrens": [],
+          "id": "f221569f-8",
+          "mode": 0,
+          "name": "quad",
+          "scripts": [
+            {
+              "active": true,
+              "data": [
+                {
+                  "name": "x",
+                  "type": 1,
+                  "value": "100.000000"
+                },
+                {
+                  "name": "y",
+                  "type": 1,
+                  "value": "100.000000"
+                },
+                {
+                  "name": "sx",
+                  "type": 1,
+                  "value": "50.000000"
+                },
+                {
+                  "name": "sy",
+                  "type": 1,
+                  "value": "50.000000"
+                },
+                {
+                  "name": "cx",
+                  "type": 2,
+                  "value": "1"
+                },
+                {
+                  "name": "cy",
+                  "type": 1,
+                  "value": "0"
+                },
+                {
+                  "name": "cz",
+                  "type": 1,
+                  "value": "0"
+                }
+              ],
+              "mode": 0,
+              "name": "quad"
+            }
+          ]
+        }
+      ],
+      "id": "3b8bb996-d",
+      "mode": 0,
+      "name": "prefabs",
+      "scripts": []
+    }
+  ]
+}

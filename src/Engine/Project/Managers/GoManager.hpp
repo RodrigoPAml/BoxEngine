@@ -48,6 +48,9 @@ namespace Project {
 
 		// Duplicate go (editor)
 		std::string DuplicateGo(const std::string& id, const std::string fatherId = "", bool isFirst = true);	
+
+		// Find all the gos id that have an script
+		std::vector<std::string> GetGosOfScript(const std::string scriptName);
 	private:
 		// Add go when reading from file.
 		void AddGameObjectFromFile(
