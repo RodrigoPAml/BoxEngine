@@ -126,5 +126,15 @@ Open an 3d object an draw it with renderer
 
 ![image](https://github.com/RodrigoPAml/BoxEngine/assets/41243039/c7d1a849-4961-4036-87f7-e98db5d4b2dc)
 
+## 2D Ray Tracing
+
+The first attemp to implement ray tracing in openGL
+
+![image](https://github.com/RodrigoPAml/BoxEngine/assets/41243039/ca12a844-35c0-4eb0-8313-531769a752e9)
+
+![image](https://github.com/RodrigoPAml/BoxEngine/assets/41243039/9aa1bf2f-e6f2-4be2-8def-2f60422ab165)
+
+
+
 
 
