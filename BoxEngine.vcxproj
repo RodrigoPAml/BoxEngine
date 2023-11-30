@@ -174,12 +174,14 @@
     <ClCompile Include="src\Editor\Layouts\BottomWindow\LogTab.cpp" />
     <ClCompile Include="src\Editor\Layouts\GameTree\GameTree.cpp" />
     <ClCompile Include="src\Editor\Layouts\Inspector\Inspector.cpp" />
+    <ClCompile Include="src\Editor\Layouts\TextureVisualizer\TextureVisualizer.cpp" />
     <ClCompile Include="src\Editor\Layouts\TopBar\TopBar.cpp" />
     <ClCompile Include="src\Editor\ProjectManager\ProjectManager.cpp" />
     <ClCompile Include="src\Engine\Project\Connections\Importer\ImporterConnection.cpp" />
     <ClCompile Include="src\Engine\Project\Connections\Renderer\RendererConnection.cpp" />
     <ClCompile Include="src\Engine\Project\Connections\Shader\ShaderConnection.cpp" />
     <ClCompile Include="src\Modules\Audio\Audio.cpp" />
+    <ClInclude Include="src\Editor\Layouts\TextureVisualizer\TextureVisualizer.hpp" />
     <ClInclude Include="src\Engine\Project\Connections\Importer\ImporterConnection.hpp" />
     <ClInclude Include="src\Engine\Project\Connections\Renderer\RendererConnection.hpp" />
     <ClInclude Include="src\Engine\Project\Connections\Shader\ShaderConnection.hpp" />

@@ -4,7 +4,7 @@ function quad.update()
     local mouse = engine.input.get_mouse_button(enums.mouse_button.left) == enums.input_action.press
     mouse = mouse or engine.input.get_mouse_button(enums.mouse_button.left) == enums.input_action.repeating
 
-    if mouse then
+    if mouse and not engine.is_editor_focused() then
         local mousePos = engine.input.get_cam_mouse_pos()
 
         local halfWidth = this.sx / 2

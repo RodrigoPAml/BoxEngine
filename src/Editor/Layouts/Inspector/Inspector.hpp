@@ -10,6 +10,7 @@ namespace Editor {
 	{
 	private:
 		bool reset = true;
+		bool focused = false;
 		bool isInspectingProjectSettings = false;
 		bool isInspectingGo = false;
 
@@ -43,6 +44,7 @@ namespace Editor {
 
 		void Start();
 		void Update();
+		bool IsFocused();
 		void InspectProjectSettings();
 
 		void InspectGo(std::string goId);

@@ -35,7 +35,7 @@ namespace Editor {
 			this->reset = false;
 		}
 
-		if (GUI::BeginWindow("Navigator", nullptr, { GUIWindowFlags::NoMove, GUIWindowFlags::NoCollapse}))
+		if (GUI::BeginWindow("Navigator", nullptr, { GUIWindowFlags::NoMove, GUIWindowFlags::NoCollapse, GUIWindowFlags::NoBringToFrontOnFocus }))
 		{
 			auto guiPosition = GUI::GetWindowPosition();
 			auto guiSize = GUI::GetWindowSize();
@@ -71,8 +71,10 @@ namespace Editor {
 				GUI::EndTabBar();
 			}
 
+			this->focused = GUI::IsCurrentWindowFocused() || GUI::IsAnyItemFocused();
 			GUI::EndWindow();
 		}
+		else this->focused = false;
 	}
 
 	void BottomWindow::Destroy()
@@ -94,6 +96,11 @@ namespace Editor {
 	void BottomWindow::ClearLogs()
 	{
 		this->logTab.ClearLogs();
+	}
+
+	bool BottomWindow::Focused()
+	{
+		return this->focused;
 	}
 
 	float BottomWindow::GetMinY() const

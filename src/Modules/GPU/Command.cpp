@@ -21,6 +21,11 @@ namespace Command {
 		glDisable(GL_DEPTH_TEST);
 	}
 
+	bool IsDepthTestingEnabled()
+	{
+		return glIsEnabled(GL_DEPTH_TEST) == GL_TRUE;
+	}
+
 	void SetDepthTestingMode(DepthTestingMode mode)
 	{
 		glDepthFunc((GLenum)mode);

@@ -129,6 +129,7 @@ namespace Project {
 		double GetCurrentFrameTime();
 		void CalculateMetrics();
 		int GetStackSize();
+		std::unordered_map<long, GPU::TexturePtr> GetTextures();
 
 		GPU::FramebufferPtr GetCurrentFramebuffer() const;
 		void SetCurrentFramebuffer(GPU::FramebufferPtr framebuffer);

@@ -182,6 +182,7 @@ extern "C"
 #include <Editor/Layouts/Inspector/Inspector.hpp>
 #include <Editor/Layouts/GameTree/GameTree.hpp>
 
+#include <Editor/Layouts/TextureVisualizer/TextureVisualizer.hpp>
 #include <Editor/Layouts/TopBar/TopBar.hpp>
 
 #include <Editor/Editor.hpp>

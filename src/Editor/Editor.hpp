@@ -15,6 +15,11 @@ namespace Editor {
 		GameTree gameTree;
 		BottomWindow bottomBar;
 
+		// Camera do draw into the editor screen
+		Camera::Camera2DPtr camera;
+
+		bool focused = false;
+
 		static std::weak_ptr<Editor> current;
 	public:
 		Editor() = default;
@@ -24,6 +29,7 @@ namespace Editor {
 		void Start();
 		void Update();
 		void Destroy();
+		bool IsFocused();
 
 		void InspectProjectSettings();
 		void ClearLogs();

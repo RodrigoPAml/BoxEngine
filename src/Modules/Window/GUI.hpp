@@ -84,6 +84,7 @@ namespace Window {
 
 		// Combo box
 		static bool ComboBox(const std::string& label, const std::vector<std::string>& itens, int& currItem, const std::string& filter = "");
+		static bool DropBoxSelectable(const std::string& label, const std::vector<std::string>& itens, int& currItem, const std::string& filter = "");
 
 		// Tabs
 		static bool BeginTabBar(const std::string& label);
@@ -114,6 +115,7 @@ namespace Window {
 
 		static glm::vec2 GetWindowPosition();
 		static glm::vec2 GetWindowSize();
+		static glm::vec2 GetContentRegionAvailable();
 
 		static bool BeginWindow(const std::string& label, bool* open = nullptr, const std::set<GUIWindowFlags>& flags = { GUIWindowFlags::None });
 		static void EndWindow();
@@ -149,6 +151,7 @@ namespace Window {
 		static bool IsCurrentItemActive();
 		static bool IsCurrentItemFocused();
 		static bool IsCurrentItemHovered();
+		static bool IsAnyItemFocused();
 
 		static bool IsLeftMouseClicked();
 		static bool IsRightMouseClicked();

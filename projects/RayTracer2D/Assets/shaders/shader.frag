@@ -9,7 +9,7 @@ out vec4 FragColor;
 // Defines the indirect light quality 
 // This number indicates the number of rays casted to determine the indirect light
 // (for max quality put 360)
-#define DIR 360
+#define DIR 180
 
 struct Square
 {

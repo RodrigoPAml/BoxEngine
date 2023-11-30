@@ -51,6 +51,7 @@ namespace Connection {
 		void Delete(GPU::TexturePtr texture);
 		long FindId(GPU::TexturePtr texture);
 		long Register(GPU::TexturePtr texture);
+		std::unordered_map<long, GPU::TexturePtr> GetTextures();
 	private:
 		static int CreateEmptyTexture(lua_State* L);
 		static int CreateMultiSampledTexture(lua_State* L);

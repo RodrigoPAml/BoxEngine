@@ -30,18 +30,19 @@ namespace Editor {
 
 		if (GUI::BeginWindow(
 			"Inspector",
-			nullptr, 
-			{ 
-				GUIWindowFlags::NoMove, 
-				GUIWindowFlags::NoCollapse, 
+			nullptr,
+			{
+				GUIWindowFlags::NoMove,
+				GUIWindowFlags::NoCollapse,
+				GUIWindowFlags::NoBringToFrontOnFocus,
 				project->isDirty() ? GUIWindowFlags::UnsavedDocument : GUIWindowFlags::None
 			})
-		)
+			)
 		{
 			auto guiPosition = GUI::GetWindowPosition();
 			auto guiSize = GUI::GetWindowSize();
 
-			if (std::abs(guiPosition.x + guiSize.x - Window::GetSize().x) > 2 || 
+			if (std::abs(guiPosition.x + guiSize.x - Window::GetSize().x) > 2 ||
 				guiPosition.y != TOPBAR_Y ||
 				guiSize.y != this->minY - TOPBAR_Y)
 			{
@@ -55,9 +56,16 @@ namespace Editor {
 
 			if (this->isInspectingGo)
 				this->ShowGoEditor();
-			
+
+			this->focused = GUI::IsCurrentWindowFocused() || GUI::IsAnyItemFocused();
 			GUI::EndWindow();
 		}
+		else this->focused; 
+	}
+
+	bool Inspector::IsFocused()
+	{
+		return this->focused;
 	}
 
 	void Inspector::InspectProjectSettings()

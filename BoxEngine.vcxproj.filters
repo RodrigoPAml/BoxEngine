@@ -246,6 +246,9 @@
     <ClCompile Include="src\Engine\Project\Connections\Shader\ShaderConnection.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
+    <ClCompile Include="src\Editor\Layouts\TextureVisualizer\TextureVisualizer.cpp">
+      <Filter>Arquivos de Origem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\BoxEngine.hpp">
@@ -564,6 +567,9 @@
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Project\Connections\Shader\ShaderConnection.hpp">
+      <Filter>Arquivos de Cabeçalho</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Editor\Layouts\TextureVisualizer\TextureVisualizer.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
   </ItemGroup>

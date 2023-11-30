@@ -22,6 +22,7 @@ namespace Connection {
 		LuaUtils::RegTable(this->state, "get_frametime", GetFrametime);
 		LuaUtils::RegTable(this->state, "stop", StopEngine);
 		LuaUtils::RegTable(this->state, "restart", RestartEngine);
+		LuaUtils::RegTable(this->state, "is_editor_focused", IsEditorFocused);
 
 		lua_setglobal(this->state, "_engine_");
 	}
@@ -94,5 +95,22 @@ namespace Connection {
 
 		Project::GetCurrentProject()->StopThenStart();
 		return 0;
+	}
+	
+	int EngineConnection::IsEditorFocused(lua_State* L)
+	{
+		auto top = lua_gettop(L);
+
+		if (top != 0)
+			return luaL_error(L, "expecting no argument in function call");
+
+		auto editor = Editor::Editor::GetCurrentEditor();
+
+		if (editor != nullptr)
+			lua_pushboolean(L, editor->IsFocused());
+		else
+			lua_pushboolean(L, false);
+		
+		return 1;
 	}
 }}}}

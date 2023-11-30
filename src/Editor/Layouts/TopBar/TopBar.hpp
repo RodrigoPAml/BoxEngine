@@ -8,8 +8,14 @@ namespace Editor {
 	{
 	private:
 		bool reset = true;
+		bool focused = false;
+
+		TextureVisualizer visualizer;
 	public:
 		void Reset();
 		void Update();
+		void DrawTextureVisualizerTex();
+
+		bool IsFocused();
 	};	
 }}

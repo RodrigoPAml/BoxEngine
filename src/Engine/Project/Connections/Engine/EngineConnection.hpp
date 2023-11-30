@@ -41,5 +41,6 @@ namespace Connection {
 		static int GetFrametime(lua_State* L);
 		static int StopEngine(lua_State* L);
 		static int RestartEngine(lua_State* L);
+		static int IsEditorFocused(lua_State* L);
 	};
 }}}}

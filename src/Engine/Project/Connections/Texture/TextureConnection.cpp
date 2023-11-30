@@ -78,6 +78,17 @@ namespace Connection {
 		this->textures[++this->currentId] = texture;
 		return this->currentId;
 	}
+
+	std::unordered_map<long, GPU::TexturePtr> TextureConnection::GetTextures()
+	{
+		std::unordered_map<long, GPU::TexturePtr> map;
+
+		for (auto item : this->textures)
+			if(item.second != nullptr)
+				map[item.first] = item.second;
+
+		return map;
+	}
 	
 	int TextureConnection::CreateEmptyTexture(lua_State* L)
 	{

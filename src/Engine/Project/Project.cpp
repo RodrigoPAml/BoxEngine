@@ -502,6 +502,11 @@ namespace Project {
         return this->scriptManager->GetStackSize();
     }
 
+    std::unordered_map<long, GPU::TexturePtr> Project::GetTextures()
+    {
+        return this->scriptManager->GetTextures();
+    }
+
     GPU::FramebufferPtr Project::GetCurrentFramebuffer() const
     {
         return this->data.current.lock();

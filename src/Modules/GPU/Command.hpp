@@ -16,6 +16,7 @@ namespace Command {
 	/// </summary>
 	void EnableDepthTesting();
 	void DisableDepthTesting();
+	bool IsDepthTestingEnabled();
 	void SetDepthTestingMode(DepthTestingMode mode);
 
 	/// <summary>

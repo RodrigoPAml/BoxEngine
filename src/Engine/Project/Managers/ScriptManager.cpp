@@ -325,6 +325,14 @@ namespace Project {
 		return 0;
 	}
 
+	std::unordered_map<long, Modules::GPU::TexturePtr> ScriptManager::GetTextures()
+	{
+		if (this->connectionManager == nullptr)
+			return std::unordered_map<long, Modules::GPU::TexturePtr>();
+
+		return this->connectionManager->GetTextures();
+	}
+
 	#pragma region InternalFunctions
 
 	void ScriptManager::LoadScriptsPaths(const std::string& basePath, bool& error)

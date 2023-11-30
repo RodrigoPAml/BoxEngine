@@ -11,6 +11,7 @@ namespace Editor {
 	private:
 		std::string guid = "";
 		bool reset = true;
+		bool focused = false;
 
 		bool isMenuGoOpen = false;
 
@@ -31,6 +32,7 @@ namespace Editor {
 
 		void Awake();
 		void Update();
+		bool IsFocused();
 
 		float GetMaxX() const;
 		void SetMinY(float value);

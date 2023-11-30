@@ -28,6 +28,7 @@ namespace Editor {
 		InfoTab infoTab;
 
 		bool reset = false;
+		bool focused = false;
 
 		float minY = 0;
 	public:
@@ -40,6 +41,7 @@ namespace Editor {
 		void Destroy();
 		void Reset();
 		void ClearLogs();
+		bool Focused();
 
 		float GetMinY() const;
 	};

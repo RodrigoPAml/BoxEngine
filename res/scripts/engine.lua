@@ -755,6 +755,10 @@ function engine.restart()
 	return _engine_.restart()
 end
 
+function engine.is_editor_focused()
+	return _engine_.is_editor_focused()
+end
+
 function engine.window.get_window_size() 
 	return _window_.get_window_size() 
 end

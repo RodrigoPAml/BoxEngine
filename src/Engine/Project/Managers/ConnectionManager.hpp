@@ -72,5 +72,7 @@ namespace Project {
 		void CreateScriptData(GameObjectPtr go, ScriptPtr script);
 		void UpdateScriptData(GameObjectPtr go, ScriptPtr script);
 		void DeleteScriptData(GameObjectPtr go, ScriptPtr script);
+
+		std::unordered_map<long, Modules::GPU::TexturePtr> GetTextures();
 	};
 }}}

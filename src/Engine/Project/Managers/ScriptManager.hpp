@@ -67,7 +67,9 @@ namespace Project {
 		// Otherwise will be in the next frame
 		bool PreLoadScripts(GameObjectPtr go);
 
+		// Info
 		int GetStackSize();
+		std::unordered_map<long, Modules::GPU::TexturePtr> GetTextures();
 	private:
 		// Load a map by ref with a map with name and path of the script
 		void LoadScriptsPaths(const std::string& basePath, bool& error);

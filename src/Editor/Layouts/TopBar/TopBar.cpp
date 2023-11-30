@@ -24,12 +24,17 @@ namespace Editor {
 		if (currentProject == nullptr)
 			return;
 
+		this->focused = false;
+		this->visualizer.Update();
+
 		if (GUI::BeginMainMenuBar())
 		{
 			auto project = Project::GetCurrentProject();
 
 			if (GUI::BeginMenu("File"))
 			{
+				this->focused = true;
+
 				if (GUI::MenuItem("Save", currentProject->GetState() == ProjectState::Idle || currentProject->GetMode() == ProjectMode::EditorMode))
 				{
 					try
@@ -84,23 +89,27 @@ namespace Editor {
 
 			if (GUI::BeginMenu("Options"))
 			{
+				this->focused = true;
+
 				if (GUI::MenuItem("Edit Settings"))
 					Editor::GetCurrentEditor()->InspectProjectSettings();
 
-				if (GUI::MenuItem("Refresh scripts list"))
-				{
-					if (project != nullptr)
-						project->LoadScriptNameListForEditor();
-				}
+				if (GUI::MenuItem("Refresh scripts list") && project != nullptr)
+					project->LoadScriptNameListForEditor();
 
 				if (GUI::MenuItem("Open VS Code Project"))
 					Utils::Directory::Execute("code \"" + project->GetBasePath() + "\"");
+
+				if (GUI::MenuItem("Open Texture Visualizer"))
+					this->visualizer.SetOpen(true);
 
 				GUI::EndMenu();
 			}
 
 			if (GUI::BeginMenu("Mode"))
 			{
+				this->focused = true;
+
 				auto mode = currentProject->GetMode();
 
 				if (GUI::MenuItem("Set Play Mode", mode == ProjectMode::EditorMode && currentProject->GetState() == ProjectState::Idle))
@@ -114,10 +123,12 @@ namespace Editor {
 
 			if (GUI::BeginMenu("About"))
 			{
-				if (GUI::MenuItem("GitHub"))
-					Utils::Directory::Execute("explorer https://github.com/RodrigoPAml/BoxEngine/blob/main/docs/api.md");
+				this->focused = true;
 
 				if (GUI::MenuItem("Documentation"))
+					Utils::Directory::Execute("explorer https://github.com/RodrigoPAml/BoxEngine/blob/main/docs/api.md");
+
+				if (GUI::MenuItem("GitHub"))
 					Utils::Directory::Execute("explorer https://github.com/RodrigoPAml/BoxEngine");
 
 				GUI::EndMenu();
@@ -125,6 +136,16 @@ namespace Editor {
 
 			GUI::EndMainMenuBar();
 		}
+	}
+
+	void TopBar::DrawTextureVisualizerTex()
+	{
+		this->visualizer.DrawTexture();
+	}
+
+	bool TopBar::IsFocused()
+	{
+		return this->visualizer.IsFocused() || this->focused;
 	}
 }}
 

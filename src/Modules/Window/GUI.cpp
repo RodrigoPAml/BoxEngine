@@ -549,6 +549,45 @@ namespace Window {
 		return original != currItem;
 	}
 
+	bool GUI::DropBoxSelectable(const std::string& label, const std::vector<std::string>& itens, int& currItem, const std::string& filter)
+	{
+		auto id = "##" + label;
+
+		if (itens.size() == 0)
+			return false;
+
+		int original = currItem;
+
+		if (currItem < 0 || currItem > itens.size() - 1)
+			currItem = 0;
+
+		bool opened = false;
+		if (ImGui::BeginCombo(id.c_str(), itens[currItem].c_str()))
+		{
+			opened = true;
+
+			for (int n = 0; n < itens.size(); n++)
+			{
+				if (filter.size() == 0 || itens[n].find(filter) != std::string::npos)
+				{
+					auto label = itens[n].c_str();
+
+					bool is_selected = (currItem == n);
+
+					if (ImGui::Selectable(label, is_selected))
+						currItem = n;
+
+					if (is_selected)
+						ImGui::SetItemDefaultFocus();
+				}
+			}
+
+			ImGui::EndCombo();
+		}
+
+		return opened;
+	}
+
 	bool GUI::BeginTabBar(const std::string& label)
 	{
 		return ImGui::BeginTabBar(label.c_str());
@@ -656,6 +695,11 @@ namespace Window {
 	glm::vec2 GUI::GetWindowSize()
 	{
 		return {ImGui::GetWindowSize().x, ImGui::GetWindowSize().y};
+	}
+
+	glm::vec2 GUI::GetContentRegionAvailable()
+	{
+		return { ImGui::GetContentRegionAvail().x, ImGui::GetContentRegionAvail().y };
 	}
 
 	bool GUI::BeginWindow(const std::string& label, bool* open, const std::set<GUIWindowFlags>& flags)
@@ -781,6 +825,11 @@ namespace Window {
 	bool GUI::IsCurrentItemHovered()
 	{
 		return ImGui::IsItemHovered();
+	}
+
+	bool GUI::IsAnyItemFocused()
+	{
+		return ImGui::IsAnyItemFocused();
 	}
 
 	bool GUI::IsLeftMouseClicked()

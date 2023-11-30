@@ -71,6 +71,13 @@ Restart application
 function engine.restart() end
 ```
 
+## Is Editor focused
+Return a boolean indicating in editor is focused
+
+```lua
+function engine.is_editor_focused() end
+```
+
 # Time Module
 
 ## Get Timestamp

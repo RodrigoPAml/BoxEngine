@@ -14,6 +14,8 @@ namespace Editor {
 		this->topBar.Awake();
 		this->inspector.Awake();
 		this->gameTree.Awake();
+
+		this->camera = Camera::Camera2DPtr(new Camera::Camera2D());
 	}
 
 	void Editor::Start()
@@ -36,7 +38,6 @@ namespace Editor {
 
 		GUI::BeginFrame();
 
-		this->topBar.Update();
 		this->bottomBar.Update();
 
 		this->inspector.SetMinY(this->bottomBar.GetMinY());
@@ -44,8 +45,20 @@ namespace Editor {
 
 		this->gameTree.SetMinY(this->bottomBar.GetMinY());
 		this->gameTree.Update();
+		this->topBar.Update();
 
 		GUI::EndFrame();
+
+		// Draw texture visualizer
+		this->camera->SetLeft(0);
+		this->camera->SetBottom(0);
+		this->camera->SetTop(Modules::Window::Window::GetSize().y);
+		this->camera->SetRight(Modules::Window::Window::GetSize().x);
+
+		auto previous = Camera::Camera2D::GetCurrentCamera();
+		Camera::Camera2D::SetCurrentCamera(this->camera);
+		this->topBar.DrawTextureVisualizerTex();
+		Camera::Camera2D::SetCurrentCamera(previous);
 	}
 
 	void Editor::Destroy()
@@ -60,6 +73,21 @@ namespace Editor {
 			Debug::LogSeverity::Warning,
 			Debug::LogOrigin::Engine
 		);
+	}
+
+	bool Editor::IsFocused()
+	{
+		glm::vec2 point = Modules::Input::Mouse::GetMousePosition(true);
+		glm::vec2 topStartPoint = GetTopStartPoint(true);
+		glm::vec2 bottomEndPoint = GetBottomEndPoint(true);
+
+		bool isInsideX = (point.x >= topStartPoint.x) && (point.x <= bottomEndPoint.x);
+		bool isInsideY = (point.y >= topStartPoint.y) && (point.y <= bottomEndPoint.y);
+
+		if(Modules::Input::Mouse::GetMouseButtonState(Modules::Input::MouseButton::MOUSE_BUTTON_LEFT) >= Modules::Input::InputAction::PRESS)
+			this->focused = !(isInsideX && isInsideY);
+
+		return this->focused || this->topBar.IsFocused();
 	}
 
 	void Editor::InspectProjectSettings()

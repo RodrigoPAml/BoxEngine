@@ -30,10 +30,11 @@ namespace Editor {
 		}
 
 		if (GUI::BeginWindow("Game Tree", nullptr, {
-			GUIWindowFlags::NoMove, 
-			GUIWindowFlags::NoCollapse, 
+			GUIWindowFlags::NoMove,
+			GUIWindowFlags::NoCollapse,
+			GUIWindowFlags::NoBringToFrontOnFocus,
 			project->isDirty() ? GUIWindowFlags::UnsavedDocument : GUIWindowFlags::None })
-		)
+			)
 		{
 			auto guiPosition = GUI::GetWindowPosition();
 			auto guiSize = GUI::GetWindowSize();
@@ -67,7 +68,7 @@ namespace Editor {
 			}
 
 			GUI::ContinueSameLine();
-		
+
 			if (GUI::ImageButton(this->guid + "stop", GUI::GetIcon("stop.png")) && project->GetState() == ProjectState::Running)
 				project->Stop();
 
@@ -97,16 +98,23 @@ namespace Editor {
 
 			GUI::Separator();
 
-			if (GUI::BeginInnerWindow(this->guid + "inner", {0, 0}))
+			if (GUI::BeginInnerWindow(this->guid + "inner", { 0, 0 }))
 			{
 				this->DrawGameTree();
 				GUI::EndInnerWindow();
 			}
 
+			this->focused = GUI::IsCurrentWindowFocused() || GUI::IsAnyItemFocused();
 			GUI::EndWindow();
 		}
+		else this->focused = false;
 
 		this->DrawMenus();
+	}
+
+	bool GameTree::IsFocused()
+	{
+		return this->focused;
 	}
 
 	float GameTree::GetMaxX() const

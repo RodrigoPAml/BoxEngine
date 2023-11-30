@@ -273,4 +273,9 @@ namespace Project {
 		lua_getglobal(this->state, script->GetName().c_str());
 		LuaUtils::RegTable(this->state, go->GetId().c_str());
 	}
+	
+	std::unordered_map<long, Modules::GPU::TexturePtr> ConnectionManager::GetTextures()
+	{
+		return this->texture->GetTextures();
+	}
 }}}
