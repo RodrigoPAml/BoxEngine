@@ -635,14 +635,6 @@ function engine.framebuffer.get_attachment(id, index)
 	return _framebuffer_.get_attachment(id, index)
 end
 
-function engine.framebuffer.set_current(id)
-	return _framebuffer_.set_current(id)
-end
-
-function engine.framebuffer.get_current()
-	return _framebuffer_.get_current()
-end
-
 function engine.framebuffer.clear(color)
 	return _framebuffer_.clear(color)
 end
@@ -1000,32 +992,32 @@ enums = {
         ["7"] = "7",
         ["8"] = "8",
         ["9"] = "9",
-        a = "A",
-        b = "B",
-        c = "C",
-        d = "D",
-        e = "E",
-        f = "F",
-        g = "G",
-        h = "H",
-        i = "I",
-        j = "J",
-        k = "K",
-        l = "L",
-        m = "M",
-        n = "N",
-        o = "O",
-        p = "P",
-        q = "Q",
-        r = "R",
-        s = "S",
-        t = "T",
-        u = "U",
-        v = "V",
-        w = "W",
-        x = "X",
-        y = "Y",
-        z = "Z",
+        A = "A",
+        B = "B",
+        C = "C",
+        D = "D",
+        E = "E",
+        F = "F",
+        G = "G",
+        H = "H",
+        I = "I",
+        J = "J",
+        K = "K",
+        L = "L",
+        M = "M",
+        N = "N",
+        O = "O",
+        P = "P",
+        Q = "Q",
+        R = "R",
+        S = "S",
+        T = "T",
+        U = "U",
+        V = "V",
+        W = "W",
+        X = "X",
+        Y = "Y",
+        Z = "Z",
         left_bracket = "LEFT_BRACKET",
         backslash = "BACKSLASH",
         right_bracket = "RIGHT_BRACKET",
