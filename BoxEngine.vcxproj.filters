@@ -147,28 +147,28 @@
     <ClCompile Include="src\Modules\Window\Window.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
-    <ClCompile Include="src\Editor\Layouts\BottomWindow\BottomWindow.cpp">
+    <ClCompile Include="src\Editor\Screens\BottomWindow\BottomWindow.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
-    <ClCompile Include="src\Editor\Layouts\BottomWindow\FilesTab.cpp">
+    <ClCompile Include="src\Editor\Screens\BottomWindow\FilesTab.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
-    <ClCompile Include="src\Editor\Layouts\BottomWindow\InfoTab.cpp">
+    <ClCompile Include="src\Editor\Screens\BottomWindow\InfoTab.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
-    <ClCompile Include="src\Editor\Layouts\BottomWindow\LogTab.cpp">
+    <ClCompile Include="src\Editor\Screens\BottomWindow\LogTab.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
-    <ClCompile Include="src\Editor\Layouts\GameTree\GameTree.cpp">
+    <ClCompile Include="src\Editor\Screens\GameTree\GameTree.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
-    <ClCompile Include="src\Editor\Layouts\Inspector\Inspector.cpp">
+    <ClCompile Include="src\Editor\Screens\Inspector\Inspector.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
-    <ClCompile Include="src\Editor\Layouts\TopBar\TopBar.cpp">
+    <ClCompile Include="src\Editor\Screens\TopBar\TopBar.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
-    <ClCompile Include="src\Editor\ProjectManager\ProjectManager.cpp">
+    <ClCompile Include="src\Editor\Modals\ProjectManager\ProjectManager.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
     <ClCompile Include="src\Editor\Editor.cpp">
@@ -246,7 +246,7 @@
     <ClCompile Include="src\Engine\Project\Connections\Shader\ShaderConnection.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
-    <ClCompile Include="src\Editor\Layouts\TextureVisualizer\TextureVisualizer.cpp">
+    <ClCompile Include="src\Editor\Modals\TextureVisualizer\TextureVisualizer.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
   </ItemGroup>
@@ -461,28 +461,28 @@
     <ClInclude Include="src\Editor\Interfaces\Layout.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
-    <ClInclude Include="src\Editor\Layouts\BottomWindow\BottomWindow.hpp">
+    <ClInclude Include="src\Editor\Screens\BottomWindow\BottomWindow.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
-    <ClInclude Include="src\Editor\Layouts\BottomWindow\FilesTab.hpp">
+    <ClInclude Include="src\Editor\Screens\BottomWindow\FilesTab.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
-    <ClInclude Include="src\Editor\Layouts\BottomWindow\InfoTab.hpp">
+    <ClInclude Include="src\Editor\Screens\BottomWindow\InfoTab.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
-    <ClInclude Include="src\Editor\Layouts\BottomWindow\LogTab.hpp">
+    <ClInclude Include="src\Editor\Screens\BottomWindow\LogTab.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
-    <ClInclude Include="src\Editor\Layouts\GameTree\GameTree.hpp">
+    <ClInclude Include="src\Editor\Screens\GameTree\GameTree.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
-    <ClInclude Include="src\Editor\Layouts\Inspector\Inspector.hpp">
+    <ClInclude Include="src\Editor\Screens\Inspector\Inspector.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
-    <ClInclude Include="src\Editor\Layouts\TopBar\TopBar.hpp">
+    <ClInclude Include="src\Editor\Screens\TopBar\TopBar.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
-    <ClInclude Include="src\Editor\ProjectManager\ProjectManager.hpp">
+    <ClInclude Include="src\Editor\Modals\ProjectManager\ProjectManager.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
     <ClInclude Include="src\Editor\Editor.hpp">
@@ -569,7 +569,7 @@
     <ClInclude Include="src\Engine\Project\Connections\Shader\ShaderConnection.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
-    <ClInclude Include="src\Editor\Layouts\TextureVisualizer\TextureVisualizer.hpp">
+    <ClInclude Include="src\Editor\Modals\TextureVisualizer\TextureVisualizer.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
   </ItemGroup>

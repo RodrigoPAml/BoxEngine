@@ -24,7 +24,7 @@ namespace Input {
 		std::set<KeyboardKey> frameClickedKeys;
 
 		/// <summary>
-		/// Modifiers
+		/// To manage Modifiers
 		/// </summary>
 		std::set<KeyModifier> frameClickedMods;
 

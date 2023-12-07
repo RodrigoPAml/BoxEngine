@@ -19,7 +19,6 @@ function begin_frame.start()
       })
 
    -- set as global
-   engine.framebuffer.set_current(this.framebuffer_id)
    engine.cam2d.set_current(this.camera_fb_id)
 
    -- enable bleding and vsync
@@ -27,7 +26,9 @@ function begin_frame.start()
 end
 
 function begin_frame.update()
-   engine.framebuffer.active(engine.framebuffer.get_current())
+   local this = engine.current()
+
+   engine.framebuffer.active(this.framebuffer_id)
    engine.framebuffer.set_viewport({ x = 0, y = 0, z = 1920, w = 1080 })
    engine.framebuffer.clear({ x = 0, y = 0, z = 0, w = 1 })
 end

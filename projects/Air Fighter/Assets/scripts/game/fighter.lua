@@ -134,7 +134,7 @@ function fighter.fire()
     local space_input = engine.input.get_key(enums.keyboard_key.space)
 
     -- check if the fighter can spawn a fire bullet
-    if ((space_input == enums.input_action.press or space_input == enums.input_action.repeating) and has_time_passed) then
+    if ((space_input == enums.input_action.press) and has_time_passed) then
         this.time = engine.time.get_timestamp();
 
         -- create copy of prefab
@@ -160,9 +160,9 @@ function fighter.control()
     local down_input = engine.input.get_key(enums.keyboard_key.down)
 
     -- control foward and back fighter movement
-    if ((up_input == enums.input_action.press or up_input == enums.input_action.repeating) and limited_ymax == false) then
+    if ((up_input == enums.input_action.press) and limited_ymax == false) then
         this.y = this.y + engine.get_frametime()
-    elseif ((down_input == enums.input_action.press or down_input == enums.input_action.repeating) and limited_ymin == false) then
+    elseif ((down_input == enums.input_action.press) and limited_ymin == false) then
         this.y = this.y - engine.get_frametime()
     end
 
@@ -170,7 +170,7 @@ function fighter.control()
     local right_input = engine.input.get_key(enums.keyboard_key.right)
 
     -- control left and and right fighter movement
-    if ((left_input == enums.input_action.press or left_input == enums.input_action.repeating) and limited_xmax == false) then
+    if ((left_input == enums.input_action.press) and limited_xmax == false) then
         this.x = this.x - engine.get_frametime()
 
         if (this.should_draw) then
@@ -180,7 +180,7 @@ function fighter.control()
                 texture_id = this.texture_left,
             })
         end
-    elseif ((right_input == enums.input_action.press or right_input == enums.input_action.repeating) and limited_xmin == false) then
+    elseif ((right_input == enums.input_action.press) and limited_xmin == false) then
         this.x = this.x + engine.get_frametime()
 
         if (this.should_draw) then

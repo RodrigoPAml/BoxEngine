@@ -2,7 +2,6 @@ function quad.update()
     local this = engine.current()
 
     local mouse = engine.input.get_mouse_button(enums.mouse_button.left) == enums.input_action.press
-    mouse = mouse or engine.input.get_mouse_button(enums.mouse_button.left) == enums.input_action.repeating
 
     if mouse and not engine.is_editor_focused() then
         local mousePos = engine.input.get_cam_mouse_pos()
@@ -13,17 +12,10 @@ function quad.update()
         if mousePos.x >= this.x - halfWidth and mousePos.x <= this.x + halfWidth and mousePos.y >= this.y - halfHeight and mousePos.y <= this.y + halfHeight then
             engine.go.inspect_go(engine.go.current())
 
-            local increase_x = engine.input.get_key(enums.keyboard_key.x) == enums.input_action.press
-            increase_x = increase_x or engine.input.get_key(enums.keyboard_key.x) == enums.input_action.repeating
-
-            local increase_y = engine.input.get_key(enums.keyboard_key.y) == enums.input_action.press
-            increase_y = increase_y or engine.input.get_key(enums.keyboard_key.y) == enums.input_action.repeating
-
-            local decrease_y = engine.input.get_key(enums.keyboard_key.q) == enums.input_action.press
-            decrease_y = decrease_y or engine.input.get_key(enums.keyboard_key.q) == enums.input_action.repeating
-
-            local decrease_x = engine.input.get_key(enums.keyboard_key.w) == enums.input_action.press
-            decrease_x = decrease_x or engine.input.get_key(enums.keyboard_key.w) == enums.input_action.repeating
+            local increase_x = engine.input.get_key(enums.keyboard_key.X) == enums.input_action.press
+            local increase_y = engine.input.get_key(enums.keyboard_key.Y) == enums.input_action.press
+            local decrease_y = engine.input.get_key(enums.keyboard_key.Q) == enums.input_action.press
+            local decrease_x = engine.input.get_key(enums.keyboard_key.W) == enums.input_action.press
 
             if increase_x then
                 this.sx = this.sx + 10

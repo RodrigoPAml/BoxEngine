@@ -24,7 +24,7 @@ namespace Input {
 		auto& instance = Instance();
 
 		if(instance.frameClickedKeys.find(key) != instance.frameClickedKeys.end())
-			return InputAction::REPEAT;
+			return InputAction::PRESS;
 
 		return (InputAction)glfwGetKey(instance.windowPtr, (int)key);
 	}
@@ -75,7 +75,7 @@ namespace Input {
 		if((InputAction)action == InputAction::PRESS && mod != 0)
 			keyboard.frameClickedMods.insert((KeyModifier)mod);
 
-		if ((InputAction)action == InputAction::REPEAT)
+		if (action == GLFW_REPEAT)
 		{
 			keyboard.frameClickedKeys.insert((KeyboardKey)key);
 			

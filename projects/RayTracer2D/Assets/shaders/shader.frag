@@ -9,7 +9,7 @@ out vec4 FragColor;
 // Defines the indirect light quality 
 // This number indicates the number of rays casted to determine the indirect light
 // (for max quality put 360)
-#define DIR 180
+#define DIR 360
 
 struct Square
 {
@@ -24,6 +24,7 @@ uniform vec2 mouse;
 uniform float closeLightStr;
 uniform float distLightStr;
 uniform float ambientFactor;
+uniform float linearStr;
 
 // Intersection between lines detection
 bool LineLineIntersect(vec2 l1p1, vec2 l1p2, vec2 l2p1, vec2 l2p2) 
@@ -111,7 +112,7 @@ bool ReachLight(vec2 fragPos, vec2 lightPos, int reduce)
 // Calculate light based on distance
 float GetLight(float baseValue, float distanceToLight)
 {
-    return baseValue / (1.0 + closeLightStr * distanceToLight + distLightStr * distanceToLight * distanceToLight);
+    return baseValue / (linearStr + closeLightStr * distanceToLight + distLightStr * distanceToLight * distanceToLight);
 }
 
 // Calculate light for an point in shadow (used in indirect light calculation only)
@@ -148,13 +149,13 @@ float CalculateIndirectLight(vec2 fragPos, vec2 lightPos, int idx)
             // Where the ray hit the quad
             vec2 interP = RayRectangleIntersection(fragPos, dir, squares[i].position, squares[i].size);
         
-            if (interP == vec2(-1, -1) || i == idx) 
+            if (interP == vec2(-1, -1) || idx == i) 
                 continue;
             
             float distIntersect = distance(interP, fragPos);
         
             // We only want the more closest hit
-            if(distIntersect > nearestDistance)
+            if(distIntersect >= nearestDistance && nearestDistance != INF)
                 continue;
               
             // Calculate the light intensity in the point hitted
@@ -171,15 +172,15 @@ float CalculateIndirectLight(vec2 fragPos, vec2 lightPos, int idx)
             float dotProduct = dot(dirToLight, dirToPoint);
             float angleCloseness = 0.5 * (dotProduct + 1.0);
             
-            nearestDistance = distIntersect * angleCloseness;
-            dirResult = correctedLight ;
-      }
+            nearestDistance = distIntersect;
+            dirResult = correctedLight * max(0.5, angleCloseness);
+        }
     
-      if(nearestDistance != INF)
-      {
-          result += dirResult;
-          hits = hits + 1.0;
-      }
+        if(nearestDistance != INF)
+        {
+            result += dirResult;
+            hits = hits + 1.0;
+        }
     }
     
     return (result*ambientFactor)/hits;

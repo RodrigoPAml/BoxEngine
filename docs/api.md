@@ -1578,22 +1578,6 @@ Return the id of the texture attachment, else nil if not finded
 function engine.framebuffer.get_attachment(id = number, index = number) end
 ```
 
-## Set Current Framebuffer 
-Receive the framebuffer id and the set as current used
-
-Return the bool indicating success
-```lua
-function engine.framebuffer.set_current(id = number, index = number) end
-```
-
-## Get Current Framebuffer 
-Get the current framebuffer id 
-
-Return the id if exists, else nil
-```lua
-function engine.framebuffer.get_current() end
-```
-
 ## Clear Current Framebuffer
 Clear the current framebuffer
 

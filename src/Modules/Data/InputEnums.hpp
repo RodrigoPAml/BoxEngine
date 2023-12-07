@@ -26,7 +26,6 @@ namespace Input {
 	{
 		RELEASE = GLFW_RELEASE,
 		PRESS = GLFW_PRESS,
-		REPEAT = GLFW_REPEAT,
 		NONE = -1
 	};
 

@@ -1,14 +1,8 @@
 function ray_tracer.start()
     local this = engine.current()
-    local cam = engine.cam2d.get(engine.cam2d.get_current())
-
-    -- get screen limitations from camera
-    this.size_x = cam.right
-    this.size_y = cam.top
 
     this.is_clicked = false
-    this.should_spawn = false
-    
+   
     -- create a quad to draw on screen
     this.quad_id = engine.vertex.create({
         vertices_count = 6,
@@ -34,8 +28,11 @@ function ray_tracer.start()
         }
     })
 
-    ray_tracer.spawn_quad()
     ray_tracer.update_shader()
+
+    engine.script.set_persist_script_data('quad_id', false)
+    engine.script.set_persist_script_data('is_clicked', false)
+    engine.script.set_persist_script_data('shader', false)
 end
 
 function ray_tracer.update()
@@ -46,14 +43,17 @@ end
 function ray_tracer.draw()
     local this = engine.current()
     local mouse = engine.input.get_cam_mouse_pos()
-    local light = engine.input.get_key(enums.keyboard_key.l) == enums.input_action.press
+    local light = engine.input.get_key(enums.keyboard_key.L) == enums.input_action.press
 
     engine.shader.activate(this.shader)
 
     if light then
-        engine.shader.set_vec2(this.shader, 'mouse', mouse)
+        this.mouse_x = mouse.x
+        this.mouse_y = mouse.y
     end
-    
+
+    engine.shader.set_vec2(this.shader, 'mouse', { x = this.mouse_x, y = this.mouse_y})
+    engine.shader.set_float(this.shader, 'linearStr', this.linearStr)
     engine.shader.set_float(this.shader, 'distLightStr', this.dist_light_str)
     engine.shader.set_float(this.shader, 'closeLightStr', this.close_light_str)
     engine.shader.set_float(this.shader, 'ambientFactor', this.ambient_factor)

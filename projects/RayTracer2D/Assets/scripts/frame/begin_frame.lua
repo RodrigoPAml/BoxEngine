@@ -19,11 +19,14 @@ function begin_frame.start()
    })
 
    -- set as global
-   engine.framebuffer.set_current(this.framebuffer_id)
    engine.cam2d.set_current(this.camera_fb_id)
 
    -- enable bleding and vsync
    engine.command.enable_vsync()
+
+   engine.script.set_persist_script_data('framebuffer_id', false)
+   engine.script.set_persist_script_data('texture_id', false)
+   engine.script.set_persist_script_data('camera_fb_id', false)
 end
 
 function begin_frame.update()
@@ -31,7 +34,7 @@ function begin_frame.update()
 
    engine.cam2d.set_current(this.camera_fb_id)
 
-   engine.framebuffer.active(engine.framebuffer.get_current())
+   engine.framebuffer.active(this.framebuffer_id)
    engine.framebuffer.set_viewport({ x = 0, y = 0, z = this.res_x, w = this.res_y })
    engine.framebuffer.clear({ x = 0, y = 0, z = 0, w = 1 })
 end

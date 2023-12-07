@@ -507,16 +507,6 @@ namespace Project {
         return this->scriptManager->GetTextures();
     }
 
-    GPU::FramebufferPtr Project::GetCurrentFramebuffer() const
-    {
-        return this->data.current.lock();
-    }
-
-    void Project::SetCurrentFramebuffer(GPU::FramebufferPtr framebuffer) 
-    {
-        this->data.current = framebuffer;
-    }
-
     void Project::PlanExecution(const std::vector<GameObjectPtr>& gos, std::vector<GoExecution>& executions)
     {
         for (const GameObjectPtr go : gos)

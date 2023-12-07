@@ -19,29 +19,6 @@ namespace Project {
 		this->type = ExecutionType::Destroy;
 	}
 
-	GoExecution::GoExecution(GameObjectPtr go, ScriptPtr script, unsigned int newIndex)
-	{
-		this->go = go;
-		this->script = script;
-		this->newIndex = newIndex;
-		this->type = ExecutionType::ScriptIndexChange;
-	}
-
-	GoExecution::GoExecution(GameObjectPtr go, unsigned int newIndex)
-	{
-		this->go = go;
-		this->script = script;
-		this->newIndex = newIndex;
-		this->type = ExecutionType::ScriptIndexChange;
-	}
-
-	GoExecution::GoExecution(GameObjectPtr go, std::string fatherId)
-	{
-		this->go = go;
-		this->newFather = fatherId;
-		this->type = ExecutionType::Movement;
-	}
-
 	ExecutionType GoExecution::GetType() const
 	{
 		return this->type;

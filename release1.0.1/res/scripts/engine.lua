@@ -1106,9 +1106,8 @@ enums = {
 
     input_action = 
     {
-        release = "RELEASE",
         press = "PRESS",
-        repeating = "REPEAT",
+        release = "RELEASE",
         none = "NONE",
     },
 

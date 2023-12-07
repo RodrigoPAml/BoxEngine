@@ -47,8 +47,6 @@ namespace Input {
 			return "RELEASE";
 		case Input::InputAction::PRESS:
 			return "PRESS";
-		case Input::InputAction::REPEAT:
-			return "REPEAT";
 		case Input::InputAction::NONE:
 			return "NONE";
 		}

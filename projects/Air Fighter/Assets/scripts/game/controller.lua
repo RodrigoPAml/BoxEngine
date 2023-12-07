@@ -53,7 +53,7 @@ function controller.update()
         local space_input = engine.input.get_key(enums.keyboard_key.escape)
 
         -- check if the fighter can spawn a fire bullet
-        if ((space_input == enums.input_action.press or space_input == enums.input_action.repeating)) then
+        if ((space_input == enums.input_action.press)) then
             engine.restart()
         end
         return

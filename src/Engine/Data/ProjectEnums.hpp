@@ -12,9 +12,6 @@ namespace Project {
 	{
 		Normal, // Start, Update, Destroy (scripts)
 		Destroy, // Destroy (go)
-		Movement, // Change father (go)
-		IndexChange, // Change position relative to the father (go)
-		ScriptIndexChange, // Change script index change (script)
 	};
 
 	/// <summary>

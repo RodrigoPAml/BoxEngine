@@ -174,16 +174,16 @@ extern "C"
 #include <Editor/Data/EditorData.hpp>
 
 #include <Editor/Interfaces/Layout.hpp>
-#include <Editor/Layouts/BottomWindow/InfoTab.hpp>
-#include <Editor/Layouts/BottomWindow/LogTab.hpp>
-#include <Editor/Layouts/BottomWindow/FilesTab.hpp>
-#include <Editor/Layouts/BottomWindow/BottomWindow.hpp>
+#include <Editor/Screens/BottomWindow/InfoTab.hpp>
+#include <Editor/Screens/BottomWindow/LogTab.hpp>
+#include <Editor/Screens/BottomWindow/FilesTab.hpp>
+#include <Editor/Screens/BottomWindow/BottomWindow.hpp>
 
-#include <Editor/Layouts/Inspector/Inspector.hpp>
-#include <Editor/Layouts/GameTree/GameTree.hpp>
+#include <Editor/Screens/Inspector/Inspector.hpp>
+#include <Editor/Screens/GameTree/GameTree.hpp>
 
-#include <Editor/Layouts/TextureVisualizer/TextureVisualizer.hpp>
-#include <Editor/Layouts/TopBar/TopBar.hpp>
+#include <Editor/Modals/TextureVisualizer/TextureVisualizer.hpp>
+#include <Editor/Screens/TopBar/TopBar.hpp>
 
 #include <Editor/Editor.hpp>
-#include <Editor/ProjectManager/ProjectManager.hpp>
+#include <Editor/Modals/ProjectManager/ProjectManager.hpp>

@@ -90,9 +90,5 @@ namespace Editor {
 			GUI::EndInnerWindow();
 		}
 	}
-
-	void InfoTab::Destroy()
-	{
-	}
 }}
 

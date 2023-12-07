@@ -69,27 +69,32 @@
                 {
                   "name": "close_light_str",
                   "type": 1,
-                  "value": "0.003000"
+                  "value": "0.000100"
                 },
                 {
                   "name": "dist_light_str",
                   "type": 1,
-                  "value": "0.000010"
+                  "value": "0.000001"
                 },
                 {
                   "name": "ambient_factor",
                   "type": 1,
-                  "value": "1.200000"
+                  "value": "1.000000"
                 },
                 {
-                  "name": "size_x",
+                  "name": "linearStr",
                   "type": 1,
-                  "value": "800.000000"
+                  "value": "1.000000"
                 },
                 {
-                  "name": "size_y",
+                  "name": "mouse_x",
                   "type": 1,
-                  "value": "600.000000"
+                  "value": "684.947266"
+                },
+                {
+                  "name": "mouse_y",
+                  "type": 1,
+                  "value": "98.520714"
                 }
               ],
               "mode": 0,
@@ -113,17 +118,17 @@
                     {
                       "name": "x",
                       "type": 1,
-                      "value": "418.797821"
+                      "value": "438.061035"
                     },
                     {
                       "name": "y",
                       "type": 1,
-                      "value": "100.295860"
+                      "value": "47.041424"
                     },
                     {
                       "name": "sx",
                       "type": 1,
-                      "value": "610.000000"
+                      "value": "700.000000"
                     },
                     {
                       "name": "sy",
@@ -164,17 +169,17 @@
                     {
                       "name": "x",
                       "type": 1,
-                      "value": "391.694000"
+                      "value": "402.872528"
                     },
                     {
                       "name": "y",
                       "type": 1,
-                      "value": "497.041412"
+                      "value": "561.834290"
                     },
                     {
                       "name": "sx",
                       "type": 1,
-                      "value": "520.000000"
+                      "value": "740.000000"
                     },
                     {
                       "name": "sy",
@@ -215,12 +220,12 @@
                     {
                       "name": "x",
                       "type": 1,
-                      "value": "69.945351"
+                      "value": "44.524239"
                     },
                     {
                       "name": "y",
                       "type": 1,
-                      "value": "295.562134"
+                      "value": "269.822479"
                     },
                     {
                       "name": "sx",
@@ -230,7 +235,7 @@
                     {
                       "name": "sy",
                       "type": 1,
-                      "value": "440.000000"
+                      "value": "480.000000"
                     },
                     {
                       "name": "cx",
@@ -266,12 +271,12 @@
                     {
                       "name": "x",
                       "type": 1,
-                      "value": "746.666687"
+                      "value": "766.251160"
                     },
                     {
                       "name": "y",
                       "type": 1,
-                      "value": "323.076935"
+                      "value": "307.100586"
                     },
                     {
                       "name": "sx",
@@ -317,12 +322,12 @@
                     {
                       "name": "x",
                       "type": 1,
-                      "value": "698.579224"
+                      "value": "431.597839"
                     },
                     {
                       "name": "y",
                       "type": 1,
-                      "value": "552.958618"
+                      "value": "342.603577"
                     },
                     {
                       "name": "sx",
@@ -332,7 +337,7 @@
                     {
                       "name": "sy",
                       "type": 1,
-                      "value": "50.000000"
+                      "value": "150.000000"
                     },
                     {
                       "name": "cx",
@@ -368,17 +373,17 @@
                     {
                       "name": "x",
                       "type": 1,
-                      "value": "363.715851"
+                      "value": "415.798889"
                     },
                     {
                       "name": "y",
                       "type": 1,
-                      "value": "310.650879"
+                      "value": "164.201187"
                     },
                     {
                       "name": "sx",
                       "type": 1,
-                      "value": "170.000000"
+                      "value": "390.000000"
                     },
                     {
                       "name": "sy",
@@ -399,6 +404,108 @@
                       "name": "cz",
                       "type": 1,
                       "value": "0.354098"
+                    }
+                  ],
+                  "mode": 0,
+                  "name": "quad"
+                }
+              ]
+            },
+            {
+              "active": true,
+              "childrens": [],
+              "id": "e27d76e2-3",
+              "mode": 0,
+              "name": "quad",
+              "scripts": [
+                {
+                  "active": true,
+                  "data": [
+                    {
+                      "name": "x",
+                      "type": 1,
+                      "value": "175.224411"
+                    },
+                    {
+                      "name": "y",
+                      "type": 1,
+                      "value": "429.585815"
+                    },
+                    {
+                      "name": "sx",
+                      "type": 1,
+                      "value": "50.000000"
+                    },
+                    {
+                      "name": "sy",
+                      "type": 1,
+                      "value": "50.000000"
+                    },
+                    {
+                      "name": "cx",
+                      "type": 1,
+                      "value": "0.794206"
+                    },
+                    {
+                      "name": "cy",
+                      "type": 1,
+                      "value": "0.698852"
+                    },
+                    {
+                      "name": "cz",
+                      "type": 1,
+                      "value": "0.590104"
+                    }
+                  ],
+                  "mode": 0,
+                  "name": "quad"
+                }
+              ]
+            },
+            {
+              "active": true,
+              "childrens": [],
+              "id": "85ccdb50-f",
+              "mode": 0,
+              "name": "quad",
+              "scripts": [
+                {
+                  "active": true,
+                  "data": [
+                    {
+                      "name": "x",
+                      "type": 1,
+                      "value": "136.529236"
+                    },
+                    {
+                      "name": "y",
+                      "type": 1,
+                      "value": "195.266266"
+                    },
+                    {
+                      "name": "sx",
+                      "type": 1,
+                      "value": "50.000000"
+                    },
+                    {
+                      "name": "sy",
+                      "type": 1,
+                      "value": "50.000000"
+                    },
+                    {
+                      "name": "cx",
+                      "type": 2,
+                      "value": "1"
+                    },
+                    {
+                      "name": "cy",
+                      "type": 1,
+                      "value": "0.000000"
+                    },
+                    {
+                      "name": "cz",
+                      "type": 1,
+                      "value": "0.000000"
                     }
                   ],
                   "mode": 0,

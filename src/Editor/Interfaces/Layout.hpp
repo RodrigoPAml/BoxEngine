@@ -2,7 +2,7 @@ namespace BoxEngine {
 namespace Editor {
 
 	/// <summary>
-	/// Interface deal with layouts states.
+	/// Interface to deal with screens states.
 	/// </summary>
 	class Layout
 	{

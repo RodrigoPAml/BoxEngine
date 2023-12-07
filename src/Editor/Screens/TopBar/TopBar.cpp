@@ -29,13 +29,11 @@ namespace Editor {
 
 		if (GUI::BeginMainMenuBar())
 		{
-			auto project = Project::GetCurrentProject();
-
 			if (GUI::BeginMenu("File"))
 			{
 				this->focused = true;
 
-				if (GUI::MenuItem("Save", currentProject->GetState() == ProjectState::Idle || currentProject->GetMode() == ProjectMode::EditorMode))
+				if (GUI::MenuItem("Save", currentProject->GetState() == ProjectState::Idle || currentProject->GetMode() == ProjectMode::EditorMode, "CTRL + S"))
 				{
 					try
 					{
@@ -47,18 +45,18 @@ namespace Editor {
 					}
 				}
 
-				if (project->GetState() == ProjectState::Idle && GUI::MenuItem("Discard changes"))
+				if (currentProject->GetState() == ProjectState::Idle && GUI::MenuItem("Discard changes", true, "CTRL + Z"))
 				{
-					if (project != nullptr)
-						project->Reload();
+					if (currentProject != nullptr)
+						currentProject->Reload();
 				}
 
-				if (project->GetState() == ProjectState::Idle && GUI::MenuItem("Reload"))
+				if (currentProject->GetState() == ProjectState::Idle && GUI::MenuItem("Reload", true, "CTRL + X"))
 				{
 					if (currentProject->isDirty())
 						Debug::Logging::Log("[Project]: Before reload, please save the changes", Debug::LogSeverity::Error, Debug::LogOrigin::Engine);
 					else 
-						project->Reload();
+						currentProject->Reload();
 				}
 
 				if (currentProject->isDirty())
@@ -94,11 +92,11 @@ namespace Editor {
 				if (GUI::MenuItem("Edit Settings"))
 					Editor::GetCurrentEditor()->InspectProjectSettings();
 
-				if (GUI::MenuItem("Refresh scripts list") && project != nullptr)
-					project->LoadScriptNameListForEditor();
+				if (GUI::MenuItem("Refresh scripts list") && currentProject != nullptr)
+					currentProject->LoadScriptNameListForEditor();
 
 				if (GUI::MenuItem("Open VS Code Project"))
-					Utils::Directory::Execute("code \"" + project->GetBasePath() + "\"");
+					Utils::Directory::Execute("code \"" + currentProject->GetBasePath() + "\"");
 
 				if (GUI::MenuItem("Open Texture Visualizer"))
 					this->visualizer.SetOpen(true);
@@ -135,12 +133,68 @@ namespace Editor {
 			}
 
 			GUI::EndMainMenuBar();
+
+			this->Shortcuts();
 		}
 	}
 
 	void TopBar::DrawTextureVisualizerTex()
 	{
 		this->visualizer.DrawTexture();
+	}
+
+	void TopBar::Shortcuts()
+	{
+		using namespace Project;
+		using Project = Engine::Project::Project;
+
+		auto project = Project::GetCurrentProject();
+
+		// Save shortcut (CTRL + S)
+		if (Input::Keyboard::GetKeyState(Input::KeyboardKey::KEY_S) >= Input::InputAction::PRESS &&
+			Input::Keyboard::GetModState(Input::KeyModifier::CONTROL) >= Input::InputAction::PRESS &&
+			(project->GetState() == ProjectState::Idle || project->GetMode() == ProjectMode::EditorMode)
+		)
+		{
+			project->Save();
+		}
+
+		// Play/Stop shortcut (CTRL + SPACE)
+		if (Input::Keyboard::GetKeyState(Input::KeyboardKey::KEY_SPACE) >= Input::InputAction::PRESS &&
+			Input::Keyboard::GetModState(Input::KeyModifier::CONTROL) >= Input::InputAction::PRESS
+		)
+		{
+			if (project->GetState() == ProjectState::Idle)
+				project->Start();
+			else if (project->GetState() == ProjectState::Running)
+				project->Stop();
+		}
+
+		// Discard (CTRL + Z)
+		if (Input::Keyboard::GetKeyState(Input::KeyboardKey::KEY_Z) >= Input::InputAction::PRESS &&
+			Input::Keyboard::GetModState(Input::KeyModifier::CONTROL) >= Input::InputAction::PRESS
+		)
+		{
+			if (project->GetState() == ProjectState::Idle)
+			{
+				if (project != nullptr)
+					project->Reload();
+			}
+		}
+
+		// Reload (CTRL + X)
+		if (Input::Keyboard::GetKeyState(Input::KeyboardKey::KEY_X) >= Input::InputAction::PRESS &&
+			Input::Keyboard::GetModState(Input::KeyModifier::CONTROL) >= Input::InputAction::PRESS
+		)
+		{
+			if (project->GetState() == ProjectState::Idle)
+			{
+				if (project->isDirty())
+					Debug::Logging::Log("[Project]: Before reload, please save the changes", Debug::LogSeverity::Error, Debug::LogOrigin::Engine);
+				else
+					project->Reload();
+			}
+		}
 	}
 
 	bool TopBar::IsFocused()

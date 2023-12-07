@@ -130,9 +130,6 @@ namespace Project {
 		void CalculateMetrics();
 		int GetStackSize();
 		std::unordered_map<long, GPU::TexturePtr> GetTextures();
-
-		GPU::FramebufferPtr GetCurrentFramebuffer() const;
-		void SetCurrentFramebuffer(GPU::FramebufferPtr framebuffer);
 	private:
 		// Plan execution of scripts and gos
 		void PlanExecution(const std::vector<GameObjectPtr>& gos, std::vector<GoExecution>& executions);

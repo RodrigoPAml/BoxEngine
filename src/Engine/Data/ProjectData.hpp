@@ -49,10 +49,5 @@ namespace Project {
 		/// End coordinates to draw (bottom right)
 		/// </summary>
 		glm::vec2 bottomRight;
-
-		/// <summary>
-		/// The project current framebuffer
-		/// </summary>
-		Modules::GPU::FramebufferWeakPtr current;
 	};
 }}}

@@ -23,9 +23,6 @@ namespace Connection {
 		LuaUtils::RegTable(this->state, "active", Active);
 		LuaUtils::RegTable(this->state, "get_attachments_size", GetAttachmentSize);
 		LuaUtils::RegTable(this->state, "get_attachment", GetAttachment);
-
-		LuaUtils::RegTable(this->state, "set_current", SetCurrent);
-		LuaUtils::RegTable(this->state, "get_current", GetCurrent);
 		LuaUtils::RegTable(this->state, "active_none", ActiveNone);
 
 		LuaUtils::RegTable(this->state, "clear", Clear);
@@ -183,55 +180,6 @@ namespace Connection {
 			lua_pushboolean(L, instance->framebuffers.erase(lua_tonumber(L, 1)) > 0);
 		}
 		else return luaL_error(L, "argument 1 is expected to be a number");
-
-		return 1;
-	}
-
-	int FramebufferConnection::SetCurrent(lua_State* L)
-	{
-		auto top = lua_gettop(L);
-
-		if (top != 1)
-			return luaL_error(L, "expecting 1 argument in function call");
-
-		if (lua_isnumber(L, 1))
-		{
-			auto id = lua_tonumber(L, 1);
-
-			if (Get()->framebuffers.contains(id))
-			{
-				auto instance = Get()->framebuffers[id];
-				Project::GetCurrentProject()->SetCurrentFramebuffer(instance);
-				lua_pushboolean(L, true);
-			}
-			else lua_pushboolean(L, false);
-		}
-		else return luaL_error(L, "argument 1 is expected to be a number");
-
-		return 1;
-	}
-
-	int FramebufferConnection::GetCurrent(lua_State* L)
-	{
-		auto top = lua_gettop(L);
-
-		if (top != 0)
-			return luaL_error(L, "expecting no arguments in function call");
-
-		auto instance = Project::GetCurrentProject()->GetCurrentFramebuffer();
-
-		if (instance != nullptr)
-		{
-			for (auto item : Get()->framebuffers)
-			{
-				if (item.second == instance)
-				{
-					lua_pushnumber(L, item.first);
-					break;
-				}
-			}
-		}
-		else lua_pushnil(L);
 
 		return 1;
 	}

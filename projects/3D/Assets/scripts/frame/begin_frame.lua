@@ -28,7 +28,6 @@ function begin_frame.start()
    })
 
    -- set as global
-   engine.framebuffer.set_current(this.framebuffer_id)
    engine.framebuffer.active(this.framebuffer_id)
 
    engine.cam2d.set_current(this.camera_fb_id)
@@ -47,13 +46,15 @@ function begin_frame.start()
 end
 
 function begin_frame.update()
+   local this = engine.current()
+
    engine.framebuffer.set_clear_modes({
       color = true,
       depth = true,
       stencil = false
    })
 
-   engine.framebuffer.active(engine.framebuffer.get_current())
+   engine.framebuffer.active(this.framebuffer_id)
    engine.framebuffer.set_viewport({ x = 0, y = 0, z = 1920, w = 1080 })
    engine.framebuffer.clear({ x = 153/255, y = 204/255, z = 1, w = 0 })
 end

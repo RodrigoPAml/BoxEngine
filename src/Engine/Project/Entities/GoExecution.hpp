@@ -47,15 +47,6 @@ namespace Project {
 		// For destroy go
 		GoExecution(GameObjectPtr go);
 
-		// Change script index
-		GoExecution(GameObjectPtr go, ScriptPtr script, unsigned int newIndex);
-
-		// Change go index
-		GoExecution(GameObjectPtr go, unsigned int newIndex);
-
-		// Change go father
-		GoExecution(GameObjectPtr go, std::string fatherId);
-
 		/// <summary>
 		/// Get Execution type
 		/// </summary>

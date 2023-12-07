@@ -23,6 +23,5 @@ namespace Editor {
 		void Awake();
 		void Start();
 		void Update();
-		void Destroy();
 	};
 }}

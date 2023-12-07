@@ -50,34 +50,34 @@ function  fractal.control()
     local left_key = engine.input.get_key(enums.keyboard_key.left)
     local up_key = engine.input.get_key(enums.keyboard_key.up)
     local down_key = engine.input.get_key(enums.keyboard_key.down)
-    local z_key = engine.input.get_key(enums.keyboard_key.z)
+    local z_key = engine.input.get_key(enums.keyboard_key.Z)
     local space_key = engine.input.get_key(enums.keyboard_key.space)
 
-    if(right_key == enums.input_action.press or right_key == enums.input_action.repeating) then 
+    if(right_key == enums.input_action.press) then 
         this.center_x = this.center_x - this.translate_amount
     end
 
-    if(left_key == enums.input_action.press or left_key == enums.input_action.repeating) then 
+    if(left_key == enums.input_action.press) then 
         this.center_x = this.center_x + this.translate_amount
     end
 
-    if(up_key == enums.input_action.press or up_key == enums.input_action.repeating) then 
+    if(up_key == enums.input_action.press) then 
         this.center_y = this.center_y - this.translate_amount
     end
 
-    if(down_key == enums.input_action.press or down_key == enums.input_action.repeating) then 
+    if(down_key == enums.input_action.press) then 
         this.center_y = this.center_y + this.translate_amount
     end
 
-    if(down_key == enums.input_action.press or down_key == enums.input_action.repeating) then 
+    if(down_key == enums.input_action.press) then 
         this.center_y = this.center_y + this.translate_amount
     end
 
-    if(z_key == enums.input_action.press or z_key == enums.input_action.repeating) then 
+    if(z_key == enums.input_action.press) then 
         this.zoom = this.zoom - (this.zoom * 0.1)
     end
 
-    if(space_key == enums.input_action.press or space_key == enums.input_action.repeating) then 
+    if(space_key == enums.input_action.press) then 
         this.zoom = this.zoom + 0.1
     end
 end
@@ -100,7 +100,7 @@ function fractal.draw_fractal()
     engine.shader.set_int(this.shader, "samples", this.samples)
 
     engine.vertex.activate(this.quad_id)
-    engine.vertex.draw(this.quad_id, "TRIANGLES")
+    engine.vertex.draw(this.quad_id, enums.drawing_type.triangle_fan)
 
     engine.command.set_primitive_point_size(10)
 end
