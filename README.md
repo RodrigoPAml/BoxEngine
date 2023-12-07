@@ -134,6 +134,9 @@ The first attemp to implement ray tracing in openGL
 
 ![image](https://github.com/RodrigoPAml/BoxEngine/assets/41243039/9aa1bf2f-e6f2-4be2-8def-2f60422ab165)
 
+![image](https://github.com/RodrigoPAml/BoxEngine/assets/41243039/9fde6875-9403-4905-b1ce-dd26ae086da1)
+
+
 
 
 
