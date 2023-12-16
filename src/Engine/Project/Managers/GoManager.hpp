@@ -31,6 +31,8 @@ namespace Project {
 
 		// Get the go's from the root of the scene
 		std::vector<GameObjectPtr>& GetRootGameObjects();
+		// Get all gos
+		std::vector<GameObjectPtr> GetAllGos();
 
 		// Crud in runtime (get, add and remove)
 		GameObjectPtr GetGameObject(const std::string& id);

@@ -31,6 +31,21 @@ namespace Project {
         return this->gos;
     }
 
+    std::vector<GameObjectPtr> GoManager::GetAllGos()
+    {
+        std::vector<GameObjectPtr> gos;
+
+        for (auto it = this->gosMap.begin(); it != this->gosMap.end(); ++it)
+        {
+            auto go = it->second;
+
+            if (go != nullptr)
+                gos.push_back(go);
+        }
+
+        return gos;
+    }
+
     GameObjectPtr GoManager::GetGameObject(const std::string& id)
     {
         if (this->gosMap.contains(id))

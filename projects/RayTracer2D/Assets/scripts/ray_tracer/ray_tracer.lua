@@ -56,7 +56,6 @@ function ray_tracer.draw()
     engine.shader.set_float(this.shader, 'linearStr', this.linearStr)
     engine.shader.set_float(this.shader, 'distLightStr', this.dist_light_str)
     engine.shader.set_float(this.shader, 'closeLightStr', this.close_light_str)
-    engine.shader.set_float(this.shader, 'ambientFactor', this.ambient_factor)
 
     local quads = engine.script.find_all('quad')
     local id = 0

@@ -206,7 +206,7 @@ namespace Connection {
 			if (!LuaUtils::GetTable(L, 1, "position_start", pos1))
 				return luaL_error(L, "expecting position_start argument to be a vec2");
 
-			if (!LuaUtils::GetTable(L, 1, "position_end", pos1))
+			if (!LuaUtils::GetTable(L, 1, "position_end", pos2))
 				return luaL_error(L, "expecting position_end argument to be a vec2");
 
 			Drawing::Primitives2D::DrawLine(pos1, pos2, color);

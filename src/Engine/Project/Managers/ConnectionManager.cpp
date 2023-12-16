@@ -148,6 +148,9 @@ namespace Project {
 
 	void ConnectionManager::UpdateScriptData(GameObjectPtr go, ScriptPtr script)
 	{
+		if (!script->IsLoaded())
+			return;
+
 		auto& datas = script->GetScriptData();
 
 		// Find new variable to show in inspector
@@ -191,7 +194,7 @@ namespace Project {
 
 							datas.push_back(data);
 						}
-						else if (lua_type(this->state, -2) == LUA_TBOOLEAN)
+						else if (lua_type(this->state, -1) == LUA_TBOOLEAN)
 						{
 							ScriptData data = ScriptData(key, lua_toboolean(this->state, -1) == true ? "1" : "0", ScriptDataType::boolean);
 
@@ -225,7 +228,7 @@ namespace Project {
 				item.SetModified(false);
 
 				if (item.GetType() == ScriptDataType::boolean)
-					LuaUtils::RegTable(this->state, item.GetName().c_str(), false);
+					LuaUtils::RegTable(this->state, item.GetName().c_str(), item.GetValue() == "1");
 				else if (item.GetType() == ScriptDataType::string)
 					LuaUtils::RegTable(this->state, item.GetName().c_str(), item.GetValue());
 				else if (item.GetType() == ScriptDataType::number)

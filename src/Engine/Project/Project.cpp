@@ -62,6 +62,9 @@ namespace Project {
         auto debugConfig = Debug::Debugging::GetConfiguration();
         auto loggingConfig = Debug::Logging::GetConfiguration();
 
+        if (this->mode == ProjectMode::EditorMode)
+            this->scriptManager->UpdateAllScriptDataToSave(this->goManager->GetAllGos());
+
         auto debugObj = Serialization::Serialize(debugConfig);
         auto loggingObj = Serialization::Serialize(loggingConfig);
         auto gos = Serialization::SerializeGo(this->goManager->GetRootGameObjects());

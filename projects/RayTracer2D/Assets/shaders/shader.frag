@@ -8,8 +8,8 @@ out vec4 FragColor;
 
 // Defines the indirect light quality 
 // This number indicates the number of rays casted to determine the indirect light
-// (for max quality put 360)
-#define DIR 360
+// (for max quality put 360 or even more)
+#define DIR 360 
 
 struct Square
 {
@@ -23,8 +23,8 @@ uniform Square squares[MAX_SQUARES];
 uniform vec2 mouse;
 uniform float closeLightStr;
 uniform float distLightStr;
-uniform float ambientFactor;
 uniform float linearStr;
+uniform float ambientFactor;
 
 // Intersection between lines detection
 bool LineLineIntersect(vec2 l1p1, vec2 l1p2, vec2 l2p1, vec2 l2p2) 
@@ -62,7 +62,7 @@ vec2 RayRectangleIntersection(vec2 rayOrigin, vec2 rayDirection, vec2 rectCenter
 
     if (tEnter > tExit || tExit < 0.0) 
         return vec2(-1.0, -1.0);
-        
+    
     vec2 intersectionPoint = rayOrigin + tEnter * rayDirection;
 
     return intersectionPoint;
@@ -127,6 +127,23 @@ float CalculateLightPixelI(vec2 fragPos, vec2 lightPos, int ignore)
     return attenuation;
 }
 
+vec2 CalculateSquareNormal(vec2 fragPos, Square square)
+{
+    vec2 halfSize = square.size * 0.5;
+    float epsilon = 0.1;
+    
+    if(fragPos.y - epsilon < square.position.y - halfSize.y)
+        return vec2(0, -1);
+    if(fragPos.y + epsilon > square.position.y + halfSize.y)
+        return vec2(0, 1);
+    if(fragPos.x - epsilon < square.position.x - halfSize.x)
+        return vec2(-1, 0);
+    if(fragPos.x + epsilon > square.position.x + halfSize.x)
+        return vec2(1, 0);
+   
+    return vec2(0.0);
+}
+
 // Calculate indirect light by casting rays around the pixel
 // If a ray hits a particular quad that have light in it, it will be take into account
 // Only take into account the nearest hit for each direction
@@ -142,7 +159,7 @@ float CalculateIndirectLight(vec2 fragPos, vec2 lightPos, int idx)
     
         float nearestDistance = INF;
         float dirResult = 0.0;
-    
+
         // Test foreach quad
         for (int i = 0; i < MAX_SQUARES; ++i)
         {
@@ -160,20 +177,22 @@ float CalculateIndirectLight(vec2 fragPos, vec2 lightPos, int idx)
               
             // Calculate the light intensity in the point hitted
             float lightInIntersection = CalculateLightPixelI(interP, lightPos, i);
-        
+
             // Attenuate until it get in fragPos
             float correctedLight = GetLight(lightInIntersection, distIntersect);
-          
+            vec2 normal = CalculateSquareNormal(interP, squares[i]);
+            
             // Calculate vectors from the intersected point to (light and pixel)
-            vec2 dirToLight = GetNormalizedDirection(interP, lightPos);
+            vec2 dirToLight = normalize(interP - lightPos);
+            vec2 dirReflected = normalize(reflect(dirToLight, normal));
             vec2 dirToPoint = GetNormalizedDirection(interP, fragPos);   
 
             // Get the angle
-            float dotProduct = dot(dirToLight, dirToPoint);
+            float dotProduct = dot(dirReflected, dirToPoint);
             float angleCloseness = 0.5 * (dotProduct + 1.0);
-            
+
+            dirResult = correctedLight * angleCloseness;
             nearestDistance = distIntersect;
-            dirResult = correctedLight * max(0.5, angleCloseness);
         }
     
         if(nearestDistance != INF)
@@ -183,21 +202,21 @@ float CalculateIndirectLight(vec2 fragPos, vec2 lightPos, int idx)
         }
     }
     
-    return (result*ambientFactor)/hits;
+    return (result)/DIR;
 }
 
 // Main function that calculates light for each pixel
 float CalculateLightPixel(vec2 fragPos, vec2 lightPos, int i) 
 { 
-  // Here its for indirect light
-  if (!ReachLight(fragPos, lightPos, -1)) 
-    return CalculateIndirectLight(fragPos, lightPos, i);
+    // Here its for indirect light
+    if (!ReachLight(fragPos, lightPos, -1)) 
+        return CalculateIndirectLight(fragPos, lightPos, i);
   
-  // Direct light
-  float distanceToLight = distance(fragPos, lightPos);
-  float attenuation = GetLight(1.0f, distanceToLight);
+    // Direct light
+    float distanceToLight = distance(fragPos, lightPos);
+    float attenuation = GetLight(1.0f, distanceToLight);
   
-  return attenuation;
+    return attenuation;
 }
 
 void main() 

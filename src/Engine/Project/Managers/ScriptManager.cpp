@@ -317,6 +317,15 @@ namespace Project {
 		return true;
 	}
 
+	void ScriptManager::UpdateAllScriptDataToSave(std::vector<GameObjectPtr> gos)
+	{
+		for (const auto& go : gos)
+		{
+			for (const auto& script : go->GetScripts())
+				this->connectionManager->UpdateScriptData(go, script);
+		}
+	}
+
 	int ScriptManager::GetStackSize()
 	{
 		if(this->connectionManager != nullptr)

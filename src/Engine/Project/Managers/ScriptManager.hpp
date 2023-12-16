@@ -66,6 +66,7 @@ namespace Project {
 		// In case you just created a go and want it scripts to load imediatly
 		// Otherwise will be in the next frame
 		bool PreLoadScripts(GameObjectPtr go);
+		void UpdateAllScriptDataToSave(std::vector<GameObjectPtr> root);
 
 		// Info
 		int GetStackSize();

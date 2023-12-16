@@ -663,7 +663,7 @@ namespace Editor {
 						data.SetModified(true);
 					}
 
-					if (GUI::ComboBox(this->guid + scriptName + "type_bool" + innerId, { "true", "false" }, currTypeBool))
+					if (GUI::ComboBox(this->guid + scriptName + "type_bool" + innerId, { "false", "true" }, currTypeBool))
 					{
 						project->SetDirty();
 						data.SetValue(std::to_string(currTypeBool));

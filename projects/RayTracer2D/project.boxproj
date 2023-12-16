@@ -77,11 +77,6 @@
                   "value": "0.000001"
                 },
                 {
-                  "name": "ambient_factor",
-                  "type": 1,
-                  "value": "1.000000"
-                },
-                {
                   "name": "linearStr",
                   "type": 1,
                   "value": "1.000000"
@@ -89,12 +84,12 @@
                 {
                   "name": "mouse_x",
                   "type": 1,
-                  "value": "684.947266"
+                  "value": "247.222229"
                 },
                 {
                   "name": "mouse_y",
                   "type": 1,
-                  "value": "98.520714"
+                  "value": "349.704163"
                 }
               ],
               "mode": 0,
@@ -539,6 +534,11 @@
               "name": "begin_id",
               "type": 2,
               "value": "12f9b466-6"
+            },
+            {
+              "name": "camera_editor_id",
+              "type": 1,
+              "value": "2.000000"
             }
           ],
           "mode": 0,
