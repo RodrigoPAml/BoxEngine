@@ -3,7 +3,7 @@
 BoxEngine is an engine to build 2D and 3D general applications, like games, using the scripting language lua.
 
 This engine is ideal to build applications using the abstract layers implemented with OpenGL for fast prototypes
-Its uses the GameObject architecture to build the scene with script attached to give it behaviour.
+It uses the GameObject architecture to build the scene with script attached to give it behaviour.
 
 The engine runs in c++ but the scripting language is in LUA (with JIT compiler), a Brazilian language.
 
@@ -96,7 +96,7 @@ The code is in the Projects folder
 
 ## First game
 
-The first game is called "Air Fither and game be found in games folder
+The first game is called "Air Fither" and game be found in games folder
 
 It's a game about destroying enemies airplane and getting the better possible score
 
