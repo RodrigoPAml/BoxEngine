@@ -676,7 +676,6 @@ The argument table format
     position = {x = number, y = number}, -- position, vec2 format
     size = {x = number, y = number}, -- size, vec2 format
     color = {x = number, y = number, z = number, w = number}, -- color, vec4 format, optional
-    rotation = number, -- rotation in degrees, optional
     filled = boolean, -- fill or not the shape, optional
 }
 ```
@@ -691,11 +690,11 @@ function engine.draw2d.triangle(object = table) end
 The argument table format
 ```lua
 {
-    position = {x = number, y = number}, -- position, vec2 format
-    size = {x = number, y = number}, -- size, vec2 format
+    position1 = {x = number, y = number}, -- position1, vec2 format
+    position2 = {x = number, y = number}, -- position2, vec2 format
+    position3 = {x = number, y = number}, -- position3, vec2 format
     color = {x = number, y = number, z = number, w = number}, -- color, vec4 format, optional
     rotation = number, -- rotation in degrees, optional
-    filled = boolean, -- fill or not the shape, optional
 }
 ```
 
