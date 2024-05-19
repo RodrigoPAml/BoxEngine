@@ -123,6 +123,8 @@ namespace Project {
 
 		// Get gos root
 		std::vector<GameObjectPtr> GetGosFromRoot() const;
+		// Get all gos
+		std::vector<GameObjectPtr> GetAllGos() const;
 
 		// Project information
 		int GetCurrentFPS();

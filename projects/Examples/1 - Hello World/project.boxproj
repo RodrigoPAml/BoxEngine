@@ -1,0 +1,36 @@
+{
+  "debug": {
+    "autoLogGLFWErrors": true,
+    "autoLogOpenGLErrors": false,
+    "enableGlfwDebugging": true,
+    "enableOpenGLDebugging": true,
+    "openglSeverities": [
+      37190,
+      37191,
+      37192
+    ]
+  },
+  "logging": {
+    "logCallback": true,
+    "logConsole": false,
+    "logFile": false
+  },
+  "project_name": "1 - Hello World",
+  "scene": [
+    {
+      "active": true,
+      "childrens": [],
+      "id": "94f82c03-d",
+      "mode": 1,
+      "name": "Hello Word",
+      "scripts": [
+        {
+          "active": true,
+          "data": [],
+          "mode": 0,
+          "name": "hello_word"
+        }
+      ]
+    }
+  ]
+}

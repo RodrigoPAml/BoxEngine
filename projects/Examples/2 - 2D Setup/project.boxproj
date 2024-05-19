@@ -1,0 +1,72 @@
+{
+  "debug": {
+    "autoLogGLFWErrors": true,
+    "autoLogOpenGLErrors": false,
+    "enableGlfwDebugging": true,
+    "enableOpenGLDebugging": true,
+    "openglSeverities": [
+      37190,
+      37191,
+      37192
+    ]
+  },
+  "logging": {
+    "logCallback": true,
+    "logConsole": false,
+    "logFile": false
+  },
+  "project_name": "2 - 2D Setup",
+  "scene": [
+    {
+      "active": true,
+      "childrens": [],
+      "id": "1366dad9-6",
+      "mode": 0,
+      "name": "begin_frame",
+      "scripts": [
+        {
+          "active": true,
+          "data": [],
+          "mode": 0,
+          "name": "begin_frame"
+        }
+      ]
+    },
+    {
+      "active": true,
+      "childrens": [],
+      "id": "3a7a18d5-6",
+      "mode": 0,
+      "name": "draw_primitives",
+      "scripts": [
+        {
+          "active": true,
+          "data": [],
+          "mode": 0,
+          "name": "draw_primitives"
+        }
+      ]
+    },
+    {
+      "active": true,
+      "childrens": [],
+      "id": "e52c8d1b-a",
+      "mode": 0,
+      "name": "end_frame",
+      "scripts": [
+        {
+          "active": true,
+          "data": [
+            {
+              "name": "begin_id",
+              "type": 2,
+              "value": "1366dad9-6"
+            }
+          ],
+          "mode": 0,
+          "name": "end_frame"
+        }
+      ]
+    }
+  ]
+}

@@ -474,6 +474,11 @@ namespace Project {
         return this->goManager->GetRootGameObjects();
     }
 
+    std::vector<GameObjectPtr> Project::GetAllGos() const
+    {
+        return this->goManager->GetAllGos();
+    }
+
     int Project::GetCurrentFPS()
     {
         return this->data.fps;

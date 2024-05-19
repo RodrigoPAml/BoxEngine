@@ -29,6 +29,7 @@ namespace Connection {
 		LuaUtils::RegTable(this->state, "change_father", ChangeGoFather);
 		LuaUtils::RegTable(this->state, "load_scripts", LoadScripts);
 		LuaUtils::RegTable(this->state, "change_index", ChangeGoIndex);
+		LuaUtils::RegTable(this->state, "find_all", GetGos);
 
 		LuaUtils::RegTable(this->state, "inspect_go", InspectGo);
 		LuaUtils::RegTable(this->state, "get_inspected_go", GetInspectedGo);
@@ -341,6 +342,38 @@ namespace Connection {
 			return luaL_error(L, "internal error when loading scripts at runtime");
 
 		return 0;
+	}
+
+	int GoScriptConnection::GetGos(lua_State* L)
+	{
+		auto top = lua_gettop(L);
+
+		if (top != 1)
+			return luaL_error(L, "expecting 1 argument in function call");
+
+		std::string goName = "";
+
+		if (lua_isstring(L, 1))
+			goName = lua_tostring(L, 1);
+		else return luaL_error(L, "argument 1 is expected to be string");
+
+		auto gos = Project::GetCurrentProject()->GetAllGos();
+		auto result = std::vector<GameObjectPtr>();
+
+		for (auto go : gos)
+		{
+			if(go->GetName() == goName)
+				result.push_back(go);
+		}
+
+		lua_newtable(L);
+		for (int i = 0; i < result.size(); i++)
+		{
+			lua_pushstring(L, result[i]->GetId().c_str());
+			lua_rawseti(L, -2, i + 1);
+		}
+
+		return 1;
 	}
 
 	int GoScriptConnection::GetGosOfScript(lua_State* L)
