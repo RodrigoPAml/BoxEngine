@@ -6,12 +6,12 @@ function begin_frame.start()
    -- setup do espaço da camera
    this.camera_fb_id = engine.cam2d.create({ left = 0, right = 1920, top = 1080, bottom = 0 })
 
-   if true then
+   if this.use_msaa then
       -- textura com MSAA para guardar o frame
       this.texture_id = engine.texture.create_multi_sampled({
          texture_size = { x = 1920, y = 1080 },
          texture_internal_format = enums.texture_internal_format.rgb,
-         texture_samples = 16
+         texture_samples = this.msaa_samples
       })
    else
       -- textura sem MSAA para guardar o frame

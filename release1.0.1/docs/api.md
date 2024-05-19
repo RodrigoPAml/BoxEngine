@@ -72,7 +72,7 @@ function engine.restart() end
 ```
 
 ## Is Editor focused
-Return a boolean indicating in editor is focused
+Return a boolean indicating if editor is focused
 
 ```lua
 function engine.is_editor_focused() end
@@ -175,6 +175,14 @@ Returned table format
         }
     }
 }
+```
+
+## Get All Gos By Name
+Find a list of game objects that match a name
+
+Return a list of go ids
+```lua
+function engine.go.find_all(goName) end
 ```
 
 ## Set Go active
@@ -667,8 +675,7 @@ The argument table format
 {
     position = {x = number, y = number}, -- position, vec2 format
     size = {x = number, y = number}, -- size, vec2 format
-    color = {x = number, y = number, z = number, w = number}}, -- color, vec4 format, optional
-    rotation = number, -- rotation in degrees, optional
+    color = {x = number, y = number, z = number, w = number}, -- color, vec4 format, optional
     filled = boolean, -- fill or not the shape, optional
 }
 ```
@@ -683,11 +690,11 @@ function engine.draw2d.triangle(object = table) end
 The argument table format
 ```lua
 {
-    position = {x = number, y = number}, -- position, vec2 format
-    size = {x = number, y = number}, -- size, vec2 format
-    color = {x = number, y = number, z = number, w = number}}, -- color, vec4 format, optional
+    position1 = {x = number, y = number}, -- position1, vec2 format
+    position2 = {x = number, y = number}, -- position2, vec2 format
+    position3 = {x = number, y = number}, -- position3, vec2 format
+    color = {x = number, y = number, z = number, w = number}, -- color, vec4 format, optional
     rotation = number, -- rotation in degrees, optional
-    filled = boolean, -- fill or not the shape, optional
 }
 ```
 
@@ -703,7 +710,7 @@ The argument table format
 {
     position_start = {x = number, y = number}, -- start position, vec2 format
     position_end = {x = number, y = number}, -- end position, vec2 format
-    color = {x = number, y = number, z = number, w = number}}, -- color, vec4 format, optional
+    color = {x = number, y = number, z = number, w = number}, -- color, vec4 format, optional
 }
 ```
 
@@ -718,7 +725,7 @@ The argument table format
 ```lua
 {
     position = {x = number, y = number}, -- position, vec2 format
-    color = {x = number, y = number, z = number, w = number}}, -- color, vec4 format, optional
+    color = {x = number, y = number, z = number, w = number}, -- color, vec4 format, optional
 }
 ```
 
@@ -759,7 +766,7 @@ The argument table format
 {
     position = {x = number, y = number = z = number}, -- position, vec3 format
     size = {x = number, y = number = z = number}, -- size, vec3 format
-    color = {x = number, y = number, z = number, w = number}}, -- color, vec4 format, optional
+    color = {x = number, y = number, z = number, w = number}, -- color, vec4 format, optional
     rotation = {x = number, y = number, z = number}, -- rotation in degrees in vec3 format, optional
     filled = boolean, -- fill or not the shape, optional
 }
@@ -776,7 +783,7 @@ The argument table format
 ```lua
 {
     position = {x = number, y = number = z = number}, -- position, vec3 format
-    size = {x = number, y = number = z = number, w = number}}, -- size, vec3 format
+    size = {x = number, y = number = z = number, w = number}, -- size, vec3 format
     color = {x = number, y = number, z = number}, -- color, vec4 format, optional
     rotation = {x = number, y = number, z = number}, -- rotation in degrees in vec3 format, optional
     filled = boolean, -- fill or not the shape, optional
@@ -794,7 +801,7 @@ The argument table format
 ```lua
 {
     position = {x = number, y = number = z = number}, -- position, vec3 format
-    color = {x = number, y = number, z = number, w = number}}, -- color, vec4 format, optional
+    color = {x = number, y = number, z = number, w = number}, -- color, vec4 format, optional
 }
 ```
 
@@ -810,7 +817,7 @@ The argument table format
 {
     position_start = {x = number, y = number = z = number}, -- position start, vec3 format
     position_end = {x = number, y = number = z = number}, -- position end, vec3 format
-    color = {x = number, y = number, z = number, w = number}}, -- color, vec4 format, optional
+    color = {x = number, y = number, z = number, w = number}, -- color, vec4 format, optional
 }
 ```
 
@@ -826,7 +833,7 @@ The argument table format
 {
     position = {x = number, y = number = z = number}, -- position, vec3 format
     size = {x = number, y = number = z = number}, -- size, vec3 format
-    color = {x = number, y = number, z = number, w = number}}, -- color, vec4 format, optional
+    color = {x = number, y = number, z = number, w = number}, -- color, vec4 format, optional
     rotation = {x = number, y = number, z = number}, -- rotation in degrees in vec3 format, optional
     filled = boolean, -- fill or not the shape, optional
 }
@@ -844,7 +851,7 @@ The argument table format
 {
     position = {x = number, y = number = z = number}, -- position, vec3 format
     size = {x = number, y = number = z = number}, -- size, vec3 format
-    color = {x = number, y = number, z = number, w = number}}, -- color, vec4 format, optional
+    color = {x = number, y = number, z = number, w = number}, -- color, vec4 format, optional
     rotation = {x = number, y = number, z = number}, -- rotation in degrees in vec3 format, optional
     filled = boolean, -- fill or not the shape, optional
 }
@@ -862,7 +869,7 @@ The argument table format
 {
     position = {x = number, y = number = z = number}, -- position, vec3 format
     size = {x = number, y = number = z = number}, -- size, vec3 format
-    color = {x = number, y = number, z = number, w = number}}, -- color, vec4 format, optional
+    color = {x = number, y = number, z = number, w = number}, -- color, vec4 format, optional
     rotation = {x = number, y = number, z = number}, -- rotation in degrees in vec3 format, optional
     filled = boolean, -- fill or not the shape, optional
 }

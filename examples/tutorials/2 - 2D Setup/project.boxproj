@@ -26,7 +26,18 @@
       "scripts": [
         {
           "active": true,
-          "data": [],
+          "data": [
+            {
+              "name": "use_msaa",
+              "type": 0,
+              "value": "1"
+            },
+            {
+              "name": "msaa_samples",
+              "type": 1,
+              "value": "16.000000"
+            }
+          ],
           "mode": 0,
           "name": "begin_frame"
         }
@@ -56,13 +67,7 @@
       "scripts": [
         {
           "active": true,
-          "data": [
-            {
-              "name": "begin_id",
-              "type": 2,
-              "value": "1366dad9-6"
-            }
-          ],
+          "data": [],
           "mode": 0,
           "name": "end_frame"
         }

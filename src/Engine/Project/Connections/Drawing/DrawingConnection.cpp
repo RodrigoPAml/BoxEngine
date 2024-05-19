@@ -104,7 +104,6 @@ namespace Connection {
 		{
 			glm::vec4 color = { 1, 0, 0, 1 };
 			glm::vec2 position, size;
-			float rotation = 0;
 			bool filled = true;
 
 			LuaUtils::GetTable(L, 1, "color", color);
@@ -115,10 +114,9 @@ namespace Connection {
 			if (!LuaUtils::GetTable(L, 1, "size", size))
 				return luaL_error(L, "expecting size argument to be a vec2");
 
-			LuaUtils::GetTable(L, 1, "rotation", rotation);
 			LuaUtils::GetTable(L, 1, "filled", filled);
 
-			Drawing::Primitives2D::DrawCircle(position, size, rotation, color, filled);
+			Drawing::Primitives2D::DrawCircle(position, size, 0, color, filled);
 		}
 		else return luaL_error(L, "expecting argument 1 to be a table");
 
@@ -138,21 +136,22 @@ namespace Connection {
 		if (lua_istable(L, 1))
 		{
 			glm::vec4 color = { 1, 0, 0, 1 };
-			glm::vec2 position, size;
-			float rotation = 0;
+			glm::vec2 position1, position2, position3;
 			bool filled = true;
 
-			if (!LuaUtils::GetTable(L, 1, "size", size))
-				return luaL_error(L, "expecting size argument to be a vec2");
+			if (!LuaUtils::GetTable(L, 1, "position1", position1))
+				return luaL_error(L, "expecting position1 argument to be a vec2");
 
-			if (!LuaUtils::GetTable(L, 1, "position", position))
-				return luaL_error(L, "expecting position argument to be a vec2");
+			if (!LuaUtils::GetTable(L, 1, "position2", position2))
+				return luaL_error(L, "expecting position2 argument to be a vec2");
+
+			if (!LuaUtils::GetTable(L, 1, "position3", position3))
+				return luaL_error(L, "expecting position3 argument to be a vec2");
 
 			LuaUtils::GetTable(L, 1, "color", color);
-			LuaUtils::GetTable(L, 1, "rotation", rotation);
 			LuaUtils::GetTable(L, 1, "filled", filled);
 
-			Drawing::Primitives2D::DrawRectangle(position, size, rotation, color, filled);
+			Drawing::Primitives2D::DrawTriangle (position1, position2, position3, color, filled);
 		}
 		else return luaL_error(L, "expecting argument 1 to be a table");
 
