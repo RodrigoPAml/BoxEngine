@@ -1,0 +1,29 @@
+-- trata fim do frame
+function end_frame.start()
+   local this = engine.current()
+   local size_editor = engine.window.get_editor_window_size();
+
+   -- camera usada para desenhar dentro da janela do editor
+   -- caso esteja sem o editor ira retornar o tamanho total da tela
+   this.camera_editor_id = engine.cam2d.create({ left = 0, right = size_editor.x, top = size_editor.y, bottom = 0 })
+end
+
+function end_frame.update()
+   local this = engine.current()
+   local size_editor = engine.window.get_editor_window_size();
+
+   engine.cam2d.set_current(this.camera_editor_id)
+   engine.cam2d.update(this.camera_editor_id, { left = 0, right = size_editor.x, top = size_editor.y, bottom = 0 })
+
+   engine.framebuffer.active_none()
+   engine.framebuffer.set_viewport({ x = 0, y = 0, z = size_editor.x, w = size_editor.y })
+
+    -- encontra id do GO begin_frame e depois os dados do script chamado begin_frame.lua
+   local begin_frame_go = engine.data(engine.go.find_all('begin_frame')[1], 'begin_frame')
+   engine.draw2d.frame(begin_frame_go.texture_id)
+end
+
+function end_frame.destroy()
+   local this = engine.current()
+   engine.cam2d.destroy(this.camera_editor_id)
+end

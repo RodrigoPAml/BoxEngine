@@ -31,6 +31,7 @@ function draw_primitives.update()
         position = { x = 1000, y = 600 },
         size = { x = 100, y = 100 },
         color = { x = 0, y = 1, z = 0, w = 1 },
+        rotation = 0,
         filled = false,
     })
 

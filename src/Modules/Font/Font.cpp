@@ -12,7 +12,7 @@ namespace Font {
     unsigned int Font::vbo = 0;
     GPU::ShaderPtr Font::shader = nullptr;
 
-	Font::Font(std::string path)
+	Font::Font(std::string path, int width, int height)
 	{
 		TotalInstances++;
 
@@ -28,7 +28,7 @@ namespace Font {
         }
 
         if (IsInit)
-            this->loaded = this->Load(path);
+            this->loaded = this->Load(path, width, height);
 	}
 
 	Font::~Font()
@@ -87,6 +87,11 @@ namespace Font {
         this->text = text;
     }
 
+    glm::vec2 Font::GetTextSize() const
+    {
+        return this->calculatedTextSize;
+    }
+
     void Font::Draw()
     {
         if (!IsInit || !this->loaded)
@@ -109,6 +114,8 @@ namespace Font {
 
         std::string::const_iterator c;
         glm::vec2 original = this->position;
+
+        this->calculatedTextSize = { 0, 0 };
         for (c = text.begin(); c != text.end(); c++)
         {
             Character ch = this->characters[*c];
@@ -118,7 +125,9 @@ namespace Font {
 
             float w = ch.size.x * this->scale.x;
             float h = ch.size.y * this->scale.y;
-       
+            
+            this->calculatedTextSize.y = std::max(ch.bearing.y * this->scale.y, this->calculatedTextSize.y);
+
             float vertices[6][4] = {
                 { xpos,     ypos + h,   0.0f, 0.0f },
                 { xpos,     ypos,       0.0f, 1.0f },
@@ -139,6 +148,7 @@ namespace Font {
             this->position.x += (ch.advance >> 6) * this->scale.x;
         }
 
+        this->calculatedTextSize.x = this->position.x - original.x;
         this->position = original;
         
         glBindVertexArray(0);
@@ -158,7 +168,7 @@ namespace Font {
         return TotalInstances;
     }
 
-    bool Font::Load(std::string path)
+    bool Font::Load(std::string path, int width, int height)
     {
         FT_Face face;
 
@@ -172,7 +182,7 @@ namespace Font {
         }
         else
         {
-            FT_Set_Pixel_Sizes(face, 0, 128);
+            FT_Set_Pixel_Sizes(face, width, height);
 
             for (unsigned char c = 0; c < 128; c++)
             {

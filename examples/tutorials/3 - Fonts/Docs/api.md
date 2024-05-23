@@ -743,8 +743,7 @@ The argument table format
     size = {x = number, y = number}, -- size, vec2 format
     texture_id = number, the texture id
     rotation = number, -- rotation in degrees, optional
-    color = {x = number, y = number, z = number }, -- color, vec3 format, optional
-    color_weight = number, -- color weight in relation to texture, should vary between 0.0 and 1.0
+    color = {x = number, y = number, z = number, w = number}, -- color, vec4 format, optional
 }
 ```
 

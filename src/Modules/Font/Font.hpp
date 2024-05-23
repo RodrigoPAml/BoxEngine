@@ -44,12 +44,13 @@ namespace Font {
 		// Font state
 		glm::vec2 position = { 0, 0 };
 		glm::vec2 scale = { 1, 1 };
-		glm::vec3 color = { 0, 0, 0 };
+		glm::vec3 color = { 1, 0, 0 };
 		std::string text = "";
 
+		glm::vec2 calculatedTextSize = { 0, 0 };
 		bool loaded = false;
 	public:
-		Font(std::string path);
+		Font(std::string path, int width, int height);
 		~Font();
 
 		glm::vec2 GetPosition() const;
@@ -64,12 +65,14 @@ namespace Font {
 		std::string GetText() const;
 		void SetText(const std::string& text);
 
+		glm::vec2 GetTextSize() const;
+
 		void Draw();
 
 		static void Release();
 		static int GetInstaceCount();
 	private:
-		bool Load(std::string path);
+		bool Load(std::string path, int width, int height);
 		void AllocShader();
 	};
 }}}

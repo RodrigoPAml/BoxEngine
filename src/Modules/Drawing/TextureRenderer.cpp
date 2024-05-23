@@ -5,7 +5,7 @@ namespace BoxEngine {
 namespace Modules {
 namespace Drawing {
 
-	void TextureRenderer::Draw(const GPU::TexturePtr texture, const glm::vec2& position, const glm::vec2& size, const glm::vec4& color, const float rotation)
+	void TextureRenderer::Draw(const GPU::TexturePtr texture, const glm::vec2& position, const glm::vec2& size, const glm::vec3& color, const float rotation, const float colorWeight)
 	{
 		const Camera::Camera2DPtr cam = Camera::Camera2D::GetCurrentCamera();
 
@@ -51,7 +51,8 @@ namespace Drawing {
 			instance.shaderMultisampled->SetMat4("model", model);
 			instance.shaderMultisampled->SetMat4("projection", cam->GetOrthoMatrix());
 			instance.shaderMultisampled->SetInt("image", 0);
-			instance.shaderMultisampled->SetVec4("texColor", color);
+			instance.shaderMultisampled->SetVec3("texColor", color);
+			instance.shaderMultisampled->SetFloat("colorWeight", colorWeight);
 			instance.shaderMultisampled->SetXY("texSize", texture->GetSize().x, texture->GetSize().y);
 			instance.shaderMultisampled->SetInt("samples", texture->GetNumberOfSamples());
 		}
@@ -60,7 +61,8 @@ namespace Drawing {
 			instance.shader->Use();
 
 			instance.shader->SetMat4("model", model);
-			instance.shader->SetVec4("color", color);
+			instance.shader->SetVec3("color", color);
+			instance.shader->SetFloat("colorWeight", colorWeight);
 			instance.shader->SetMat4("projection", cam->GetOrthoMatrix());
 			instance.shader->SetInt("image", 0);
 		}
@@ -95,12 +97,13 @@ namespace Drawing {
 			"#version 330 core\n"
 			"layout(location = 0) out vec4 outColor;\n"
 			"in vec2 uv;\n"
-			"uniform vec4 color;\n"
+			"uniform vec3 color;\n"
 			"uniform sampler2D image;\n"
+			"uniform float colorWeight;\n"
 			"void main()\n"
 			"{\n"
 			"  vec4 texFrag = texture(image, uv);\n"
-			"  outColor =  vec4(texFrag.xyzw) + color;\n"
+			"  outColor =  vec4((texFrag.xyz * (1 - colorWeight)) + (color*colorWeight), texFrag.w);\n"
 			"}"
 		};
 
@@ -108,12 +111,11 @@ namespace Drawing {
 			"#version 330 core\n"
 			"layout(location = 0) out vec4 outColor;\n"
 			"in vec2 uv;\n"
-			"uniform vec4 texColor;\n"
 
+			"uniform vec3 texColor;\n"
 			"uniform sampler2DMS image;\n"
-
+			"uniform float colorWeight;\n"
 			"uniform vec2 texSize;\n"
-
 			"uniform int samples;\n"
 
 			"void main()\n"
@@ -123,7 +125,8 @@ namespace Drawing {
 			"  {\n"
 			"    color += texelFetch(image, ivec2(uv.x*texSize.x, uv.y*texSize.y), i);\n"
 			"  }\n"
-			"  outColor = color/samples + texColor;\n"
+			"  color = (color/samples);\n"
+			"  outColor =  vec4((color.xyz * (1 - colorWeight)) + (texColor*colorWeight), color.w);\n"
 			"}"
 		};
 

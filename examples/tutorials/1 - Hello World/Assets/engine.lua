@@ -179,6 +179,10 @@ function engine.go.get_inspected_go()
 	return _go_.get_inspected_go()
 end
 
+function engine.go.find_all(goName)
+    return _go_.find_all(goName)
+end
+
 function engine.script.current()
 	return _script_.current()
 end

@@ -250,6 +250,7 @@ namespace Project {
     {
         this->CalculateMetrics();
 
+        // Engine em idle
         if (this->state == ProjectState::Idle)
         {
             if (this->data.restart)
@@ -261,6 +262,7 @@ namespace Project {
             return;
         }
 
+        // Engine carregando scene
         bool hasError = false;
         if (this->state == ProjectState::Loading)
         {
@@ -280,6 +282,7 @@ namespace Project {
             }
         }
 
+        // Engine executando
         if (this->state == ProjectState::Running)
         {
             // Execution returned
@@ -296,6 +299,7 @@ namespace Project {
             }
         }
 
+        // Engine parando
         if (this->state == ProjectState::Stoping)
         {
             using json = nlohmann::json;

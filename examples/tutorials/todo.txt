@@ -1,0 +1,16 @@
+hello world OK
+2d primitives OK
+fonts OK
+draw 2d textures
+shader 2D
+time
+go and script management
+logging
+input
+audio
+
+3d camera setup
+3d primitives
+3d creating and drawing vertices
+3d importing and drawing with custom shader
+3d rendering with models

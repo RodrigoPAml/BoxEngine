@@ -77,7 +77,7 @@ namespace Editor {
 					if (depthTestingEnabled)
 						GPU::Command::DisableDepthTesting();
 
-					Modules::Drawing::TextureRenderer::Draw(item.second, pos, size, { 0, 0, 0, 0 }, 0);
+					Modules::Drawing::TextureRenderer::Draw(item.second, pos, size, { 0, 0, 0}, 0);
 
 					if (depthTestingEnabled)
 						GPU::Command::EnableDepthTesting();

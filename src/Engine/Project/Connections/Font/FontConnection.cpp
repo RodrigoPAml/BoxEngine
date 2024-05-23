@@ -32,6 +32,8 @@ namespace Connection {
 		LuaUtils::RegTable(this->state, "set_text", SetText);
 		LuaUtils::RegTable(this->state, "get_text", GetText);
 
+		LuaUtils::RegTable(this->state, "get_text_size", GetTextSize);
+
 		LuaUtils::RegTable(this->state, "draw", Draw);
 
 		lua_setglobal(this->state, "_font_");
@@ -56,21 +58,30 @@ namespace Connection {
 	{
 		auto top = lua_gettop(L);
 
-		if (top != 1)
-			return luaL_error(L, "expecting 1 argument in function call");
+		if (top != 3)
+			return luaL_error(L, "expecting 3 arguments in function call");
 
 		std::string fontPath = "";
+		int width, height;
 
 		if (lua_isstring(L, 1))
 			fontPath = lua_tostring(L, 1);
 		else return luaL_error(L, "argument 1 is expected to be a string");
+
+		if (lua_isnumber(L, 2))
+			width = lua_tonumber(L, 2);
+		else return luaL_error(L, "argument 2 is expected to be a number");
+
+		if (lua_isnumber(L, 3))
+			height = lua_tonumber(L, 3);
+		else return luaL_error(L, "argument 3 is expected to be a number");
 
 		Font::FontPtr font = nullptr;
 		auto instance = FontConnection::Get();
 
 		try
 		{
-			font = Font::FontPtr(new Font::Font(fontPath));
+			font = Font::FontPtr(new Font::Font(fontPath, width, height));
 
 			instance->fonts[++instance->currentId] = font;
 			lua_pushnumber(L, instance->currentId);
@@ -373,6 +384,42 @@ namespace Connection {
 
 		auto text = font->GetText();
 		lua_pushstring(L, text.c_str());
+
+		return 1;
+	}
+
+	int FontConnection::GetTextSize(lua_State* L)
+	{
+		auto top = lua_gettop(L);
+
+		if (top != 1)
+			return luaL_error(L, "expecting 1 arguments in function call");
+
+		int id = 0;
+		if (lua_isnumber(L, 1))
+			id = lua_tonumber(L, 1);
+		else return luaL_error(L, "argument 1 is expected to be a number");
+
+		auto instance = FontConnection::Get();
+		auto font = instance->fonts[id];
+
+		if (font == nullptr)
+		{
+			lua_pushnil(L);
+			return 1;
+		}
+
+		auto vec = font->GetTextSize();
+
+		lua_newtable(L);
+
+		lua_pushstring(L, "x");
+		lua_pushnumber(L, vec.x);
+		lua_settable(L, -3);
+
+		lua_pushstring(L, "y");
+		lua_pushnumber(L, vec.y);
+		lua_settable(L, -3);
 
 		return 1;
 	}

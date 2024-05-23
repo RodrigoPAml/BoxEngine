@@ -15,7 +15,7 @@
     "logConsole": false,
     "logFile": false
   },
-  "project_name": "2 - 2D Setup",
+  "project_name": "3 - Fonts",
   "scene": [
     {
       "active": true,
@@ -48,13 +48,13 @@
       "childrens": [],
       "id": "3a7a18d5-6",
       "mode": 0,
-      "name": "draw_primitives",
+      "name": "text",
       "scripts": [
         {
           "active": true,
           "data": [],
           "mode": 0,
-          "name": "draw_primitives"
+          "name": "text"
         }
       ]
     },

@@ -83,6 +83,7 @@ int main(int argc, char* argv[])
 
 		if (!external)
 		{
+			Framebuffer::ActiveDefault();
 			editor->Update();
 			project->SetScreenLimits(editor->GetTopStartPoint(), editor->GetBottomEndPoint());
 		}
