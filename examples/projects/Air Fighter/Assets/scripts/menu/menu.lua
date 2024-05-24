@@ -11,7 +11,7 @@ function menu.start()
     engine.audio.set_loop(this.sound, true)
     engine.audio.resume(this.sound)
 
-    this.font = engine.font.create(font_path)
+    this.font = engine.font.create(font_path, 0, 128)
     this.texture = engine.texture.create({
         minifying_filter = enums.minifying_filter.linear_mipmap_linear,
         magnification_filter = enums.magnification_filter.linear,

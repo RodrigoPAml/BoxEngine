@@ -2,7 +2,7 @@ function controller.start()
     local this = engine.current()
     local font_path = engine.dir.get_assets_path() .. '/fonts/points.ttf'
 
-    this.font = engine.font.create(font_path)
+    this.font = engine.font.create(font_path, 0 , 128)
 
     local cam = engine.cam2d.get(engine.cam2d.get_current())
 

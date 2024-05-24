@@ -233,14 +233,14 @@ function engine.go.load_scripts(goId = string) end
 ```
 
 ## Persist Go
-Set the current go to persist not
+Set the current go to persist not (will not be saved)
 
 ```lua
 function engine.go.set_persist_go(val = bool) end
 ```
 
 ## Persist External Go
-Set any go to persist or not
+Set any go to persist or not (will not be saved)
 
 ```lua
 function engine.go.set_persist_external_go(goId = string, val = bool) end
@@ -323,42 +323,42 @@ function engine.script.displace_index(goId = string, scriptName = string, displa
 ```
 
 ## Persist Script
-Set current script to persist or not
+Set current script to persist or not (will not be saved)
 
 ```lua
 function engine.script.set_persist_script(val = bool) end
 ```
 
 ## Persist External Script
-Set any script to persist or not
+Set any script to persist or not (will not be saved)
 
 ```lua
 function engine.script.set_persist_ext_script(goId = string, scriptName = string, val = bool) end
 ```
 
 ## Persist Script Data
-Set data from current script to persist or not
+Set data from current script to persist or not (will not be saved)
 
 ```lua
 function engine.script.set_persist_script_data(dataName = string, val = bool) end
 ```
 
 ## Persist External Script Data
-Set any script data to persist or not
+Set any script data to persist or not (will not be saved)
 
 ```lua
 function engine.script.set_persist_ext_script_data(goId = string, scriptName = string, val = bool) end
 ```
 
 ## Show Script Data
-Set data from current script to show or not
+Set data from current script to show or not in the editor
 
 ```lua
 function engine.script.set_show_script_data(dataName = string, val = bool) end
 ```
 
 ## Show External Script Data
-Set any script data to show or not
+Set any script data to show or not in the editor
 
 ```lua
 function engine.script.set_persist_ext_show_data(goId = string, scriptName = string, val = bool) end
@@ -743,7 +743,8 @@ The argument table format
     size = {x = number, y = number}, -- size, vec2 format
     texture_id = number, the texture id
     rotation = number, -- rotation in degrees, optional
-    color = {x = number, y = number, z = number, w = number}, -- color, vec4 format, optional
+    color = {x = number, y = number, z = number }, -- color, vec3 format, optional
+    color_weight = number, -- color weight in relation to texture, should vary between 0.0 and 1.0
 }
 ```
 

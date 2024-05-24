@@ -875,8 +875,8 @@ function engine.audio.set_listener_position(vec3)
 	return _audio_.set_listener_position(vec3) 
 end
 
-function engine.font.create(path) 
-	return _font_.create(path) 
+function engine.font.create(path, width, height) 
+	return _font_.create(path, width, height) 
 end
 
 function engine.font.destroy(id) 
@@ -905,6 +905,10 @@ end
 
 function engine.font.set_color(id, color) 
 	return _font_.set_color(id, color) 
+end
+
+function engine.font.get_text_size(id) 
+	return _font_.get_text_size(id) 
 end
 
 function engine.font.get_text(id) 
