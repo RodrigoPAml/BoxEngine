@@ -1,0 +1,77 @@
+{
+  "debug": {
+    "autoLogGLFWErrors": true,
+    "autoLogOpenGLErrors": false,
+    "enableGlfwDebugging": true,
+    "enableOpenGLDebugging": true,
+    "openglSeverities": [
+      37190,
+      37191,
+      37192
+    ]
+  },
+  "logging": {
+    "logCallback": true,
+    "logConsole": false,
+    "logFile": false
+  },
+  "project_name": "7 - Audio",
+  "scene": [
+    {
+      "active": true,
+      "childrens": [],
+      "id": "1366dad9-6",
+      "mode": 0,
+      "name": "begin_frame",
+      "scripts": [
+        {
+          "active": true,
+          "data": [
+            {
+              "name": "use_msaa",
+              "type": 0,
+              "value": "0"
+            },
+            {
+              "name": "msaa_samples",
+              "type": 1,
+              "value": "16.000000"
+            }
+          ],
+          "mode": 0,
+          "name": "begin_frame"
+        }
+      ]
+    },
+    {
+      "active": true,
+      "childrens": [],
+      "id": "3a7a18d5-6",
+      "mode": 0,
+      "name": "audio",
+      "scripts": [
+        {
+          "active": true,
+          "data": [],
+          "mode": 0,
+          "name": "audio_example"
+        }
+      ]
+    },
+    {
+      "active": true,
+      "childrens": [],
+      "id": "e52c8d1b-a",
+      "mode": 0,
+      "name": "end_frame",
+      "scripts": [
+        {
+          "active": true,
+          "data": [],
+          "mode": 0,
+          "name": "end_frame"
+        }
+      ]
+    }
+  ]
+}

@@ -168,6 +168,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="src\Editor\Editor.cpp" />
+    <ClCompile Include="src\Editor\Modals\ScriptDebugger\ScriptDebugger.cpp" />
     <ClCompile Include="src\Editor\Screens\BottomWindow\BottomWindow.cpp" />
     <ClCompile Include="src\Editor\Screens\BottomWindow\FilesTab.cpp" />
     <ClCompile Include="src\Editor\Screens\BottomWindow\InfoTab.cpp" />
@@ -181,6 +182,7 @@
     <ClCompile Include="src\Engine\Project\Connections\Renderer\RendererConnection.cpp" />
     <ClCompile Include="src\Engine\Project\Connections\Shader\ShaderConnection.cpp" />
     <ClCompile Include="src\Modules\Audio\Audio.cpp" />
+    <ClInclude Include="src\Editor\Modals\ScriptDebugger\ScriptDebugger.hpp" />
     <ClInclude Include="src\Editor\Modals\TextureVisualizer\TextureVisualizer.hpp" />
     <ClInclude Include="src\Engine\Project\Connections\Importer\ImporterConnection.hpp" />
     <ClInclude Include="src\Engine\Project\Connections\Renderer\RendererConnection.hpp" />

@@ -23,6 +23,7 @@ namespace Connection {
 
 		LuaUtils::RegTable(this->state, "resume", Resume);
 		LuaUtils::RegTable(this->state, "pause", Pause);
+		LuaUtils::RegTable(this->state, "restart", Restart);
 
 		LuaUtils::RegTable(this->state, "is_finished", IsFinished);
 
@@ -201,12 +202,34 @@ namespace Connection {
 			id = lua_tonumber(L, 1);
 		else return luaL_error(L, "argument 1 is expected to be a number");
 
-
 		auto instance = AudioConnection::Get();
 		auto audio = instance->audios[id];
 
 		if (audio != nullptr)
 			audio->SetPaused(false);
+
+		lua_pushboolean(L, audio != nullptr);
+
+		return 1;
+	}
+
+	int AudioConnection::Restart(lua_State* L)
+	{
+		auto top = lua_gettop(L);
+
+		if (top != 1)
+			return luaL_error(L, "expecting 1 arguments in function call");
+
+		int id = 0;
+		if (lua_isnumber(L, 1))
+			id = lua_tonumber(L, 1);
+		else return luaL_error(L, "argument 1 is expected to be a number");
+
+		auto instance = AudioConnection::Get();
+		auto audio = instance->audios[id];
+
+		if (audio != nullptr)
+			audio->Restart();
 
 		lua_pushboolean(L, audio != nullptr);
 

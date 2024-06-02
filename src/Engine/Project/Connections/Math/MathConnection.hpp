@@ -36,11 +36,21 @@ namespace Connection {
 		static MathConnectionPtr Get();
 		static void Set(MathConnectionPtr instance);
 	private:
-		static int MakeMat4(lua_State* L);
-		static int MakeIdentityMat4(lua_State* L);
-		static int TranslateMat4(lua_State* L);
-		static int RotateMat4(lua_State* L);
-		static int ScaleMat4(lua_State* L);
+		static int MakeVec2(lua_State* L);
+		static int MakeVec3(lua_State* L);
+		static int MakeVec4(lua_State* L);
 
+		static int MakeMat2(lua_State* L);
+		static int MakeMat3(lua_State* L);
+		static int MakeMat4(lua_State* L);
+
+		static int MakeIdentityMat2(lua_State* L);
+		static int MakeIdentityMat3(lua_State* L);
+		static int MakeIdentityMat4(lua_State* L);
+
+		static int Translate(lua_State* L);
+		static int Rotate(lua_State* L);
+		static int Scale(lua_State* L);
+		static int Multiply(lua_State* L);
 	};
 }}}}

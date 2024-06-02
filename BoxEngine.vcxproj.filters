@@ -249,6 +249,9 @@
     <ClCompile Include="src\Editor\Modals\TextureVisualizer\TextureVisualizer.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
+    <ClCompile Include="src\Editor\Modals\ScriptDebugger\ScriptDebugger.cpp">
+      <Filter>Arquivos de Origem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\BoxEngine.hpp">
@@ -570,6 +573,9 @@
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
     <ClInclude Include="src\Editor\Modals\TextureVisualizer\TextureVisualizer.hpp">
+      <Filter>Arquivos de Cabeçalho</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Editor\Modals\ScriptDebugger\ScriptDebugger.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
   </ItemGroup>

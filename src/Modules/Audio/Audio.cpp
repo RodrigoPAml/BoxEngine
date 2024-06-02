@@ -71,6 +71,7 @@ namespace Audio {
 
 		using namespace irrklang;
 		this->sound = engine->play3D(this->path.c_str(), { 0, 0, 0 }, false, true, true, ESM_AUTO_DETECT, false);
+		this->is2D = false;
 
 		if (this->sound != nullptr)
 			Debug::Logging::Log("[Audio]: Created 3D audio from " + this->path, Debug::LogSeverity::Notify, Debug::LogOrigin::EngineInternal);
@@ -86,6 +87,22 @@ namespace Audio {
 			return;
 
 		this->sound->stop();
+	}
+
+	void Audio::Restart()
+	{
+		using namespace irrklang;
+
+		if (this->sound == nullptr || engine == nullptr)
+			return;
+
+		this->sound->stop();
+		this->sound->drop();
+
+		if (this->is2D)
+			this->sound = engine->play2D(this->path.c_str(), false, true, true, ESM_AUTO_DETECT, false);
+		else 
+			this->sound = engine->play3D(this->path.c_str(), { 0, 0, 0 }, false, true, true, ESM_AUTO_DETECT, false);
 	}
 
 	bool Audio::IsFinished()

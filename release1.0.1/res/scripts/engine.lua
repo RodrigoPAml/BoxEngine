@@ -787,6 +787,10 @@ function engine.audio.resume(id)
 	return _audio_.resume(id) 
 end
 
+function engine.audio.restart(id) 
+	return _audio_.restart(id) 
+end
+
 function engine.audio.is_finished(id) 
 	return _audio_.is_finished(id) 
 end
@@ -931,16 +935,20 @@ function engine.math.make_identity_mat4()
 	return _math_.make_identity_mat4() 
 end
 
-function engine.math.translate_mat4(mat4, vec3) 
-	return _math_.translate_mat4(mat4, vec3) 
+function engine.math.translate(mat4, vec3) 
+	return _math_.translate(mat4, vec3) 
 end
 
-function engine.math.rotate_mat4(mat4, vec3, angle) 
-	return _math_.rotate_mat4(mat4, vec3, angle) 
+function engine.math.rotate(mat4, vec3, angle) 
+	return _math_.rotate(mat4, vec3, angle) 
 end
 
-function engine.math.scale_mat4(mat4, vec3) 
-	return _math_.scale_mat4(mat4, vec3) 
+function engine.math.scale(mat4, vec3) 
+	return _math_.scale(mat4, vec3) 
+end
+
+function engine.math.multiply(mat4, vec4) 
+	return _math_.multiply(mat4, vec4) 
 end
 
 function engine.importer.open(path) 

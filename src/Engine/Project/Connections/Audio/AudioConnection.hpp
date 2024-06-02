@@ -52,7 +52,8 @@ namespace Connection {
 		static int DestroyAudio(lua_State* L);
 
 		static int Pause(lua_State* L);
-		static int Resume (lua_State* L);
+		static int Resume(lua_State* L);
+		static int Restart(lua_State* L);
 
 		static int IsFinished(lua_State* L);
 

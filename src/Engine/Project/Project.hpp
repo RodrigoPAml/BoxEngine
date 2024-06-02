@@ -132,6 +132,7 @@ namespace Project {
 		void CalculateMetrics();
 		int GetStackSize();
 		std::unordered_map<long, GPU::TexturePtr> GetTextures();
+		lua_State* GetLuaState();
 	private:
 		// Plan execution of scripts and gos
 		void PlanExecution(const std::vector<GameObjectPtr>& gos, std::vector<GoExecution>& executions);

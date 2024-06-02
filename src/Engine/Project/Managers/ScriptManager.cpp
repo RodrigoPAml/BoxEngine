@@ -342,6 +342,11 @@ namespace Project {
 		return this->connectionManager->GetTextures();
 	}
 
+	lua_State* ScriptManager::GetState()
+	{
+		return this->state;
+	}
+
 	#pragma region InternalFunctions
 
 	void ScriptManager::LoadScriptsPaths(const std::string& basePath, bool& error)

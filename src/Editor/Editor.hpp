@@ -19,6 +19,7 @@ namespace Editor {
 		Camera::Camera2DPtr camera;
 
 		bool focused = false;
+		bool showPrivateVariables = false;
 
 		static std::weak_ptr<Editor> current;
 	public:
@@ -38,6 +39,9 @@ namespace Editor {
 		
 		glm::vec2 GetTopStartPoint(bool correctY = true) const;
 		glm::vec2 GetBottomEndPoint(bool correctY = true) const;
+
+		void SetShowPrivateVariables(bool value);
+		bool GetShowPrivateVariables() const;
 
 		static EditorPtr GetCurrentEditor();
 		static void SetCurrentEditor(EditorPtr editor);

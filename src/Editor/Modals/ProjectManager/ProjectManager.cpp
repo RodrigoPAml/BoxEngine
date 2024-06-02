@@ -81,13 +81,50 @@ namespace Editor {
 						this->currentFilter = "";
 						this->isCreateMode = false;
 					}
-						
+
+					if (GUI::BeginMenu("Load recents"))
+					{
+						for (auto path : LoadRecents())
+						{
+							this->currentPath = path;
+
+							if (GUI::MenuItem(path))
+							{
+								try
+								{
+									this->project = ProjectPtr(new Project());
+									this->project->LoadFrom(this->currentPath);
+
+									this->warningContent = "Project loaded with success!";
+									this->shouldOpenWarningModal = true;
+									this->color = { 0, 1, 0 };
+									WriteRecents(this->currentPath);
+								}
+								catch (const std::runtime_error& ex)
+								{
+									Debug::Logging::Log(
+										ex.what(),
+										Debug::LogSeverity::Error,
+										Debug::LogOrigin::Engine
+									);
+
+									this->project = nullptr;
+									this->warningContent = ex.what();
+									this->shouldOpenWarningModal = true;
+									this->color = { 1, 0, 0 };
+								}
+							}
+						}
+
+						GUI::EndMenu();
+					}
+				
 					if (GUI::MenuItem("Exit"))
 						Window::Close();
 
 					GUI::EndMenu();
 				}
-
+				
 				GUI::EndMainMenuBar();
 			}
 			
@@ -134,7 +171,6 @@ namespace Editor {
 			}
 
 			GUI::EndFrame();
-
 			Window::SwapAndPollEvents();
 		}
 	}
@@ -201,6 +237,8 @@ namespace Editor {
 					this->shouldOpenWarningModal = true;
 					this->color = { 0, 1, 0 };
 					this->isDialogOpen = false;
+
+					WriteRecents(this->currentPath + "/" + this->currentProjectName);
 				}
 				catch (const std::runtime_error& ex)
 				{
@@ -250,6 +288,8 @@ namespace Editor {
 				this->shouldOpenWarningModal = true;
 				this->color = { 0, 1, 0 };
 				this->isDialogOpen = false;
+
+				WriteRecents(this->currentPath);
 			}
 			catch (const std::runtime_error& ex)
 			{
@@ -265,6 +305,46 @@ namespace Editor {
 				this->isDialogOpen = false;
 				this->color = { 1, 0, 0 };
 			}
+		}
+	}
+	
+	std::vector<std::string> ProjectManager::LoadRecents()
+	{
+		std::ifstream inFile("recents.txt");
+		std::vector<std::string> lines;
+		std::string line;
+		int lineCount = 0;
+
+		if (inFile.is_open())
+		{
+			while (getline(inFile, line) && lineCount < 9)
+			{
+				lines.push_back(line);
+				++lineCount;
+			}
+
+			inFile.close();
+		}
+
+		return lines;
+	}
+
+	void ProjectManager::WriteRecents(const std::string& path)
+	{
+		std::vector<std::string> lines = LoadRecents();
+		std::ofstream outFile("recents.txt");
+
+		if (outFile.is_open())
+		{
+			outFile << path << '\n';
+
+			for (const auto& line : lines)
+			{
+				if(path != line)
+					outFile << line << '\n';
+			}
+
+			outFile.close();
 		}
 	}
 }}

@@ -127,6 +127,16 @@ namespace Editor {
 		return glm::vec2(this->inspector.GetMinX(), maxY);
 	}
 
+	void Editor::SetShowPrivateVariables(bool value) 
+	{
+		this->showPrivateVariables = value;
+	}
+
+	bool Editor::GetShowPrivateVariables() const
+	{
+		return this->showPrivateVariables;
+	}
+
 	EditorPtr Editor::GetCurrentEditor()
 	{
 		if (current.expired())

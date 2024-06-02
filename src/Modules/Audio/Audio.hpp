@@ -25,6 +25,9 @@ namespace Audio {
 
 		// Sound internal reference
 		irrklang::ISound* sound = nullptr;
+
+		// If was loaded as 2d or 3d
+		bool is2D = true;
 	public:
 		Audio(std::string path);
 		~Audio();
@@ -33,6 +36,7 @@ namespace Audio {
 		void Instantiate3D();
 
 		void Stop();
+		void Restart();
 
 		bool IsFinished();
 

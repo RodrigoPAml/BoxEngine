@@ -14,7 +14,7 @@ namespace Editor {
 		std::string currentPath = "";
 		std::string currentFilter = "";
 		std::string currentProjectName = "";
-		std::string guid = "";
+		std::string guid = Utils::Directory::NewGuid();
 
 		bool isCreateMode = false;
 		bool shouldResize = false;
@@ -40,5 +40,8 @@ namespace Editor {
 	private:
 		void DrawCreateProjectDialog();
 		void DrawLoadProjectDialog(const std::string& filename);
+
+		std::vector<std::string> LoadRecents();
+		void WriteRecents(const std::string& path);
 	};
 }}

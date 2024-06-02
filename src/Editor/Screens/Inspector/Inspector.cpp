@@ -61,11 +61,13 @@ namespace Editor {
 			GUI::EndWindow();
 		}
 		else this->focused; 
+
+		this->debugger.Update();
 	}
 
 	bool Inspector::IsFocused()
 	{
-		return this->focused;
+		return this->focused || this->debugger.IsFocused();
 	}
 
 	void Inspector::InspectProjectSettings()
@@ -368,6 +370,22 @@ namespace Editor {
 
 		GUI::ContinueSameLine();
 		
+		// Debugger for scripts of go
+		if (GUI::ImageButton(this->guid + "debugging" + goId, GUI::GetIcon("debugging.png")) && project->GetState() != ProjectState::Idle)
+		{
+			this->debugger.SetGo(goId);
+			this->debugger.SetOpen(true);
+		}
+
+		if (GUI::IsCurrentItemHovered())
+		{
+			GUI::BeginHintWindow();
+			GUI::Text("Open debugger");
+			GUI::EndHintWindow();
+		}
+
+		GUI::ContinueSameLine();
+
 		std::string imgName = std::to_string((int)go->GetRunMode()+1) + ".png";
 		auto mode = (int)go->GetRunMode();
 
@@ -610,6 +628,9 @@ namespace Editor {
 			
 			for (ScriptData& data : script->GetScriptData())
 			{
+				if (data.GetName()[0] == '_' && !Editor::GetCurrentEditor()->GetShowPrivateVariables())
+					continue;
+
 				if (!data.IsShowEditor())
 					continue;
 
@@ -670,23 +691,55 @@ namespace Editor {
 						data.SetModified(true);
 					}
 				}
+				else if (data.GetType() == ScriptDataType::button)
+				{
+					int currTypeBool;
+					if (data.GetValue() == "0")
+						currTypeBool = 0;
+					else if (data.GetValue() == "1")
+						currTypeBool = 1;
+					else
+					{
+						currTypeBool = 0;
+						data.SetValue("0");
+						data.SetModified(true);
+					}
+
+					GUI::Push(this->guid + scriptName + "type_bool" + innerId);
+					bool clicked = GUI::Button("Click me");
+					GUI::Pop();
+
+					if (clicked && project->GetState() == ProjectState::Running)
+					{
+						data.SetValue("1");
+						data.SetModified(true);
+					} 
+					else
+					{
+						data.SetValue("0");
+						data.SetModified(true);
+					}
+				}
 
 				GUI::NextColumn();
 		
-				if (GUI::ImageButton(this->guid + "remove_script_data" + innerId, GUI::GetIcon("remove_data.png")))
+				if (project->GetState() == ProjectState::Idle)
 				{
-					project->SetDirty();
-					dataToRemove = data.GetName();
-				}
+					if (GUI::ImageButton(this->guid + "remove_script_data" + innerId, GUI::GetIcon("remove_data.png")))
+					{
+						project->SetDirty();
+						dataToRemove = data.GetName();
+					}
 
-				if (GUI::IsCurrentItemHovered())
-				{
-					GUI::BeginHintWindow();
-					GUI::Text("Remove script variable");
-					GUI::EndHintWindow();
-				}
+					if (GUI::IsCurrentItemHovered())
+					{
+						GUI::BeginHintWindow();
+						GUI::Text("Remove script variable");
+						GUI::EndHintWindow();
+					}
 
-				GUI::ContinueSameLine();
+					GUI::ContinueSameLine();
+				}
 
 				if (GUI::ImageButton(this->guid + "up_script_data" + innerId, GUI::GetIcon("up.png")))
 				{
@@ -750,7 +803,7 @@ namespace Editor {
 			GUI::Input(this->guid + "script_data_name", this->scriptDataName);
 			GUI::Text("Type: ");
 			GUI::ContinueSameLine();
-			GUI::ComboBox(this->guid + "script_data_type", { "boolean", "number", "string"}, this->scriptDataType);
+			GUI::ComboBox(this->guid + "script_data_type", { "boolean", "number", "string", "button"}, this->scriptDataType);
 
 			if (GUI::Button("Add"))
 			{

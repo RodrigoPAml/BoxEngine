@@ -20,6 +20,7 @@ namespace Editor {
 		using Window = Modules::Window::Window;
 			
 		ProjectPtr currentProject = Project::GetCurrentProject();
+		EditorPtr currentEditor = Editor::GetCurrentEditor();
 
 		if (currentProject == nullptr)
 			return;
@@ -90,7 +91,7 @@ namespace Editor {
 				this->focused = true;
 
 				if (GUI::MenuItem("Edit Settings"))
-					Editor::GetCurrentEditor()->InspectProjectSettings();
+					currentEditor->InspectProjectSettings();
 
 				if (GUI::MenuItem("Refresh scripts list") && currentProject != nullptr)
 					currentProject->LoadScriptNameListForEditor();
@@ -100,6 +101,12 @@ namespace Editor {
 
 				if (GUI::MenuItem("Open Texture Visualizer"))
 					this->visualizer.SetOpen(true);
+
+				if (!currentEditor->GetShowPrivateVariables() && GUI::MenuItem("Show private variables"))
+					currentEditor->SetShowPrivateVariables(true);
+
+				if (currentEditor->GetShowPrivateVariables() && GUI::MenuItem("Hide private variables"))
+					currentEditor->SetShowPrivateVariables(false);
 
 				GUI::EndMenu();
 			}

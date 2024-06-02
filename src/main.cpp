@@ -31,7 +31,11 @@ int main(int argc, char* argv[])
 	using Project = BoxEngine::Engine::Project::Project;
 	using Window = BoxEngine::Modules::Window::Window;
 
+	// Se projeto ta sendo carregado por argumento
 	bool external = argc > 1;
+	
+	// Se deve ativar o editor quando abrindo por argumento, basta passar qualquer segundo argumento
+	bool withEditor = argc > 2;
 
 	ProjectPtr project = nullptr;
 	auto manager = OpenProjectManager(external);
@@ -54,8 +58,7 @@ int main(int argc, char* argv[])
 	Project::SetCurrentProject(project);
 
 	EditorPtr editor = nullptr;
-
-	if (!external)
+	if (!external || withEditor)
 	{
 		editor = EditorPtr(new Editor());
 		editor->SetCurrentEditor(editor);
@@ -68,7 +71,7 @@ int main(int argc, char* argv[])
 	Window::Maximize();
 	Window::SetIcons({ ImagePtr(new Image(Directory::GetResourcePath() + "/icons/settings.png"))});
 
-	if (!external)
+	if (editor)
 		editor->Start();
 	else
 		project->Start();
@@ -81,7 +84,7 @@ int main(int argc, char* argv[])
 		
 		project->Execute();
 
-		if (!external)
+		if (editor)
 		{
 			Framebuffer::ActiveDefault();
 			editor->Update();
@@ -93,7 +96,7 @@ int main(int argc, char* argv[])
 		Window::SwapAndPollEvents();
 	}
 
-	if(!external)
+	if(editor)
 		editor->Destroy();
 	
 	Window::Destroy();

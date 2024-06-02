@@ -179,6 +179,8 @@ extern "C"
 #include <Editor/Screens/BottomWindow/FilesTab.hpp>
 #include <Editor/Screens/BottomWindow/BottomWindow.hpp>
 
+#include <Editor/Modals/ScriptDebugger/ScriptDebugger.hpp>
+
 #include <Editor/Screens/Inspector/Inspector.hpp>
 #include <Editor/Screens/GameTree/GameTree.hpp>
 

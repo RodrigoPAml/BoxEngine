@@ -38,6 +38,8 @@ namespace Editor {
 		bool goActive = "";
 		int selectedScript = -1;
 		int selected = -1;
+
+		ScriptDebugger debugger;
 	public:
 		Inspector() = default;
 		~Inspector() = default;

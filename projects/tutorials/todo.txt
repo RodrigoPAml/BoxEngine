@@ -1,0 +1,10 @@
+3d primitives and camera
+3d creating and drawing vertices
+
+
+3d importing and drawing with custom shader
+3d rendering with models
+
+make button in the GUI
+make last openeds project to fast access
+make generic variables access

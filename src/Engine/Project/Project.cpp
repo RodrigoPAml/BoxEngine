@@ -519,6 +519,11 @@ namespace Project {
         return this->scriptManager->GetTextures();
     }
 
+    lua_State* Project::GetLuaState()
+    {
+        return this->scriptManager->GetState();
+    }
+
     void Project::PlanExecution(const std::vector<GameObjectPtr>& gos, std::vector<GoExecution>& executions)
     {
         for (const GameObjectPtr go : gos)

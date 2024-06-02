@@ -53,7 +53,8 @@ namespace Project {
 	{
 		boolean = 0,
 		number = 1,
-		string = 2
+		string = 2,
+		button = 3,
 	};
 
 	/// <summary>

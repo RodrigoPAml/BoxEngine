@@ -71,6 +71,7 @@ namespace Project {
 		// Info
 		int GetStackSize();
 		std::unordered_map<long, Modules::GPU::TexturePtr> GetTextures();
+		lua_State* GetState();
 	private:
 		// Load a map by ref with a map with name and path of the script
 		void LoadScriptsPaths(const std::string& basePath, bool& error);

@@ -137,6 +137,8 @@ namespace Project {
 		{
 			if (item.GetType() == ScriptDataType::boolean)
 				LuaUtils::RegTable(this->state, item.GetName().c_str(), item.GetValue() == "1");
+			else if (item.GetType() == ScriptDataType::button)
+				LuaUtils::RegTable(this->state, item.GetName().c_str(), false);
 			else if (item.GetType() == ScriptDataType::string)
 				LuaUtils::RegTable(this->state, item.GetName().c_str(), item.GetValue());
 			else if (item.GetType() == ScriptDataType::number)
@@ -227,7 +229,9 @@ namespace Project {
 			{
 				item.SetModified(false);
 
-				if (item.GetType() == ScriptDataType::boolean)
+				if (item.GetType() == ScriptDataType::button)
+					LuaUtils::RegTable(this->state, item.GetName().c_str(), item.GetValue() == "1");
+				else if (item.GetType() == ScriptDataType::boolean)
 					LuaUtils::RegTable(this->state, item.GetName().c_str(), item.GetValue() == "1");
 				else if (item.GetType() == ScriptDataType::string)
 					LuaUtils::RegTable(this->state, item.GetName().c_str(), item.GetValue());
@@ -240,7 +244,7 @@ namespace Project {
 
 			lua_getfield(this->state, -1, item.GetName().c_str());
 
-			if (lua_isboolean(this->state, -1))
+			if (lua_isboolean(this->state, -1) && item.GetType() != ScriptDataType::button)
 			{
 				bool boolean = lua_toboolean(this->state, -1);
 

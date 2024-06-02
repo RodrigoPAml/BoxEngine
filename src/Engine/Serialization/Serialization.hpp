@@ -116,6 +116,9 @@ namespace Serialization {
             if (!data.IsPersist())
                 continue;
 
+            if (data.GetName()[0] == '_')
+                continue;
+
             nlohmann::basic_json obj = json::object(
             {
                 {"name", data.GetName()},

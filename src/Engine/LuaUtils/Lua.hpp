@@ -222,6 +222,48 @@ namespace LuaUtils {
 		lua_settable(state, -3);
 	}
 
+	// Register a str key with a table that represents an vec2
+	static void RegTable(lua_State* L, int name, glm::vec2 vec)
+	{
+		int index = lua_gettop(L);
+		lua_pushnumber(L, name);
+		{
+			lua_newtable(L);
+
+			lua_pushstring(L, "x");
+			lua_pushnumber(L, vec.x);
+			lua_settable(L, -3);
+
+			lua_pushstring(L, "y");
+			lua_pushnumber(L, vec.y);
+			lua_settable(L, -3);
+		}
+		lua_settable(L, index);
+	}
+
+	// Register a str key with a table that represents an vec3
+	static void RegTable(lua_State* L, int name, glm::vec3 vec)
+	{
+		int index = lua_gettop(L);
+		lua_pushnumber(L, name);
+		{
+			lua_newtable(L);
+
+			lua_pushstring(L, "x");
+			lua_pushnumber(L, vec.x);
+			lua_settable(L, -3);
+
+			lua_pushstring(L, "y");
+			lua_pushnumber(L, vec.y);
+			lua_settable(L, -3);
+
+			lua_pushstring(L, "z");
+			lua_pushnumber(L, vec.z);
+			lua_settable(L, -3);
+		}
+		lua_settable(L, index);
+	}
+
 	// Register a str key with a table that represents an vec4
 	static void RegTable(lua_State* L, int name, glm::vec4 vec)
 	{

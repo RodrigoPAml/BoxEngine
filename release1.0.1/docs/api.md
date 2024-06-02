@@ -1790,6 +1790,12 @@ function engine.audio.pause(id = number) end
 function engine.audio.resume(id = number) end
 ```
 
+## Restart Audio
+
+```lua
+function engine.audio.restart(id = number) end
+```
+
 ## Check if audio has finished playing
 
 ```lua
@@ -1952,14 +1958,68 @@ function engine.font.draw(id = number) end
 
 # Math Module
 
-## Make mat4 model
+## Make vec2 
+
+Return a vec2
+
+```lua
+function engine.math.make_vec2() 
+```
+
+## Make vec3 
+
+Return a vec3
+
+```lua
+function engine.math.make_vec3() 
+
+eturn a vec2
+
+```lua
+function engine.math.make_vec2() 
+```
+
+## Make mat2 
+
+Return a mat2 matrix
+
+```lua
+function engine.math.make_mat2() 
+```
+
+## Make mat3
+
+Return a mat3
+
+```lua
+function engine.math.make_mat3() 
+```
+
+## Make mat4
 
 Return a mat4 matrix
 
 ```lua
 function engine.math.make_mat4() 
 ```
-## Make mat4 identity model
+
+## Make mat2 identity
+
+Return a mat2 identity matrix
+
+```lua
+function engine.math.make_identity_mat2() 
+```
+
+## Make mat3 identity
+
+Return a mat3 identity matrix
+
+```lua
+function engine.math.make_identity_mat3() 
+```
+
+## Make mat4 identity
 
 Return a mat4 identity matrix
 
@@ -1967,28 +2027,36 @@ Return a mat4 identity matrix
 function engine.math.make_identity_mat4() 
 ```
 
-## Translate mat4
+## Translate
 
 Return a traslated mat4 matrix
 
 ```lua
-function engine.math.translate_mat4(mat4, vec3) 
+function engine.math.translate(mat4, vec3) 
 ```
 
-## Rotate mat4
+## Rotate 
 
 Return a rotated mat4 matrix
 
 ```lua
-function engine.math.rotate_mat4(mat4, vec3, angle) 
+function engine.math.rotate(mat4, vec3, angle) 
 ```
 
-## Scale Mat4
+## Scale 
 
 Return a scaled mat4 matrix
 
 ```lua
-function engine.math.scale_mat4(mat4, vec3) 
+function engine.math.scale(mat4, vec3) 
+```
+
+## Multiply 
+
+Return a vec4 that is the multiplication between a mat4 and vec4
+
+```lua
+function engine.math.multiply(mat4, vec4) 
 ```
 
 # Importer Module
