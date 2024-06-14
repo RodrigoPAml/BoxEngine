@@ -121,7 +121,7 @@ namespace Importer {
 
         m->maxBox = { mesh->mAABB.mMax.x,  mesh->mAABB.mMax.y,  mesh->mAABB.mMax.z };
         m->minBox = { mesh->mAABB.mMin.x,  mesh->mAABB.mMin.y,  mesh->mAABB.mMin.z };
-        m->materialName = mesh->mName.C_Str();
+        m->materialName = scene->mMaterials[mesh->mMaterialIndex]->GetName().C_Str();
         m->name = mesh->mName.C_Str();
         m->mesh = vertex;
         

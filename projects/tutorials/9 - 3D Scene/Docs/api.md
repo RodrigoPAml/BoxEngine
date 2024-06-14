@@ -72,7 +72,7 @@ function engine.restart() end
 ```
 
 ## Is Editor focused
-Return a boolean indicating in editor is focused
+Return a boolean indicating if editor is focused
 
 ```lua
 function engine.is_editor_focused() end
@@ -177,6 +177,14 @@ Returned table format
 }
 ```
 
+## Get All Gos By Name
+Find a list of game objects that match a name
+
+Return a list of go ids
+```lua
+function engine.go.find_all(goName) end
+```
+
 ## Set Go active
 Update a gameobject, active property
 
@@ -225,14 +233,14 @@ function engine.go.load_scripts(goId = string) end
 ```
 
 ## Persist Go
-Set the current go to persist not
+Set the current go to persist not (will not be saved)
 
 ```lua
 function engine.go.set_persist_go(val = bool) end
 ```
 
 ## Persist External Go
-Set any go to persist or not
+Set any go to persist or not (will not be saved)
 
 ```lua
 function engine.go.set_persist_external_go(goId = string, val = bool) end
@@ -315,42 +323,42 @@ function engine.script.displace_index(goId = string, scriptName = string, displa
 ```
 
 ## Persist Script
-Set current script to persist or not
+Set current script to persist or not (will not be saved)
 
 ```lua
 function engine.script.set_persist_script(val = bool) end
 ```
 
 ## Persist External Script
-Set any script to persist or not
+Set any script to persist or not (will not be saved)
 
 ```lua
 function engine.script.set_persist_ext_script(goId = string, scriptName = string, val = bool) end
 ```
 
 ## Persist Script Data
-Set data from current script to persist or not
+Set data from current script to persist or not (will not be saved)
 
 ```lua
 function engine.script.set_persist_script_data(dataName = string, val = bool) end
 ```
 
 ## Persist External Script Data
-Set any script data to persist or not
+Set any script data to persist or not (will not be saved)
 
 ```lua
 function engine.script.set_persist_ext_script_data(goId = string, scriptName = string, val = bool) end
 ```
 
 ## Show Script Data
-Set data from current script to show or not
+Set data from current script to show or not in the editor
 
 ```lua
 function engine.script.set_show_script_data(dataName = string, val = bool) end
 ```
 
 ## Show External Script Data
-Set any script data to show or not
+Set any script data to show or not in the editor
 
 ```lua
 function engine.script.set_persist_ext_show_data(goId = string, scriptName = string, val = bool) end
@@ -667,8 +675,7 @@ The argument table format
 {
     position = {x = number, y = number}, -- position, vec2 format
     size = {x = number, y = number}, -- size, vec2 format
-    color = {x = number, y = number, z = number, w = number}}, -- color, vec4 format, optional
-    rotation = number, -- rotation in degrees, optional
+    color = {x = number, y = number, z = number, w = number}, -- color, vec4 format, optional
     filled = boolean, -- fill or not the shape, optional
 }
 ```
@@ -683,11 +690,11 @@ function engine.draw2d.triangle(object = table) end
 The argument table format
 ```lua
 {
-    position = {x = number, y = number}, -- position, vec2 format
-    size = {x = number, y = number}, -- size, vec2 format
-    color = {x = number, y = number, z = number, w = number}}, -- color, vec4 format, optional
+    position1 = {x = number, y = number}, -- position1, vec2 format
+    position2 = {x = number, y = number}, -- position2, vec2 format
+    position3 = {x = number, y = number}, -- position3, vec2 format
+    color = {x = number, y = number, z = number, w = number}, -- color, vec4 format, optional
     rotation = number, -- rotation in degrees, optional
-    filled = boolean, -- fill or not the shape, optional
 }
 ```
 
@@ -703,7 +710,7 @@ The argument table format
 {
     position_start = {x = number, y = number}, -- start position, vec2 format
     position_end = {x = number, y = number}, -- end position, vec2 format
-    color = {x = number, y = number, z = number, w = number}}, -- color, vec4 format, optional
+    color = {x = number, y = number, z = number, w = number}, -- color, vec4 format, optional
 }
 ```
 
@@ -718,7 +725,7 @@ The argument table format
 ```lua
 {
     position = {x = number, y = number}, -- position, vec2 format
-    color = {x = number, y = number, z = number, w = number}}, -- color, vec4 format, optional
+    color = {x = number, y = number, z = number, w = number}, -- color, vec4 format, optional
 }
 ```
 
@@ -736,7 +743,8 @@ The argument table format
     size = {x = number, y = number}, -- size, vec2 format
     texture_id = number, the texture id
     rotation = number, -- rotation in degrees, optional
-    color = {x = number, y = number, z = number, w = number}, -- color, vec4 format, optional
+    color = {x = number, y = number, z = number }, -- color, vec3 format, optional
+    color_weight = number, -- color weight in relation to texture, should vary between 0.0 and 1.0
 }
 ```
 
@@ -759,7 +767,7 @@ The argument table format
 {
     position = {x = number, y = number = z = number}, -- position, vec3 format
     size = {x = number, y = number = z = number}, -- size, vec3 format
-    color = {x = number, y = number, z = number, w = number}}, -- color, vec4 format, optional
+    color = {x = number, y = number, z = number, w = number}, -- color, vec4 format, optional
     rotation = {x = number, y = number, z = number}, -- rotation in degrees in vec3 format, optional
     filled = boolean, -- fill or not the shape, optional
 }
@@ -776,7 +784,7 @@ The argument table format
 ```lua
 {
     position = {x = number, y = number = z = number}, -- position, vec3 format
-    size = {x = number, y = number = z = number, w = number}}, -- size, vec3 format
+    size = {x = number, y = number = z = number, w = number}, -- size, vec3 format
     color = {x = number, y = number, z = number}, -- color, vec4 format, optional
     rotation = {x = number, y = number, z = number}, -- rotation in degrees in vec3 format, optional
     filled = boolean, -- fill or not the shape, optional
@@ -794,7 +802,7 @@ The argument table format
 ```lua
 {
     position = {x = number, y = number = z = number}, -- position, vec3 format
-    color = {x = number, y = number, z = number, w = number}}, -- color, vec4 format, optional
+    color = {x = number, y = number, z = number, w = number}, -- color, vec4 format, optional
 }
 ```
 
@@ -810,7 +818,7 @@ The argument table format
 {
     position_start = {x = number, y = number = z = number}, -- position start, vec3 format
     position_end = {x = number, y = number = z = number}, -- position end, vec3 format
-    color = {x = number, y = number, z = number, w = number}}, -- color, vec4 format, optional
+    color = {x = number, y = number, z = number, w = number}, -- color, vec4 format, optional
 }
 ```
 
@@ -826,7 +834,7 @@ The argument table format
 {
     position = {x = number, y = number = z = number}, -- position, vec3 format
     size = {x = number, y = number = z = number}, -- size, vec3 format
-    color = {x = number, y = number, z = number, w = number}}, -- color, vec4 format, optional
+    color = {x = number, y = number, z = number, w = number}, -- color, vec4 format, optional
     rotation = {x = number, y = number, z = number}, -- rotation in degrees in vec3 format, optional
     filled = boolean, -- fill or not the shape, optional
 }
@@ -842,10 +850,10 @@ function engine.draw3d.triangle(object = table) end
 The argument table format
 ```lua
 {
-    position = {x = number, y = number = z = number}, -- position, vec3 format
-    size = {x = number, y = number = z = number}, -- size, vec3 format
-    color = {x = number, y = number, z = number, w = number}}, -- color, vec4 format, optional
-    rotation = {x = number, y = number, z = number}, -- rotation in degrees in vec3 format, optional
+    position1 = {x = number, y = number = z = number}, -- position, vec3 format
+    position2 = {x = number, y = number = z = number}, -- position, vec3 format
+    position3 = {x = number, y = number = z = number}, -- position, vec3 format
+    color = {x = number, y = number, z = number, w = number}, -- color, vec4 format, optional
     filled = boolean, -- fill or not the shape, optional
 }
 ```
@@ -862,7 +870,7 @@ The argument table format
 {
     position = {x = number, y = number = z = number}, -- position, vec3 format
     size = {x = number, y = number = z = number}, -- size, vec3 format
-    color = {x = number, y = number, z = number, w = number}}, -- color, vec4 format, optional
+    color = {x = number, y = number, z = number, w = number}, -- color, vec4 format, optional
     rotation = {x = number, y = number, z = number}, -- rotation in degrees in vec3 format, optional
     filled = boolean, -- fill or not the shape, optional
 }
@@ -1486,7 +1494,6 @@ function engine.texture.get_info(id = number) end
 The returned table format
 ```lua
 {
-    gl_id = number, -- opengl id
     multisampled = bool, -- if the texture is multisampled
     samples = number, -- number of samples if texture is multisampled
     size = vec2, -- texture size in pixels
@@ -1782,6 +1789,12 @@ function engine.audio.pause(id = number) end
 function engine.audio.resume(id = number) end
 ```
 
+## Restart Audio
+
+```lua
+function engine.audio.restart(id = number) end
+```
+
 ## Check if audio has finished playing
 
 ```lua
@@ -1888,8 +1901,10 @@ function engine.audio.set_listener_position(vec3) end
 
 Returns id if success, else return nil
 
+Width and height in pixels, use 0 to one of it to adapt based on the another
+
 ```lua
-function engine.font.create_2d(path = string) end
+function engine.font.create(path = string, width = number, height = number) end
 ```
 
 ## Destroy Font
@@ -1920,6 +1935,13 @@ function engine.font.get_color(id = number) end
 function engine.font.set_color(id = number, color = vec3) end
 ```
 
+## Get text Size
+Returns a Vec2 with the current text size in pixels
+
+```lua
+function engine.font.get_text_size_(id = number) end
+```
+
 ## Get/Set Text
 
 ```lua
@@ -1935,14 +1957,68 @@ function engine.font.draw(id = number) end
 
 # Math Module
 
-## Make mat4 model
+## Make vec2 
+
+Return a vec2
+
+```lua
+function engine.math.make_vec2() 
+```
+
+## Make vec3 
+
+Return a vec3
+
+```lua
+function engine.math.make_vec3() 
+
+eturn a vec2
+
+```lua
+function engine.math.make_vec2() 
+```
+
+## Make mat2 
+
+Return a mat2 matrix
+
+```lua
+function engine.math.make_mat2() 
+```
+
+## Make mat3
+
+Return a mat3
+
+```lua
+function engine.math.make_mat3() 
+```
+
+## Make mat4
 
 Return a mat4 matrix
 
 ```lua
 function engine.math.make_mat4() 
 ```
-## Make mat4 identity model
+
+## Make mat2 identity
+
+Return a mat2 identity matrix
+
+```lua
+function engine.math.make_identity_mat2() 
+```
+
+## Make mat3 identity
+
+Return a mat3 identity matrix
+
+```lua
+function engine.math.make_identity_mat3() 
+```
+
+## Make mat4 identity
 
 Return a mat4 identity matrix
 
@@ -1950,55 +2026,76 @@ Return a mat4 identity matrix
 function engine.math.make_identity_mat4() 
 ```
 
-## Translate mat4
+## Translate
 
 Return a traslated mat4 matrix
 
 ```lua
-function engine.math.translate_mat4(mat4, vec3) 
+function engine.math.translate(mat4, vec3) 
 ```
 
-## Rotate mat4
+## Rotate 
 
 Return a rotated mat4 matrix
 
 ```lua
-function engine.math.rotate_mat4(mat4, vec3, angle) 
+function engine.math.rotate(mat4, vec3, angle) 
 ```
 
-## Scale Mat4
+## Scale 
 
 Return a scaled mat4 matrix
 
 ```lua
-function engine.math.scale_mat4(mat4, vec3) 
+function engine.math.scale(mat4, vec3) 
 ```
 
-# Importer Module
+## Multiply 
+
+Return a vec4 that is the multiplication between a mat4 and vec4
+
+```lua
+function engine.math.multiply(mat4, vec4) 
+```
+
+# Object Module
 
 ## Open 3D Model
 
 Open any 3d model and return the id
 
 ```lua
-function engine.importer.open(path = string) 
+function engine.object.open(path = string) 
 ```
 
 ## Destroy 3D Model
 
 Destroy 3d model by recieving it's id
 
-The bool indicates if the vertex and textures should be deleted. 
-This arguments its optional and by default true.
-
 ```lua
-function engine.importer.destroy(id = number, remove = bool) 
+function engine.object.destroy(id = number) 
 ```
 
-# Renderer module
+## Get 3D Model information
 
-Render 3d model
+Return a tabe with 3d model information
 
 ```lua
-function engine.renderer.render_obj(id = number) 
+function engine.object.get(id = number) 
+```
+
+## Get 3D Model meshes
+
+Return a tabe with the information about the meshes of the model
+
+```lua
+function engine.object.get_meshes(id = number) 
+```
+
+## Get 3D Model meshes
+
+Return a tabe with the information about the materials of the model
+
+```lua
+function engine.object.get_materials(id = number) 
 ```

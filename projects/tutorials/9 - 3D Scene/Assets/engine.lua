@@ -120,7 +120,7 @@ engine.vertex = {}
 engine.window = {}
 engine.audio = {}
 engine.font = {}
-engine.importer = {}
+engine.object = {}
 engine.renderer = {}
 
 function engine.go.current()
@@ -177,6 +177,10 @@ end
 
 function engine.go.get_inspected_go()
 	return _go_.get_inspected_go()
+end
+
+function engine.go.find_all(goName)
+    return _go_.find_all(goName)
 end
 
 function engine.script.current()
@@ -783,6 +787,10 @@ function engine.audio.resume(id)
 	return _audio_.resume(id) 
 end
 
+function engine.audio.restart(id) 
+	return _audio_.restart(id) 
+end
+
 function engine.audio.is_finished(id) 
 	return _audio_.is_finished(id) 
 end
@@ -871,8 +879,8 @@ function engine.audio.set_listener_position(vec3)
 	return _audio_.set_listener_position(vec3) 
 end
 
-function engine.font.create(path) 
-	return _font_.create(path) 
+function engine.font.create(path, width, height) 
+	return _font_.create(path, width, height) 
 end
 
 function engine.font.destroy(id) 
@@ -903,6 +911,10 @@ function engine.font.set_color(id, color)
 	return _font_.set_color(id, color) 
 end
 
+function engine.font.get_text_size(id) 
+	return _font_.get_text_size(id) 
+end
+
 function engine.font.get_text(id) 
 	return _font_.get_text(id) 
 end
@@ -923,36 +935,40 @@ function engine.math.make_identity_mat4()
 	return _math_.make_identity_mat4() 
 end
 
-function engine.math.translate_mat4(mat4, vec3) 
-	return _math_.translate_mat4(mat4, vec3) 
+function engine.math.translate(mat4, vec3) 
+	return _math_.translate(mat4, vec3) 
 end
 
-function engine.math.rotate_mat4(mat4, vec3, angle) 
-	return _math_.rotate_mat4(mat4, vec3, angle) 
+function engine.math.rotate(mat4, vec3, angle) 
+	return _math_.rotate(mat4, vec3, angle) 
 end
 
-function engine.math.scale_mat4(mat4, vec3) 
-	return _math_.scale_mat4(mat4, vec3) 
+function engine.math.scale(mat4, vec3) 
+	return _math_.scale(mat4, vec3) 
 end
 
-function engine.importer.open(path) 
-	return _importer_.open(path) 
+function engine.math.multiply(mat4, vec4) 
+	return _math_.multiply(mat4, vec4) 
 end
 
-function engine.importer.destroy(id, remove) 
-	return _importer_.destroy(id, remove) 
+function engine.object.open(path) 
+	return _object_.open(path) 
 end
 
-function engine.importer.get_obj_info(id) 
-	return _importer_.get_obj_info(id) 
+function engine.object.destroy(id) 
+	return _object_.destroy(id) 
 end
 
-function engine.importer.get_meshes(id) 
-	return _importer_.get_meshes(id) 
+function engine.object.get(id) 
+	return _object_.get(id) 
 end
 
-function engine.importer.get_materials(id) 
-	return _importer_.get_materials(id) 
+function engine.object.get_meshes(id) 
+	return _object_.get_meshes(id) 
+end
+
+function engine.object.get_materials(id) 
+	return _object_.get_materials(id) 
 end
 
 function engine.renderer.render_obj(id) 
@@ -960,7 +976,7 @@ function engine.renderer.render_obj(id)
 end
 
 -- Enums Table
-enums = {
+engine.enums = {
    camera_movement = 
    {
         forward = "FORWARD",

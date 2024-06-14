@@ -10,7 +10,7 @@ function begin_frame.start()
    -- texture to hold the drawed frame
    this.texture_id = engine.texture.create_multi_sampled({
       texture_size = { x = 1920, y = 1080 },
-      texture_internal_format = enums.texture_internal_format.rgba,
+      texture_internal_format = engine.enums.texture_internal_format.rgba,
       texture_samples = 16,
       fixed_samples = true
    })
@@ -20,8 +20,8 @@ function begin_frame.start()
       texture_attachments_count = 1,
       texture_attachments = { this.texture_id },
       renderbuffer_attachment = {
-         type = enums.render_buffer_attachment_type.depth_attachment,
-         format = enums.render_buffer_format.depth_component16,
+         type = engine.enums.render_buffer_attachment_type.depth_attachment,
+         format = engine.enums.render_buffer_format.depth_component16,
          size = { x = 1920, y = 1080 },
          aliasing = 16
       }
