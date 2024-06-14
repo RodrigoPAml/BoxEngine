@@ -10,7 +10,7 @@ function draw_shader.start()
     buffers_count = 1,
     buffers = {
       {
-        type = enums.vertex_buffer_type.float,
+        type = engine.enums.vertex_buffer_type.float,
         data = {
           0.0, 0.0,
           0.0, 1.0,
@@ -56,7 +56,7 @@ function draw_shader.update()
 
   -- activate vertex and draw it as triangles
   engine.vertex.activate(this._quad_id)
-  engine.vertex.draw(this._quad_id, enums.drawing_type.triangles)
+  engine.vertex.draw(this._quad_id, engine.enums.drawing_type.triangles)
 end
 
 function draw_shader.destroy()

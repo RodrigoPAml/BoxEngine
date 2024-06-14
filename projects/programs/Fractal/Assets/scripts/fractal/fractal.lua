@@ -12,7 +12,7 @@ function fractal.start()
         buffers_count = 1,
         buffers = {
             {
-                type = enums.vertex_buffer_type.float,
+                type = engine.enums.vertex_buffer_type.float,
                 data = {
                     0.0, 0.0,
                     0.0, 1.0,
@@ -46,38 +46,38 @@ end
 function  fractal.control()
     local this = engine.current()
 
-    local right_key = engine.input.get_key(enums.keyboard_key.right)
-    local left_key = engine.input.get_key(enums.keyboard_key.left)
-    local up_key = engine.input.get_key(enums.keyboard_key.up)
-    local down_key = engine.input.get_key(enums.keyboard_key.down)
-    local z_key = engine.input.get_key(enums.keyboard_key.Z)
-    local space_key = engine.input.get_key(enums.keyboard_key.space)
+    local right_key = engine.input.get_key(engine.enums.keyboard_key.right)
+    local left_key = engine.input.get_key(engine.enums.keyboard_key.left)
+    local up_key = engine.input.get_key(engine.enums.keyboard_key.up)
+    local down_key = engine.input.get_key(engine.enums.keyboard_key.down)
+    local z_key = engine.input.get_key(engine.enums.keyboard_key.Z)
+    local space_key = engine.input.get_key(engine.enums.keyboard_key.space)
 
-    if(right_key == enums.input_action.press) then 
+    if(right_key == engine.enums.input_action.press) then 
         this.center_x = this.center_x - this.translate_amount
     end
 
-    if(left_key == enums.input_action.press) then 
+    if(left_key == engine.enums.input_action.press) then 
         this.center_x = this.center_x + this.translate_amount
     end
 
-    if(up_key == enums.input_action.press) then 
+    if(up_key == engine.enums.input_action.press) then 
         this.center_y = this.center_y - this.translate_amount
     end
 
-    if(down_key == enums.input_action.press) then 
+    if(down_key == engine.enums.input_action.press) then 
         this.center_y = this.center_y + this.translate_amount
     end
 
-    if(down_key == enums.input_action.press) then 
+    if(down_key == engine.enums.input_action.press) then 
         this.center_y = this.center_y + this.translate_amount
     end
 
-    if(z_key == enums.input_action.press) then 
+    if(z_key == engine.enums.input_action.press) then 
         this.zoom = this.zoom - (this.zoom * 0.1)
     end
 
-    if(space_key == enums.input_action.press) then 
+    if(space_key == engine.enums.input_action.press) then 
         this.zoom = this.zoom + 0.1
     end
 end
@@ -100,7 +100,7 @@ function fractal.draw_fractal()
     engine.shader.set_int(this.shader, "samples", this.samples)
 
     engine.vertex.activate(this.quad_id)
-    engine.vertex.draw(this.quad_id, enums.drawing_type.triangle_fan)
+    engine.vertex.draw(this.quad_id, engine.enums.drawing_type.triangle_fan)
 
     engine.command.set_primitive_point_size(10)
 end

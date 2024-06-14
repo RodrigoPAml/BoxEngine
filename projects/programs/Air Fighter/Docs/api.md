@@ -850,10 +850,10 @@ function engine.draw3d.triangle(object = table) end
 The argument table format
 ```lua
 {
-    position = {x = number, y = number = z = number}, -- position, vec3 format
-    size = {x = number, y = number = z = number}, -- size, vec3 format
+    position1 = {x = number, y = number = z = number}, -- position, vec3 format
+    position2 = {x = number, y = number = z = number}, -- position, vec3 format
+    position3 = {x = number, y = number = z = number}, -- position, vec3 format
     color = {x = number, y = number, z = number, w = number}, -- color, vec4 format, optional
-    rotation = {x = number, y = number, z = number}, -- rotation in degrees in vec3 format, optional
     filled = boolean, -- fill or not the shape, optional
 }
 ```
@@ -1494,7 +1494,6 @@ function engine.texture.get_info(id = number) end
 The returned table format
 ```lua
 {
-    gl_id = number, -- opengl id
     multisampled = bool, -- if the texture is multisampled
     samples = number, -- number of samples if texture is multisampled
     size = vec2, -- texture size in pixels
@@ -2059,31 +2058,44 @@ Return a vec4 that is the multiplication between a mat4 and vec4
 function engine.math.multiply(mat4, vec4) 
 ```
 
-# Importer Module
+# Object Module
 
 ## Open 3D Model
 
 Open any 3d model and return the id
 
 ```lua
-function engine.importer.open(path = string) 
+function engine.object.open(path = string) 
 ```
 
 ## Destroy 3D Model
 
 Destroy 3d model by recieving it's id
 
-The bool indicates if the vertex and textures should be deleted. 
-This arguments its optional and by default true.
-
 ```lua
-function engine.importer.destroy(id = number, remove = bool) 
+function engine.object.destroy(id = number) 
 ```
 
-# Renderer module
+## Get 3D Model information
 
-Render 3d model
+Return a tabe with 3d model information
 
 ```lua
-function engine.renderer.render_obj(id = number) 
+function engine.object.get(id = number) 
+```
+
+## Get 3D Model meshes
+
+Return a tabe with the information about the meshes of the model
+
+```lua
+function engine.object.get_meshes(id = number) 
+```
+
+## Get 3D Model meshes
+
+Return a tabe with the information about the materials of the model
+
+```lua
+function engine.object.get_materials(id = number) 
 ```

@@ -1,55 +1,56 @@
 #include <BoxEngine.hpp>
-#include "ImporterConnection.hpp"
+#include "ObjectConnection.hpp"
 
 namespace BoxEngine {
 namespace Engine {
 namespace Project {
 namespace Connection {
 
-	std::weak_ptr<ImporterConnection> ImporterConnection::current;
+	std::weak_ptr<ObjectConnection> ObjectConnection::current;
 
-	ImporterConnection::ImporterConnection(lua_State* state)
+	ObjectConnection::ObjectConnection(lua_State* state)
 	{
 		this->state = state;
 	}
 
-	void ImporterConnection::Bind()
+	void ObjectConnection::Bind()
 	{
 		lua_newtable(this->state);
 
 		LuaUtils::RegTable(this->state, "open", Open);
-		LuaUtils::RegTable(this->state, "destroy", Close);
+		LuaUtils::RegTable(this->state, "create", Create);
+		LuaUtils::RegTable(this->state, "destroy", Destroy);
 
-		LuaUtils::RegTable(this->state, "get_obj_info", GetObject);
+		LuaUtils::RegTable(this->state, "get", Get);
 		LuaUtils::RegTable(this->state, "get_meshes", GetMeshes);
 		LuaUtils::RegTable(this->state, "get_materials", GetMaterials);
 
-		lua_setglobal(this->state, "_importer_");
+		lua_setglobal(this->state, "_object_");
 	}
 
-	void ImporterConnection::SetCurrentGo(GameObjectPtr go)
+	void ObjectConnection::SetCurrentGo(GameObjectPtr go)
 	{
 		this->currentGo = go;
 	}
 
-	ImporterConnectionPtr ImporterConnection::Get()
+	ObjectConnectionPtr ObjectConnection::Get()
 	{
 		return current.lock();
 	}
 
-	void ImporterConnection::Set(ImporterConnectionPtr instance)
+	void ObjectConnection::Set(ObjectConnectionPtr instance)
 	{
 		current = instance;
 	}
 
-	Importer::ObjectPtr ImporterConnection::FindObj(long id)
+	Importer::ObjectPtr ObjectConnection::FindObj(long id)
 	{
-		auto instance = ImporterConnection::Get();
+		auto instance = ObjectConnection::Get();
 
 		return instance->objs.contains(id) ? instance->objs[id] : nullptr;
 	}
 
-	int ImporterConnection::Open(lua_State* L)
+	int ObjectConnection::Open(lua_State* L)
 	{
 		auto top = lua_gettop(L);
 
@@ -63,7 +64,7 @@ namespace Connection {
 
 		Importer::ObjectPtr obj = nullptr;
 
-		auto instance = ImporterConnection::Get();
+		auto instance = ObjectConnection::Get();
 		auto textureConnection = TextureConnection::Get();
 		auto vertexConnection = VertexConnection::Get();
 
@@ -71,11 +72,13 @@ namespace Connection {
 		{
 			obj = Importer::Importer::Load(path);
 
-			for (auto& mesh : obj->meshes)
+			for (auto& mesh : obj->GetMeshes())
 				vertexConnection->Register(mesh->GetMesh());
 
-			for (auto& mtl : obj->materials)
+			for (auto& mtl : obj->GetMaterials())
 				textureConnection->Register(mtl->GetAlbedoTexture());
+
+			obj->ClearRefs();
 
 			instance->objs[++instance->currentId] = obj;
 			lua_pushnumber(L, instance->currentId);
@@ -92,40 +95,55 @@ namespace Connection {
 		return 1;
 	}
 
-	int ImporterConnection::Close(lua_State* L)
+	int ObjectConnection::Create(lua_State* L)
 	{
 		auto top = lua_gettop(L);
 
-		if (top != 1 && top != 2)
-			return luaL_error(L, "expecting 1 or 2 arguments in function call");
+		if (top != 1)
+			return luaL_error(L, "expecting 1 argument in function call");
 
-		bool deleteRefs = true;
+		std::string name = "";
+		if (lua_isstring(L, 1))
+			name = lua_tostring(L, 1);
+		else return luaL_error(L, "expecting 1 to be a string");
 
-		if (lua_isboolean(L, 2) && !lua_isnoneornil(L, 2))
-			deleteRefs = lua_toboolean(L, 2);
+		Importer::ObjectPtr obj = nullptr;
+
+		auto instance = ObjectConnection::Get();
+		auto textureConnection = TextureConnection::Get();
+		auto vertexConnection = VertexConnection::Get();
+
+		try
+		{
+			obj = Importer::ObjectPtr(new Importer::Object());
+			obj->SetName(name);
+
+			instance->objs[++instance->currentId] = obj;
+			lua_pushnumber(L, instance->currentId);
+			return 1;
+		}
+		catch (std::exception)
+		{
+			lua_pushnil(L);
+			obj = nullptr;
+			instance = nullptr;
+			return 1;
+		}
+
+		return 1;
+	}
+
+	int ObjectConnection::Destroy(lua_State* L)
+	{
+		auto top = lua_gettop(L);
+
+		if (top != 1)
+			return luaL_error(L, "expecting 1 argument in function call");
 
 		if (lua_isnumber(L, 1))
 		{
-			auto instance = ImporterConnection::Get();
+			auto instance = ObjectConnection::Get();
 			auto id = lua_tonumber(L, 1);
-
-			if (deleteRefs)
-			{
-				Importer::ObjectPtr obj = instance->objs.contains(id) ? instance->objs[id] : nullptr;
-
-				if (obj == nullptr)
-					return 0;
-
-				auto textureConnection = TextureConnection::Get();
-				auto vertexConnection = VertexConnection::Get();
-
-				for (auto& mesh : obj->meshes)
-					vertexConnection->Delete(mesh->GetMesh());
-
-				for (auto& mtl : obj->materials)
-					textureConnection->Delete(mtl->GetAlbedoTexture());
-			}
-
 			instance->objs.erase(id);
 		}
 		else return luaL_error(L, "argument 1 is expected to be a number");
@@ -133,9 +151,8 @@ namespace Connection {
 		return 0;
 	}
 	
-	int ImporterConnection::GetObject(lua_State* L)
+	int ObjectConnection::Get(lua_State* L)
 	{
-		// Return information of meshes
 		auto top = lua_gettop(L);
 
 		if (top != 1)
@@ -146,27 +163,26 @@ namespace Connection {
 			objId = lua_tonumber(L, 1);
 		else return luaL_error(L, "argument 1 is expected to be number");
 
-		auto instance = ImporterConnection::Get();
+		auto instance = ObjectConnection::Get();
 		Importer::ObjectPtr obj = instance->objs.contains(objId) ? instance->objs[objId] : nullptr;
 
 		if (obj == nullptr)
 			lua_pushnil(L);
 		else
 		{
-			// Table for the go info
 			lua_newtable(L);
-			LuaUtils::RegTable(L, "path", obj->basePath);
-			LuaUtils::RegTable(L, "name", Utils::Directory::GetLastPartFromPath(obj->basePath));
-			LuaUtils::RegTable(L, "mesh_count", (int)obj->meshes.size());
-			LuaUtils::RegTable(L, "material_count", (int)obj->materials.size());
+			LuaUtils::RegTable(L, "base_path", obj->GetBasePath());
+			LuaUtils::RegTable(L, "path", obj->GetPath());
+			LuaUtils::RegTable(L, "name", obj->GetName());
+			LuaUtils::RegTable(L, "mesh_count", (int)obj->GetMeshes().size());
+			LuaUtils::RegTable(L, "material_count", (int)obj->GetMaterials().size());
 		}
 
 		return 1;
 	}
 
-	int ImporterConnection::GetMeshes(lua_State* L)
+	int ObjectConnection::GetMeshes(lua_State* L)
 	{
-		// Return information of meshes
 		auto top = lua_gettop(L);
 
 		if (top != 1)
@@ -177,17 +193,16 @@ namespace Connection {
 			objId = lua_tonumber(L, 1);
 		else return luaL_error(L, "argument 1 is expected to be number");
 
-		auto instance = ImporterConnection::Get();
+		auto instance = ObjectConnection::Get();
 		Importer::ObjectPtr obj = instance->objs.contains(objId) ? instance->objs[objId] : nullptr;
 
 		if (obj == nullptr)
 			lua_pushnil(L);
 		else
 		{
-			auto meshes = obj->meshes;
+			auto meshes = obj->GetMeshes();
 			auto vertexConnection = VertexConnection::Get();
 
-			// Table for the go info
 			lua_newtable(L); 
 			for (int i = 0; i < meshes.size(); i++)
 			{
@@ -209,8 +224,8 @@ namespace Connection {
 						lua_settable(L, -3);
 					}
 
-					lua_pushstring(L, "material_index");
-					lua_pushnumber(L, meshes[i]->GetMaterialIndex());
+					lua_pushstring(L, "material_name");
+					lua_pushstring(L, meshes[i]->GetMaterial().c_str());
 					lua_settable(L, -3);
 
 					lua_pushstring(L, "index");
@@ -227,9 +242,8 @@ namespace Connection {
 		return 1;
 	}
 
-	int ImporterConnection::GetMaterials(lua_State* L)
+	int ObjectConnection::GetMaterials(lua_State* L)
 	{
-		// Return information of meshes
 		auto top = lua_gettop(L);
 
 		if (top != 1)
@@ -240,14 +254,14 @@ namespace Connection {
 			objId = lua_tonumber(L, 1);
 		else return luaL_error(L, "argument 1 is expected to be number");
 
-		auto instance = ImporterConnection::Get();
+		auto instance = ObjectConnection::Get();
 		Importer::ObjectPtr obj = instance->objs.contains(objId) ? instance->objs[objId] : nullptr;
 
 		if (obj == nullptr)
 			lua_pushnil(L);
 		else
 		{
-			auto materials = obj->materials;
+			auto materials = obj->GetMaterials();
 			auto textureConnection = TextureConnection::Get();
 
 			// Table for the go info
@@ -271,10 +285,6 @@ namespace Connection {
 						lua_pushnumber(L, textureConnection->FindId(texAlbedo));
 						lua_settable(L, -3);
 					}
-
-					lua_pushstring(L, "index");
-					lua_pushnumber(L, i);
-					lua_settable(L, -3);
 
 					LuaUtils::RegTable(L, "color", materials[i]->GetColor());
 				}

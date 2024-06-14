@@ -13,10 +13,10 @@ function menu.start()
 
     this.font = engine.font.create(font_path, 0, 128)
     this.texture = engine.texture.create({
-        minifying_filter = enums.minifying_filter.linear_mipmap_linear,
-        magnification_filter = enums.magnification_filter.linear,
-        texture_wrap_t = enums.texture_wrap.mirror_clamp_to_edge,
-        texture_wrap_s = enums.texture_wrap.mirror_clamp_to_edge,
+        minifying_filter = engine.enums.minifying_filter.linear_mipmap_linear,
+        magnification_filter = engine.enums.magnification_filter.linear,
+        texture_wrap_t = engine.enums.texture_wrap.mirror_clamp_to_edge,
+        texture_wrap_s = engine.enums.texture_wrap.mirror_clamp_to_edge,
         ansiotropic_filter = 1,
         border_color = { x = 0, y = 0, z = 0 },
         image_path = menu_img
@@ -78,16 +78,16 @@ function menu.draw_current_option()
         this.option = -1
     end
 
-    if (this.option == 0 and engine.input.get_mouse_button(enums.mouse_button.left) == enums.input_action.press) then
+    if (this.option == 0 and engine.input.get_mouse_button(engine.enums.mouse_button.left) == engine.enums.input_action.press) then
         engine.go.set_active(engine.go.current(), false)
         engine.go.set_active(this.game_id, true)
     end
 
-    if (this.option == 1 and engine.input.get_mouse_button(enums.mouse_button.left) == enums.input_action.press) then
+    if (this.option == 1 and engine.input.get_mouse_button(engine.enums.mouse_button.left) == engine.enums.input_action.press) then
         engine.dir.exec('explorer https://github.com/RodrigoPAml/BoxEngine')
     end
 
-    if (this.option == 2 and engine.input.get_mouse_button(enums.mouse_button.left) == enums.input_action.press) then
+    if (this.option == 2 and engine.input.get_mouse_button(engine.enums.mouse_button.left) == engine.enums.input_action.press) then
         engine.stop()
     end
 

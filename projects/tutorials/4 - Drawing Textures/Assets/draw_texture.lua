@@ -4,10 +4,10 @@ function draw_texture.start()
 
   this._texture_id = engine.texture.create({
     image_path = engine.dir.get_assets_path() .. '/texture.png',
-    minifying_filter = enums.minifying_filter.linear_mipmap_linear,
-    magnification_filter = enums.magnification_filter.linear_mipmap_linear,
-    texture_wrap_t = enums.texture_wrap.clamp_to_edge,
-    texture_wrap_s = enums.texture_wrap.clamp_to_edge,
+    minifying_filter = engine.enums.minifying_filter.linear_mipmap_linear,
+    magnification_filter = engine.enums.magnification_filter.linear_mipmap_linear,
+    texture_wrap_t = engine.enums.texture_wrap.clamp_to_edge,
+    texture_wrap_s = engine.enums.texture_wrap.clamp_to_edge,
     ansiotropic_filter = 4,
   })
 

@@ -7,10 +7,10 @@ function explosion.start()
     local path4 = engine.dir.get_assets_path() .. '/images/boom4.png'
 
     local create_args = {
-        minifying_filter = enums.minifying_filter.linear_mipmap_linear,
-        magnification_filter = enums.magnification_filter.linear,
-        texture_wrap_t = enums.texture_wrap.clamp_to_edge,
-        texture_wrap_s = enums.texture_wrap.clamp_to_edge,
+        minifying_filter = engine.enums.minifying_filter.linear_mipmap_linear,
+        magnification_filter = engine.enums.magnification_filter.linear,
+        texture_wrap_t = engine.enums.texture_wrap.clamp_to_edge,
+        texture_wrap_s = engine.enums.texture_wrap.clamp_to_edge,
         ansiotropic_filter = 8,
         border_color = { x = 0, y = 0, z = 0 },
     }

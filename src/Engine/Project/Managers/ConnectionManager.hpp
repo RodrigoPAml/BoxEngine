@@ -54,7 +54,7 @@ namespace Project {
 		// Functions for math
 		Connection::MathConnectionPtr math;
 		// Functions for 3d objects
-		Connection::ImporterConnectionPtr importer;
+		Connection::ObjectConnectionPtr object;
 		// Functions for render 3d objects
 		Connection::RendererConnectionPtr render;
 

@@ -16,7 +16,6 @@ namespace Importer {
         std::string name;
     public:
         Material();
-        ~Material();
 
         void SetAlbedoTexture(GPU::TexturePtr texture);
         GPU::TexturePtr GetAlbedoTexture() const;

@@ -62,17 +62,17 @@ end
 function triangle_clip.update()
     local this = engine.current()
 
-    if engine.input.get_key(enums.keyboard_key["1"]) == enums.input_action.press then
+    if engine.input.get_key(engine.enums.keyboard_key["1"]) == engine.enums.input_action.press then
         this.triangle11.x = engine.input.get_cam_mouse_pos().x
         this.triangle11.z = engine.input.get_cam_mouse_pos().y
     end
 
-    if engine.input.get_key(enums.keyboard_key["2"]) == enums.input_action.press then
+    if engine.input.get_key(engine.enums.keyboard_key["2"]) == engine.enums.input_action.press then
         this.triangle12.x = engine.input.get_cam_mouse_pos().x
         this.triangle12.z = engine.input.get_cam_mouse_pos().y
     end
 
-    if engine.input.get_key(enums.keyboard_key["3"]) == enums.input_action.press then
+    if engine.input.get_key(engine.enums.keyboard_key["3"]) == engine.enums.input_action.press then
         this.triangle13.x = engine.input.get_cam_mouse_pos().x
         this.triangle13.z = engine.input.get_cam_mouse_pos().y
     end

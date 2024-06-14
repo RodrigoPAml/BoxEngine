@@ -178,13 +178,13 @@
     <ClCompile Include="src\Editor\Modals\TextureVisualizer\TextureVisualizer.cpp" />
     <ClCompile Include="src\Editor\Screens\TopBar\TopBar.cpp" />
     <ClCompile Include="src\Editor\Modals\ProjectManager\ProjectManager.cpp" />
-    <ClCompile Include="src\Engine\Project\Connections\Importer\ImporterConnection.cpp" />
+    <ClCompile Include="src\Engine\Project\Connections\Object\ObjectConnection.cpp" />
     <ClCompile Include="src\Engine\Project\Connections\Renderer\RendererConnection.cpp" />
     <ClCompile Include="src\Engine\Project\Connections\Shader\ShaderConnection.cpp" />
     <ClCompile Include="src\Modules\Audio\Audio.cpp" />
     <ClInclude Include="src\Editor\Modals\ScriptDebugger\ScriptDebugger.hpp" />
     <ClInclude Include="src\Editor\Modals\TextureVisualizer\TextureVisualizer.hpp" />
-    <ClInclude Include="src\Engine\Project\Connections\Importer\ImporterConnection.hpp" />
+    <ClInclude Include="src\Engine\Project\Connections\Object\ObjectConnection.hpp" />
     <ClInclude Include="src\Engine\Project\Connections\Renderer\RendererConnection.hpp" />
     <ClInclude Include="src\Engine\Project\Connections\Shader\ShaderConnection.hpp" />
     <ClInclude Include="src\Modules\Audio\Audio.hpp" />

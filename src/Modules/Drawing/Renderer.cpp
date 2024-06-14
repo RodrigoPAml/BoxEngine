@@ -29,13 +29,13 @@ namespace Drawing {
 			return;
 		}
 		
-		for (const Importer::MeshPtr& mesh : obj->meshes)
+		for (const Importer::MeshPtr& mesh : obj->GetMeshes())
 		{
-			int materialIndex = mesh->GetMaterialIndex();
+			auto material = mesh->GetMaterial();
+			Importer::MaterialPtr mtl = obj->GetMaterial(material);
 
-			if (materialIndex > 0)
+			if (mtl != nullptr)
 			{
-				Importer::MaterialPtr mtl = obj->materials[materialIndex];
 				GPU::TexturePtr albedoTexture = mtl->GetAlbedoTexture();
 
 				if (albedoTexture == nullptr)
@@ -135,7 +135,6 @@ namespace Drawing {
 
 	void Renderer::Release()
 	{
-
 		this->shader = nullptr;
 		this->shaderMtl = nullptr;
 

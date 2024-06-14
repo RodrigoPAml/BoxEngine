@@ -23,6 +23,7 @@ namespace Importer {
 
         ObjectPtr object = ObjectPtr(new Object());
         object->basePath = Utils::Directory::RemovePartsFromPath(path, 1);
+        object->name = Utils::Directory::GetLastPartFromPathNoExtension(path);
         object->path = path;
 
         if (scene == nullptr || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) 
@@ -120,7 +121,7 @@ namespace Importer {
 
         m->maxBox = { mesh->mAABB.mMax.x,  mesh->mAABB.mMax.y,  mesh->mAABB.mMax.z };
         m->minBox = { mesh->mAABB.mMin.x,  mesh->mAABB.mMin.y,  mesh->mAABB.mMin.z };
-        m->materialIndex = mesh->mMaterialIndex;
+        m->materialName = mesh->mName.C_Str();
         m->name = mesh->mName.C_Str();
         m->mesh = vertex;
         
@@ -164,7 +165,7 @@ namespace Importer {
                 mtl->albedoTexture = textures[texturePath];
             }
 
-            object->materials.push_back(mtl);
+            object->materials[mtl->name] = mtl;
         }
     }
 }}}

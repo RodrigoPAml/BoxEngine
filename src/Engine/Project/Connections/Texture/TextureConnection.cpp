@@ -300,7 +300,6 @@ namespace Connection {
 		{
 			// Table for the info
 			lua_newtable(L);
-			LuaUtils::RegTable(L, "gl_id", (int)texture->GetId());
 			LuaUtils::RegTable(L, "samples", texture->GetNumberOfSamples());
 			LuaUtils::RegTable(L, "multisampled", texture->IsMultiSampled());
 			LuaUtils::RegTable(L, "size", texture->GetSize());

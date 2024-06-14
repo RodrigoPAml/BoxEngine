@@ -50,10 +50,10 @@ function controller.update()
         engine.font.set_scale(font_id, { x = 0.5, y = 0.5 })
         engine.font.draw(font_id)
 
-        local space_input = engine.input.get_key(enums.keyboard_key.escape)
+        local space_input = engine.input.get_key(engine.enums.keyboard_key.escape)
 
         -- check if the fighter can spawn a fire bullet
-        if ((space_input == enums.input_action.press)) then
+        if ((space_input == engine.enums.input_action.press)) then
             engine.restart()
         end
         return

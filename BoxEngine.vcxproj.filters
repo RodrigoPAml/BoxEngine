@@ -234,7 +234,7 @@
     <ClCompile Include="src\Modules\Importer\Object.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Project\Connections\Importer\ImporterConnection.cpp">
+    <ClCompile Include="src\Engine\Project\Connections\Object\ObjectConnection.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
     <ClCompile Include="src\Modules\Drawing\Renderer.cpp">
@@ -560,7 +560,7 @@
     <ClInclude Include="src\Modules\Importer\Mesh.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Project\Connections\Importer\ImporterConnection.hpp">
+    <ClInclude Include="src\Engine\Project\Connections\Object\ObjectConnection.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
     <ClInclude Include="src\Modules\Drawing\Renderer.hpp">

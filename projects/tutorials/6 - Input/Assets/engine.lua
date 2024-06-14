@@ -120,7 +120,7 @@ engine.vertex = {}
 engine.window = {}
 engine.audio = {}
 engine.font = {}
-engine.importer = {}
+engine.object = {}
 engine.renderer = {}
 
 function engine.go.current()
@@ -951,24 +951,24 @@ function engine.math.multiply(mat4, vec4)
 	return _math_.multiply(mat4, vec4) 
 end
 
-function engine.importer.open(path) 
-	return _importer_.open(path) 
+function engine.object.open(path) 
+	return _object_.open(path) 
 end
 
-function engine.importer.destroy(id, remove) 
-	return _importer_.destroy(id, remove) 
+function engine.object.destroy(id) 
+	return _object_.destroy(id) 
 end
 
-function engine.importer.get_obj_info(id) 
-	return _importer_.get_obj_info(id) 
+function engine.object.get(id) 
+	return _object_.get(id) 
 end
 
-function engine.importer.get_meshes(id) 
-	return _importer_.get_meshes(id) 
+function engine.object.get_meshes(id) 
+	return _object_.get_meshes(id) 
 end
 
-function engine.importer.get_materials(id) 
-	return _importer_.get_materials(id) 
+function engine.object.get_materials(id) 
+	return _object_.get_materials(id) 
 end
 
 function engine.renderer.render_obj(id) 
@@ -976,7 +976,7 @@ function engine.renderer.render_obj(id)
 end
 
 -- Enums Table
-enums = {
+engine.enums = {
    camera_movement = 
    {
         forward = "FORWARD",

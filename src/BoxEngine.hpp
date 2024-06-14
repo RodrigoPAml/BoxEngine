@@ -162,7 +162,7 @@ extern "C"
 #include <Engine/Project/Connections/Audio/AudioConnection.hpp>
 #include <Engine/Project/Connections/Font/FontConnection.hpp>
 #include <Engine/Project/Connections/Math/MathConnection.hpp>
-#include <Engine/Project/Connections/Importer/ImporterConnection.hpp>
+#include <Engine/Project/Connections/Object/ObjectConnection.hpp>
 #include <Engine/Project/Connections/Renderer/RendererConnection.hpp>
 
 #include <Engine/Project/Managers/ConnectionManager.hpp>

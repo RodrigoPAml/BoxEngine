@@ -2,7 +2,7 @@ function input_example.update()
   local cameraPos = engine.input.get_cam_mouse_pos()
   local absPos = engine.input.get_mouse_pos()
   local varPos = engine.input.get_mouse_variation()
-  local varInputLeft = engine.input.get_mouse_button(enums.mouse_button.left) -- return a enums.input_action
+  local varInputLeft = engine.input.get_mouse_button(engine.enums.mouse_button.left) -- return a engine.enums.input_action
 
   -- this position is relative to the current camera
   -- this means that you can resize the screen and still get the right position
@@ -16,8 +16,8 @@ function input_example.update()
   engine.log('Mouse left button' .. engine.to_string(varInputLeft))
 
   -- keys
-  local varInputSpace = engine.input.get_key(enums.keyboard_key.space) -- return a enums.input_action
-  local varInputAlt = engine.input.get_mod(enums.key_modifier.alt) -- return a enums.input_action
+  local varInputSpace = engine.input.get_key(engine.enums.keyboard_key.space) -- return a engine.enums.input_action
+  local varInputAlt = engine.input.get_mod(engine.enums.key_modifier.alt) -- return a engine.enums.input_action
 
   engine.log('Space button' .. engine.to_string(varInputSpace))
   engine.log('Alt button' .. engine.to_string(varInputAlt))

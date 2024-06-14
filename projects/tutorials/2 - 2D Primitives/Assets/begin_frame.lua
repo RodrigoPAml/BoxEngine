@@ -10,20 +10,20 @@ function begin_frame.start()
       -- textura com MSAA para guardar o frame
       this._texture_id = engine.texture.create_multi_sampled({
          texture_size = { x = 1920, y = 1080 },
-         texture_internal_format = enums.texture_internal_format.rgb,
+         texture_internal_formaenumst = engine.enums.texture_internal_format.rgb,
          texture_samples = this.msaa_samples
       })
    else
       -- textura sem MSAA para guardar o frame
       this._texture_id = engine.texture.create_empty({
          texture_size = { x = 1920, y = 1080 },
-         minifying_filter = enums.minifying_filter.only_linear,
-         magnification_filter = enums.magnification_filter.linear,
-         texture_wrap_t = enums.texture_wrap.clamp_to_edge,
-         texture_wrap_s = enums.texture_wrap.clamp_to_edge,
-         texture_pixel_format = enums.texture_pixel_format.unsigned_byte,
-         texture_format = enums.texture_format.rgb,
-         texture_internal_format = enums.texture_internal_format.rgb,
+         minifying_filter = engine.enums.minifying_filter.only_linear,
+         magnification_filter = engine.enums.magnification_filter.linear,
+         texture_wrap_t = engine.enums.texture_wrap.clamp_to_edge,
+         texture_wrap_s = engine.enums.texture_wrap.clamp_to_edge,
+         texture_pixel_format = engine.enums.texture_pixel_format.unsigned_byte,
+         texture_format = engine.enums.texture_format.rgb,
+         texture_internal_format = engine.enums.texture_internal_format.rgb,
          ansiotropic_filter = 2,
          border_color = { x = 0, y = 0, z = 0 }
       })

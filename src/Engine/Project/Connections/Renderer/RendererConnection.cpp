@@ -51,7 +51,7 @@ namespace Connection {
 		{
 			long id = lua_tonumber(L, 1);
 
-			auto obj = ImporterConnection::FindObj(id);
+			auto obj = ObjectConnection::FindObj(id);
 
 			Modules::Drawing::Renderer::Draw(obj);
 		}

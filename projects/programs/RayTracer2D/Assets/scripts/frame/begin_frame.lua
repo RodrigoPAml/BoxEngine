@@ -7,7 +7,7 @@ function begin_frame.start()
    -- texture to hold the drawed frame
    this.texture_id = engine.texture.create_multi_sampled({
       texture_size = { x = this.res_x, y = this.res_y },
-      texture_internal_format = enums.texture_internal_format.rgba,
+      texture_internal_format = engine.enums.texture_internal_format.rgba,
       texture_samples = 16
    })
 

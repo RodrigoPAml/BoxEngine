@@ -6,14 +6,14 @@ namespace Engine {
 namespace Project {
 namespace Connection {
 
-	class ImporterConnection;
-	typedef std::shared_ptr<ImporterConnection> ImporterConnectionPtr;
-	typedef std::weak_ptr<ImporterConnection> ImporterConnectionWeakPtr;
+	class ObjectConnection;
+	typedef std::shared_ptr<ObjectConnection> ObjectConnectionPtr;
+	typedef std::weak_ptr<ObjectConnection> ObjectConnectionWeakPtr;
 
 	/// <summary>
 	/// Functions C++/LUA to handle window functions.
 	/// </summary>
-	class ImporterConnection
+	class ObjectConnection
 	{
 	private:
 		lua_State* state;
@@ -36,23 +36,23 @@ namespace Connection {
 		/// <summary>
 		/// Global reference.
 		/// </summary>
-		static std::weak_ptr<ImporterConnection> current;
+		static std::weak_ptr<ObjectConnection> current;
 	public:
-		ImporterConnection(lua_State* state);
+		ObjectConnection(lua_State* state);
 
 		void Bind();
 		void SetCurrentGo(GameObjectPtr go);
 
-		static ImporterConnectionPtr Get();
-		static void Set(ImporterConnectionPtr instance);
+		static ObjectConnectionPtr Get();
+		static void Set(ObjectConnectionPtr instance);
 
 		static Importer::ObjectPtr FindObj(long id);
 	private:
 		static int Open(lua_State* L);
+		static int Create(lua_State* L);
+		static int Destroy(lua_State* L);
+		static int Get(lua_State* L);
 
-		static int Close(lua_State* L);
-
-		static int GetObject(lua_State* L);
 		static int GetMeshes(lua_State* L);
 		static int GetMaterials(lua_State* L);
 	};

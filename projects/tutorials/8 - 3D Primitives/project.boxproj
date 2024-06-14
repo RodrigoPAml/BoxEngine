@@ -30,7 +30,7 @@
             {
               "name": "use_msaa",
               "type": 0,
-              "value": "1"
+              "value": "0"
             },
             {
               "name": "msaa_samples",
@@ -50,6 +50,12 @@
       "mode": 0,
       "name": "draw_primitives",
       "scripts": [
+        {
+          "active": true,
+          "data": [],
+          "mode": 0,
+          "name": "camera_controller"
+        },
         {
           "active": true,
           "data": [],

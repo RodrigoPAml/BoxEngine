@@ -9,7 +9,7 @@ function ray_tracer.start()
 		buffers_count = 1,
 		buffers = {
 			{
-				type = enums.vertex_buffer_type.float,
+				type = engine.enums.vertex_buffer_type.float,
 				data = {
 					-1.0, -1.0,
 					-1.0, 1.0,
@@ -43,7 +43,7 @@ end
 function ray_tracer.draw()
 	local this = engine.current()
 	local mouse = engine.input.get_cam_mouse_pos()
-	local light = engine.input.get_key(enums.keyboard_key.L) == enums.input_action.press
+	local light = engine.input.get_key(engine.enums.keyboard_key.L) == engine.enums.input_action.press
 
 	engine.shader.activate(this.shader)
 
@@ -73,15 +73,15 @@ function ray_tracer.draw()
 	end
 
 	engine.vertex.activate(this.quad_id)
-	engine.vertex.draw(this.quad_id, enums.drawing_type.triangles)
+	engine.vertex.draw(this.quad_id, engine.enums.drawing_type.triangles)
 end
 
 function ray_tracer.treat_spawn()
 	local this = engine.current()
-	local space = engine.input.get_key(enums.keyboard_key.space) == enums.input_action.press
+	local space = engine.input.get_key(engine.enums.keyboard_key.space) == engine.enums.input_action.press
 
 	if this.is_clicked then
-		if engine.input.get_key(enums.keyboard_key.space) == enums.input_action.release then
+		if engine.input.get_key(engine.enums.keyboard_key.space) == engine.enums.input_action.release then
 			ray_tracer.spawn_quad()
 			ray_tracer.update_shader()
 

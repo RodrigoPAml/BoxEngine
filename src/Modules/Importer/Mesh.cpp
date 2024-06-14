@@ -35,14 +35,14 @@ namespace Importer {
 		return this->mesh.lock();
 	}
 	
-	void Mesh::SetMaterialIndex(int index)
+	void Mesh::SetMaterial(std::string name)
 	{
-		this->materialIndex = index;
+		this->materialName = name;
 	}
 
-	int Mesh::GetMaterialIndex() const
+	std::string Mesh::GetMaterial() const
 	{
-		return this->materialIndex;
+		return this->materialName;
 	}
 
 	void Mesh::SetName(const std::string& name)

@@ -66,8 +66,8 @@ namespace Project {
 		this->math = MathConnectionPtr(new MathConnection(state));
 		MathConnection::Set(this->math);
 
-		this->importer = ImporterConnectionPtr(new ImporterConnection(state));
-		ImporterConnection::Set(this->importer);
+		this->object = ObjectConnectionPtr(new ObjectConnection(state));
+		ObjectConnection::Set(this->object);
 
 		this->render = RendererConnectionPtr(new RendererConnection(state));
 		RendererConnection::Set(this->render);
@@ -99,7 +99,7 @@ namespace Project {
 		this->audio->Bind();
 		this->font->Bind();
 		this->math->Bind();
-		this->importer->Bind();
+		this->object->Bind();
 		this->render->Bind();
 	}
 
@@ -148,6 +148,7 @@ namespace Project {
 		lua_pop(this->state, 3);
 	}
 
+	// This function should be moved to editor in the future, because is editor resposability to do that
 	void ConnectionManager::UpdateScriptData(GameObjectPtr go, ScriptPtr script)
 	{
 		if (!script->IsLoaded())

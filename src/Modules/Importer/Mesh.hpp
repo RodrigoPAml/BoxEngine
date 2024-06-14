@@ -9,14 +9,14 @@ namespace Importer {
     {
         friend class Importer;
     private:
+        std::string name;
+
         glm::vec3 minBox;
         glm::vec3 maxBox;
 
         GPU::VertexRef mesh;
 
-        int materialIndex = -1;
-
-        std::string name;
+        std::string materialName = "";
     public:
         glm::vec3 GetMinBox() const;
         glm::vec3 GetMaxBox() const;
@@ -27,8 +27,8 @@ namespace Importer {
         void SetMesh(GPU::VertexPtr mesh);
         GPU::VertexPtr GetMesh() const;
 
-        void SetMaterialIndex(int index);
-        int GetMaterialIndex() const;
+        void SetMaterial(std::string name);
+        std::string GetMaterial() const;
 
         void SetName(const std::string& name);
         std::string GetName() const;

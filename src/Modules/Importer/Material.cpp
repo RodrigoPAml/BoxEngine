@@ -10,10 +10,6 @@ namespace Importer {
 		this->color = { 1, 1, 1 };
 	}
 
-	Material::~Material()
-	{
-	}
-
 	void Material::SetAlbedoTexture(GPU::TexturePtr texture)
 	{
 		this->albedoTexture = texture;

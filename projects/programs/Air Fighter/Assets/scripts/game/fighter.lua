@@ -8,10 +8,10 @@ function fighter.start()
     local path_life = engine.dir.get_assets_path() .. '/images/life.png'
 
     local create_args = {
-        minifying_filter = enums.minifying_filter.linear_mipmap_linear,
-        magnification_filter = enums.magnification_filter.linear,
-        texture_wrap_t = enums.texture_wrap.clamp_to_edge,
-        texture_wrap_s = enums.texture_wrap.clamp_to_edge,
+        minifying_filter = engine.enums.minifying_filter.linear_mipmap_linear,
+        magnification_filter = engine.enums.magnification_filter.linear,
+        texture_wrap_t = engine.enums.texture_wrap.clamp_to_edge,
+        texture_wrap_s = engine.enums.texture_wrap.clamp_to_edge,
         ansiotropic_filter = 8,
         border_color = { x = 0, y = 0, z = 0 },
     }
@@ -131,10 +131,10 @@ function fighter.fire()
     local this = engine.current()
 
     local has_time_passed = engine.time.get_timestamp() - this.time > 0.1
-    local space_input = engine.input.get_key(enums.keyboard_key.space)
+    local space_input = engine.input.get_key(engine.enums.keyboard_key.space)
 
     -- check if the fighter can spawn a fire bullet
-    if ((space_input == enums.input_action.press) and has_time_passed) then
+    if ((space_input == engine.enums.input_action.press) and has_time_passed) then
         this.time = engine.time.get_timestamp();
 
         -- create copy of prefab
@@ -156,21 +156,21 @@ function fighter.control()
     local limited_ymax = this.y > this.max_y
     local limited_ymin = this.y < 0
 
-    local up_input = engine.input.get_key(enums.keyboard_key.up)
-    local down_input = engine.input.get_key(enums.keyboard_key.down)
+    local up_input = engine.input.get_key(engine.enums.keyboard_key.up)
+    local down_input = engine.input.get_key(engine.enums.keyboard_key.down)
 
     -- control foward and back fighter movement
-    if ((up_input == enums.input_action.press) and limited_ymax == false) then
+    if ((up_input == engine.enums.input_action.press) and limited_ymax == false) then
         this.y = this.y + engine.get_frametime()
-    elseif ((down_input == enums.input_action.press) and limited_ymin == false) then
+    elseif ((down_input == engine.enums.input_action.press) and limited_ymin == false) then
         this.y = this.y - engine.get_frametime()
     end
 
-    local left_input = engine.input.get_key(enums.keyboard_key.left)
-    local right_input = engine.input.get_key(enums.keyboard_key.right)
+    local left_input = engine.input.get_key(engine.enums.keyboard_key.left)
+    local right_input = engine.input.get_key(engine.enums.keyboard_key.right)
 
     -- control left and and right fighter movement
-    if ((left_input == enums.input_action.press) and limited_xmax == false) then
+    if ((left_input == engine.enums.input_action.press) and limited_xmax == false) then
         this.x = this.x - engine.get_frametime()
 
         if (this.should_draw) then
@@ -180,7 +180,7 @@ function fighter.control()
                 texture_id = this.texture_left,
             })
         end
-    elseif ((right_input == enums.input_action.press) and limited_xmin == false) then
+    elseif ((right_input == engine.enums.input_action.press) and limited_xmin == false) then
         this.x = this.x + engine.get_frametime()
 
         if (this.should_draw) then

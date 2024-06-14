@@ -7,10 +7,10 @@ function fire.start()
     this.sound_started = false
 
     this.texture = engine.texture.create({
-        minifying_filter = enums.minifying_filter.linear_mipmap_linear,
-        magnification_filter = enums.magnification_filter.linear,
-        texture_wrap_t = enums.texture_wrap.clamp_to_edge,
-        texture_wrap_s = enums.texture_wrap.clamp_to_edge,
+        minifying_filter = engine.enums.minifying_filter.linear_mipmap_linear,
+        magnification_filter = engine.enums.magnification_filter.linear,
+        texture_wrap_t = engine.enums.texture_wrap.clamp_to_edge,
+        texture_wrap_s = engine.enums.texture_wrap.clamp_to_edge,
         ansiotropic_filter = 8,
         border_color = { x = 0, y = 0, z = 0 },
         image_path = path
@@ -66,7 +66,7 @@ function fire.destroy_enemies()
         local script_data = engine.script.get(enemy_go_id, 'enemy')
 
         -- script not initialized wait
-        if (script_data.state ~= enums.script_state_enum.updating) then
+        if (script_data.state ~= engine.enums.script_state_enum.updating) then
             goto continue
         end
 

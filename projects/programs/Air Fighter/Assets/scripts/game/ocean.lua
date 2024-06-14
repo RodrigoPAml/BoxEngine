@@ -4,10 +4,10 @@ function ocean.start()
     -- load ocean texture
     local assetsPath = engine.dir.get_assets_path() .. '/images/ocean.png'
     this.texture = engine.texture.create({
-        minifying_filter = enums.minifying_filter.linear_mipmap_linear,
-        magnification_filter = enums.magnification_filter.linear,
-        texture_wrap_t = enums.texture_wrap.clamp_to_edge,
-        texture_wrap_s = enums.texture_wrap.clamp_to_edge,
+        minifying_filter = engine.enums.minifying_filter.linear_mipmap_linear,
+        magnification_filter = engine.enums.magnification_filter.linear,
+        texture_wrap_t = engine.enums.texture_wrap.clamp_to_edge,
+        texture_wrap_s = engine.enums.texture_wrap.clamp_to_edge,
         ansiotropic_filter = 8,
         border_color = { x = 0, y = 0, z = 0 },
         image_path = assetsPath
