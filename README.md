@@ -24,7 +24,7 @@ Projects can be run in production mode (pass folder via argument) or editor mode
 * framebuffer module (manipulate framebuffer via GPU)
 * primitives module (allows to draw basic shapes in 2d and 3d, including to draw textures)
 * scene module (allows to instantiate GO and scripts and manipulate the game scene)
-* import module (allows to import 3d object files)
+* import module (allows to import 3d object files, currently have a basic version)
 * renderer module (allows to draw 3d models, currently have a basic version)
 * GUI module (to do)
 * physics module (to do)
@@ -96,7 +96,7 @@ The code is in the Projects folder
 
 ## First game
 
-The first game is called "Air Fither" and game be found in games folder
+The first game is called "Air Figther" and game be found in games folder
 
 It's a game about destroying enemies airplane and getting the better possible score
 
