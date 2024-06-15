@@ -96,7 +96,7 @@ The code is in the Projects folder
 
 ## First game
 
-The first game is called "Air Fither" and game be found in games folder
+The first game is called "Air Figther" and game be found in games folder
 
 It's a game about destroying enemies airplane and getting the better possible score
 
