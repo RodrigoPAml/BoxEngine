@@ -70,7 +70,8 @@ function enemy.update()
             position = { x = this.x, y = this.y },
             size = { x = this.size_x, y = this.size_y },
             texture_id = this.texture,
-            color = { x = 0.5, y = 0, z = 0, w = 0 }
+            color = { x = 0.5, y = 0, z = 0, w = 0 },
+            color_weight = 0.5
         })
 
         this.is_hit = false
