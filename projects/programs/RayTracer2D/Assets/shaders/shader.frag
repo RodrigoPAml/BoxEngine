@@ -1,3 +1,4 @@
+// Shader basico para ray tracing com 1 bounce
 #version 330 core
 
 out vec4 FragColor;
@@ -6,10 +7,10 @@ out vec4 FragColor;
 #define PI 3.14159265359
 #define INF 999999999.0
 
-// Defines the indirect light quality 
-// This number indicates the number of rays casted to determine the indirect light
-// (for max quality put 360 or even more)
-#define DIR 360 
+// Define a qualidade da luz indireta
+// Número de raios castados para determinar a luz indireta
+// (para qualidade maxima por no minimo 360)
+#define DIR <<RAYS>> 
 
 struct Square
 {
@@ -18,13 +19,14 @@ struct Square
     vec3 color;
 };
 
-// Squares of the scene
+// Quadrados do cenario
 uniform Square squares[MAX_SQUARES];
 uniform vec2 mouse;
 uniform float closeLightStr;
 uniform float distLightStr;
 uniform float linearStr;
-uniform float ambientFactor;
+uniform float shininess;
+uniform float ambientLight;
 
 // Intersection between lines detection
 bool LineLineIntersect(vec2 l1p1, vec2 l1p2, vec2 l2p1, vec2 l2p2) 
@@ -116,15 +118,15 @@ float GetLight(float baseValue, float distanceToLight)
 }
 
 // Calculate light for an point in shadow (used in indirect light calculation only)
-float CalculateLightPixelI(vec2 fragPos, vec2 lightPos, int ignore)
+float CalculateLightPixelIndirect(vec2 fragPos, vec2 lightPos, int ignore)
 {
     if (!ReachLight(fragPos, lightPos, ignore)) 
-      return 0.0;
+      return ambientLight;
   
     float distanceToLight = distance(fragPos, lightPos);
     float attenuation = GetLight(1.0, distanceToLight);
   
-    return attenuation;
+    return max(ambientLight, attenuation);
 }
 
 vec2 CalculateSquareNormal(vec2 fragPos, Square square)
@@ -176,7 +178,7 @@ float CalculateIndirectLight(vec2 fragPos, vec2 lightPos, int idx)
                 continue;
               
             // Calculate the light intensity in the point hitted
-            float lightInIntersection = CalculateLightPixelI(interP, lightPos, i);
+            float lightInIntersection = CalculateLightPixelIndirect(interP, lightPos, i);
 
             // Attenuate until it get in fragPos
             float correctedLight = GetLight(lightInIntersection, distIntersect);
@@ -190,8 +192,9 @@ float CalculateIndirectLight(vec2 fragPos, vec2 lightPos, int idx)
             // Get the angle
             float dotProduct = dot(dirReflected, dirToPoint);
             float angleCloseness = 0.5 * (dotProduct + 1.0);
-
-            dirResult = correctedLight * angleCloseness;
+            float specularComponent = pow(angleCloseness, shininess);
+            
+            dirResult = correctedLight * specularComponent;
             nearestDistance = distIntersect;
         }
     

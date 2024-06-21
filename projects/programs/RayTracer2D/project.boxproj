@@ -36,6 +36,16 @@
               "name": "res_y",
               "type": 1,
               "value": "600.000000"
+            },
+            {
+              "name": "use_msaa",
+              "type": 0,
+              "value": "1"
+            },
+            {
+              "name": "msaa_samples",
+              "type": 1,
+              "value": "16.000000"
             }
           ],
           "mode": 0,
@@ -57,31 +67,6 @@
               "active": true,
               "data": [
                 {
-                  "name": "quad_prefab",
-                  "type": 2,
-                  "value": "f221569f-8"
-                },
-                {
-                  "name": "quad_father",
-                  "type": 2,
-                  "value": "8cf73f89-6"
-                },
-                {
-                  "name": "close_light_str",
-                  "type": 1,
-                  "value": "0.000100"
-                },
-                {
-                  "name": "dist_light_str",
-                  "type": 1,
-                  "value": "0.000001"
-                },
-                {
-                  "name": "linearStr",
-                  "type": 1,
-                  "value": "1.000000"
-                },
-                {
                   "name": "mouse_x",
                   "type": 1,
                   "value": "247.222229"
@@ -90,6 +75,36 @@
                   "name": "mouse_y",
                   "type": 1,
                   "value": "349.704163"
+                },
+                {
+                  "name": "rays",
+                  "type": 1,
+                  "value": "180.000000"
+                },
+                {
+                  "name": "dist_light_str",
+                  "type": 1,
+                  "value": "0.000001"
+                },
+                {
+                  "name": "close_light_str",
+                  "type": 1,
+                  "value": "0.000100"
+                },
+                {
+                  "name": "linear_str",
+                  "type": 1,
+                  "value": "1.000000"
+                },
+                {
+                  "name": "shininess",
+                  "type": 1,
+                  "value": "1.000000"
+                },
+                {
+                  "name": "ambient_light",
+                  "type": 1,
+                  "value": "0"
                 }
               ],
               "mode": 0,
@@ -513,6 +528,21 @@
           "mode": 0,
           "name": "entities",
           "scripts": []
+        },
+        {
+          "active": true,
+          "childrens": [],
+          "id": "97c48460-8",
+          "mode": 0,
+          "name": "texts",
+          "scripts": [
+            {
+              "active": true,
+              "data": [],
+              "mode": 0,
+              "name": "draw_texts"
+            }
+          ]
         }
       ],
       "id": "0f2489b2-0",
@@ -529,18 +559,7 @@
       "scripts": [
         {
           "active": true,
-          "data": [
-            {
-              "name": "begin_id",
-              "type": 2,
-              "value": "12f9b466-6"
-            },
-            {
-              "name": "camera_editor_id",
-              "type": 1,
-              "value": "2.000000"
-            }
-          ],
+          "data": [],
           "mode": 0,
           "name": "end_frame"
         }
@@ -554,7 +573,7 @@
           "childrens": [],
           "id": "f221569f-8",
           "mode": 0,
-          "name": "quad",
+          "name": "quad_prefab",
           "scripts": [
             {
               "active": true,
