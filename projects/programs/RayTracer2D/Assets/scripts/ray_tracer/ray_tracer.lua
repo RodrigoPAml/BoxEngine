@@ -62,7 +62,6 @@ function ray_tracer.draw()
 	engine.shader.set_float(this._shader_id, 'linearStr', this.linear_str)
 	engine.shader.set_float(this._shader_id, 'distLightStr', this.dist_light_str)
 	engine.shader.set_float(this._shader_id, 'closeLightStr', this.close_light_str)
-	engine.shader.set_float(this._shader_id, 'shininess', this.shininess)
 	engine.shader.set_float(this._shader_id, 'ambientLight', this.ambient_light)
     
 	-- acha todos os obstaculos

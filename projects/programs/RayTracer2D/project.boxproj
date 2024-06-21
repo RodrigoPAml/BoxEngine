@@ -97,11 +97,6 @@
                   "value": "1.000000"
                 },
                 {
-                  "name": "shininess",
-                  "type": 1,
-                  "value": "1.000000"
-                },
-                {
                   "name": "ambient_light",
                   "type": 1,
                   "value": "0"

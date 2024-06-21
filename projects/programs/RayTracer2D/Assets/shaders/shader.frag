@@ -25,7 +25,6 @@ uniform vec2 mouse;
 uniform float closeLightStr;
 uniform float distLightStr;
 uniform float linearStr;
-uniform float shininess;
 uniform float ambientLight;
 
 // Intersection between lines detection
@@ -192,9 +191,8 @@ float CalculateIndirectLight(vec2 fragPos, vec2 lightPos, int idx)
             // Get the angle
             float dotProduct = dot(dirReflected, dirToPoint);
             float angleCloseness = 0.5 * (dotProduct + 1.0);
-            float specularComponent = pow(angleCloseness, shininess);
             
-            dirResult = correctedLight * specularComponent;
+            dirResult = correctedLight * angleCloseness;
             nearestDistance = distIntersect;
         }
     

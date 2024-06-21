@@ -22,7 +22,7 @@ function draw_texts.update()
     engine.font.draw(this._font_id)
 
     engine.font.set_color(this._font_id, { x = 0, y = 1, z = 1 })
-    engine.font.set_text(this._font_id, 'Clique em um objeto e mova-a')
+    engine.font.set_text(this._font_id, 'Clique em um objeto e mova-o')
     engine.font.set_position(this._font_id, { x = 10, y = 40 })
     engine.font.draw(this._font_id)
 
