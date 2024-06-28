@@ -17,6 +17,8 @@ namespace Connection {
 	{
 		lua_newtable(this->state);
 
+		LuaUtils::RegTable(this->state, "random", Random);
+
 		LuaUtils::RegTable(this->state, "make_vec2", MakeMat4);
 		LuaUtils::RegTable(this->state, "make_vec3", MakeMat4);
 		LuaUtils::RegTable(this->state, "make_vec4", MakeMat4);
@@ -51,6 +53,19 @@ namespace Connection {
 	void MathConnection::Set(MathConnectionPtr instance)
 	{
 		current = instance;
+	}
+
+	int MathConnection::Random(lua_State* L)
+	{
+		auto top = lua_gettop(L);
+
+		if (top != 0)
+			return luaL_error(L, "expecting no arguments in function call");
+		
+		double randomNumber = static_cast<double>(std::rand()) / RAND_MAX;
+		lua_pushnumber(L, randomNumber);
+
+		return 1;
 	}
 
 	int MathConnection::MakeVec2(lua_State* L)

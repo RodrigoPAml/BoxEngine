@@ -45,7 +45,7 @@ namespace Utils {
 				if (this->data != nullptr)
 					delete[] this->data;
 
-				Debug::Logging::LogException("[Image]: Failed to open texture " + path + " because invalid format with " + std::to_string(numComponents) + " components", Debug::LogOrigin::EngineInternal);
+			Debug::Logging::LogException("[Image]: Failed to open texture " + path + " because invalid format with " + std::to_string(numComponents) + " components", Debug::LogOrigin::EngineInternal);
 		}
 	
 		Debug::Logging::Log("[Image]: Image " + path + " was opened", Debug::LogSeverity::Notify, Debug::LogOrigin::EngineInternal);

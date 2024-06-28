@@ -36,6 +36,8 @@ namespace Connection {
 		static MathConnectionPtr Get();
 		static void Set(MathConnectionPtr instance);
 	private:
+		static int Random(lua_State* L);
+		
 		static int MakeVec2(lua_State* L);
 		static int MakeVec3(lua_State* L);
 		static int MakeVec4(lua_State* L);

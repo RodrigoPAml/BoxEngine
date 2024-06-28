@@ -927,6 +927,10 @@ function engine.font.draw(id)
 	return _font_.draw(id) 	
 end
 
+function engine.math.random() 
+	return _math_.random() 
+end
+
 function engine.math.make_mat4() 
 	return _math_.make_mat4() 
 end

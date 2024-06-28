@@ -342,7 +342,7 @@ namespace Project {
                 return  "";
             }
             
-            GameObjectPtr newGo = this->AddGameObject(go->GetName(), go->GetActive(), fatherId);
+            GameObjectPtr newGo = this->AddGameObject(go->GetName(), go->GetActive(), isFirst ? "" : fatherId);
 
             if (newGo == nullptr)
                 return "";
@@ -357,6 +357,22 @@ namespace Project {
 
             for (const GameObjectPtr child : go->GetChildrens())
                 DuplicateGo(child->GetId(), newGo->GetId(), false);
+        
+            if (isFirst && fatherId != "")
+            {
+                auto fatherGo = this->gosMap.contains(fatherId) 
+                    ? this->gosMap.at(fatherId) 
+                    : nullptr;
+
+                if (fatherGo == nullptr)
+                {
+                    Debug::Logging::LogException("[Project]: Failed to create go " + id + ": Can't find father with id " + fatherId, Debug::LogOrigin::Engine, { {"go_id", id}, {"father_id", fatherId} });
+                    return "";
+                }
+
+                newGo->SetFather(fatherGo);
+                fatherGo->childrens.emplace_back(newGo);
+            }
 
             return newGo->GetId();
         }

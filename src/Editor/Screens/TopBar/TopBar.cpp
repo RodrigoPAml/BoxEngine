@@ -157,6 +157,14 @@ namespace Editor {
 
 		auto project = Project::GetCurrentProject();
 
+		if (this->clickedButton == true && Modules::Utils::Time::GetTimestamp() > lastAction + 1)
+			this->clickedButton = false;
+
+		if (this->clickedButton)
+			return;
+
+		lastAction = Modules::Utils::Time::GetTimestamp();
+
 		// Save shortcut (CTRL + S)
 		if (Input::Keyboard::GetKeyState(Input::KeyboardKey::KEY_S) >= Input::InputAction::PRESS &&
 			Input::Keyboard::GetModState(Input::KeyModifier::CONTROL) >= Input::InputAction::PRESS &&
@@ -164,6 +172,7 @@ namespace Editor {
 		)
 		{
 			project->Save();
+			this->clickedButton = true;
 		}
 
 		// Play/Stop shortcut (CTRL + SPACE)
@@ -175,6 +184,8 @@ namespace Editor {
 				project->Start();
 			else if (project->GetState() == ProjectState::Running)
 				project->Stop();
+
+			this->clickedButton = true;
 		}
 
 		// Discard (CTRL + Z)
@@ -186,6 +197,8 @@ namespace Editor {
 			{
 				if (project != nullptr)
 					project->Reload();
+
+				this->clickedButton = true;
 			}
 		}
 
@@ -200,6 +213,8 @@ namespace Editor {
 					Debug::Logging::Log("[Project]: Before reload, please save the changes", Debug::LogSeverity::Error, Debug::LogOrigin::Engine);
 				else
 					project->Reload();
+
+				this->clickedButton = true;
 			}
 		}
 	}

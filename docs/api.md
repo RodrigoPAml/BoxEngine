@@ -1957,6 +1957,14 @@ function engine.font.draw(id = number) end
 
 # Math Module
 
+## Random number
+
+Return a random number between 0.0 and 1.0
+
+```lua
+function engine.math.random() 
+```
+
 ## Make vec2 
 
 Return a vec2

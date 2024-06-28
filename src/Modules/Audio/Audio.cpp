@@ -51,7 +51,7 @@ namespace Audio {
 		using namespace irrklang;
 
 		if(!Utils::Directory::Exists(this->path))
-			return;
+			Debug::Logging::LogException("[Audio]: Failed to find audio from " + this->path, Debug::LogOrigin::Engine);
 
 		this->sound = engine->play2D(this->path.c_str(), false, true, true, ESM_AUTO_DETECT, false);
 
@@ -67,7 +67,7 @@ namespace Audio {
 			return;
 
 		if (!Utils::Directory::Exists(this->path))
-			return;
+			Debug::Logging::LogException("[Audio]: Failed to find audio from " + this->path, Debug::LogOrigin::Engine);
 
 		using namespace irrklang;
 		this->sound = engine->play3D(this->path.c_str(), { 0, 0, 0 }, false, true, true, ESM_AUTO_DETECT, false);

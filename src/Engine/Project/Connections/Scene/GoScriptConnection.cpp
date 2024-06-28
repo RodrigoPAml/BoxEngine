@@ -186,12 +186,19 @@ namespace Connection {
 		if (lua_isstring(L, 2))
 			fatherId = lua_tostring(L, 2);
 
-		std::string result = Project::GetCurrentProject()->DuplicateGo(goId, fatherId);
+		try
+		{
+			std::string result = Project::GetCurrentProject()->DuplicateGo(goId, fatherId);
 
-		if (result == "")
-			lua_pushnil(L);
-		else
-			lua_pushstring(L, result.c_str());
+			if (result == "")
+				lua_pushnil(L);
+			else
+				lua_pushstring(L, result.c_str());
+		}
+		catch(std::exception e)
+		{
+			return luaL_error(L, e.what());
+		}
 
 		return 1;
 	}

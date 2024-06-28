@@ -9,6 +9,8 @@ namespace Editor {
 	private:
 		bool reset = true;
 		bool focused = false;
+
+		bool clickedButton = false;
 		float lastAction = 0;
 
 		TextureVisualizer visualizer;
