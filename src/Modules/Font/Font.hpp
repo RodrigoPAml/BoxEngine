@@ -65,7 +65,7 @@ namespace Font {
 		std::string GetText() const;
 		void SetText(const std::string& text);
 
-		glm::vec2 GetTextSize() const;
+		glm::vec2 GetTextSize();
 
 		void Draw();
 

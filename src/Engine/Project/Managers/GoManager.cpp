@@ -21,9 +21,6 @@ namespace Project {
         
         // Remove recursive
         this->RecursiveRemoveGos(this->gos);
-        
-        // Remove root
-        this->gos.clear();
     }
 
     std::vector<GameObjectPtr>& GoManager::GetRootGameObjects()

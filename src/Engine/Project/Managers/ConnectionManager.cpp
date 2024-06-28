@@ -266,7 +266,7 @@ namespace Project {
 				item.SetValue(str);
 				item.SetType(ScriptDataType::string);
 			}
-			else 
+			else if(item.GetType() != ScriptDataType::button)
 				toRemove.push_back(item);
 			
 			lua_pop(this->state, 3);

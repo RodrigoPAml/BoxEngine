@@ -87,8 +87,24 @@ namespace Font {
         this->text = text;
     }
 
-    glm::vec2 Font::GetTextSize() const
+    glm::vec2 Font::GetTextSize() 
     {
+        if(!IsInit || !this->loaded)
+            return { 0, 0 };
+
+        std::string::const_iterator c;
+        glm::vec2 original = this->position;
+        this->calculatedTextSize = { 0, 0 };
+        for (c = text.begin(); c != text.end(); c++)
+        {
+            Character ch = this->characters[*c];
+            this->calculatedTextSize.y = std::max(ch.bearing.y * this->scale.y, this->calculatedTextSize.y);
+            this->position.x += (ch.advance >> 6) * this->scale.x;
+        }
+
+        this->calculatedTextSize.x = this->position.x - original.x;
+        this->position = original;
+
         return this->calculatedTextSize;
     }
 
@@ -114,8 +130,6 @@ namespace Font {
 
         std::string::const_iterator c;
         glm::vec2 original = this->position;
-
-        this->calculatedTextSize = { 0, 0 };
         for (c = text.begin(); c != text.end(); c++)
         {
             Character ch = this->characters[*c];
@@ -126,8 +140,6 @@ namespace Font {
             float w = ch.size.x * this->scale.x;
             float h = ch.size.y * this->scale.y;
             
-            this->calculatedTextSize.y = std::max(ch.bearing.y * this->scale.y, this->calculatedTextSize.y);
-
             float vertices[6][4] = {
                 { xpos,     ypos + h,   0.0f, 0.0f },
                 { xpos,     ypos,       0.0f, 1.0f },
@@ -147,8 +159,6 @@ namespace Font {
 
             this->position.x += (ch.advance >> 6) * this->scale.x;
         }
-
-        this->calculatedTextSize.x = this->position.x - original.x;
         this->position = original;
         
         glBindVertexArray(0);
