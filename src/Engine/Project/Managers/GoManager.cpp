@@ -372,6 +372,12 @@ namespace Project {
 
                 newGo->SetFather(fatherGo);
                 fatherGo->childrens.emplace_back(newGo);
+                
+                auto newEnd = std::remove_if(this->gos.begin(), this->gos.end(), [newGo](GameObjectPtr item) {
+                    return item->GetId() == newGo->GetId();
+                });
+
+                this->gos.erase(newEnd, this->gos.end());
             }
 
             return newGo->GetId();
