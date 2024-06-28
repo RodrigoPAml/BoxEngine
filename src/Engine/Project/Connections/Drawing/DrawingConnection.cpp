@@ -453,7 +453,7 @@ namespace Connection {
 		{
 			glm::vec2 position, size;
 			glm::vec3 color = { 0, 0, 0 };
-			float rotation = 0, colorWeight = 0;
+			float rotation = 0, colorWeight = 0, transparency = 1;
 			unsigned int textureId;
 
 			if (!LuaUtils::GetTable(L, 1, "position", position))
@@ -468,11 +468,12 @@ namespace Connection {
 			LuaUtils::GetTable(L, 1, "rotation", rotation);
 			LuaUtils::GetTable(L, 1, "color", color);
 			LuaUtils::GetTable(L, 1, "color_weight", colorWeight);
+			LuaUtils::GetTable(L, 1, "transparency", transparency);
 
 			auto texture = TextureConnection::Get()->Get(textureId);
 		
 			if(texture != nullptr)
-				Drawing::TextureRenderer::Draw(texture, position, size, color, rotation, colorWeight);
+				Drawing::TextureRenderer::Draw(texture, position, size, color, rotation, colorWeight, transparency);
 		}
 		else return luaL_error(L, "expecting argument 1 to be a table");
 

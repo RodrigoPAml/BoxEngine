@@ -744,7 +744,8 @@ The argument table format
     texture_id = number, the texture id
     rotation = number, -- rotation in degrees, optional
     color = {x = number, y = number, z = number }, -- color, vec3 format, optional
-    color_weight = number, -- color weight in relation to texture, should vary between 0.0 and 1.0
+    color_weight = number, -- color weight in relation to texture, should vary between 0.0 and 1.0, optional
+    transparency = number, -- transparency multiplier, should vary between 0.0 and 1.0, optional
 }
 ```
 
