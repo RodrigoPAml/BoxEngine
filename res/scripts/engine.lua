@@ -791,6 +791,10 @@ function engine.audio.restart(id)
 	return _audio_.restart(id) 
 end
 
+function engine.audio.stop(id) 
+	return _audio_.stop(id) 
+end
+
 function engine.audio.is_finished(id) 
 	return _audio_.is_finished(id) 
 end
@@ -871,8 +875,8 @@ function engine.audio.get_volume(id)
 	return _audio_.get_volume(id) 
 end
 
-function engine.audio.stop_all_audios(id) 
-	return _audio_.stop_all_audios(id) 
+function engine.audio.stop_all_audios() 
+	return _audio_.stop_all_audios() 
 end
 
 function engine.audio.set_listener_position(vec3) 
@@ -953,6 +957,22 @@ end
 
 function engine.math.multiply(mat4, vec4) 
 	return _math_.multiply(mat4, vec4) 
+end
+
+function engine.math.mag_vec2(vec2) 
+	return _math_.mag_vec2(vec2) 
+end
+
+function engine.math.normalize_vec2(vec2) 
+	return _math_.normalize_vec2(vec2) 
+end
+
+function engine.math.mag_vec3(vec3) 
+	return _math_.mag_vec3(vec3) 
+end
+
+function engine.math.normalize_vec3(vec3) 
+	return _math_.normalize_vec3(vec3) 
 end
 
 function engine.object.open(path) 

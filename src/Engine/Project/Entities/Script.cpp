@@ -202,16 +202,6 @@ namespace Project {
 		this->haveWarningInLoad = true;
 	}
 
-	void Script::SetUpdateScriptData(bool value)
-	{
-		this->updateScriptData = value;
-	}
-
-	bool Script::GetUpdateScriptData() const
-	{
-		return this->updateScriptData;
-	}
-
 	bool Script::IsPersisted() const
 	{
 		return this->persist;

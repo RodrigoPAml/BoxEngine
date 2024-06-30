@@ -54,5 +54,11 @@ namespace Connection {
 		static int Rotate(lua_State* L);
 		static int Scale(lua_State* L);
 		static int Multiply(lua_State* L);
+
+		static int MagnitudeVec2(lua_State* L);
+		static int MagnitudeVec3(lua_State* L);
+
+		static int NormalizeVec2(lua_State* L);
+		static int NormalizeVec3(lua_State* L);
 	};
 }}}}

@@ -54,6 +54,7 @@ namespace Connection {
 		static int Pause(lua_State* L);
 		static int Resume(lua_State* L);
 		static int Restart(lua_State* L);
+		static int Stop(lua_State* L);
 
 		static int IsFinished(lua_State* L);
 

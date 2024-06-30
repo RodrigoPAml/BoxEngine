@@ -193,12 +193,6 @@ namespace Project {
 			// This is made mainly becausa a script can be destroyed before it even started/loaded
 			if (script->IsLoaded())
 			{	
-				if (script->GetUpdateScriptData())
-				{
-					this->connectionManager->UpdateScriptData(go, script);
-					script->SetUpdateScriptData(false);
-				}
-
 				if (luaL_dostring(this->state, command.c_str()))
 				{
 					Debug::Logging::Log("[Project]: Error in Script " +
@@ -317,6 +311,12 @@ namespace Project {
 		return true;
 	}
 
+	void ScriptManager::UpdateScriptData(GameObjectPtr go)
+	{
+		for (const auto& script : go->GetScripts())
+			this->connectionManager->UpdateScriptData(go, script);
+	}
+
 	void ScriptManager::UpdateAllScriptDataToSave(std::vector<GameObjectPtr> gos)
 	{
 		for (const auto& go : gos)
@@ -356,6 +356,9 @@ namespace Project {
 		{
 			auto fileName = Utils::Directory::GetLastPartFromPathNoExtension(file);
 			auto extension = Utils::Directory::GetExtensionFromPath(file);
+
+			if (fileName == "engine" && extension == "lua")
+				continue;
 
 			if (Utils::Directory::IsDirectory(file))
 				LoadScriptsPaths(file, error);

@@ -37,6 +37,12 @@ namespace Connection {
 		LuaUtils::RegTable(this->state, "scale", Scale);
 		LuaUtils::RegTable(this->state, "multiply", Multiply);
 
+		LuaUtils::RegTable(this->state, "mag_vec2", MagnitudeVec2);
+		LuaUtils::RegTable(this->state, "mag_vec3", MagnitudeVec3);
+
+		LuaUtils::RegTable(this->state, "normalize_vec2", NormalizeVec2);
+		LuaUtils::RegTable(this->state, "normalize_vec3", NormalizeVec3);
+
 		lua_setglobal(this->state, "_math_");
 	}
 
@@ -458,6 +464,136 @@ namespace Connection {
 
 		lua_pushstring(L, "w");
 		lua_pushnumber(L, result.w);
+		lua_settable(L, -3);
+
+		return 1;
+	}
+
+	int MathConnection::MagnitudeVec2(lua_State* L)
+	{
+		auto top = lua_gettop(L);
+
+		if (top != 1)
+			return luaL_error(L, "expecting 1 argument in function call");
+
+		glm::vec2 vec;
+		if (lua_istable(L, 1))
+		{
+			if (!LuaUtils::GetTable(L, 1, "x", vec.x))
+				return luaL_error(L, "argument 1 is expected to be a vec2");
+
+			if (!LuaUtils::GetTable(L, 1, "y", vec.y))
+				return luaL_error(L, "argument 1 is expected to be a vec2");
+		}
+		else return luaL_error(L, "argument 1 is expected to be a vec2");
+
+		float result = glm::length(vec);
+		lua_pushnumber(L, result);
+
+		return 1;
+	}
+
+	int MathConnection::MagnitudeVec3(lua_State* L)
+	{
+		auto top = lua_gettop(L);
+
+		if (top != 1)
+			return luaL_error(L, "expecting 1 argument in function call");
+
+		glm::vec3 vec;
+		if (lua_istable(L, 1))
+		{
+			if (!LuaUtils::GetTable(L, 1, "x", vec.x))
+				return luaL_error(L, "argument 1 is expected to be a vec3");
+
+			if (!LuaUtils::GetTable(L, 1, "y", vec.y))
+				return luaL_error(L, "argument 1 is expected to be a vec3");
+
+			if (!LuaUtils::GetTable(L, 1, "z", vec.z))
+				return luaL_error(L, "argument 1 is expected to be a vec3");
+		}
+		else return luaL_error(L, "argument 1 is expected to be a vec3");
+
+		float result = glm::length(vec);
+		lua_pushnumber(L, result);
+
+		return 1;
+	}
+
+	int MathConnection::NormalizeVec2(lua_State* L)
+	{
+		auto top = lua_gettop(L);
+
+		if (top != 1)
+			return luaL_error(L, "expecting 1 argument in function call");
+
+		glm::vec2 vec;
+		if (lua_istable(L, 1))
+		{
+			if (!LuaUtils::GetTable(L, 1, "x", vec.x))
+				return luaL_error(L, "argument 1 is expected to be a vec2");
+
+			if (!LuaUtils::GetTable(L, 1, "y", vec.y))
+				return luaL_error(L, "argument 1 is expected to be a vec2");
+		}
+		else
+		{
+			return luaL_error(L, "argument 1 is expected to be a vec2");
+		}
+
+		glm::vec2 result = glm::normalize(vec);
+
+		lua_newtable(L);
+
+		lua_pushstring(L, "x");
+		lua_pushnumber(L, result.x);
+		lua_settable(L, -3);
+
+		lua_pushstring(L, "y");
+		lua_pushnumber(L, result.y);
+		lua_settable(L, -3);
+
+		return 1;
+	}
+
+	int MathConnection::NormalizeVec3(lua_State* L)
+	{
+		auto top = lua_gettop(L);
+
+		if (top != 1)
+			return luaL_error(L, "expecting 1 argument in function call");
+
+		glm::vec3 vec;
+		if (lua_istable(L, 1))
+		{
+			if (!LuaUtils::GetTable(L, 1, "x", vec.x))
+				return luaL_error(L, "argument 1 is expected to be a vec3");
+
+			if (!LuaUtils::GetTable(L, 1, "y", vec.y))
+				return luaL_error(L, "argument 1 is expected to be a vec3");
+
+			if (!LuaUtils::GetTable(L, 1, "z", vec.z))
+				return luaL_error(L, "argument 1 is expected to be a vec3");
+		}
+		else
+		{
+			return luaL_error(L, "argument 1 is expected to be a vec3");
+		}
+
+		glm::vec3 result = glm::normalize(vec);
+
+		lua_newtable(L);
+
+		lua_pushstring(L, "x");
+		lua_pushnumber(L, result.x);
+		lua_settable(L, -3);
+
+		lua_pushstring(L, "y");
+		lua_pushnumber(L, result.y);
+		lua_settable(L, -3);
+
+		lua_pushstring(L, "z");
+		lua_pushnumber(L, result.z);
 		lua_settable(L, -3);
 
 		return 1;

@@ -473,6 +473,11 @@ namespace Project {
         return true;
     }
 
+    void Project::UpdateScriptData(GameObjectPtr go)
+    {
+        return this->scriptManager->UpdateScriptData(go);
+    }
+
     std::vector<GameObjectPtr> Project::GetGosFromRoot() const
     {
         return this->goManager->GetRootGameObjects();

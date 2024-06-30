@@ -120,6 +120,7 @@ namespace Project {
 		void ChangeScriptPosition(const std::string& goId, const std::string& scriptName, int displacement);
 		void ChangeScriptPositionByIndex(const std::string& goId, const std::string& scriptName, int index);
 		bool PreLoadScripts(const std::string& goId);
+		void UpdateScriptData(GameObjectPtr go);
 
 		// Get gos root
 		std::vector<GameObjectPtr> GetGosFromRoot() const;

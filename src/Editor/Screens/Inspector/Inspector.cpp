@@ -457,9 +457,9 @@ namespace Editor {
 		if (go == nullptr)
 			return;
 
+		project->UpdateScriptData(go);
 		for (const auto& script : go->GetScripts())
 		{
-			script->SetUpdateScriptData(true);
 			std::string scriptName = script->GetName();
 
 			bool isOpen = GUI::Header(this->guid + "header" + scriptName);

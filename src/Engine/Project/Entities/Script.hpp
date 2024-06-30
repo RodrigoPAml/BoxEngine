@@ -70,11 +70,6 @@ namespace Project {
 		bool haveWarningInLoad;
 
 		/// <summary>
-		/// If the engine should follow its script data and update it (used in editor only)
-		/// </summary>
-		bool updateScriptData = false;
-
-		/// <summary>
 		/// If this script can persist at runtime
 		/// </summary>
 		bool persist = true;
@@ -124,9 +119,6 @@ namespace Project {
 
 		bool HaveWarningToLoad();
 		void MarkAsFailedToLoad();
-
-		void SetUpdateScriptData(bool value);
-		bool GetUpdateScriptData() const;
 
 		bool IsPersisted() const;
 		void SetPersisted(bool value);
