@@ -1,0 +1,9 @@
+[submodule "projects/external/AirFighter"]
+	path = projects/external/AirFighter
+	url = https://github.com/RodrigoPAml/AirFighter
+[submodule "projects/external/RayTracer2D"]
+	path = projects/external/RayTracer2D
+	url = https://github.com/RodrigoPAml/RayTracer2D
+[submodule "projects/external/MandelbrotFractal"]
+	path = projects/external/MandelbrotFractal
+	url = https://github.com/RodrigoPAml/MandelbrotFractal
