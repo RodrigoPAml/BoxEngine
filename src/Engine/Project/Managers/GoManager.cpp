@@ -470,8 +470,9 @@ namespace Project {
         {
             this->gosMap.erase(go->GetId());
             RecursiveRemoveGos(go->GetChildrens());
-            gos.clear();
         }
+
+        gos.clear();
     }
 
     std::string GoManager::NewGoId()
