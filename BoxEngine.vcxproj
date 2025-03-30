@@ -102,13 +102,26 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)lib\glfw\include;$(SolutionDir)lib\glm;$(SolutionDir)lib\stb_image;$(SolutionDir)lib\glad\include;$(SolutionDir)src;$(SolutionDir)lib\implot;$(SolutionDir)lib\imgui;$(SolutionDir)lib\json_nlohmann;$(SolutionDir)lib\lua_jit\src;$(SolutionDir)lib\irrKlang-64bit-1.6.0\include;$(SolutionDir)lib\freetype-windows-binaries-2.13.1\include;$(SolutionDir)lib\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Create</PrecompiledHeader>
+      <PrecompiledHeaderFile>BoxEngine.hpp</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\glfw\lib-vc2019;$(SolutionDir)lib\assimp\lib;$(SolutionDir)lib\lua_jit\src;$(SolutionDir)lib\irrKlang-64bit-1.6.0\lib\Winx64-visualStudio;$(SolutionDir)lib\freetype-windows-binaries-2.13.1\release dll\win64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;glfw3dll.lib;assimp-vc142-mt.lib;lua51.lib;irrKlang.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>copy /Y ".\lib\assimp\lib\assimp-vc142-mt.dll" "$(OutDir)"
+copy /Y ".\lib\freetype-windows-binaries-2.13.1\release dll\win64\freetype.dll" "$(OutDir)"
+copy /Y ".\lib\lua_jit\src\lua51.dll" "$(OutDir)"
+copy /Y ".\lib\irrKlang-64bit-1.6.0\bin\winx64-visualStudio\irrKlang.dll" "$(OutDir)"
+</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -119,10 +132,11 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)lib\glfw\include;$(SolutionDir)lib\glm;$(SolutionDir)lib\stb_image;$(SolutionDir)lib\glad\include;$(SolutionDir)src;$(SolutionDir)lib\implot;$(SolutionDir)lib\imgui;$(SolutionDir)lib\json_nlohmann;$(SolutionDir)lib\lua_jit\src;$(SolutionDir)lib\irrKlang-64bit-1.6.0\include;$(SolutionDir)lib\freetype-windows-binaries-2.13.1\include;$(SolutionDir)lib\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <Optimization>Disabled</Optimization>
+      <Optimization>MaxSpeed</Optimization>
       <PrecompiledHeader>Create</PrecompiledHeader>
       <PrecompiledHeaderFile>BoxEngine.hpp</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -132,40 +146,58 @@
       <AdditionalLibraryDirectories>$(SolutionDir)lib\glfw\lib-vc2019;$(SolutionDir)lib\assimp\lib;$(SolutionDir)lib\lua_jit\src;$(SolutionDir)lib\irrKlang-64bit-1.6.0\lib\Winx64-visualStudio;$(SolutionDir)lib\freetype-windows-binaries-2.13.1\release dll\win64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>glfw3.lib;glfw3dll.lib;assimp-vc142-mt.lib;lua51.lib;irrKlang.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>copy /Y ".\lib\assimp\lib\assimp-vc142-mt.dll" "$(OutDir)"
+copy /Y ".\lib\freetype-windows-binaries-2.13.1\release dll\win64\freetype.dll" "$(OutDir)"
+copy /Y ".\lib\lua_jit\src\lua51.dll" "$(OutDir)"
+copy /Y ".\lib\irrKlang-64bit-1.6.0\bin\winx64-visualStudio\irrKlang.dll" "$(OutDir)"
+</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="lib\glad\src\glad.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="lib\imgui\imgui.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="lib\imgui\imgui_demo.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="lib\imgui\imgui_draw.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="lib\imgui\imgui_impl_glfw.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="lib\imgui\imgui_impl_opengl3.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="lib\imgui\imgui_tables.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="lib\imgui\imgui_widgets.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="lib\implot\implot.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="lib\implot\implot_demo.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="lib\implot\implot_items.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="src\Editor\Editor.cpp" />
     <ClCompile Include="src\Editor\Modals\ScriptDebugger\ScriptDebugger.cpp" />
