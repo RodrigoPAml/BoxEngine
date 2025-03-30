@@ -120,6 +120,8 @@
 copy /Y ".\lib\freetype-windows-binaries-2.13.1\release dll\win64\freetype.dll" "$(OutDir)"
 copy /Y ".\lib\lua_jit\src\lua51.dll" "$(OutDir)"
 copy /Y ".\lib\irrKlang-64bit-1.6.0\bin\winx64-visualStudio\irrKlang.dll" "$(OutDir)"
+copy /Y ".\lib\irrKlang-64bit-1.6.0\bin\winx64-visualStudio\ikpFlac.dll" "$(OutDir)"
+copy /Y ".\lib\irrKlang-64bit-1.6.0\bin\winx64-visualStudio\ikpMP3.dll" "$(OutDir)"
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -151,6 +153,8 @@ copy /Y ".\lib\irrKlang-64bit-1.6.0\bin\winx64-visualStudio\irrKlang.dll" "$(Out
 copy /Y ".\lib\freetype-windows-binaries-2.13.1\release dll\win64\freetype.dll" "$(OutDir)"
 copy /Y ".\lib\lua_jit\src\lua51.dll" "$(OutDir)"
 copy /Y ".\lib\irrKlang-64bit-1.6.0\bin\winx64-visualStudio\irrKlang.dll" "$(OutDir)"
+copy /Y ".\lib\irrKlang-64bit-1.6.0\bin\winx64-visualStudio\ikpFlac.dll" "$(OutDir)"
+copy /Y ".\lib\irrKlang-64bit-1.6.0\bin\winx64-visualStudio\ikpMP3.dll" "$(OutDir)"
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
