@@ -8,6 +8,8 @@ namespace Editor {
 
 	void ProjectManager::Awake()
 	{
+		this->startingPath = std::filesystem::current_path().string();
+
 		auto logConfig = Debug::LoggingConfiguration();
 
 		logConfig.logConsole = false;
