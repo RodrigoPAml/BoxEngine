@@ -2,6 +2,8 @@
 
 BoxEngine is an engine designed to build both 2D and 3D general applications, such as games, using the Lua scripting language. This engine is ideal for creating applications quickly, thanks to its abstract layers implemented with OpenGL, which facilitate fast prototyping.
 
+This is a hobby project.
+
 ## Key Features:
 - **GameObject Architecture**: Construct your scene using a GameObject architecture, where scripts are attached to objects to define their behavior.
 - **C++ Core**: The engine is built in C++ for performance, with Lua as the scripting language, featuring a Just-In-Time (JIT) compiler.
